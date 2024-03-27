@@ -9,6 +9,5 @@ package Test;
  * @author DELL
  */
 public class Huan {
-    private String djtmePhuoc;
-            
+    private String djtmePhuoc; 
 }
