@@ -10,5 +10,6 @@ package Test;
  */
 public class Huan {
     private String yHuan;
+    private String ngoc;
             
 }
