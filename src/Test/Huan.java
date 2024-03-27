@@ -9,7 +9,6 @@ package Test;
  * @author DELL
  */
 public class Huan {
-    private String yHuan;
-    private String ngoc;
+    private String djtmePhuoc;
             
 }
