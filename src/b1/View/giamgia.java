@@ -105,6 +105,7 @@ public class giamgia extends javax.swing.JInternalFrame {
         if (ngaybatdau.equals(LocalDate.now())) {
             trangThai = 1;
         }
+        
         if (ngaybatdau.after(date)) {
             trangThai = 2;
         }
