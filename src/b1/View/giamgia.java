@@ -66,7 +66,7 @@ public class giamgia extends javax.swing.JInternalFrame {
             } else {
                 trangTHai = "Dang dien ra";
             }
-            tableModel.addRow(new Object[]{i, gg1.getMaGiamGia(), gg1.getSoLuong(), gg1.getGiaTri(), gg1.getHanMuc(), gg1.getNgayBatDau(), gg1.getNgayKetThuc(), trangTHai});
+            tableModel.addRow(new Object[]{i, gg1.getMaVCH(), gg1.getMaGiamGia(), gg1.getSoLuong(), gg1.getGiaTri(), gg1.getHanMuc(), gg1.getNgayBatDau(), gg1.getNgayKetThuc(), trangTHai});
         }
     }
 
@@ -205,13 +205,13 @@ public class giamgia extends javax.swing.JInternalFrame {
 
         tblHienThi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Mã VCH", "Mã Giảm giá", "Số lượng", "Giá trị", "Hạn mức tối đa", "Ngày bắt đầu", "Ngày kết thúc"
+                "STT", "Mã VCH", "Mã Giảm giá", "Số lượng", "Giá trị", "Hạn mức tối đa", "Ngày bắt đầu", "Ngày kết thúc", "Trạng thái"
             }
         ));
         tblHienThi.addMouseListener(new java.awt.event.MouseAdapter() {

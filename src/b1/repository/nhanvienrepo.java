@@ -114,7 +114,7 @@ public class nhanvienrepo {
                         SET 
                            [Deleted] = 0
                           
-                      WHERE IdNV like ?  
+                      WHERE MaNV like ?  
                      """;
         try(Connection con = DBConnect.getConnection()) {
             PreparedStatement ps = con.prepareStatement(sql);
