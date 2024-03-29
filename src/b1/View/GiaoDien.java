@@ -283,7 +283,7 @@ public class GiaoDien extends javax.swing.JFrame {
             giaodienbannerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(giaodienbannerLayout.createSequentialGroup()
                 .addComponent(jLabel8)
-                .addGap(0, 416, Short.MAX_VALUE))
+                .addGap(0, 510, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(0, 204, 204));
@@ -331,8 +331,8 @@ public class GiaoDien extends javax.swing.JFrame {
                 .addGap(954, 954, 954))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
-                .addComponent(giaodienbanner, javax.swing.GroupLayout.PREFERRED_SIZE, 791, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(giaodienbanner, javax.swing.GroupLayout.PREFERRED_SIZE, 885, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 

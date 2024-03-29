@@ -43,6 +43,7 @@ import java.util.Locale;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+
 /**
  *
  * @author DELL
@@ -218,6 +219,81 @@ public class hoadon extends javax.swing.JInternalFrame {
             });
         }
     }
+    
+//    private void printHD() {
+//        try {
+//            int rowIndex = TblHoaDon.getSelectedRow();
+//            if (rowIndex >= 0) {
+//                HoaDon hd = listhd.get(rowIndex);
+//                dtmHDCT = (DefaultTableModel) TblHDCT.getModel();
+//                list = sr.getAll(hd.getMaHD());
+//                showDataHDCT(list);
+//                List<FieldReportPayment> fields = new ArrayList<>();
+//
+//                // Lặp qua các hàng trong bảng jTable2 để lấy thông tin chi tiết
+//                for (int i = 0; i < jTable2.getRowCount(); i++) {
+//                    // Lấy dữ liệu từ mỗi hàng
+//                    String tenSP = jTable2.getValueAt(i, 2).toString();
+//
+//                    // Kiểm tra và chuyển đổi số lượng
+//                    int soLuong = 0;
+//                    try {
+//                        soLuong = Integer.parseInt(jTable2.getValueAt(i, 7).toString());
+//                    } catch (NumberFormatException e) {
+//                        e.printStackTrace();
+//                        // Xử lý nếu giá trị không hợp lệ
+//                    }
+//
+//                    // Kiểm tra và chuyển đổi giá bán
+//                    double giaBan = 0.0;
+//                    String giaBanStr = jTable2.getValueAt(i, 8).toString().replaceAll("[^\\d.]", "");
+//                    if (!giaBanStr.isEmpty()) {
+//                        try {
+//                            giaBan = Double.parseDouble(giaBanStr);
+//                        } catch (NumberFormatException e) {
+//                            e.printStackTrace();
+//                            // Xử lý nếu giá trị không hợp lệ
+//                        }
+//                    }
+//
+//                    double tongTien = soLuong * giaBan;
+//
+//                    // In dữ liệu ra console
+//                    System.out.println("Tên sản phẩm: " + tenSP);
+//                    System.out.println("Số lượng: " + soLuong);
+//                    System.out.println("Đơn giá: " + giaBan);
+//                    System.out.println("Tổng tiền: " + tongTien);
+//
+//                    // Thêm thông tin vào danh sách fields để tạo báo cáo
+//                    fields.add(new FieldReportPayment(i + 1, tenSP, String.valueOf(giaBan), String.valueOf(soLuong), String.valueOf(tongTien)));
+//                }
+//                // Kiểm tra nếu có dữ liệu để tạo báo cáo
+//                if (!fields.isEmpty()) {
+//                    // Tạo mã QR Code
+//                    InputStream qrCodeStream = generateQrcode(selectedInvoiceId);
+//                    if (qrCodeStream != null) {
+//                        // Tạo tham số để in báo cáo
+//                        ParameterReportPayment dataPrint = new ParameterReportPayment(
+//                                hd.getMaHD(), String.valueOf(hd.getNgayTao().format(formatter)), hd.getTenKH(), hd.getSoDT(), hd.getDiaChi(), String.valueOf(hd.getGiaTien()).replaceAll("[^\\d.]", ""), qrCodeStream, fields);
+//
+//                        // Trước khi gọi printReportPayment
+//                        ReportManager.getInstance().checkJRXMLPath();
+//                        ReportManager.getInstance().checkCompilation();
+//                        ReportManager.getInstance().checkReportParameters(dataPrint);
+//
+//                        // Gọi phương thức in báo cáo
+//                        ReportManager.getInstance().printReportPayment(dataPrint);
+//                    }
+//                } else {
+//                    JOptionPane.showMessageDialog(this, "Không có dữ liệu để tạo báo cáo.");
+//                }
+//            } else {
+//                JOptionPane.showMessageDialog(this, "Bạn chưa chọn hóa đơn để in ra.");
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     public void Show() {
         int index = TblHoaDon.getSelectedRow();
@@ -534,7 +610,7 @@ public class hoadon extends javax.swing.JInternalFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -568,7 +644,7 @@ public class hoadon extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 219, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -597,8 +673,8 @@ public class hoadon extends javax.swing.JInternalFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(panel2, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE)
+                    .addComponent(panel3, javax.swing.GroupLayout.DEFAULT_SIZE, 274, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -626,7 +702,7 @@ public class hoadon extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(29, 29, 29)
-                .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, 729, Short.MAX_VALUE))
         );
 
         pack();
@@ -634,9 +710,10 @@ public class hoadon extends javax.swing.JInternalFrame {
 
     private void btnAddHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddHDActionPerformed
         // TODO add your handling code here:
-        banhhang frame = new banhhang();
-        frame.setVisible(true);
-        dispose();
+        banhhang bh = new banhhang();
+        panel1.removeAll();;
+        panel1.add(bh).setVisible(true);
+        jLabel1.setVisible(false);
     }//GEN-LAST:event_btnAddHDActionPerformed
 
     private void TblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TblHoaDonMouseClicked
