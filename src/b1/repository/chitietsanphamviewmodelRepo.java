@@ -28,17 +28,17 @@ public class chitietsanphamviewmodelRepo {
     public List<sanphamchitietviewmodel> getall() {
         List<sanphamchitietviewmodel> listsanpham = new ArrayList<>();
         String sql = """
-               SELECT        dbo.ChiTietSP.MaCTSP, dbo.HSX.TenHang, dbo.DSP.TenDSP, dbo.PhoiMau.TenMau, dbo.Size.SizeSP, dbo.DoDay.doDaySP, dbo.ChatLieu.ChatlieuSP, dbo.MatDe.MatDeSP, dbo.Dayy.dAYsp, dbo.ChiTietSP.Giaban
-                                                                                                                 FROM            dbo.ChiTietSP INNER JOIN
-                                                                                                                                          dbo.HSX ON dbo.ChiTietSP.IDHangSX = dbo.HSX.IDhsx INNER JOIN
-                                                                                                                                          dbo.DSP ON dbo.ChiTietSP.IDDongSP = dbo.DSP.IDdsp INNER JOIN
-                                                                                                                                          dbo.PhoiMau ON dbo.ChiTietSP.IDPhoiMau = dbo.PhoiMau.IDMau INNER JOIN
-                                                                                                                                          dbo.Size ON dbo.ChiTietSP.IDSize = dbo.Size.IDSize INNER JOIN
-                                                                                                                                          dbo.DoDay ON dbo.ChiTietSP.IDDoDay = dbo.DoDay.IDDoday INNER JOIN
-                                                                                                                                          dbo.ChatLieu ON dbo.ChiTietSP.IDChatlieu = dbo.ChatLieu.IDChatlieu INNER JOIN
-                                                                                                                                          dbo.MatDe ON dbo.ChiTietSP.IDMatDe = dbo.MatDe.IDMatDe INNER JOIN
-                                                                                                                                          dbo.Dayy ON dbo.ChiTietSP.IDDay = dbo.Dayy.IDDay
-                                                                                        						 Where ChiTietSP.Deleted = '0' ORDER BY MaCTSP DESC
+                SELECT        dbo.ChiTietSP.MaCTSP, dbo.HSX.TenHang, dbo.DSP.TenDSP, dbo.PhoiMau.TenMau, dbo.Size.SizeSP, dbo.DoDay.doDaySP, dbo.ChatLieu.ChatlieuSP, dbo.MatDe.MatDeSP, dbo.Dayy.dAYsp, dbo.ChiTietSP.Giaban,dbo.ChiTietSP.Soluong
+                                                                                                                                                                                                                                                          FROM            dbo.ChiTietSP INNER JOIN
+                                                                                                                                                                                                                                                                                   dbo.HSX ON dbo.ChiTietSP.IDHangSX = dbo.HSX.IDhsx INNER JOIN
+                                                                                                                                                                                                                                                                                   dbo.DSP ON dbo.ChiTietSP.IDDongSP = dbo.DSP.IDdsp INNER JOIN
+                                                                                                                                                                                                                                                                                   dbo.PhoiMau ON dbo.ChiTietSP.IDPhoiMau = dbo.PhoiMau.IDMau INNER JOIN
+                                                                                                                                                                                                                                                                                   dbo.Size ON dbo.ChiTietSP.IDSize = dbo.Size.IDSize INNER JOIN
+                                                                                                                                                                                                                                                                                   dbo.DoDay ON dbo.ChiTietSP.IDDoDay = dbo.DoDay.IDDoday INNER JOIN
+                                                                                                                                                                                                                                                                                   dbo.ChatLieu ON dbo.ChiTietSP.IDChatlieu = dbo.ChatLieu.IDChatlieu INNER JOIN
+                                                                                                                                                                                                                                                                                   dbo.MatDe ON dbo.ChiTietSP.IDMatDe = dbo.MatDe.IDMatDe INNER JOIN
+                                                                                                                                                                                                                                                                                   dbo.Dayy ON dbo.ChiTietSP.IDDay = dbo.Dayy.IDDay
+                                                                                                                                                                                                                                 						 Where ChiTietSP.Deleted = '0' ORDER BY MaCTSP DESC
                        """;
         try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
@@ -54,6 +54,7 @@ public class chitietsanphamviewmodelRepo {
                 ctsp.setIdmatde(rs.getString(8));
                 ctsp.setIdday(rs.getString(9));
                 ctsp.setGiaban(rs.getInt(10));
+                ctsp.setSoluong(rs.getInt(11));
                 listsanpham.add(ctsp);
             }
 
@@ -82,7 +83,8 @@ public class chitietsanphamviewmodelRepo {
                                    ,[CreatedAt]
                                    ,[CreatedBy]
                                    ,[UpdatedAt]
-                                   ,[UpdatedBy])
+                                   ,[UpdatedBy]
+                     ,[Soluong])
                              VALUES ((select TOP 1 IDhsx from HSX where TenHang = ?),
                         	(select TOP 1 IDdsp from DSP where TenDSP = ? ),
                         	(select TOP 1 IDMau from PhoiMau where TenMau = ?),
@@ -90,7 +92,7 @@ public class chitietsanphamviewmodelRepo {
                         	(select TOP 1 IDDoday from DoDay where doDaySP = ?),
                         	(select TOP 1 IDChatlieu from ChatLieu where ChatlieuSP = ?),
                         	(select TOP 1 IDMatDe from MatDe where MatDeSP = ?),
-                        	(select TOP 1 IDDay from Dayy where dAYsp = ?),?,?,?,?,?,?,?)
+                        	(select TOP 1 IDDay from Dayy where dAYsp = ?),?,?,?,?,?,?,?,?)
                     """;
         try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setObject(1, ctsp.getIdhangsx());
@@ -108,6 +110,7 @@ public class chitietsanphamviewmodelRepo {
             ps.setObject(13, ctsp.getCreateby());
             ps.setObject(14, ctsp.getUpdateat());
             ps.setObject(15, ctsp.getUpdateby());
+            ps.setObject(16, ctsp.getSoluong());
             check = ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
@@ -194,6 +197,7 @@ public class chitietsanphamviewmodelRepo {
                                        ,[CreatedBy] = ?
                                        ,[UpdatedAt] = ?
                                        ,[UpdatedBy] = ?
+                                       ,[Soluong] = ?
                                   WHERE MaCTSP = ?
                     """;
         try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
@@ -212,7 +216,8 @@ public class chitietsanphamviewmodelRepo {
             ps.setObject(13, ctsp.getCreateby());
             ps.setObject(14, ctsp.getUpdateat());
             ps.setObject(15, ctsp.getUpdateby());
-            ps.setObject(16, sua);
+            ps.setObject(16, ctsp.getSoluong());
+            ps.setObject(17, sua);
             check = ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

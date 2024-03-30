@@ -56,10 +56,11 @@
                       <Component id="txtmasp" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="230" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="cbbmau" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                      <Component id="cbbchatlieu" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
-                      <Component id="cbbhang" alignment="0" min="-2" pref="200" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="cbbmau" alignment="0" pref="200" max="32767" attributes="0"/>
+                      <Component id="cbbchatlieu" alignment="0" pref="200" max="32767" attributes="0"/>
+                      <Component id="cbbhang" alignment="0" pref="200" max="32767" attributes="0"/>
+                      <Component id="txtsoluong" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="263" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -81,26 +82,34 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtmasp" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cbbhang" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cbbten" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtmasp" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cbbhang" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cbbten" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace pref="71" max="32767" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtgia" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cbbmau" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cbbdoday" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtsize" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cbbchatlieu" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="cbbmatde" alignment="3" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace min="-2" pref="128" max="-2" attributes="0"/>
+                          <Component id="cbbday" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <EmptySpace max="32767" attributes="0"/>
+                          <Component id="txtsoluong" min="-2" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace pref="71" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtgia" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cbbmau" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cbbdoday" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="84" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="txtsize" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cbbchatlieu" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cbbmatde" alignment="3" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="128" max="-2" attributes="0"/>
-                  <Component id="cbbday" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="101" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnsua" alignment="3" min="-2" pref="44" max="-2" attributes="0"/>
@@ -219,6 +228,11 @@
             <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnbackMouseClicked"/>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnbackActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="b1.View.chucnang.TextField" name="txtsoluong">
+          <Properties>
+            <Property name="labelText" type="java.lang.String" value="S&#x1ed1; l&#x1b0;&#x1ee3;ng"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>

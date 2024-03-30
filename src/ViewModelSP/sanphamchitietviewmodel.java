@@ -19,7 +19,7 @@ public class sanphamchitietviewmodel {
     private String idmatde;
     private String idday;
     private int giaban;
-
+    private int soluong;
     public sanphamchitietviewmodel() {
     }
 
@@ -34,6 +34,14 @@ public class sanphamchitietviewmodel {
         this.idmatde = idmatde;
         this.idday = idday;
         this.giaban = giaban;
+    }
+
+    public int getSoluong() {
+        return soluong;
+    }
+
+    public void setSoluong(int soluong) {
+        this.soluong = soluong;
     }
 
     public String getMctsp() {
@@ -118,8 +126,10 @@ public class sanphamchitietviewmodel {
 
     @Override
     public String toString() {
-        return "sanphamchitietviewmodel{" + "mctsp=" + mctsp + ", idhangsx=" + idhangsx + ", iddongsp=" + iddongsp + ", idphoimau=" + idphoimau + ", idsize=" + idsize + ", iddoday=" + iddoday + ", idchatlieu=" + idchatlieu + ", idmatde=" + idmatde + ", idday=" + idday + ", giaban=" + giaban + '}';
+        return "sanphamchitietviewmodel{" + "mctsp=" + mctsp + ", idhangsx=" + idhangsx + ", iddongsp=" + iddongsp + ", idphoimau=" + idphoimau + ", idsize=" + idsize + ", iddoday=" + iddoday + ", idchatlieu=" + idchatlieu + ", idmatde=" + idmatde + ", idday=" + idday + ", giaban=" + giaban + ", soluong=" + soluong + '}';
     }
+
+  
     
     }
     

@@ -18,9 +18,9 @@ public class sanphamviewmodel {
     public sanphamviewmodel() {
     }
 
-    public sanphamviewmodel(String masp, String tensp, String mota, int soluong, String trangthai) {
+    public sanphamviewmodel(String masp,String mota, int soluong, String trangthai) {
         this.masp = masp;
-        this.tensp = tensp;
+     
         this.mota = mota;
         this.soluong = soluong;
         this.trangthai = trangthai;

@@ -24,7 +24,7 @@ public class sanphamrepo {
                 SELECT        dbo.ChiTietSP.MaCTSP, dbo.DSP.TenDSP, dbo.ChiTietSP.Ghichu, dbo.ChiTietSP.Soluong, dbo.ChiTietSP.Trangthai
                                                                                          FROM            dbo.DSP INNER JOIN
                                                                                                                   dbo.ChiTietSP ON dbo.DSP.IDdsp = dbo.ChiTietSP.IDDongSP
-                                                                                         						 Where ChiTietSP.Deleted = 0
+                                                                                         						 Where ChiTietSP.Deleted = 0 ORDER BY MaCTSP DESC
                      """;
         try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
@@ -96,7 +96,7 @@ public class sanphamrepo {
         String sql = """
               UPDATE [dbo].[ChiTietSP]
                SET [MaCTSP] = ?
-                  ,[IDDongSP] = (Select IDDongSP from DSP where TenDSP = ?)
+                  ,[IDDongSP] = (Select IDdsp from DSP where TenDSP = ?)
                  
                   ,[Ghichu] = ?
                   

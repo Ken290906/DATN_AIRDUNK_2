@@ -33,7 +33,7 @@ public class chitietsanpham {
     public chitietsanpham() {
     }
 
-    public chitietsanpham(String idhangsx, String iddongsp, String idphoimau, String idsize, String iddoday, String idchatlieu, String idmatde, String idday, int giaban, int delete) {
+    public chitietsanpham(String idhangsx, String iddongsp, String idphoimau, String idsize, String iddoday, String idchatlieu, String idmatde, String idday, int giaban, int delete,int soluong) {
         this.idhangsx = idhangsx;
         this.iddongsp = iddongsp;
         this.idphoimau = idphoimau;
@@ -44,6 +44,7 @@ public class chitietsanpham {
         this.idday = idday;
         this.giaban = giaban;
         this.delete = delete;
+         this.soluong = soluong;
     }
 
     public chitietsanpham(String masp, String ghichu, int delete, String trangthai, int soluong) {

@@ -17,7 +17,7 @@ public class DBConnect {
     public static final String PORT = "1433";
     public static final String DBNAME = "FINALASS_AIRDunk_SP24";
     public static final String USERNAME = "sa";
-    public static final String PASSWORD = "12345";
+    public static final String PASSWORD = "123456";
 
     /**
      * Get connection to MSSQL Server

@@ -197,6 +197,7 @@ public class sanphamthem extends javax.swing.JFrame {
         String IDMD = (String) cbbmatde.getSelectedItem();
         String IDD = (String) cbbday.getSelectedItem();
         String GB = txtgb.getText();
+        String SL = txtsoluong.getText();
 
         if (txtgb.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng hãy nhập giá mà bạn muốn vào?");
@@ -228,7 +229,7 @@ public class sanphamthem extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Không có loại size nào bé như thế");
             return null;
         }
-        chitietsanpham ctsp1 = new chitietsanpham(IDHSX, IDDSP, IDPM, IDS, IDDD, IDCL, IDMD, IDD, Integer.valueOf(GB), 0);
+        chitietsanpham ctsp1 = new chitietsanpham(IDHSX, IDDSP, IDPM, IDS, IDDD, IDCL, IDMD, IDD, Integer.valueOf(GB), 0,Integer.valueOf(SL));
         return ctsp1;
     }
 
@@ -254,6 +255,7 @@ public class sanphamthem extends javax.swing.JFrame {
         btnback = new b1.View.chucnang.ButtonGradient();
         txtsize = new b1.View.chucnang.TextField();
         btnreseat = new b1.View.chucnang.ButtonGradient();
+        txtsoluong = new b1.View.chucnang.TextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -348,11 +350,13 @@ public class sanphamthem extends javax.swing.JFrame {
             }
         });
 
+        txtsoluong.setLabelText("Số lượng");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(95, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -363,10 +367,11 @@ public class sanphamthem extends javax.swing.JFrame {
                         .addComponent(btnthem1, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(120, 120, 120))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cbbphoimau, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtgb, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
-                            .addComponent(cbbten, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtsoluong, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbbphoimau, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtgb, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE)
+                            .addComponent(cbbten, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(370, 370, 370)
@@ -407,7 +412,9 @@ public class sanphamthem extends javax.swing.JFrame {
                         .addComponent(cbbmatde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(150, 150, 150)
                         .addComponent(cbbday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 132, Short.MAX_VALUE)
+                .addGap(40, 40, 40)
+                .addComponent(txtsoluong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 46, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnback, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnthem1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -551,5 +558,6 @@ public class sanphamthem extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private b1.View.chucnang.TextField txtgb;
     private b1.View.chucnang.TextField txtsize;
+    private b1.View.chucnang.TextField txtsoluong;
     // End of variables declaration//GEN-END:variables
 }

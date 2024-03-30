@@ -137,7 +137,11 @@ public class sanpham extends javax.swing.JInternalFrame {
         listtt = tts.getall();
         bang3 = (DefaultTableModel) tblthuoctinhsanpham.getModel();
         showdata3(listtt);
-//
+//dsp
+         combo2 = (DefaultComboBoxModel) cbbtensanpham.getModel();
+         listdsp = dsps.getall();
+         showcombo2(listdsp);
+        
         txtsearch.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -274,9 +278,10 @@ public class sanpham extends javax.swing.JInternalFrame {
                     String Matde = ctspViewModel.getIdmatde();
                     String day = ctspViewModel.getIdday();
                     String GiaB = ctspViewModel.getGiaban() + "";
+                    String SL = ctspViewModel.getSoluong()+"";
 
                     // Open your ThongTinChiTietSP dialog or perform any other action here
-                    thongtinsanpham tt = new thongtinsanpham(MCTSP, HSX, DSP, Chatlieu, Size, Matde, GiaB, day, MauSac, doday);
+                    thongtinsanpham tt = new thongtinsanpham(MCTSP, HSX, DSP, Chatlieu, Size, Matde, GiaB, day, MauSac, doday,SL);
                     tt.setVisible(true);
 
                 }
@@ -403,14 +408,14 @@ public class sanpham extends javax.swing.JInternalFrame {
     public void oneclicksp(int show) {
         sanphamviewmodel spvm = listsanpham.get(show);
         txtmasanpham.setText(spvm.getMasp());
-        txttensanpham.setText(spvm.getTensp());
+        cbbtensanpham.setSelectedItem(spvm.getTensp());
         if (String.valueOf(spvm.getTrangthai()).equalsIgnoreCase("Còn hàng")) {
             rdoconhang.setSelected(true);
         } else {
             rdohethang.setSelected(true);
         }
         txtghichu.setText(spvm.getMota());
-        txtsoluong.setText(spvm.getSoluong() + "");
+       
     }
 
     private void searchSP() {
@@ -468,6 +473,7 @@ public class sanpham extends javax.swing.JInternalFrame {
                 object.getIdhangsx(),
                 object.getIddongsp(),
                 object.getIdphoimau(),
+                object.getSoluong(),
                 object.getIdsize(),
                 object.getIddoday(),
                 object.getIdchatlieu(),
@@ -551,7 +557,7 @@ public class sanpham extends javax.swing.JInternalFrame {
 
     public chitietsanpham getformdatasp() {
         String MSP = txtmasanpham.getText();
-        String TSP = txttensanpham.getText();
+        
         String TT = "";
         if (rdoconhang.isSelected()) {
             TT = rdoconhang.getText();
@@ -560,10 +566,10 @@ public class sanpham extends javax.swing.JInternalFrame {
         }
 
         String GC = txtghichu.getText();
-        String SL = txtsoluong.getText();
         
         
-        chitietsanpham ctsp = new chitietsanpham(MSP, GC, 0, TT, Integer.valueOf(SL));
+        
+        chitietsanpham ctsp = new chitietsanpham(MSP, GC, 0, TT, 0);
         return ctsp;
     }
 
@@ -717,7 +723,6 @@ public class sanpham extends javax.swing.JInternalFrame {
         btnreseat2 = new b1.View.chucnang.ButtonGradient();
         panelsanpham = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        txttensanpham = new b1.View.chucnang.TextField();
         txtmasanpham = new b1.View.chucnang.TextField();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -734,7 +739,7 @@ public class sanpham extends javax.swing.JInternalFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         tblhienthisanpham = new javax.swing.JTable();
         btnreseat3 = new b1.View.chucnang.ButtonGradient();
-        txtsoluong = new b1.View.chucnang.TextField();
+        cbbtensanpham = new b1.View.Combobox();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -762,33 +767,33 @@ public class sanpham extends javax.swing.JInternalFrame {
         tblhienthichitietsanpham.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         tblhienthichitietsanpham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "MÃ", "HÃNG", "TÊN SP", "PHỐI MÀU", "SIZE", "ĐỘ DÀY", "CHẤT LIỆU", "MẶT ĐẾ", "DÂY", "GIÁ BÁN", "Chọn tất cả"
+                "STT", "MÃ", "HÃNG", "TÊN SP", "PHỐI MÀU", "Số lượng", "SIZE", "ĐỘ DÀY", "CHẤT LIỆU", "MẶT ĐẾ", "DÂY", "GIÁ BÁN", "Chọn tất cả"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -804,20 +809,6 @@ public class sanpham extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane3.setViewportView(tblhienthichitietsanpham);
-        if (tblhienthichitietsanpham.getColumnModel().getColumnCount() > 0) {
-            tblhienthichitietsanpham.getColumnModel().getColumn(0).setHeaderValue("STT");
-            tblhienthichitietsanpham.getColumnModel().getColumn(1).setHeaderValue("MÃ");
-            tblhienthichitietsanpham.getColumnModel().getColumn(2).setHeaderValue("HÃNG");
-            tblhienthichitietsanpham.getColumnModel().getColumn(3).setHeaderValue("TÊN SP");
-            tblhienthichitietsanpham.getColumnModel().getColumn(4).setHeaderValue("PHỐI MÀU");
-            tblhienthichitietsanpham.getColumnModel().getColumn(5).setHeaderValue("SIZE");
-            tblhienthichitietsanpham.getColumnModel().getColumn(6).setHeaderValue("ĐỘ DÀY");
-            tblhienthichitietsanpham.getColumnModel().getColumn(7).setHeaderValue("CHẤT LIỆU");
-            tblhienthichitietsanpham.getColumnModel().getColumn(8).setHeaderValue("MẶT ĐẾ");
-            tblhienthichitietsanpham.getColumnModel().getColumn(9).setHeaderValue("DÂY");
-            tblhienthichitietsanpham.getColumnModel().getColumn(10).setHeaderValue("GIÁ BÁN");
-            tblhienthichitietsanpham.getColumnModel().getColumn(11).setHeaderValue("Chọn tất cả");
-        }
 
         btnquetmaqr.setBackground(new java.awt.Color(153, 255, 255));
         btnquetmaqr.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -994,9 +985,6 @@ public class sanpham extends javax.swing.JInternalFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        txttensanpham.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txttensanpham.setLabelText("Tên sản phẩm");
-
         txtmasanpham.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtmasanpham.setLabelText("Mã sản phẩm");
         txtmasanpham.addActionListener(new java.awt.event.ActionListener() {
@@ -1158,8 +1146,8 @@ public class sanpham extends javax.swing.JInternalFrame {
             }
         });
 
-        txtsoluong.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtsoluong.setLabelText("Số lượng");
+        cbbtensanpham.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cbbtensanpham.setLabeText("Tên Sản Phẩm");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -1170,9 +1158,8 @@ public class sanpham extends javax.swing.JInternalFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txttensanpham, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
-                            .addComponent(txtmasanpham, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(txtsoluong, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txtmasanpham, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
+                            .addComponent(cbbtensanpham, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(274, 274, 274)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
@@ -1215,9 +1202,8 @@ public class sanpham extends javax.swing.JInternalFrame {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(txtmasanpham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txtsoluong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(txttensanpham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbbtensanpham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(80, 80, 80))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1230,8 +1216,8 @@ public class sanpham extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnxoa1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnupdate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addGap(72, 72, 72)
+                                    .addComponent(btnupdate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(72, 72, 72)))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel3)
@@ -1588,7 +1574,8 @@ public class sanpham extends javax.swing.JInternalFrame {
         if (dk == JOptionPane.YES_OPTION) {
             int sua = tblhienthisanpham.getSelectedRow();
             sanphamviewmodel spvm = listsanpham.get(sua);
-            sps.Sua(getformdatasp(), txttensanpham.getText(), spvm.getMasp());
+            String TSP = (String) cbbtensanpham.getSelectedItem();
+            sps.Sua(getformdatasp(), TSP, spvm.getMasp());
             listsanpham = sps.getall();
             showdata(listsanpham);
             JOptionPane.showMessageDialog(this, "Đã Update thành công");
@@ -1645,7 +1632,8 @@ public class sanpham extends javax.swing.JInternalFrame {
         int show = tblthuoctinhsanpham.getSelectedRow();
         int dk = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn Reseat?");
         if (dk == JOptionPane.YES_OPTION) {
-            sps.Add(getformdatasp(), txttensanpham.getText());
+            String TSP = (String) cbbtensanpham.getSelectedItem();
+            sps.Add(getformdatasp(), TSP);
             listsanpham = sps.getall();
             showdata(listsanpham);
             JOptionPane.showMessageDialog(this, "Đã Add thành công");
@@ -1752,10 +1740,10 @@ public class sanpham extends javax.swing.JInternalFrame {
         int dk = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn Reseat?");
         if (dk == JOptionPane.YES_OPTION) {
             txtmasanpham.setText("");
-            txttensanpham.setText("");
+            cbbtensanpham.setSelectedItem(0);
             txtghichu.setText("");
             rdotrangthai.clearSelection();
-            txtsoluong.setText("");
+          
             JOptionPane.showMessageDialog(this, "Đã Reseat thành công");
         }
         if (dk == JOptionPane.NO_OPTION) {
@@ -1767,10 +1755,10 @@ public class sanpham extends javax.swing.JInternalFrame {
             return;
         }
 
-        txtmasanpham.setText("");
-        txttensanpham.setText("");
-        txtghichu.setText("");
-        rdotrangthai.clearSelection();
+//        txtmasanpham.setText("");
+//        txttensanpham.setText("");
+//        txtghichu.setText("");
+//        rdotrangthai.clearSelection();
     }//GEN-LAST:event_btnreseat3ActionPerformed
 
     private void btnthem3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnthem3MouseClicked
@@ -1932,8 +1920,8 @@ public class sanpham extends javax.swing.JInternalFrame {
         int dk = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn reseat");
         if (dk == JOptionPane.YES_OPTION) {
             buttonGroup2.clearSelection();
-            txtmasanpham.setText("");
-            txttensanpham.setText("");
+            txtmathuoctinh.setText("");
+            txttenthuoctinh.setText("");
             showdata3(listtt);
             JOptionPane.showMessageDialog(this, "Đã  reseat thành công");
         }
@@ -2055,6 +2043,7 @@ public class sanpham extends javax.swing.JInternalFrame {
     private b1.View.Combobox cbbhang;
     private b1.View.Combobox cbbphoimau;
     private b1.View.Combobox cbbsize;
+    private b1.View.Combobox cbbtensanpham;
     private javax.swing.JPanel giaodiensanpham;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -2091,8 +2080,6 @@ public class sanpham extends javax.swing.JInternalFrame {
     b1.View.chucnang.TextField txtmasanpham;
     private b1.View.chucnang.TextField txtmathuoctinh;
     private javax.swing.JTextField txtsearch;
-    private b1.View.chucnang.TextField txtsoluong;
-    private b1.View.chucnang.TextField txttensanpham;
     private b1.View.chucnang.TextField txttenthuoctinh;
     // End of variables declaration//GEN-END:variables
 }
