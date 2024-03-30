@@ -267,6 +267,40 @@ public class chitietsanphamviewmodelRepo {
         return listsanpham;
     }
 
+    public List<sanphamchitietviewmodel> Searchbanhang(String timkiem) {
+        List<sanphamchitietviewmodel> listsanpham = new ArrayList<>();
+        String sql = """
+SELECT        dbo.ChiTietSP.MaCTSP, dbo.DSP.TenDSP, dbo.HSX.TenHang, dbo.ChiTietSP.Soluong, dbo.Size.SizeSP, dbo.ChiTietSP.Giaban
+FROM            dbo.ChiTietSP INNER JOIN
+                         dbo.DSP ON dbo.ChiTietSP.IDDongSP = dbo.DSP.IDdsp INNER JOIN
+                         dbo.HSX ON dbo.ChiTietSP.IDHangSX = dbo.HSX.IDhsx INNER JOIN
+                         dbo.Size ON dbo.ChiTietSP.IDSize = dbo.Size.IDSize
+ Where ChiTietSP.Deleted = '0' And DSP.TenDSP Like ? or Soluong Like ? or Size.SizeSP  Like ? or Giaban Like ?
+                       """;
+        try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setObject(1, '%' + timkiem + '%');
+            ps.setObject(2, '%' + timkiem + '%');
+            ps.setObject(3, '%' + timkiem + '%');
+            ps.setObject(4, '%' + timkiem + '%');
+            ps.setObject(5, '%' + timkiem + '%');
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                sanphamchitietviewmodel ctsp = new sanphamchitietviewmodel();
+                ctsp.setMctsp(rs.getString(1));
+                ctsp.setIddongsp(rs.getString(2));
+                ctsp.setIdhangsx(rs.getString(3));
+                ctsp.setSoluong(rs.getInt(4));
+                ctsp.setIdsize(rs.getString(5));
+                ctsp.setGiaban(rs.getInt(6));
+                listsanpham.add(ctsp);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listsanpham;
+    }
+
     public static void main(String[] args) {
         List<sanphamchitietviewmodel> list = new chitietsanphamviewmodelRepo().getall();
         for (sanphamchitietviewmodel object : list) {

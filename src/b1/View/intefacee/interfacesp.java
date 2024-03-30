@@ -18,5 +18,6 @@ public interface interfacesp {
     boolean Delelte(String xoa);
     boolean Update(chitietsanpham ctsp,String sua);
     List<sanphamchitietviewmodel> Search(String timkiem);
+    List<sanphamchitietviewmodel> Searchbanhang(String timkiem);
     boolean Excel(String xuatexcel); 
 }

@@ -60,6 +60,13 @@ public abstract class iterface2 implements interfacesp{
     public List<sanphamchitietviewmodel> getall() {
         return ctspr.getall();
     }
+
+    @Override
+    public List<sanphamchitietviewmodel> Searchbanhang(String timkiem) {
+        return ctspr.Searchbanhang(timkiem);
+    }
+    
+    
     
     
     
