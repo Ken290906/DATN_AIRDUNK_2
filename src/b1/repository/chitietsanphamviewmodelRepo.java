@@ -282,7 +282,7 @@ FROM            dbo.ChiTietSP INNER JOIN
             ps.setObject(2, '%' + timkiem + '%');
             ps.setObject(3, '%' + timkiem + '%');
             ps.setObject(4, '%' + timkiem + '%');
-            ps.setObject(5, '%' + timkiem + '%');
+          
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 sanphamchitietviewmodel ctsp = new sanphamchitietviewmodel();

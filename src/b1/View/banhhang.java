@@ -32,6 +32,8 @@ import java.awt.RenderingHints;
 import static java.awt.SystemColor.text;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -43,6 +45,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -61,6 +64,7 @@ import org.jdesktop.animation.timing.interpolation.PropertySetter;
 public class banhhang extends javax.swing.JInternalFrame {
 //Table
 private DefaultTableModel bangsanpham = new DefaultTableModel();
+
 //Combobox
 private DefaultComboBoxModel comboHang = new DefaultComboBoxModel();
 
@@ -86,6 +90,7 @@ private hangsxservices hsxs = new hangsxservices();
         bangsanpham = (DefaultTableModel) tbldanhsachsanpham.getModel();
         listsp = sps.getall();
         showdata(listsp);
+            tbldanhsachsanpham.setDefaultEditor(Object.class, null);
         //combohang
         comboHang = (DefaultComboBoxModel) cbbhang.getModel();
         listhang = hsxs.getall();
@@ -119,17 +124,42 @@ private hangsxservices hsxs = new hangsxservices();
                     List<sanphamchitietviewmodel> searchedList = searchHang(timkiem);
                     showdata(searchedList);
                 } else {
-                    // If no manufacturer is selected, reload all products
-                    listsp = sps.getall();
-                    showdata(listsp);
+                 // If no manufacturer is selected, reload all products                 
+                    sanphamshow();
+                     
+                }
+            }
+        });
+         
+         tbldanhsachsanpham.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 1) { // Kiểm tra xem đã click 1 lần chưa
+                    int selectedRow = tbldanhsachsanpham.getSelectedRow();
+                    if (selectedRow != -1) { // Đảm bảo đã chọn một hàng
+                        Object[] rowData = new Object[tbldanhsachsanpham.getColumnCount()]; // Lấy dữ liệu từ hàng đã chọn
+                        for (int i = 0; i < tbldanhsachsanpham.getColumnCount(); i++) {
+                            rowData[i] = tbldanhsachsanpham.getValueAt(selectedRow, i);
+                        }
+
+                        // Thêm dữ liệu vào bảng giỏ hàng (tblgiohang)
+                        DefaultTableModel model = (DefaultTableModel) tblgiohang.getModel();
+                        model.addRow(rowData);
+                    }
                 }
             }
         });
                 
     }
+    public void sanphamshow(){
+        listsp = sps.getall();
+        showdata(listsp);   
+         JOptionPane.showMessageDialog(this, "Không có sản phẩm nào được tìm thấy giống ?");
+    }
     private void SearchBanhang(){
                     listsp = sps.Searchbanhang(txtsearch.getText());
                     showdata(listsp);
+                   
                 }
     //showdata
     public void showdata(List<sanphamchitietviewmodel> sanpham){
@@ -175,6 +205,7 @@ private hangsxservices hsxs = new hangsxservices();
         jPanel2 = new javax.swing.JPanel();
         txtTenKH = new b1.View.chucnang.TextField();
         txtMaKH = new b1.View.chucnang.TextField();
+        buttonGradient9 = new b1.View.chucnang.ButtonGradient();
         jLabel4 = new javax.swing.JLabel();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel5 = new javax.swing.JLabel();
@@ -250,21 +281,34 @@ private hangsxservices hsxs = new hangsxservices();
         txtMaKH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtMaKH.setLabelText("Mã khách hàng");
 
+        buttonGradient9.setBackground(new java.awt.Color(153, 255, 255));
+        buttonGradient9.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        buttonGradient9.setForeground(new java.awt.Color(0, 0, 0));
+        buttonGradient9.setText("Chọn");
+        buttonGradient9.setColor1(new java.awt.Color(204, 204, 255));
+        buttonGradient9.setColor2(new java.awt.Color(255, 255, 255));
+        buttonGradient9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtMaKH, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
-                    .addComponent(txtTenKH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(txtTenKH, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+                    .addComponent(txtMaKH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(buttonGradient9, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(txtMaKH, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(txtMaKH, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(buttonGradient9, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(txtTenKH, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -373,7 +417,7 @@ private hangsxservices hsxs = new hangsxservices();
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62))
+                .addGap(128, 128, 128))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -461,7 +505,7 @@ private hangsxservices hsxs = new hangsxservices();
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbbVoucher, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel11))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 26, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(44, 44, 44)
@@ -593,13 +637,7 @@ private hangsxservices hsxs = new hangsxservices();
 
         tblgiohang.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "MÃ SP CHI TIẾT", "TÊN SP", "MÀU", "SIZE", "GIÁ BÁN", "THÀNH TIỀN"
@@ -812,6 +850,7 @@ private hangsxservices hsxs = new hangsxservices();
     private b1.View.chucnang.ButtonGradient buttonGradient5;
     private b1.View.chucnang.ButtonGradient buttonGradient7;
     private b1.View.chucnang.ButtonGradient buttonGradient8;
+    private b1.View.chucnang.ButtonGradient buttonGradient9;
     private javax.swing.ButtonGroup buttonGroup1;
     private b1.View.chucnang.Combobox cbbVoucher;
     private b1.View.Combobox cbbhang;
