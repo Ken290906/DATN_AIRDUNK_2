@@ -33,8 +33,7 @@ public class giamGiaRepository {
                        FROM [dbo].[VCH]
                         WHERE Deleted = 0;
                      """;
-        try (Connection con = DBConnect.getConnection();
-                PreparedStatement ps = con.prepareStatement(sql)) {
+        try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 GiamGia1 gg = new GiamGia1();
@@ -46,6 +45,28 @@ public class giamGiaRepository {
                 gg.setNgayBatDau(rs.getDate(6));
                 gg.setNgayKetThuc(rs.getDate(7));
                 gg.setTrangThai(rs.getInt(8));
+                listGiamGia.add(gg);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listGiamGia;
+    }
+
+    public List<GiamGia1> cbbBH() {
+        List<GiamGia1> listGiamGia = new ArrayList<>();
+        String sql = """
+                     SELECT [MaVCH]
+                           ,[MaGiamGia]
+                       FROM [dbo].[VCH]
+                        WHERE Deleted = 0;
+                     """;
+        try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                GiamGia1 gg = new GiamGia1();
+                gg.setMaVCH(rs.getString(1));
+                gg.setMaGiamGia(rs.getString(2));
                 listGiamGia.add(gg);
             }
         } catch (Exception e) {
@@ -74,8 +95,7 @@ INSERT INTO [dbo].[VCH]
                           VALUES
                                 (?,?,?,?,?,?,?,?,?,?,?,?,?)
                      """;
-        try (Connection con = DBConnect.getConnection();
-                PreparedStatement ps = con.prepareStatement(sql)) {
+        try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setObject(1, gg.getMaVCH());
             ps.setObject(2, gg.getMaGiamGia());
             ps.setObject(3, gg.getSoLuong());
@@ -104,7 +124,7 @@ INSERT INTO [dbo].[VCH]
                                  Deleted = 1
                             WHERE MaVCH=?
                      """;
-        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+        try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setObject(1, id);
             check = ps.executeUpdate();
         } catch (Exception e) {
@@ -128,7 +148,7 @@ INSERT INTO [dbo].[VCH]
                                                                        ,[NgayKT] = ?
                                                                   WHERE [MaVCH] = ?
                    """;
-            try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+            try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
                 ps.setObject(1, gg.getMaGiamGia());
                 ps.setObject(2, gg.getSoLuong());
                 ps.setObject(3, gg.getGiaTri());
@@ -157,7 +177,7 @@ INSERT INTO [dbo].[VCH]
                        FROM [dbo].[VCH]
                        Where MaVCH like ? or MaGiamGia like ? or SoLuong like ? or GiaTri like ? or giatritoida like ? or NgayBD like ? or NgayKT like ?
                       """;
-        try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+        try ( Connection c = DBConnect.getConnection();  PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setObject(1, timkiem + "%");
             ps.setObject(2, timkiem + "%");
             ps.setObject(3, timkiem + "%");
@@ -183,10 +203,10 @@ INSERT INTO [dbo].[VCH]
         }
         return listGiamGia;
     }
-    
+
     public static void main(String[] args) {
         List<GiamGia1> list = new giamGiaRepository().getAll();
-        
+
         for (GiamGia1 giamGia1 : list) {
             System.out.println(giamGia1.toString());
         }

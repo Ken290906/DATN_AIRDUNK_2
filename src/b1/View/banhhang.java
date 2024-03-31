@@ -9,8 +9,10 @@ import ViewModelSP.sanphamchitietviewmodel;
 import b1.View.chucnang.quetmaqr;
 import b1.View.intefacee.interfacesp;
 import b1.View.intefacee.iterface2;
+import b1.entity.GiamGia1;
 import b1.entity.HoaDonBH;
 import b1.entity.hangsanxuat;
+import b1.services.GiamGiaService;
 
 import b1.services.HoaDonBHService;
 import b1.services.HoaDonService;
@@ -70,11 +72,12 @@ public class banhhang extends javax.swing.JInternalFrame {
 
 //Combobox
     private DefaultComboBoxModel comboHang = new DefaultComboBoxModel();
-
+    private DefaultComboBoxModel cbbGiamgia = new DefaultComboBoxModel();
 //list
     private List<sanphamchitietviewmodel> listsp = new ArrayList<>();
     private List<hangsanxuat> listhang = new ArrayList<>();
     private List<HoaDonBH> listBH = new ArrayList<>();
+    private List<GiamGia1> listVCH = new ArrayList<>();
 
 //ITF
     interfacesp itf = new iterface2() {
@@ -83,7 +86,7 @@ public class banhhang extends javax.swing.JInternalFrame {
     private chitietsanphamp2services sps = new chitietsanphamp2services();
     private hangsxservices hsxs = new hangsxservices();
     private HoaDonBHService srhd = new HoaDonBHService();
-
+    private GiamGiaService srvch = new GiamGiaService();
     /**
      * Creates new form gd1
      */
@@ -101,6 +104,10 @@ public class banhhang extends javax.swing.JInternalFrame {
         listsp = sps.getall();
         showdata(listsp);
         tbldanhsachsanpham.setDefaultEditor(Object.class, null);
+        //comboGiamgia
+        cbbGiamgia = (DefaultComboBoxModel) cbbVoucher.getModel();
+        listVCH = srvch.cbbBH();
+        showCbbVCH(listVCH);
         //combohang
         comboHang = (DefaultComboBoxModel) cbbhang.getModel();
         listhang = hsxs.getall();
@@ -179,6 +186,14 @@ public class banhhang extends javax.swing.JInternalFrame {
                 hoaDonBH.getSoluong(),
                 trangthai
             });
+        }
+    }
+    
+    public void showCbbVCH(List<GiamGia1> ListGG) {
+        cbbGiamgia.removeAllElements();
+        
+        for (GiamGia1 gg : ListGG) {
+            cbbGiamgia.addElement(gg.getMaGiamGia());
         }
     }
 

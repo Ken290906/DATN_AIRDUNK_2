@@ -18,6 +18,10 @@ public class GiamGiaService {
         return repo.getAll();
     }
     
+    public List<GiamGia1> cbbBH() {
+        return repo.cbbBH();
+    }
+    
     public boolean add(GiamGia1 gg){
         return repo.add(gg);
     }
