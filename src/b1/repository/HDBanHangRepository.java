@@ -21,21 +21,19 @@ public class HDBanHangRepository {
         List<HoaDonBH> list = new ArrayList<>();
 
         String sql = """
-                    SELECT [MaHD]
-                           ,[Soluong]
-                           ,[NgayThanhtoan]
-                           ,[NgayTaoHoaDon]
-                       FROM [dbo].[HoaDon]
+                    SELECT        dbo.HoaDon.MaHD, dbo.HoaDon.MaNV, dbo.HoaDon.Soluong, dbo.HoaDon.NgayTaoHoaDon, dbo.HoaDon.Deleted
+                           FROM            dbo.HoaDon FULL JOIN dbo.HoaDonChiTiet ON dbo.HoaDon.MaHD = dbo.HoaDonChiTiet.MaHoaDon 
+                                                      FULL JOIN dbo.LichsuHD ON dbo.HoaDon.MaHD = dbo.LichsuHD.IDHoaDon
                      """;
         try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 HoaDonBH hd = new HoaDonBH();
                 hd.setMaHD(rs.getString(1));
-                hd.setSoluong(rs.getInt(2));
-                hd.setNgaytt(rs.getDate(3));
+                hd.setMaNV(rs.getString(2));
+                hd.setSoluong(rs.getInt(3));
                 hd.setNgaytao(rs.getDate(4));
-                
+                hd.setTrangthai(rs.getBoolean(5));
 
                 list.add(hd);
             }
@@ -46,23 +44,42 @@ public class HDBanHangRepository {
     }
     
     public boolean Add(HoaDonBH hdbh) {
-        int check = 0;
+        int check = 0; 
 
         String sql = """
                     INSERT INTO [dbo].[HoaDon]
-                                  ([MaHD]       
-                                  ,[Soluong]
-                                  ,[NgayThanhtoan]
-                                  ,[NgayTaoHoaDon])
-                            VALUES
-                                  (?, ?, ?, ?)
+                                             ([MaHD]
+                                             ,[MaNV]
+                                             ,[Soluong]
+                                             ,[NgayTaoHoaDon]
+                                             ,[Deleted])
+                                       VALUES
+                                             (?, ?, ?, ?, ?)
                      """;
         try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setObject(1, hdbh.getMaHD());
-            ps.setObject(2, hdbh.getSoluong());
-            ps.setObject(3, hdbh.getNgaytt());
+            ps.setObject(2, hdbh.getMaNV());
+            ps.setObject(3, hdbh.getSoluong());
             ps.setObject(4, hdbh.getNgaytao());
-            
+            ps.setObject(5, hdbh.isTrangthai());
+           
+            check = ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check > 0;
+    }
+    
+    public boolean Delete(String maHD) {
+        int check = 0; 
+
+        String sql = """
+                    DELETE FROM [dbo].[HoaDon]
+                                                   WHERE MaHD = ?
+                     """;
+        try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setObject(1, maHD);
+           
             check = ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

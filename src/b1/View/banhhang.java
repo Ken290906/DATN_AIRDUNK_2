@@ -43,6 +43,7 @@ import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.UUID;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -63,21 +64,26 @@ import org.jdesktop.animation.timing.interpolation.PropertySetter;
  */
 public class banhhang extends javax.swing.JInternalFrame {
 //Table
-private DefaultTableModel bangsanpham = new DefaultTableModel();
+
+    private DefaultTableModel dtmHoaDon = new DefaultTableModel();
+    private DefaultTableModel bangsanpham = new DefaultTableModel();
 
 //Combobox
-private DefaultComboBoxModel comboHang = new DefaultComboBoxModel();
+    private DefaultComboBoxModel comboHang = new DefaultComboBoxModel();
 
 //list
-private List<sanphamchitietviewmodel> listsp = new ArrayList<>();
-private List<hangsanxuat> listhang = new ArrayList<>();
+    private List<sanphamchitietviewmodel> listsp = new ArrayList<>();
+    private List<hangsanxuat> listhang = new ArrayList<>();
+    private List<HoaDonBH> listBH = new ArrayList<>();
 
 //ITF
- interfacesp itf = new iterface2() {
-    }; 
- //Services
- private chitietsanphamp2services sps = new chitietsanphamp2services();
-private hangsxservices hsxs = new hangsxservices();
+    interfacesp itf = new iterface2() {
+    };
+    //Services
+    private chitietsanphamp2services sps = new chitietsanphamp2services();
+    private hangsxservices hsxs = new hangsxservices();
+    private HoaDonBHService srhd = new HoaDonBHService();
+
     /**
      * Creates new form gd1
      */
@@ -86,37 +92,38 @@ private hangsxservices hsxs = new hangsxservices();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
+        //bang hoa don
+        dtmHoaDon = (DefaultTableModel) tblhoadon.getModel();
+        listBH = srhd.getAll();
+        showHoaDonBH(listBH);
         //bangsanpham
         bangsanpham = (DefaultTableModel) tbldanhsachsanpham.getModel();
         listsp = sps.getall();
         showdata(listsp);
-            tbldanhsachsanpham.setDefaultEditor(Object.class, null);
+        tbldanhsachsanpham.setDefaultEditor(Object.class, null);
         //combohang
         comboHang = (DefaultComboBoxModel) cbbhang.getModel();
         listhang = hsxs.getall();
         Combobox(listhang);
-        txtsearch.getDocument().addDocumentListener(new DocumentListener(){
+        txtsearch.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
-               SearchBanhang();
+                SearchBanhang();
             }
 
             @Override
             public void removeUpdate(DocumentEvent e) {
-               SearchBanhang();
+                SearchBanhang();
             }
 
             @Override
             public void changedUpdate(DocumentEvent e) {
                 SearchBanhang();
             }
-           
-            
-        
-        
-    });
-         //searchhang
-         cbbhang.addActionListener(new ActionListener() {
+
+        });
+        //searchhang
+        cbbhang.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String timkiem = cbbhang.getSelectedItem().toString();
@@ -124,14 +131,14 @@ private hangsxservices hsxs = new hangsxservices();
                     List<sanphamchitietviewmodel> searchedList = searchHang(timkiem);
                     showdata(searchedList);
                 } else {
-                 // If no manufacturer is selected, reload all products                 
+                    // If no manufacturer is selected, reload all products                 
                     sanphamshow();
-                     
+
                 }
             }
         });
-         
-         tbldanhsachsanpham.addMouseListener(new MouseAdapter() {
+
+        tbldanhsachsanpham.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 1) { // Kiểm tra xem đã click 1 lần chưa
@@ -149,32 +156,75 @@ private hangsxservices hsxs = new hangsxservices();
                 }
             }
         });
-                
+
     }
-    public void sanphamshow(){
-        listsp = sps.getall();
-        showdata(listsp);   
-         JOptionPane.showMessageDialog(this, "Không có sản phẩm nào được tìm thấy giống ?");
-    }
-    private void SearchBanhang(){
-                    listsp = sps.Searchbanhang(txtsearch.getText());
-                    showdata(listsp);
-                   
-                }
-    //showdata
-    public void showdata(List<sanphamchitietviewmodel> sanpham){
-        bangsanpham.setRowCount(0);
-        for (sanphamchitietviewmodel sp : sanpham) {
-            bangsanpham.addRow(new Object[]{sp.getMctsp(),sp.getIddongsp(),sp.getIdhangsx(),sp.getSoluong(),sp.getIdsize(),sp.getGiaban()});
+
+    public void showHoaDonBH(List<HoaDonBH> listHDBH) {
+        dtmHoaDon.setRowCount(0);
+        int i = 0;
+        String trangthai = "";
+
+        for (HoaDonBH hoaDonBH : listHDBH) {
+            i++;
+            if (hoaDonBH.isTrangthai() == false) {
+                trangthai = "Chờ thanh toán";
+            } else {
+                trangthai = "Đã thanh toán";
+            }
+            dtmHoaDon.addRow(new Object[]{
+                i,
+                hoaDonBH.getMaHD(),
+                hoaDonBH.getNgaytao(),
+                hoaDonBH.getMaNV(),
+                hoaDonBH.getSoluong(),
+                trangthai
+            });
         }
     }
+
+
+    public HoaDonBH getFormData() {
+        
+        String maHD = "HD-" + UUID.randomUUID().toString().substring(0, 3); // Tạo mã hóa đơn duy nhất
+        String maNV = "NV-001";
+        Date ngayTao = new Date(); 
+        int soluongSP = 0;
+        boolean trangThai = false;
+        
+  
+        HoaDonBH hd = new HoaDonBH(maHD, ngayTao, maNV, soluongSP, trangThai);
+        return hd;
+    }
+
+    public void sanphamshow() {
+        listsp = sps.getall();
+        showdata(listsp);
+        JOptionPane.showMessageDialog(this, "Không có sản phẩm nào được tìm thấy giống ?");
+    }
+
+    private void SearchBanhang() {
+        listsp = sps.Searchbanhang(txtsearch.getText());
+        showdata(listsp);
+    }
+
+    //showdata
+    public void showdata(List<sanphamchitietviewmodel> sanpham) {
+        bangsanpham.setRowCount(0);
+        int i = 0;
+        for (sanphamchitietviewmodel sp : sanpham) {
+            i++;
+            bangsanpham.addRow(new Object[]{i, sp.getMctsp(), sp.getIddongsp(), sp.getIdhangsx(), sp.getSoluong(), sp.getIdsize(), sp.getGiaban()});
+        }
+    }
+
     //showcombbox
-    public void Combobox(List<hangsanxuat> hsx){
+    public void Combobox(List<hangsanxuat> hsx) {
         comboHang.removeAllElements();
         for (hangsanxuat object : hsx) {
             comboHang.addElement(object.getTenhang());
         }
     }
+
     //searchcombobox
     private List<sanphamchitietviewmodel> searchHang(String manufacturerName) {
         List<sanphamchitietviewmodel> filteredList = new ArrayList<>();
@@ -187,6 +237,7 @@ private hangsxservices hsxs = new hangsxservices();
 
         return filteredList;
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -238,7 +289,7 @@ private hangsxservices hsxs = new hangsxservices();
         buttonGradient4 = new b1.View.chucnang.ButtonGradient();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblhoadon = new javax.swing.JTable();
-        buttonGradient5 = new b1.View.chucnang.ButtonGradient();
+        btnAddHoaDon = new b1.View.chucnang.ButtonGradient();
         buttonGradient7 = new b1.View.chucnang.ButtonGradient();
         panel2 = new b1.View.chucnang.Panel();
         jPanel6 = new javax.swing.JPanel();
@@ -557,13 +608,13 @@ private hangsxservices hsxs = new hangsxservices();
 
         tblhoadon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã đơn hàng", "Ngày Tạo", "Ngày Thanh Toán", "Tổng SP", "Trạng Thái"
+                "#", "Mã đơn hàng", "Ngày Tạo", "Ngày Thanh Toán", "Tổng SP", "Trạng Thái"
             }
         ));
         tblhoadon.setGridColor(new java.awt.Color(255, 255, 255));
@@ -571,15 +622,15 @@ private hangsxservices hsxs = new hangsxservices();
         tblhoadon.setSelectionBackground(new java.awt.Color(153, 153, 255));
         jScrollPane1.setViewportView(tblhoadon);
 
-        buttonGradient5.setBackground(new java.awt.Color(153, 255, 255));
-        buttonGradient5.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        buttonGradient5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/b1/khoanh/icons8-bill-26.png"))); // NOI18N
-        buttonGradient5.setColor1(new java.awt.Color(204, 204, 255));
-        buttonGradient5.setColor2(new java.awt.Color(255, 255, 255));
-        buttonGradient5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        buttonGradient5.addActionListener(new java.awt.event.ActionListener() {
+        btnAddHoaDon.setBackground(new java.awt.Color(153, 255, 255));
+        btnAddHoaDon.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnAddHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/b1/khoanh/icons8-bill-26.png"))); // NOI18N
+        btnAddHoaDon.setColor1(new java.awt.Color(204, 204, 255));
+        btnAddHoaDon.setColor2(new java.awt.Color(255, 255, 255));
+        btnAddHoaDon.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAddHoaDon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonGradient5ActionPerformed(evt);
+                btnAddHoaDonActionPerformed(evt);
             }
         });
 
@@ -598,7 +649,7 @@ private hangsxservices hsxs = new hangsxservices();
                 .addContainerGap()
                 .addComponent(buttonGradient4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonGradient5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnAddHoaDon, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(buttonGradient7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -609,7 +660,7 @@ private hangsxservices hsxs = new hangsxservices();
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap(8, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(buttonGradient5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAddHoaDon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonGradient4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonGradient7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -640,7 +691,7 @@ private hangsxservices hsxs = new hangsxservices();
 
             },
             new String [] {
-                "MÃ SP CHI TIẾT", "TÊN SP", "MÀU", "SIZE", "GIÁ BÁN", "THÀNH TIỀN"
+                "#", "Mã SPCT", "Tên SP", "Màu", "Size", "Gía bán", "Thành tiền"
             }
         ));
         tblgiohang.setGridColor(new java.awt.Color(255, 255, 255));
@@ -682,22 +733,19 @@ private hangsxservices hsxs = new hangsxservices();
 
         tbldanhsachsanpham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "MÃ SPCT", "TÊN SP", "Hãng", "Số lượng", "Size", "Tổng tiền"
+                "#", "Mã SPCT", "Tên SP", "Hãng", "Số lượng", "Size", "Tổng tiền"
             }
         ));
         tbldanhsachsanpham.setGridColor(new java.awt.Color(255, 255, 255));
         tbldanhsachsanpham.setRowHeight(30);
         tbldanhsachsanpham.setSelectionBackground(new java.awt.Color(153, 153, 255));
         jScrollPane2.setViewportView(tbldanhsachsanpham);
-        if (tbldanhsachsanpham.getColumnModel().getColumnCount() > 0) {
-            tbldanhsachsanpham.getColumnModel().getColumn(3).setHeaderValue("Số lượng");
-        }
 
         txtsearch.setLabelText("Tìm kiếm");
 
@@ -830,11 +878,13 @@ private hangsxservices hsxs = new hangsxservices();
 
     }//GEN-LAST:event_buttonGradient4ActionPerformed
 
-    private void buttonGradient5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient5ActionPerformed
+    private void btnAddHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddHoaDonActionPerformed
         // TODO add your handling code here:
- 
-     
-    }//GEN-LAST:event_buttonGradient5ActionPerformed
+        srhd.Add(getFormData());
+        listBH = srhd.getAll();
+        showHoaDonBH(listBH);
+
+    }//GEN-LAST:event_btnAddHoaDonActionPerformed
 
     private void buttonGradient8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient8ActionPerformed
         // TODO add your handling code here:
@@ -845,9 +895,9 @@ private hangsxservices hsxs = new hangsxservices();
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private b1.View.chucnang.ButtonGradient btnAddHD;
+    private b1.View.chucnang.ButtonGradient btnAddHoaDon;
     private b1.View.chucnang.ButtonGradient btnReset;
     private b1.View.chucnang.ButtonGradient buttonGradient4;
-    private b1.View.chucnang.ButtonGradient buttonGradient5;
     private b1.View.chucnang.ButtonGradient buttonGradient7;
     private b1.View.chucnang.ButtonGradient buttonGradient8;
     private b1.View.chucnang.ButtonGradient buttonGradient9;

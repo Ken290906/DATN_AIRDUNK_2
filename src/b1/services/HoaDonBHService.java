@@ -22,4 +22,8 @@ public class HoaDonBHService {
     public boolean Add(HoaDonBH hdbh) {
         return repo.Add(hdbh);
     }
+    
+    public boolean Delete(String maHD) {
+        return repo.Delete(maHD);
+    }
 }

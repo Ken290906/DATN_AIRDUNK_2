@@ -285,13 +285,14 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane3" alignment="0" pref="1371" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="jScrollPane3" alignment="1" pref="1371" max="32767" attributes="0"/>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       <Component id="txtTim" min="-2" pref="368" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="btnSearch" min="-2" pref="48" max="-2" attributes="0"/>
+                                      <EmptySpace max="32767" attributes="0"/>
+                                      <Component id="cbbTrangthai" min="-2" pref="121" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -302,12 +303,13 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="btnSearch" alignment="1" min="-2" max="-2" attributes="0"/>
-                                  <Component id="txtTim" alignment="1" min="-2" pref="41" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="cbbTrangthai" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtTim" min="-2" pref="41" max="-2" attributes="0"/>
+                                  <Component id="btnSearch" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jScrollPane3" pref="244" max="32767" attributes="0"/>
+                              <Component id="jScrollPane3" pref="243" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -429,6 +431,11 @@
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSearchActionPerformed"/>
                       </Events>
+                    </Component>
+                    <Component class="b1.View.chucnang.Combobox" name="cbbTrangthai">
+                      <Properties>
+                        <Property name="labeText" type="java.lang.String" value="Tr&#x1ea1;ng th&#xe1;i"/>
+                      </Properties>
                     </Component>
                   </SubComponents>
                 </Container>

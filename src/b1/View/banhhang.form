@@ -708,7 +708,7 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="buttonGradient4" min="-2" pref="100" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="buttonGradient5" min="-2" pref="100" max="-2" attributes="0"/>
+                              <Component id="btnAddHoaDon" min="-2" pref="100" max="-2" attributes="0"/>
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="buttonGradient7" min="-2" pref="100" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -721,7 +721,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace pref="8" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="buttonGradient5" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
+                                  <Component id="btnAddHoaDon" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
                                   <Component id="buttonGradient4" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
                                   <Component id="buttonGradient7" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
                               </Group>
@@ -766,7 +766,8 @@
                         <Component class="javax.swing.JTable" name="tblhoadon">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="5" rowCount="4">
+                              <Table columnCount="6" rowCount="4">
+                                <Column editable="true" title="#" type="java.lang.Object"/>
                                 <Column editable="true" title="M&#xe3; &#x111;&#x1a1;n h&#xe0;ng" type="java.lang.Object"/>
                                 <Column editable="true" title="Ng&#xe0;y T&#x1ea1;o" type="java.lang.Object"/>
                                 <Column editable="true" title="Ng&#xe0;y Thanh To&#xe1;n" type="java.lang.Object"/>
@@ -776,6 +777,11 @@
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                               <TableColumnModel selectionModel="0">
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                  <Title/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                                   <Title/>
                                   <Editor/>
@@ -817,7 +823,7 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="b1.View.chucnang.ButtonGradient" name="buttonGradient5">
+                    <Component class="b1.View.chucnang.ButtonGradient" name="btnAddHoaDon">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="ff" red="99" type="rgb"/>
@@ -841,7 +847,7 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonGradient5ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddHoaDonActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="b1.View.chucnang.ButtonGradient" name="buttonGradient7">
@@ -941,17 +947,23 @@
                         <Component class="javax.swing.JTable" name="tblgiohang">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="6" rowCount="0">
-                                <Column editable="true" title="M&#xc3; SP CHI TI&#x1ebe;T" type="java.lang.Object"/>
-                                <Column editable="true" title="T&#xca;N SP" type="java.lang.Object"/>
-                                <Column editable="true" title="M&#xc0;U" type="java.lang.Object"/>
-                                <Column editable="true" title="SIZE" type="java.lang.Object"/>
-                                <Column editable="true" title="GI&#xc1; B&#xc1;N" type="java.lang.Object"/>
-                                <Column editable="true" title="TH&#xc0;NH TI&#x1ec0;N" type="java.lang.Object"/>
+                              <Table columnCount="7" rowCount="0">
+                                <Column editable="true" title="#" type="java.lang.Object"/>
+                                <Column editable="true" title="M&#xe3; SPCT" type="java.lang.Object"/>
+                                <Column editable="true" title="T&#xea;n SP" type="java.lang.Object"/>
+                                <Column editable="true" title="M&#xe0;u" type="java.lang.Object"/>
+                                <Column editable="true" title="Size" type="java.lang.Object"/>
+                                <Column editable="true" title="G&#xed;a b&#xe1;n" type="java.lang.Object"/>
+                                <Column editable="true" title="Th&#xe0;nh ti&#x1ec1;n" type="java.lang.Object"/>
                               </Table>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                               <TableColumnModel selectionModel="0">
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                  <Title/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                                   <Title/>
                                   <Editor/>
@@ -1087,9 +1099,10 @@
                         <Component class="javax.swing.JTable" name="tbldanhsachsanpham">
                           <Properties>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="6" rowCount="4">
-                                <Column editable="true" title="M&#xc3; SPCT" type="java.lang.Object"/>
-                                <Column editable="true" title="T&#xca;N SP" type="java.lang.Object"/>
+                              <Table columnCount="7" rowCount="4">
+                                <Column editable="true" title="#" type="java.lang.Object"/>
+                                <Column editable="true" title="M&#xe3; SPCT" type="java.lang.Object"/>
+                                <Column editable="true" title="T&#xea;n SP" type="java.lang.Object"/>
                                 <Column editable="true" title="H&#xe3;ng" type="java.lang.Object"/>
                                 <Column editable="true" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng" type="java.lang.Object"/>
                                 <Column editable="true" title="Size" type="java.lang.Object"/>
@@ -1114,7 +1127,12 @@
                                   <Renderer/>
                                 </Column>
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title value="S&#x1ed1; l&#x1b0;&#x1ee3;ng"/>
+                                  <Title/>
+                                  <Editor/>
+                                  <Renderer/>
+                                </Column>
+                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                                  <Title/>
                                   <Editor/>
                                   <Renderer/>
                                 </Column>

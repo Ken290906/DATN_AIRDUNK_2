@@ -14,17 +14,19 @@ public class HoaDonBH {
     
     private String maHD;
     private Date ngaytao;
-    private Date ngaytt;
+    private String maNV;
     private int soluong;
+    private boolean trangthai;
 
     public HoaDonBH() {
     }
 
-    public HoaDonBH(String maHD, Date ngaytao, Date ngaytt, int soluong) {
+    public HoaDonBH(String maHD, Date ngaytao, String maNV, int soluong, boolean trangthai) {
         this.maHD = maHD;
         this.ngaytao = ngaytao;
-        this.ngaytt = ngaytt;
+        this.maNV = maNV;
         this.soluong = soluong;
+        this.trangthai = trangthai;
     }
 
     public String getMaHD() {
@@ -43,12 +45,12 @@ public class HoaDonBH {
         this.ngaytao = ngaytao;
     }
 
-    public Date getNgaytt() {
-        return ngaytt;
+    public String getMaNV() {
+        return maNV;
     }
 
-    public void setNgaytt(Date ngaytt) {
-        this.ngaytt = ngaytt;
+    public void setMaNV(String maNV) {
+        this.maNV = maNV;
     }
 
     public int getSoluong() {
@@ -59,10 +61,19 @@ public class HoaDonBH {
         this.soluong = soluong;
     }
 
+    public boolean isTrangthai() {
+        return trangthai;
+    }
+
+    public void setTrangthai(boolean trangthai) {
+        this.trangthai = trangthai;
+    }
+
     @Override
     public String toString() {
-        return "HoaDon{" + "maHD=" + maHD + ", ngaytao=" + ngaytao + ", ngaytt=" + ngaytt + ", soluong=" + soluong + '}';
+        return "HoaDonBH{" + "maHD=" + maHD + ", ngaytao=" + ngaytao + ", maNV=" + maNV + ", soluong=" + soluong + ", trangthai=" + trangthai + '}';
     }
+
     
     
     

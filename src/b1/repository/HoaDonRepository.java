@@ -271,6 +271,7 @@ public class HoaDonRepository {
 
         return list;
     }
+   
 
     public static void main(String[] args) {
         List<HoaDon> list = new HoaDonRepository().getAll();
