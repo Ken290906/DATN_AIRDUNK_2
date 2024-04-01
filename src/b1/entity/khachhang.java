@@ -30,6 +30,15 @@ public class khachhang {
         this.Deleted = Deleted;
     }
 
+    public khachhang(String MaKH, String TenKH, String SDT, Boolean GioiTinh, int Deleted) {
+        this.MaKH = MaKH;
+        this.TenKH = TenKH;
+        this.SDT = SDT;
+        this.GioiTinh = GioiTinh;
+        this.Deleted = Deleted;
+    }
+    
+
     public String getMaKH() {
         return MaKH;
     }

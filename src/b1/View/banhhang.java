@@ -167,6 +167,8 @@ public class banhhang extends javax.swing.JInternalFrame {
         });
 
     }
+    
+ 
 
     public void showHoaDonBH(List<HoaDonBH> listHDBH) {
         dtmHoaDon.setRowCount(0);
@@ -404,12 +406,12 @@ public class banhhang extends javax.swing.JInternalFrame {
 
         txtMaHD.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtMaHD.setForeground(new java.awt.Color(0, 204, 204));
-        txtMaHD.setText("18-01-2024");
+        txtMaHD.setText("HD-001");
         txtMaHD.setBorder(null);
 
         txtNgayTao.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtNgayTao.setForeground(new java.awt.Color(0, 204, 204));
-        txtNgayTao.setText("23-01-2024");
+        txtNgayTao.setText("27-01-2024");
         txtNgayTao.setBorder(null);
 
         jSeparator5.setBackground(new java.awt.Color(0, 0, 0));

@@ -6,6 +6,7 @@ package b1.View.chucnang;
 
 import ViewModelKH.khachhangViewModel;
 import b1.View.banhhang;
+import b1.View.khachhang;
 import b1.services.khachhangService;
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +75,16 @@ private DefaultTableModel bangkh = new DefaultTableModel();
         listkh = khs.Searchkhachhangbanhang(txtsearch.getText());
         showdataKh(listkh);
     }
+    
+     public khachhang getformdata() {
+        String MAKH = txtMaKH.getText();
+        String TKH = txtMaKH.getText();
+        String SDT = txtsdt.getText();
+        Boolean GT = !rdonam.isSelected();
+  
+        khachhang kh = new khachhang();
+        return kh;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -92,6 +103,15 @@ private DefaultTableModel bangkh = new DefaultTableModel();
         txtsearch = new b1.View.chucnang.TextField();
         buttonGradient9 = new b1.View.chucnang.ButtonGradient();
         panel2 = new b1.View.chucnang.Panel();
+        jPanel6 = new javax.swing.JPanel();
+        txtMaKH = new b1.View.chucnang.TextField();
+        btnreseat = new b1.View.chucnang.ButtonGradient();
+        btnthem = new b1.View.chucnang.ButtonGradient();
+        txtsdt = new b1.View.chucnang.TextField();
+        txtTenKH = new b1.View.chucnang.TextField();
+        jLabel1 = new javax.swing.JLabel();
+        rdonu = new javax.swing.JRadioButton();
+        rdonam = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -113,6 +133,11 @@ private DefaultTableModel bangkh = new DefaultTableModel();
         tbldanhsachkhachhang.setGridColor(new java.awt.Color(255, 255, 255));
         tbldanhsachkhachhang.setRowHeight(30);
         tbldanhsachkhachhang.setSelectionBackground(new java.awt.Color(153, 153, 255));
+        tbldanhsachkhachhang.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbldanhsachkhachhangMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbldanhsachkhachhang);
 
         txtsearch.setLabelText("Tìm kiếm");
@@ -174,7 +199,116 @@ private DefaultTableModel bangkh = new DefaultTableModel();
         );
 
         panel1.addTab("Danh sách khách hàng", jPanel4);
-        panel1.addTab("Tạo mới khách hàng", panel2);
+        panel1.addTab("", panel2);
+
+        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+
+        txtMaKH.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtMaKH.setLabelText("Mã KH");
+
+        btnreseat.setBackground(new java.awt.Color(153, 255, 255));
+        btnreseat.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnreseat.setForeground(new java.awt.Color(0, 0, 0));
+        btnreseat.setText("Reseat");
+        btnreseat.setColor1(new java.awt.Color(204, 204, 255));
+        btnreseat.setColor2(new java.awt.Color(255, 255, 255));
+        btnreseat.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnreseat.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnreseatMouseClicked(evt);
+            }
+        });
+        btnreseat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnreseatActionPerformed(evt);
+            }
+        });
+
+        btnthem.setBackground(new java.awt.Color(153, 255, 255));
+        btnthem.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnthem.setForeground(new java.awt.Color(0, 0, 0));
+        btnthem.setText("Thêm");
+        btnthem.setColor1(new java.awt.Color(204, 204, 255));
+        btnthem.setColor2(new java.awt.Color(255, 255, 255));
+        btnthem.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnthem.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnthemMouseClicked(evt);
+            }
+        });
+        btnthem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnthemActionPerformed(evt);
+            }
+        });
+
+        txtsdt.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtsdt.setLabelText("SDT");
+
+        txtTenKH.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtTenKH.setLabelText("Tên KH");
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setText("Giới Tính :");
+
+        rdonu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        rdonu.setText("Nữ");
+
+        rdonam.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        rdonam.setText("Nam");
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(41, 41, 41)
+                                .addComponent(rdonu))
+                            .addComponent(btnthem, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(rdonam)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnreseat, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(jPanel6Layout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtTenKH, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtMaKH, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtsdt, javax.swing.GroupLayout.PREFERRED_SIZE, 358, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(45, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(txtMaKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtTenKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(txtsdt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(32, 32, 32)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(rdonu)
+                    .addComponent(rdonam))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnreseat, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnthem, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
+        );
+
+        panel1.addTab("Tạo khách hàng", jPanel6);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -194,37 +328,55 @@ private DefaultTableModel bangkh = new DefaultTableModel();
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnreseatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnreseatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnreseatActionPerformed
+
+    private void btnreseatMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnreseatMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnreseatMouseClicked
+
     private void buttonGradient9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient9ActionPerformed
         // TODO add your handling code here:
         int index = tbldanhsachkhachhang.getSelectedRow();
         khachhangViewModel khModel = khs.getAll().get(index);
         String MKH = khModel.getMaKH();
         String TKH = khModel.getTenKH();
-        
-        
+
         dispose();
     }//GEN-LAST:event_buttonGradient9ActionPerformed
 
     private void buttonGradient9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonGradient9MouseClicked
         // TODO add your handling code here:
-       
 
-//                    String MCTSP = ctspViewModel.getMctsp();
-//                    String HSX = ctspViewModel.getIdhangsx();
-//                    String DSP = ctspViewModel.getIddongsp();
-//                    String MauSac = ctspViewModel.getIdphoimau();
-//                    String Size = ctspViewModel.getIdsize();
-//                    String doday = ctspViewModel.getIddoday();
-//                    String Chatlieu = ctspViewModel.getIdchatlieu();
-//                    String Matde = ctspViewModel.getIdmatde();
-//                    String day = ctspViewModel.getIdday();
-//                    String GiaB = ctspViewModel.getGiaban() + "";
-//                    String SL = ctspViewModel.getSoluong()+"";
-//
-//                    // Open your ThongTinChiTietSP dialog or perform any other action here
-//                    thongtinsanpham tt = new thongtinsanpham(MCTSP, HSX, DSP, Chatlieu, Size, Matde, GiaB, day, MauSac, doday,SL);
-//                    tt.setVisible(true);
+        //                    String MCTSP = ctspViewModel.getMctsp();
+        //                    String HSX = ctspViewModel.getIdhangsx();
+        //                    String DSP = ctspViewModel.getIddongsp();
+        //                    String MauSac = ctspViewModel.getIdphoimau();
+        //                    String Size = ctspViewModel.getIdsize();
+        //                    String doday = ctspViewModel.getIddoday();
+        //                    String Chatlieu = ctspViewModel.getIdchatlieu();
+        //                    String Matde = ctspViewModel.getIdmatde();
+        //                    String day = ctspViewModel.getIdday();
+        //                    String GiaB = ctspViewModel.getGiaban() + "";
+        //                    String SL = ctspViewModel.getSoluong()+"";
+        //
+        //                    // Open your ThongTinChiTietSP dialog or perform any other action here
+        //                    thongtinsanpham tt = new thongtinsanpham(MCTSP, HSX, DSP, Chatlieu, Size, Matde, GiaB, day, MauSac, doday,SL);
+        //                    tt.setVisible(true);
     }//GEN-LAST:event_buttonGradient9MouseClicked
+
+    private void tbldanhsachkhachhangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbldanhsachkhachhangMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tbldanhsachkhachhangMouseClicked
+
+    private void btnthemMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnthemMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnthemMouseClicked
+
+    private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnthemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -262,13 +414,22 @@ private DefaultTableModel bangkh = new DefaultTableModel();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private b1.View.chucnang.ButtonGradient btnreseat;
+    private b1.View.chucnang.ButtonGradient btnthem;
     private b1.View.chucnang.ButtonGradient buttonGradient9;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private b1.View.chucnang.Panel panel1;
     private b1.View.chucnang.Panel panel2;
+    private javax.swing.JRadioButton rdonam;
+    private javax.swing.JRadioButton rdonu;
     private javax.swing.JTable tbldanhsachkhachhang;
+    private b1.View.chucnang.TextField txtMaKH;
+    private b1.View.chucnang.TextField txtTenKH;
+    private b1.View.chucnang.TextField txtsdt;
     private b1.View.chucnang.TextField txtsearch;
     // End of variables declaration//GEN-END:variables
 }
