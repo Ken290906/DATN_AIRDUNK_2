@@ -27,12 +27,18 @@ import b1.services.sizeservices;
 import b1.services.tenmauservices;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
+import net.glxn.qrgen.QRCode;
+import net.glxn.qrgen.image.ImageType;
 
 /**
  *
@@ -113,8 +119,6 @@ public class sanphamthem extends javax.swing.JFrame {
         sp.showdata2(listviewmodel);
 //        somemothod();
     }
-    
-
 
     public void showcombobox1(List<hangsanxuat> listhsx) {
         combo1.removeAllElements();
@@ -229,7 +233,7 @@ public class sanphamthem extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Không có loại size nào bé như thế");
             return null;
         }
-        chitietsanpham ctsp1 = new chitietsanpham(IDHSX, IDDSP, IDPM, IDS, IDDD, IDCL, IDMD, IDD, Integer.valueOf(GB), 0,Integer.valueOf(SL));
+        chitietsanpham ctsp1 = new chitietsanpham(IDHSX, IDDSP, IDPM, IDS, IDDD, IDCL, IDMD, IDD, Integer.valueOf(GB), 0, Integer.valueOf(SL));
         return ctsp1;
     }
 
@@ -451,12 +455,34 @@ public class sanphamthem extends javax.swing.JFrame {
     private void btnthem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthem1ActionPerformed
         // TODO add your handling code here:
         int dk = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn thêm?");
+        sanphamchitietviewmodel spct = new sanphamchitietviewmodel();
         if (dk == JOptionPane.YES_OPTION) {
             JOptionPane.showMessageDialog(this, itf.Add(getformdata()));
+            String maSP = UUID.randomUUID().toString().substring(0, 3);// Tao ma qr ngau nhien
+            String data = "Mã sản phẩm: " + maSP + "\nTên sản phẩm: " + getformdata().getMasp(); // Tạo dữ liệu cho mã QR
+
+            // Tạo mã QR từ dữ liệu của sản phẩm
+            ByteArrayOutputStream stream = QRCode.from(data).to(ImageType.PNG).stream();
+
+            // Lưu ảnh mã QR vào thư mục cụ thể, ví dụ: "qr_images"
+            String qrImagePath = "C:\\QRSanPham\\" + maSP + ".png";
+
+            try {
+                FileOutputStream fos = new FileOutputStream(new File(qrImagePath));
+                fos.write(stream.toByteArray());
+                fos.flush();
+                fos.close();
+                // Hiển thị đường dẫn hoặc thông báo khi lưu ảnh thành công
+                JOptionPane.showMessageDialog(this, "Đã lưu ảnh mã QR vào: " + qrImagePath);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                // Hiển thị thông báo khi lưu ảnh không thành công
+                JOptionPane.showMessageDialog(this, "Lỗi khi lưu ảnh mã QR");
+            }
             listviewmodel = itf.getall();
 
         }
-        
+
         if (dk == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(this, "Bạn đã chọn xóa");
             return;
@@ -474,7 +500,7 @@ public class sanphamthem extends javax.swing.JFrame {
 
     private void btnbackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbackActionPerformed
         // TODO add your handling code here:
-        sanpham sp = new sanpham();      
+        sanpham sp = new sanpham();
         JPanel panelCTSP = sp.getPanelSPCT(); // Sử dụng instance hiện tại của ViewSanPham
         JPanel viewThemThuocTinhSP = jPanel1;
         viewThemThuocTinhSP.removeAll();

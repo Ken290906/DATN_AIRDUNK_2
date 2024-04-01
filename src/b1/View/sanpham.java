@@ -1628,9 +1628,8 @@ public class sanpham extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnxoa1ActionPerformed
 
     private void btnthem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthem2ActionPerformed
-        // TODO add your handling code here:
-        int show = tblthuoctinhsanpham.getSelectedRow();
-        int dk = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn Reseat?");
+        // TODO add your handling code here
+        int dk = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn Add?");
         if (dk == JOptionPane.YES_OPTION) {
             String TSP = (String) cbbtensanpham.getSelectedItem();
             sps.Add(getformdatasp(), TSP);

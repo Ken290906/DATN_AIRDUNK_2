@@ -70,7 +70,7 @@ public class banhhang extends javax.swing.JInternalFrame {
 
     private DefaultTableModel dtmHoaDon = new DefaultTableModel();
     private DefaultTableModel bangsanpham = new DefaultTableModel();
-
+    private DefaultTableModel dtmGiohang = new DefaultTableModel();
 //Combobox
     private DefaultComboBoxModel comboHang = new DefaultComboBoxModel();
     private DefaultComboBoxModel cbbGiamgia = new DefaultComboBoxModel();
@@ -714,7 +714,7 @@ public class banhhang extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "#", "Mã SPCT", "Tên SP", "Màu", "Size", "Gía bán", "Số lượng", "Thành tiền"
+                "#", "Mã SPCT", "Tên SP", "Màu", "Giá bán", "Size", "Số lượng", "Thành tiền"
             }
         ));
         tblgiohang.setGridColor(new java.awt.Color(255, 255, 255));
@@ -902,7 +902,15 @@ public class banhhang extends javax.swing.JInternalFrame {
 
     private void buttonGradient4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient4ActionPerformed
         // Make QR code
+        quetmaqr qr = new quetmaqr();
+        qr.setVisible(true);
 
+        String qrCode = qr.getName();
+        if (qrCode != null && !qrCode.isEmpty()) {
+            List<sanphamchitietviewmodel> listSP = sps.searchQR(qrCode);
+
+            showdata(listSP);
+        }
 
     }//GEN-LAST:event_buttonGradient4ActionPerformed
 

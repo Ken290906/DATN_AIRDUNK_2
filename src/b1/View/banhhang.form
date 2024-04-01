@@ -954,8 +954,8 @@
                                 <Column editable="true" title="M&#xe3; SPCT" type="java.lang.Object"/>
                                 <Column editable="true" title="T&#xea;n SP" type="java.lang.Object"/>
                                 <Column editable="true" title="M&#xe0;u" type="java.lang.Object"/>
+                                <Column editable="true" title="Gi&#xe1; b&#xe1;n" type="java.lang.Object"/>
                                 <Column editable="true" title="Size" type="java.lang.Object"/>
-                                <Column editable="true" title="G&#xed;a b&#xe1;n" type="java.lang.Object"/>
                                 <Column editable="true" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng" type="java.lang.Object"/>
                                 <Column editable="true" title="Th&#xe0;nh ti&#x1ec1;n" type="java.lang.Object"/>
                               </Table>

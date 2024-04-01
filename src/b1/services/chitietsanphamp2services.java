@@ -43,4 +43,8 @@ public class chitietsanphamp2services {
     public List<sanphamchitietviewmodel> Searchbanhang(String timkiem){
         return  spr.Searchbanhang(timkiem);
     }
+    
+    public List<sanphamchitietviewmodel> searchQR(String QRCode) {
+        return spr.searchQR(QRCode);
+    }
 }
