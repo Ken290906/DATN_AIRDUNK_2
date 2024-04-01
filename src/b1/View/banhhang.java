@@ -91,6 +91,7 @@ public class banhhang extends javax.swing.JInternalFrame {
      * Creates new form gd1
      */
     public banhhang() {
+        int a = 0;
         initComponents();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
