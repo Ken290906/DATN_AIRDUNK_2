@@ -4,17 +4,45 @@
  */
 package b1.View.chucnang;
 
+import ViewModelKH.khachhangViewModel;
+import b1.services.khachhangService;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author DELL
  */
 public class khachhangbanhang extends javax.swing.JFrame {
+    //List
+private List<khachhangViewModel> listkh = new ArrayList<>();
+//Services
+private khachhangService khs = new khachhangService();
+//Table
+private DefaultTableModel bangkh = new DefaultTableModel();
 
     /**
      * Creates new form khachhangbanhang
      */
     public khachhangbanhang() {
         initComponents();
+        setLocationRelativeTo(null);
+        bangkh = (DefaultTableModel) tbldanhsachkhachhang.getModel();
+        listkh = khs.getAll();
+        showdataKh(listkh);
+        
+    }
+    public void showdataKh(List<khachhangViewModel> list){
+        bangkh.setRowCount(0);
+        int stt = 0;
+        for (khachhangViewModel viewModel : list) {
+         stt++;
+          String gioiTinhText = viewModel.isGioiTinh ? "nam" : "nữ";
+            bangkh.addRow(new Object[]{stt,viewModel.getMaKH(),viewModel.getTenKH(),viewModel.getSDT(),gioiTinhText});
+        }
+       
     }
 
     /**
@@ -32,6 +60,7 @@ public class khachhangbanhang extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tbldanhsachkhachhang = new javax.swing.JTable();
         textField1 = new b1.View.chucnang.TextField();
+        buttonGradient9 = new b1.View.chucnang.ButtonGradient();
         panel2 = new b1.View.chucnang.Panel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -58,15 +87,32 @@ public class khachhangbanhang extends javax.swing.JFrame {
 
         textField1.setLabelText("Tìm kiếm");
 
+        buttonGradient9.setBackground(new java.awt.Color(153, 255, 255));
+        buttonGradient9.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        buttonGradient9.setForeground(new java.awt.Color(0, 0, 0));
+        buttonGradient9.setText("Chọn");
+        buttonGradient9.setColor1(new java.awt.Color(204, 204, 255));
+        buttonGradient9.setColor2(new java.awt.Color(255, 255, 255));
+        buttonGradient9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonGradient9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonGradient9ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 339, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buttonGradient9, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(121, 121, 121))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -75,7 +121,8 @@ public class khachhangbanhang extends javax.swing.JFrame {
                 .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(buttonGradient9, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -87,7 +134,7 @@ public class khachhangbanhang extends javax.swing.JFrame {
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 264, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -98,19 +145,24 @@ public class khachhangbanhang extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 384, Short.MAX_VALUE)
+            .addGap(0, 423, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 317, Short.MAX_VALUE)
+            .addGap(0, 360, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonGradient9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient9ActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_buttonGradient9ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -148,6 +200,7 @@ public class khachhangbanhang extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private b1.View.chucnang.ButtonGradient buttonGradient9;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;

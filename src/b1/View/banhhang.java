@@ -423,7 +423,7 @@ public class banhhang extends javax.swing.JInternalFrame {
 
         jTextField7.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jTextField7.setForeground(new java.awt.Color(255, 51, 51));
-        jTextField7.setText("0 Đ");
+        jTextField7.setText("0 đ");
         jTextField7.setBorder(null);
 
         btnReset.setBackground(new java.awt.Color(153, 255, 255));
@@ -476,7 +476,7 @@ public class banhhang extends javax.swing.JInternalFrame {
 
         txtThanhTien.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtThanhTien.setForeground(new java.awt.Color(255, 51, 51));
-        txtThanhTien.setText("-120,000đ");
+        txtThanhTien.setText("0 đ");
         txtThanhTien.setBorder(null);
 
         cbbVoucher.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -927,6 +927,7 @@ public class banhhang extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         khachhangbanhang kh = new khachhangbanhang();
         kh.setVisible(true);
+      
     }//GEN-LAST:event_buttonGradient9ActionPerformed
 
 
