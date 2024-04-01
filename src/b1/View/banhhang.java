@@ -6,6 +6,7 @@ package b1.View;
 
 import ViewModelHD.HoaDon;
 import ViewModelSP.sanphamchitietviewmodel;
+import b1.View.chucnang.khachhangbanhang;
 import b1.View.chucnang.quetmaqr;
 import b1.View.intefacee.interfacesp;
 import b1.View.intefacee.iterface2;
@@ -355,6 +356,11 @@ public class banhhang extends javax.swing.JInternalFrame {
         buttonGradient9.setColor1(new java.awt.Color(204, 204, 255));
         buttonGradient9.setColor2(new java.awt.Color(255, 255, 255));
         buttonGradient9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonGradient9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonGradient9ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -707,7 +713,7 @@ public class banhhang extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "#", "Mã SPCT", "Tên SP", "Màu", "Size", "Gía bán", "Thành tiền"
+                "#", "Mã SPCT", "Tên SP", "Màu", "Size", "Gía bán", "Số lượng", "Thành tiền"
             }
         ));
         tblgiohang.setGridColor(new java.awt.Color(255, 255, 255));
@@ -761,6 +767,11 @@ public class banhhang extends javax.swing.JInternalFrame {
         tbldanhsachsanpham.setGridColor(new java.awt.Color(255, 255, 255));
         tbldanhsachsanpham.setRowHeight(30);
         tbldanhsachsanpham.setSelectionBackground(new java.awt.Color(153, 153, 255));
+        tbldanhsachsanpham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbldanhsachsanphamMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tbldanhsachsanpham);
 
         txtsearch.setLabelText("Tìm kiếm");
@@ -907,6 +918,16 @@ public class banhhang extends javax.swing.JInternalFrame {
         cbbhang.setSelectedIndex(0);
         showdata(listsp);
     }//GEN-LAST:event_buttonGradient8ActionPerformed
+
+    private void tbldanhsachsanphamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbldanhsachsanphamMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tbldanhsachsanphamMouseClicked
+
+    private void buttonGradient9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient9ActionPerformed
+        // TODO add your handling code here:
+        khachhangbanhang kh = new khachhangbanhang();
+        kh.setVisible(true);
+    }//GEN-LAST:event_buttonGradient9ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
