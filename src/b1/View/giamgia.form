@@ -85,32 +85,35 @@
                       </Group>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" alignment="0" attributes="0">
+                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
+                              <Component id="panel2" min="-2" pref="1388" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
+                              <EmptySpace min="-2" pref="217" max="-2" attributes="0"/>
+                              <Component id="dcNgayBatDau" min="-2" pref="199" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="369" max="-2" attributes="0"/>
+                              <Component id="txtGiaTri1" min="-2" pref="200" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <EmptySpace pref="34" max="32767" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="430" max="-2" attributes="0"/>
-                      <Component id="btnThem" min="-2" pref="115" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
-                      <Component id="btnXoa" min="-2" pref="115" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Component id="dcNgayKetThuc" min="-2" pref="199" max="-2" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Component id="btnThem" min="-2" pref="115" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
+                              <Component id="btnXoa" min="-2" pref="115" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
                       <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                       <Component id="btnEdit" min="-2" pref="115" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
                       <Component id="btnEdit1" min="-2" pref="115" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="217" max="-2" attributes="0"/>
-                              <Component id="txtNgayBatDau1" min="-2" pref="200" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="92" max="-2" attributes="0"/>
-                              <Component id="txtNgayKetThuc1" min="-2" pref="200" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
-                              <Component id="txtGiaTri1" min="-2" pref="200" max="-2" attributes="0"/>
-                          </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                              <Component id="panel2" min="-2" pref="1388" max="-2" attributes="0"/>
-                          </Group>
-                      </Group>
-                      <EmptySpace pref="34" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -126,11 +129,13 @@
                           <Component id="txtMa" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtNgayBatDau1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtGiaTriToiDa1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtNgayKetThuc1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtGiaTri1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="103" groupAlignment="3" attributes="0">
+                              <Component id="txtGiaTriToiDa1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="txtGiaTri1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="dcNgayBatDau" alignment="1" min="-2" pref="46" max="-2" attributes="0"/>
+                          </Group>
+                          <Component id="dcNgayKetThuc" min="-2" pref="46" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="52" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
@@ -188,14 +193,6 @@
                   <Font name="Segoe UI" size="12" style="1"/>
                 </Property>
                 <Property name="labelText" type="java.lang.String" value="M&#xe3; Phi&#x1ebf;u G&#x1ec9;am"/>
-              </Properties>
-            </Component>
-            <Component class="b1.View.chucnang.TextField" name="txtNgayBatDau1">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="12" style="1"/>
-                </Property>
-                <Property name="labelText" type="java.lang.String" value="Ng&#xe0;y b&#x1eaf;t d&#x1ea7;u"/>
               </Properties>
             </Component>
             <Component class="b1.View.chucnang.ButtonGradient" name="btnThem">
@@ -441,14 +438,6 @@
                 </Container>
               </SubComponents>
             </Container>
-            <Component class="b1.View.chucnang.TextField" name="txtNgayKetThuc1">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Segoe UI" size="12" style="1"/>
-                </Property>
-                <Property name="labelText" type="java.lang.String" value="Ng&#xe0;y k&#x1ebf;t th&#xfa;c"/>
-              </Properties>
-            </Component>
             <Component class="b1.View.chucnang.TextField" name="txtGiaTri1">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -479,6 +468,16 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEdit1ActionPerformed"/>
               </Events>
+            </Component>
+            <Component class="com.toedter.calendar.JDateChooser" name="dcNgayBatDau">
+              <Properties>
+                <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
+              </Properties>
+            </Component>
+            <Component class="com.toedter.calendar.JDateChooser" name="dcNgayKetThuc">
+              <Properties>
+                <Property name="dateFormatString" type="java.lang.String" value="dd-MM-yyyy"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>

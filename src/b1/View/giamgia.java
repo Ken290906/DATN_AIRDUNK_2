@@ -25,6 +25,8 @@ import java.time.LocalDate;
 import java.util.Date;
 import java.time.ZoneId;
 import static java.time.temporal.TemporalQueries.localDate;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -94,8 +96,8 @@ public class giamgia extends javax.swing.JInternalFrame {
         Date currentDateTime = new Date();
         String giaTri = txtGiaTri1.getText() + "";
         String giaTriToiDa = txtGiaTriToiDa1.getText() + "";
-        Date ngaybatdau = spx.parse(txtNgayBatDau1.getText());
-        Date ngayketthuc = spx.parse(txtNgayKetThuc1.getText());
+        Date ngaybatdau = dcNgayBatDau.getDate();
+        Date ngayketthuc = dcNgayKetThuc.getDate();
 
         int trangThai = 10;
         LocalDate localDate = LocalDate.now();
@@ -105,7 +107,7 @@ public class giamgia extends javax.swing.JInternalFrame {
         if (ngaybatdau.equals(LocalDate.now())) {
             trangThai = 1;
         }
-        
+
         if (ngaybatdau.after(date)) {
             trangThai = 2;
         }
@@ -129,7 +131,6 @@ public class giamgia extends javax.swing.JInternalFrame {
         txtGiaTriToiDa1 = new b1.View.chucnang.TextField();
         txtSoLuong = new b1.View.chucnang.TextField();
         txtMa = new b1.View.chucnang.TextField();
-        txtNgayBatDau1 = new b1.View.chucnang.TextField();
         btnThem = new b1.View.chucnang.ButtonGradient();
         btnXoa = new b1.View.chucnang.ButtonGradient();
         btnEdit = new b1.View.chucnang.ButtonGradient();
@@ -140,9 +141,10 @@ public class giamgia extends javax.swing.JInternalFrame {
         txtTim = new b1.View.chucnang.TextField();
         btnSearch = new b1.View.chucnang.ButtonGradient();
         cbbTrangthai = new b1.View.chucnang.Combobox();
-        txtNgayKetThuc1 = new b1.View.chucnang.TextField();
         txtGiaTri1 = new b1.View.chucnang.TextField();
         btnEdit1 = new b1.View.chucnang.ButtonGradient();
+        dcNgayBatDau = new com.toedter.calendar.JDateChooser();
+        dcNgayKetThuc = new com.toedter.calendar.JDateChooser();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setForeground(new java.awt.Color(255, 255, 255));
@@ -164,9 +166,6 @@ public class giamgia extends javax.swing.JInternalFrame {
 
         txtMa.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         txtMa.setLabelText("Mã Phiếu Gỉam");
-
-        txtNgayBatDau1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        txtNgayBatDau1.setLabelText("Ngày bắt dầu");
 
         btnThem.setForeground(new java.awt.Color(0, 0, 0));
         btnThem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/b1/khoanh/plus.png"))); // NOI18N
@@ -274,9 +273,6 @@ public class giamgia extends javax.swing.JInternalFrame {
 
         panel2.addTab("", jPanel4);
 
-        txtNgayKetThuc1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        txtNgayKetThuc1.setLabelText("Ngày kết thúc");
-
         txtGiaTri1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         txtGiaTri1.setLabelText("Giá trị");
 
@@ -291,6 +287,10 @@ public class giamgia extends javax.swing.JInternalFrame {
                 btnEdit1ActionPerformed(evt);
             }
         });
+
+        dcNgayBatDau.setDateFormatString("dd-MM-yyyy");
+
+        dcNgayKetThuc.setDateFormatString("dd-MM-yyyy");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -313,28 +313,29 @@ public class giamgia extends javax.swing.JInternalFrame {
                                 .addComponent(txtVCH, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(183, 183, 183))))
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(24, 24, 24)
+                        .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1388, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(217, 217, 217)
+                        .addComponent(dcNgayBatDau, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(369, 369, 369)
+                        .addComponent(txtGiaTri1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(34, Short.MAX_VALUE))
+            .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(430, 430, 430)
-                .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(dcNgayKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(42, 42, 42)
                 .addComponent(btnEdit, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(43, 43, 43)
                 .addComponent(btnEdit1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(217, 217, 217)
-                        .addComponent(txtNgayBatDau1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(92, 92, 92)
-                        .addComponent(txtNgayKetThuc1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(76, 76, 76)
-                        .addComponent(txtGiaTri1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, 1388, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(34, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -347,11 +348,12 @@ public class giamgia extends javax.swing.JInternalFrame {
                     .addComponent(txtVCH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtMa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(42, 42, 42)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNgayBatDau1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtGiaTriToiDa1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNgayKetThuc1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtGiaTri1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(txtGiaTriToiDa1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtGiaTri1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(dcNgayBatDau, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dcNgayKetThuc, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -398,7 +400,12 @@ public class giamgia extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Vui long ko de trong");
             return;
         }
-        if (txtNgayKetThuc1.getText().trim().isEmpty()) {
+
+        if (dcNgayBatDau.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Vui long ko de trong");
+            return;
+        }
+        if (dcNgayKetThuc.getDate() == null) {
             JOptionPane.showMessageDialog(this, "Vui long ko de trong");
             return;
         }
@@ -462,12 +469,12 @@ public class giamgia extends javax.swing.JInternalFrame {
         GiamGia1 gg = lists.get(row);
         txtVCH.setText(gg.getMaVCH());
         txtMa.setText(gg.getMaGiamGia());
-        txtSoLuong.setText(gg.getSoLuong() + "");
-        txtGiaTri1.setText(gg.getGiaTri() + "");
-        txtNgayKetThuc1.setText(gg.getNgayKetThuc() + "");
-        txtNgayBatDau1.setText(gg.getNgayBatDau()+"");
-        txtGiaTriToiDa1.setText(gg.getHanMuc()+"");
-        
+        txtSoLuong.setText(String.valueOf(gg.getSoLuong()));
+        txtGiaTri1.setText(String.valueOf(gg.getGiaTri()));
+        dcNgayKetThuc.setDate(gg.getNgayKetThuc());
+        dcNgayBatDau.setDate(gg.getNgayBatDau());
+        txtGiaTriToiDa1.setText(String.valueOf(gg.getHanMuc()));
+
     }//GEN-LAST:event_tblHienThiMouseClicked
 
     private void txtTimActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTimActionPerformed
@@ -478,8 +485,8 @@ public class giamgia extends javax.swing.JInternalFrame {
         txtGiaTri1.setText("");
         txtGiaTriToiDa1.setText("");
         txtMa.setText("");
-        txtNgayBatDau1.setText("");
-        txtNgayKetThuc1.setText("");
+        dcNgayKetThuc.setDate(null);
+        dcNgayBatDau.setDate(null);
         txtSoLuong.setText("");
         txtTim.setText("");
         txtVCH.setText("");
@@ -493,6 +500,8 @@ public class giamgia extends javax.swing.JInternalFrame {
     private b1.View.chucnang.ButtonGradient btnThem;
     private b1.View.chucnang.ButtonGradient btnXoa;
     private b1.View.chucnang.Combobox cbbTrangthai;
+    private com.toedter.calendar.JDateChooser dcNgayBatDau;
+    private com.toedter.calendar.JDateChooser dcNgayKetThuc;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
@@ -503,8 +512,6 @@ public class giamgia extends javax.swing.JInternalFrame {
     private b1.View.chucnang.TextField txtGiaTri1;
     private b1.View.chucnang.TextField txtGiaTriToiDa1;
     private b1.View.chucnang.TextField txtMa;
-    private b1.View.chucnang.TextField txtNgayBatDau1;
-    private b1.View.chucnang.TextField txtNgayKetThuc1;
     private b1.View.chucnang.TextField txtSoLuong;
     private b1.View.chucnang.TextField txtTim;
     private b1.View.chucnang.TextField txtVCH;
