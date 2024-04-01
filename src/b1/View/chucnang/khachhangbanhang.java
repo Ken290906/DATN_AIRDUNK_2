@@ -5,10 +5,13 @@
 package b1.View.chucnang;
 
 import ViewModelKH.khachhangViewModel;
+import b1.View.banhhang;
 import b1.services.khachhangService;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -33,6 +36,28 @@ private DefaultTableModel bangkh = new DefaultTableModel();
         listkh = khs.getAll();
         showdataKh(listkh);
         
+        txtsearch.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                Search();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                Search();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                Search();
+            }
+            
+        }
+            
+        );
+        
+   
+        
     }
     public void showdataKh(List<khachhangViewModel> list){
         bangkh.setRowCount(0);
@@ -43,6 +68,11 @@ private DefaultTableModel bangkh = new DefaultTableModel();
             bangkh.addRow(new Object[]{stt,viewModel.getMaKH(),viewModel.getTenKH(),viewModel.getSDT(),gioiTinhText});
         }
        
+    }
+    
+    private void Search(){
+        listkh = khs.Searchkhachhangbanhang(txtsearch.getText());
+        showdataKh(listkh);
     }
 
     /**
@@ -59,7 +89,7 @@ private DefaultTableModel bangkh = new DefaultTableModel();
         jPanel5 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tbldanhsachkhachhang = new javax.swing.JTable();
-        textField1 = new b1.View.chucnang.TextField();
+        txtsearch = new b1.View.chucnang.TextField();
         buttonGradient9 = new b1.View.chucnang.ButtonGradient();
         panel2 = new b1.View.chucnang.Panel();
 
@@ -85,7 +115,7 @@ private DefaultTableModel bangkh = new DefaultTableModel();
         tbldanhsachkhachhang.setSelectionBackground(new java.awt.Color(153, 153, 255));
         jScrollPane1.setViewportView(tbldanhsachkhachhang);
 
-        textField1.setLabelText("Tìm kiếm");
+        txtsearch.setLabelText("Tìm kiếm");
 
         buttonGradient9.setBackground(new java.awt.Color(153, 255, 255));
         buttonGradient9.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -94,6 +124,11 @@ private DefaultTableModel bangkh = new DefaultTableModel();
         buttonGradient9.setColor1(new java.awt.Color(204, 204, 255));
         buttonGradient9.setColor2(new java.awt.Color(255, 255, 255));
         buttonGradient9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonGradient9.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                buttonGradient9MouseClicked(evt);
+            }
+        });
         buttonGradient9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonGradient9ActionPerformed(evt);
@@ -107,7 +142,7 @@ private DefaultTableModel bangkh = new DefaultTableModel();
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -118,7 +153,7 @@ private DefaultTableModel bangkh = new DefaultTableModel();
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(4, 4, 4)
-                .addComponent(textField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -161,8 +196,35 @@ private DefaultTableModel bangkh = new DefaultTableModel();
 
     private void buttonGradient9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient9ActionPerformed
         // TODO add your handling code here:
+        int index = tbldanhsachkhachhang.getSelectedRow();
+        khachhangViewModel khModel = khs.getAll().get(index);
+        String MKH = khModel.getMaKH();
+        String TKH = khModel.getTenKH();
+        
+        
         dispose();
     }//GEN-LAST:event_buttonGradient9ActionPerformed
+
+    private void buttonGradient9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonGradient9MouseClicked
+        // TODO add your handling code here:
+       
+
+//                    String MCTSP = ctspViewModel.getMctsp();
+//                    String HSX = ctspViewModel.getIdhangsx();
+//                    String DSP = ctspViewModel.getIddongsp();
+//                    String MauSac = ctspViewModel.getIdphoimau();
+//                    String Size = ctspViewModel.getIdsize();
+//                    String doday = ctspViewModel.getIddoday();
+//                    String Chatlieu = ctspViewModel.getIdchatlieu();
+//                    String Matde = ctspViewModel.getIdmatde();
+//                    String day = ctspViewModel.getIdday();
+//                    String GiaB = ctspViewModel.getGiaban() + "";
+//                    String SL = ctspViewModel.getSoluong()+"";
+//
+//                    // Open your ThongTinChiTietSP dialog or perform any other action here
+//                    thongtinsanpham tt = new thongtinsanpham(MCTSP, HSX, DSP, Chatlieu, Size, Matde, GiaB, day, MauSac, doday,SL);
+//                    tt.setVisible(true);
+    }//GEN-LAST:event_buttonGradient9MouseClicked
 
     /**
      * @param args the command line arguments
@@ -207,6 +269,6 @@ private DefaultTableModel bangkh = new DefaultTableModel();
     private b1.View.chucnang.Panel panel1;
     private b1.View.chucnang.Panel panel2;
     private javax.swing.JTable tbldanhsachkhachhang;
-    private b1.View.chucnang.TextField textField1;
+    private b1.View.chucnang.TextField txtsearch;
     // End of variables declaration//GEN-END:variables
 }

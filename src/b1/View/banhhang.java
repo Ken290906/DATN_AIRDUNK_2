@@ -416,7 +416,6 @@ public class banhhang extends javax.swing.JInternalFrame {
 
         txtNgayTT.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtNgayTT.setForeground(new java.awt.Color(0, 204, 204));
-        txtNgayTT.setText("??-??-????");
         txtNgayTT.setBorder(null);
 
         jSeparator6.setBackground(new java.awt.Color(0, 0, 0));

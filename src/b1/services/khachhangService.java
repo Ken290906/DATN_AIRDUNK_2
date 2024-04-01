@@ -32,5 +32,8 @@ public class khachhangService {
   public List<khachhangViewModel> Search(String type) {
        return repo.Search(type);
    }
+   public List<khachhangViewModel> Searchkhachhangbanhang(String timkiem) {
+       return repo.Searchkhachhangbanhang(timkiem);
+   }
  
 }

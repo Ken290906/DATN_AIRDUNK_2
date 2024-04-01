@@ -4,7 +4,6 @@
  */
 package b1.repository;
 
-
 import ViewModelKH.khachhangViewModel;
 import java.util.ArrayList;
 import java.util.List;
@@ -162,5 +161,40 @@ public class khachhangRepository {
         } catch (Exception e) {
         }
         return list;
+    }
+
+    public List<khachhangViewModel> Searchkhachhangbanhang(String timkiem) {
+        List<khachhangViewModel> listsanpham = new ArrayList<>();
+        String sql = """
+SELECT [MaKH]
+      ,[TenKhachHang]
+      ,[SDT]
+      ,[Deleted]
+      ,[CreatedAt]
+      ,[CreatedBy]
+      ,[UpdatedAt]
+      ,[UpdatedBy]
+  FROM [dbo].[KhachHang]
+  Where KhachHang.Deleted = 0 AND MaKH Like ? or TenKhachHang Like ? or SDT Like ? 
+                       """;
+        try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setObject(1, '%' + timkiem + '%');
+            ps.setObject(2, '%' + timkiem + '%');
+            ps.setObject(3, '%' + timkiem + '%');
+
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                khachhangViewModel khModel = new khachhangViewModel();
+                khModel.setMaKH(rs.getString(1));
+                khModel.setTenKH(rs.getString(2));
+                khModel.setSDT(rs.getString(3));
+                listsanpham.add(khModel);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listsanpham;
     }
 }
