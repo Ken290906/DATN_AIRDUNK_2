@@ -130,10 +130,12 @@
                       </Group>
                       <EmptySpace min="-2" pref="42" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
-                          <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="txtGiaTriToiDa1" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="txtGiaTri1" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="dcNgayBatDau" alignment="1" min="-2" pref="46" max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="txtGiaTriToiDa1" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="txtGiaTri1" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <Component id="dcNgayKetThuc" min="-2" pref="46" max="-2" attributes="0"/>
                       </Group>
