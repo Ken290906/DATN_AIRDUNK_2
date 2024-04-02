@@ -47,4 +47,7 @@ public class chitietsanphamp2services {
     public List<sanphamchitietviewmodel> searchQR(String QRCode) {
         return spr.searchQR(QRCode);
     }
+    public List<sanphamchitietviewmodel> click(){
+        return spr.clicksanpham();
+    }
 }

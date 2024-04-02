@@ -8,6 +8,8 @@ import ViewModelKH.khachhangViewModel;
 import b1.View.banhhang;
 import b1.View.khachhang;
 import b1.services.khachhangService;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
@@ -21,11 +23,12 @@ import javax.swing.table.DefaultTableModel;
  */
 public class khachhangbanhang extends javax.swing.JFrame {
     //List
-private List<khachhangViewModel> listkh = new ArrayList<>();
+
+    private List<khachhangViewModel> listkh = new ArrayList<>();
 //Services
-private khachhangService khs = new khachhangService();
+    private khachhangService khs = new khachhangService();
 //Table
-private DefaultTableModel bangkh = new DefaultTableModel();
+    private DefaultTableModel bangkh = new DefaultTableModel();
 
     /**
      * Creates new form khachhangbanhang
@@ -36,7 +39,8 @@ private DefaultTableModel bangkh = new DefaultTableModel();
         bangkh = (DefaultTableModel) tbldanhsachkhachhang.getModel();
         listkh = khs.getAll();
         showdataKh(listkh);
-        
+        tbldanhsachkhachhang.setDefaultEditor(Object.class, null);
+
         txtsearch.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -52,36 +56,35 @@ private DefaultTableModel bangkh = new DefaultTableModel();
             public void changedUpdate(DocumentEvent e) {
                 Search();
             }
-            
+
         }
-            
         );
-        
-   
-        
+     
+
     }
-    public void showdataKh(List<khachhangViewModel> list){
+
+    public void showdataKh(List<khachhangViewModel> list) {
         bangkh.setRowCount(0);
         int stt = 0;
         for (khachhangViewModel viewModel : list) {
-         stt++;
-          String gioiTinhText = viewModel.isGioiTinh ? "nam" : "nữ";
-            bangkh.addRow(new Object[]{stt,viewModel.getMaKH(),viewModel.getTenKH(),viewModel.getSDT(),gioiTinhText});
+            stt++;
+            String gioiTinhText = viewModel.isGioiTinh ? "nam" : "nữ";
+            bangkh.addRow(new Object[]{stt, viewModel.getMaKH(), viewModel.getTenKH(), viewModel.getSDT(), gioiTinhText});
         }
-       
+
     }
-    
-    private void Search(){
+
+    private void Search() {
         listkh = khs.Searchkhachhangbanhang(txtsearch.getText());
         showdataKh(listkh);
     }
-    
-     public khachhang getformdata() {
+
+    public khachhang getformdata() {
         String MAKH = txtMaKH.getText();
         String TKH = txtMaKH.getText();
         String SDT = txtsdt.getText();
         Boolean GT = !rdonam.isSelected();
-  
+
         khachhang kh = new khachhang();
         return kh;
     }
@@ -341,9 +344,12 @@ private DefaultTableModel bangkh = new DefaultTableModel();
         int index = tbldanhsachkhachhang.getSelectedRow();
         khachhangViewModel khModel = khs.getAll().get(index);
         String MKH = khModel.getMaKH();
-        String TKH = khModel.getTenKH();
-
+        String TKH = khModel.getTenKH();       
+        banhhang bh = new banhhang(MKH, TKH);
+        bh.setVisible(true);
         dispose();
+
+       
     }//GEN-LAST:event_buttonGradient9ActionPerformed
 
     private void buttonGradient9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonGradient9MouseClicked

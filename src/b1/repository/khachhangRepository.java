@@ -47,6 +47,47 @@ public class khachhangRepository {
         }
         return list;
 
+    }public List<khachhangViewModel> getMaKH() {
+        List<khachhangViewModel> list = new ArrayList<>();
+        String sql = """
+                  SELECT [MaKH]                                                                     
+                           FROM [dbo].[KhachHang]  where Deleted = 0
+                     """;
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                khachhangViewModel khModel = new khachhangViewModel();
+                khModel.setMaKH(rs.getString(1));
+                list.add(khModel);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+
+    }
+    public List<khachhangViewModel> getTenKH() {
+        List<khachhangViewModel> list = new ArrayList<>();
+        String sql = """
+                  SELECT  [TenKhachHang]                                                  
+                           FROM [dbo].[KhachHang]  where Deleted = 0
+                     """;
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                khachhangViewModel khModel = new khachhangViewModel();
+                khModel.setTenKH(rs.getString(1));
+                list.add(khModel);
+
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+
     }
 
     public boolean add(b1.entity.khachhang kh1) {

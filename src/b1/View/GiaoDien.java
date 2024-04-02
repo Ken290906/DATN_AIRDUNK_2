@@ -4,6 +4,8 @@
  */
 package b1.View;
 
+import ViewModelKH.khachhangViewModel;
+import b1.services.khachhangService;
 import java.net.URI;
 import java.awt.Color;
 import java.awt.GradientPaint;
@@ -19,7 +21,7 @@ import javax.swing.ImageIcon;
  * @author DELL
  */
 public class GiaoDien extends javax.swing.JFrame {
-
+private khachhangService khs = new khachhangService();
     /**
      * Creates new form GiaoDien
      */
@@ -395,9 +397,12 @@ public class GiaoDien extends javax.swing.JFrame {
 
     private void BanhangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BanhangMouseClicked
         // TODO add your handling code here:
-        banhhang bh = new banhhang();
+        khachhangViewModel kh = new khachhangViewModel();
+        String maKH = String.valueOf(kh.getMaKH()); // Lấy mã khách hàng từ cửa sổ chọn khách hàng
+        String tenKH = String.valueOf(kh.getTenKH());; // Lấy tên khách hàng từ cửa sổ chọn khách hàng
+        banhhang bh = new banhhang(maKH, tenKH); // Truyền thông tin khách hàng vào JFrame mới
         giaodienbanner.removeAll();
-        giaodienbanner.add(bh).setVisible(true);
+        giaodienbanner.add(bh).setVisible(true); // Hiển thị JFrame mớ
     }//GEN-LAST:event_BanhangMouseClicked
 
     private void sanphamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_sanphamMouseClicked

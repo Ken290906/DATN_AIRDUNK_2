@@ -8,10 +8,12 @@ import b1.View.banhhang;
 import ViewModelHD.HoaDon;
 import ViewModelHD.HoaDonChiTiet;
 import ViewModelHD.LichSuHD;
+import ViewModelKH.khachhangViewModel;
 import b1.View.chucnang.quetmaqr;
 import b1.services.HDCTService;
 import b1.services.HoaDonService;
 import b1.services.LichsuHDService;
+import b1.services.khachhangService;
 import com.itextpdf.text.BadElementException;
 import java.awt.Color;
 import java.io.ByteArrayOutputStream;
@@ -49,7 +51,7 @@ import javax.swing.event.DocumentListener;
  * @author DELL
  */
 public class hoadon extends javax.swing.JInternalFrame {
-
+private khachhangService khs = new khachhangService();
     private DefaultTableModel dtmHDCT = new DefaultTableModel();
     private HDCTService sr = new HDCTService();
     private List<HoaDonChiTiet> list = new ArrayList<>();
@@ -708,7 +710,10 @@ public class hoadon extends javax.swing.JInternalFrame {
 
     private void btnAddHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddHDActionPerformed
         // TODO add your handling code here:
-        banhhang bh = new banhhang();
+         khachhangViewModel kh = new khachhangViewModel();
+         String maKH = String.valueOf(kh.getMaKH()); // Lấy mã khách hàng từ cửa sổ chọn khách hàng
+        String tenKH = String.valueOf(kh.getTenKH()); // Lấy tên khách hàng từ cửa sổ chọn khách hàng
+        banhhang bh = new banhhang(maKH, tenKH);
         panel1.removeAll();
         panel1.add(bh).setVisible(true);
         

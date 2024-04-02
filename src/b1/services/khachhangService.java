@@ -35,5 +35,14 @@ public class khachhangService {
    public List<khachhangViewModel> Searchkhachhangbanhang(String timkiem) {
        return repo.Searchkhachhangbanhang(timkiem);
    }
+    public List<khachhangViewModel>Makh(){
+        return  repo.getMaKH();
+        
+    }
+    public List<khachhangViewModel> Tenkh(){
+        return  repo.getTenKH();
+        
+    }
+   
  
 }
