@@ -33,7 +33,7 @@ private banhhang bh;
     /**
      * Creates new form khachhangbanhang
      */
-    public khachhangbanhang() {
+    public khachhangbanhang(banhhang bh) {
         initComponents();
         setLocationRelativeTo(null);
         bangkh = (DefaultTableModel) tbldanhsachkhachhang.getModel();
@@ -59,8 +59,22 @@ private banhhang bh;
 
         }
         );
-     
-     
+        tbldanhsachkhachhang.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int index = tbldanhsachkhachhang.getSelectedRow();
+                if (index >=0 && e.getClickCount() == 2) {
+                    String idmakh = (String) tbldanhsachkhachhang.getValueAt(index, 2);
+                    String idmakh2 = (String) tbldanhsachkhachhang.getValueAt(index, 2);
+                    String idmakh3 = (String) tbldanhsachkhachhang.getValueAt(index, 1);
+                    bh.getkh(idmakh, idmakh2, idmakh3);
+                    setVisible(false);
+                }
+            }
+
+        });
+    
+    
 
     }
 
@@ -353,11 +367,17 @@ private banhhang bh;
 //        banhhang bh = new banhhang(MKH, TKH);
 //        bh.setVisible(true);
 //        dispose();
-         int index = tbldanhsachkhachhang.getSelectedRow();
-        String kh = (String) tbldanhsachkhachhang.getValueAt(index , 2);
-        
-        bh.getkh(kh, kh);
-        bh.setVisible(false);
+//int index = tbldanhsachkhachhang.getSelectedRow();
+//String idmakh = (String) tbldanhsachkhachhang.getValueAt(index, 2);
+//
+//// Kiểm tra xem biến bh có null không trước khi sử dụng
+//if (bh != null) {
+//    bh.getkh(idmakh);
+//    setVisible(false);
+//} else {
+//    // Xử lý trường hợp khi bh là null
+//    System.out.println("Error: bh is null");
+//}
     }//GEN-LAST:event_buttonGradient9ActionPerformed
 
     /**
@@ -390,7 +410,7 @@ private banhhang bh;
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new khachhangbanhang().setVisible(true);
+               
             }
         });
     }

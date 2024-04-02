@@ -713,7 +713,7 @@ private khachhangService khs = new khachhangService();
          khachhangViewModel kh = new khachhangViewModel();
          String maKH = String.valueOf(kh.getMaKH()); // Lấy mã khách hàng từ cửa sổ chọn khách hàng
         String tenKH = String.valueOf(kh.getTenKH()); // Lấy tên khách hàng từ cửa sổ chọn khách hàng
-        banhhang bh = new banhhang(maKH, tenKH);
+        banhhang bh = new banhhang();
         panel1.removeAll();
         panel1.add(bh).setVisible(true);
         

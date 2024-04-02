@@ -400,7 +400,7 @@ private khachhangService khs = new khachhangService();
         khachhangViewModel kh = new khachhangViewModel();
         String maKH = String.valueOf(kh.getMaKH()); // Lấy mã khách hàng từ cửa sổ chọn khách hàng
         String tenKH = String.valueOf(kh.getTenKH());; // Lấy tên khách hàng từ cửa sổ chọn khách hàng
-        banhhang bh = new banhhang(maKH, tenKH); // Truyền thông tin khách hàng vào JFrame mới
+        banhhang bh = new banhhang(); // Truyền thông tin khách hàng vào JFrame mới
         giaodienbanner.removeAll();
         giaodienbanner.add(bh).setVisible(true); // Hiển thị JFrame mớ
     }//GEN-LAST:event_BanhangMouseClicked

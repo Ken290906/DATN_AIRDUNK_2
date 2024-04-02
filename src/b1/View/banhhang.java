@@ -96,7 +96,7 @@ public class banhhang extends javax.swing.JInternalFrame {
     /**
      * Creates new form gd1
      */
-    public banhhang(String MaKH, String TenK) {
+    public banhhang() {
         int a = 0;
         initComponents();
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
@@ -155,6 +155,7 @@ public class banhhang extends javax.swing.JInternalFrame {
             }
 
         });
+        getkh(txtTenKH.getText(), txtMaKH.getText(), txttenkhdonhang.getText());
 
 //        tbldanhsachsanpham.addMouseListener(new MouseAdapter() {
 //            @Override
@@ -174,9 +175,7 @@ public class banhhang extends javax.swing.JInternalFrame {
 //                }
 //            }
 //        });
-        txtMaKH.setText(MaKH);
-        txtTenKH.setText(TenK);
-        txttenkhdonhang.setText(TenK);
+        
         //
         cbbgiamrgia.addActionListener(new ActionListener() {
             @Override
@@ -218,7 +217,7 @@ public class banhhang extends javax.swing.JInternalFrame {
                 txttongtien.setText(String.valueOf(thoiLai));
             }
         });
-        getkh(txtMaKH.getText(), txtTenKH.getText());
+        
     }
 
     public void showHoaDonBH(List<HoaDonBH> listHDBH) {
@@ -244,9 +243,10 @@ public class banhhang extends javax.swing.JInternalFrame {
         }
     }
     
-    public void getkh(String ten,String ma){
-        txtMaKH.setText(ma);
+    public void getkh(String ten,String ten2,String makh){
         txtTenKH.setText(ten);
+        txttenkhdonhang.setText(ten2);
+        txtMaKH.setText(makh);
     }
 
     public void showCbbVCH(List<GiamGia1> ListGG) {
@@ -713,7 +713,6 @@ public class banhhang extends javax.swing.JInternalFrame {
         panel4.addTab("Đơn Hàng", jPanel1);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         jPanel5.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -775,12 +774,12 @@ public class banhhang extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(buttonGradient7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 820, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 822, Short.MAX_VALUE)
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(8, Short.MAX_VALUE)
+                .addContainerGap(10, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnAddHoaDon, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(buttonGradient4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1069,7 +1068,7 @@ public class banhhang extends javax.swing.JInternalFrame {
 
     private void buttonGradient9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient9ActionPerformed
         // TODO add your handling code here:
-        khachhangbanhang kh = new khachhangbanhang();
+        khachhangbanhang kh = new khachhangbanhang(this);
         kh.setVisible(true);
 
     }//GEN-LAST:event_buttonGradient9ActionPerformed
