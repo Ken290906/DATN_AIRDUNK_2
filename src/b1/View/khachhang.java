@@ -62,7 +62,7 @@ public class khachhang extends javax.swing.JInternalFrame {
     public void Oneclick(int show) {
         khachhangViewModel khModel = listkh.get(show);
         txtmakh.setText(khModel.getMaKH());
-        txtngaysinh.setText(khModel.getNgaySinh() + "");
+        dcNgaySinh.setDate(khModel.getNgaySinh());
         txthoten.setText(khModel.getTenKH());
         txtsdt.setText(khModel.getSDT());
         boolean gt;
@@ -79,7 +79,8 @@ public class khachhang extends javax.swing.JInternalFrame {
         String MAKH = txtmakh.getText();
         String HT = txthoten.getText();
         String SDT = txtsdt.getText();
-        Date NS = date.parse(txtngaysinh.getText());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Date NS = dateFormat.parse(dcNgaySinh.getDate()+"");
         Boolean GT = !rbtnam.isSelected();
         int Deleted = 0 ;
         b1.entity.khachhang kh = new b1.entity.khachhang(MAKH, HT, SDT, NS, GT,Deleted);
@@ -118,7 +119,6 @@ public class khachhang extends javax.swing.JInternalFrame {
         jSeparator2 = new javax.swing.JSeparator();
         txtsdt = new javax.swing.JTextField();
         jSeparator3 = new javax.swing.JSeparator();
-        txtngaysinh = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
         rbtnu = new javax.swing.JRadioButton();
         rbtnam = new javax.swing.JRadioButton();
@@ -127,6 +127,7 @@ public class khachhang extends javax.swing.JInternalFrame {
         Sua = new b1.View.chucnang.ButtonGradient();
         ma = new javax.swing.JLabel();
         jSeparator5 = new javax.swing.JSeparator();
+        dcNgaySinh = new com.toedter.calendar.JDateChooser();
         jLabel8 = new javax.swing.JLabel();
 
         jSeparator1.setBackground(new java.awt.Color(0, 0, 0));
@@ -281,10 +282,6 @@ public class khachhang extends javax.swing.JInternalFrame {
 
         jSeparator3.setBackground(new java.awt.Color(0, 0, 0));
 
-        txtngaysinh.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        txtngaysinh.setForeground(new java.awt.Color(0, 204, 204));
-        txtngaysinh.setBorder(null);
-
         jSeparator4.setBackground(new java.awt.Color(0, 0, 0));
 
         rbtnu.setBackground(new java.awt.Color(255, 255, 255));
@@ -341,6 +338,8 @@ public class khachhang extends javax.swing.JInternalFrame {
 
         jSeparator5.setBackground(new java.awt.Color(0, 0, 0));
 
+        dcNgaySinh.setDateFormatString("dd-MM-YYYY");
+
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
         jPanel6Layout.setHorizontalGroup(
@@ -375,13 +374,11 @@ public class khachhang extends javax.swing.JInternalFrame {
                     .addComponent(sdt)
                     .addComponent(nsinh))
                 .addGap(21, 21, 21)
-                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jSeparator4)
-                        .addComponent(txtngaysinh, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(jSeparator3)
-                        .addComponent(txtsdt, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jSeparator4, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(jSeparator3)
+                    .addComponent(txtsdt, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                    .addComponent(dcNgaySinh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(180, 180, 180))
         );
         jPanel6Layout.setVerticalGroup(
@@ -414,8 +411,8 @@ public class khachhang extends javax.swing.JInternalFrame {
                         .addGap(0, 0, 0)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(txtngaysinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
+                        .addComponent(dcNgaySinh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(3, 3, 3)
                         .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(28, 28, 28)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -426,7 +423,7 @@ public class khachhang extends javax.swing.JInternalFrame {
                     .addComponent(Xoa, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Sua, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Them, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -553,6 +550,7 @@ public class khachhang extends javax.swing.JInternalFrame {
     private b1.View.chucnang.ButtonGradient buttonGradient1;
     private b1.View.chucnang.ButtonGradient buttonGradient3;
     private javax.swing.ButtonGroup buttonGroup1;
+    private com.toedter.calendar.JDateChooser dcNgaySinh;
     private javax.swing.JLabel gioitinh;
     private javax.swing.JLabel hoten;
     private javax.swing.JLabel jLabel8;
@@ -578,7 +576,6 @@ public class khachhang extends javax.swing.JInternalFrame {
     private textfield.TextField txtSearch;
     private javax.swing.JTextField txthoten;
     private javax.swing.JTextField txtmakh;
-    private javax.swing.JTextField txtngaysinh;
     private javax.swing.JTextField txtsdt;
     // End of variables declaration//GEN-END:variables
 }

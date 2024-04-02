@@ -4,16 +4,25 @@
  */
 package b1.entity;
 
+import java.util.Date;
+
 /**
  *
  * @author ADMIN
  */
 public class nhanvien {
 
+    private String id;
+    private String ten;
+    private Date ngaySinh;
+    private String diaChi;
+    private String sđt;
+    private String email;
+
     public nhanvien() {
     }
 
-    public nhanvien(String id, String ten, String ngaySinh, String diaChi, String sđt, String email) {
+    public nhanvien(String id, String ten, Date ngaySinh, String diaChi, String sđt, String email) {
         this.id = id;
         this.ten = ten;
         this.ngaySinh = ngaySinh;
@@ -38,11 +47,11 @@ public class nhanvien {
         this.ten = ten;
     }
 
-    public String getNgaySinh() {
+    public Date getNgaySinh() {
         return ngaySinh;
     }
 
-    public void setNgaySinh(String ngaySinh) {
+    public void setNgaySinh(Date ngaySinh) {
         this.ngaySinh = ngaySinh;
     }
 
@@ -74,10 +83,5 @@ public class nhanvien {
     public String toString() {
         return "nhanvien{" + "id=" + id + ", ten=" + ten + ", ngaySinh=" + ngaySinh + ", diaChi=" + diaChi + ", s\u0111t=" + sđt + ", email=" + email + '}';
     }
-    private String id;
-    private String ten;
-    private String ngaySinh;
-    private String diaChi;
-    private String sđt;
-    private String email;
+
 }

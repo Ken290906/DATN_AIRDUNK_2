@@ -96,22 +96,21 @@ public class giamgia extends javax.swing.JInternalFrame {
         Date currentDateTime = new Date();
         String giaTri = txtGiaTri1.getText() + "";
         String giaTriToiDa = txtGiaTriToiDa1.getText() + "";
-        Date ngaybatdau = dcNgayBatDau.getDate();
-        Date ngayketthuc = dcNgayKetThuc.getDate();
-
+        LocalDate ngaybatdau = dcNgayBatDau.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate ngayketthuc = dcNgayKetThuc.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         int trangThai = 10;
+
         LocalDate localDate = LocalDate.now();
 
-        Date date = java.sql.Date.valueOf(localDate);
-
-        if (ngaybatdau.equals(LocalDate.now())) {
+        if (ngayketthuc.isBefore(localDate)) {
+            trangThai = 0;
+        } else if (ngaybatdau.isBefore(localDate) && ngayketthuc.isAfter(localDate)) {
             trangThai = 1;
-        }
-
-        if (ngaybatdau.after(date)) {
+        } else if (ngaybatdau.isBefore(localDate) && ngayketthuc.isBefore(localDate)) {
             trangThai = 2;
         }
-        GiamGia1 gg = new GiamGia1(maVCH, maGiamGia, Integer.valueOf(soLuong), Integer.valueOf(giaTri), Float.valueOf(giaTriToiDa), ngaybatdau, ngayketthuc, true, currentDateTime, "nv001", currentDateTime, "nv001", trangThai);
+
+        GiamGia1 gg = new GiamGia1(maVCH, maGiamGia, Integer.valueOf(soLuong), Integer.valueOf(giaTri), Float.valueOf(giaTriToiDa), Date.from(ngaybatdau.atStartOfDay(ZoneId.systemDefault()).toInstant()), Date.from(ngayketthuc.atStartOfDay(ZoneId.systemDefault()).toInstant()), true, currentDateTime, "nv001", currentDateTime, "nv001", trangThai);
         return gg;
     }
 
@@ -443,6 +442,31 @@ public class giamgia extends javax.swing.JInternalFrame {
 
     private void btnEditActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditActionPerformed
         // TODO add your handling code here:
+        if (txtVCH.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui long ko de trong");
+            return;
+        }
+        if (txtMa.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui long ko de trong");
+            return;
+        }
+
+        if (dcNgayBatDau.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Vui long ko de trong");
+            return;
+        }
+        if (dcNgayKetThuc.getDate() == null) {
+            JOptionPane.showMessageDialog(this, "Vui long ko de trong");
+            return;
+        }
+        if (txtSoLuong.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui long ko de trong");
+            return;
+        }
+        if (txtGiaTri1.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui long ko de trong");
+            return;
+        }
         int index = tblHienThi.getSelectedRow();
         GiamGia1 gg = lists.get(index);
         int lc = JOptionPane.showConfirmDialog(this, "Bạn có sửa dữ liệu không?", "Notification", JOptionPane.YES_NO_OPTION);
@@ -461,7 +485,7 @@ public class giamgia extends javax.swing.JInternalFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
-        showDataTable(service.Search(txtTim.getText(), txtTim.getText()));
+//        showDataTable(service.Search(txtTim.getText(), txtTim.getText()));
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void tblHienThiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHienThiMouseClicked

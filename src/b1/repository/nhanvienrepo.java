@@ -34,7 +34,7 @@ public class nhanvienrepo {
                 nhanvien nv = new nhanvien();
                 nv.setId(rs.getString(1));
                 nv.setTen(rs.getString(2));
-                nv.setNgaySinh(rs.getString(3));
+                nv.setNgaySinh(rs.getDate(3));
                 nv.setDiaChi(rs.getString(4));
                 nv.setSđt(rs.getString(5));
                 nv.setEmail(rs.getString(6));
@@ -155,7 +155,7 @@ public class nhanvienrepo {
                   nhanvien nv = new nhanvien();
                   nv.setId(rs.getString(1));
                   nv.setTen(rs.getString(2));
-                  nv.setNgaySinh(rs.getString(3));
+                  nv.setNgaySinh(rs.getDate(3));
                   nv.setDiaChi(rs.getString(4));
                   nv.setSđt(rs.getString(5));
                   nv.setEmail(rs.getString(6));
