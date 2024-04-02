@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class khachhangbanhang extends javax.swing.JFrame {
     //List
-
+private banhhang bh;
     private List<khachhangViewModel> listkh = new ArrayList<>();
 //Services
     private khachhangService khs = new khachhangService();
@@ -59,6 +59,7 @@ public class khachhangbanhang extends javax.swing.JFrame {
 
         }
         );
+     
      
 
     }
@@ -152,11 +153,6 @@ public class khachhangbanhang extends javax.swing.JFrame {
         buttonGradient9.setColor1(new java.awt.Color(204, 204, 255));
         buttonGradient9.setColor2(new java.awt.Color(255, 255, 255));
         buttonGradient9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        buttonGradient9.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                buttonGradient9MouseClicked(evt);
-            }
-        });
         buttonGradient9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 buttonGradient9ActionPerformed(evt);
@@ -274,14 +270,10 @@ public class khachhangbanhang extends javax.swing.JFrame {
                                 .addGap(41, 41, 41)
                                 .addComponent(rdonu))
                             .addComponent(btnthem, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(rdonam)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnreseat, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(rdonam, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnreseat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -339,39 +331,6 @@ public class khachhangbanhang extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnreseatMouseClicked
 
-    private void buttonGradient9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient9ActionPerformed
-        // TODO add your handling code here:
-        int index = tbldanhsachkhachhang.getSelectedRow();
-        khachhangViewModel khModel = khs.getAll().get(index);
-        String MKH = khModel.getMaKH();
-        String TKH = khModel.getTenKH();       
-        banhhang bh = new banhhang(MKH, TKH);
-        bh.setVisible(true);
-        dispose();
-
-       
-    }//GEN-LAST:event_buttonGradient9ActionPerformed
-
-    private void buttonGradient9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonGradient9MouseClicked
-        // TODO add your handling code here:
-
-        //                    String MCTSP = ctspViewModel.getMctsp();
-        //                    String HSX = ctspViewModel.getIdhangsx();
-        //                    String DSP = ctspViewModel.getIddongsp();
-        //                    String MauSac = ctspViewModel.getIdphoimau();
-        //                    String Size = ctspViewModel.getIdsize();
-        //                    String doday = ctspViewModel.getIddoday();
-        //                    String Chatlieu = ctspViewModel.getIdchatlieu();
-        //                    String Matde = ctspViewModel.getIdmatde();
-        //                    String day = ctspViewModel.getIdday();
-        //                    String GiaB = ctspViewModel.getGiaban() + "";
-        //                    String SL = ctspViewModel.getSoluong()+"";
-        //
-        //                    // Open your ThongTinChiTietSP dialog or perform any other action here
-        //                    thongtinsanpham tt = new thongtinsanpham(MCTSP, HSX, DSP, Chatlieu, Size, Matde, GiaB, day, MauSac, doday,SL);
-        //                    tt.setVisible(true);
-    }//GEN-LAST:event_buttonGradient9MouseClicked
-
     private void tbldanhsachkhachhangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbldanhsachkhachhangMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_tbldanhsachkhachhangMouseClicked
@@ -383,6 +342,23 @@ public class khachhangbanhang extends javax.swing.JFrame {
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnthemActionPerformed
+
+    private void buttonGradient9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient9ActionPerformed
+        // TODO add your handling code here:
+//        int pick = tbldanhsachkhachhang.getSelectedRow();
+//        khachhangViewModel khViewModel =  listkh.get(pick);
+//        String MKH = khViewModel.getMaKH();
+//        String TKH = khViewModel.getTenKH();
+//         
+//        banhhang bh = new banhhang(MKH, TKH);
+//        bh.setVisible(true);
+//        dispose();
+         int index = tbldanhsachkhachhang.getSelectedRow();
+        String kh = (String) tbldanhsachkhachhang.getValueAt(index , 2);
+        
+        bh.getkh(kh, kh);
+        bh.setVisible(false);
+    }//GEN-LAST:event_buttonGradient9ActionPerformed
 
     /**
      * @param args the command line arguments
