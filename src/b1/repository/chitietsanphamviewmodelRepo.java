@@ -390,10 +390,6 @@ FROM            dbo.ChiTietSP INNER JOIN
         }
         return listsanpham;
     }
-   
-   
-
-    
     public static void main(String[] args) {
         List<sanphamchitietviewmodel> list = new chitietsanphamviewmodelRepo().getall();
         for (sanphamchitietviewmodel object : list) {

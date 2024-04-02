@@ -41,7 +41,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.DateFormat;
+import java.text.DecimalFormat;
 import java.text.FieldPosition;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -106,6 +108,9 @@ public class banhhang extends javax.swing.JInternalFrame {
         bangsanpham = (DefaultTableModel) tbldanhsachsanpham.getModel();
         listsp = sps.getall();
         showdata(listsp);
+        //
+        dtmGiohang = (DefaultTableModel) tblgiohang.getModel();
+        listsp = sps.getall();
         tbldanhsachsanpham.setDefaultEditor(Object.class, null);
         //comboGiamgia
         cbbGiamgia = (DefaultComboBoxModel) cbbVoucher.getModel();
@@ -236,6 +241,21 @@ public class banhhang extends javax.swing.JInternalFrame {
         for (sanphamchitietviewmodel sp : sanpham) {
             i++;
             bangsanpham.addRow(new Object[]{i, sp.getMctsp(), sp.getIddongsp(), sp.getIdhangsx(), sp.getSoluong(), sp.getIdsize(), sp.getGiaban()});
+        }
+    }
+     public void showdatagiohang(List<sanphamchitietviewmodel> giohang) {
+        dtmGiohang.setRowCount(0);
+        int i = 0;
+        int soluong = 1;
+         NumberFormat formatter = new DecimalFormat("#,### VND");
+        
+        for (sanphamchitietviewmodel sp : giohang) {
+            i++;
+            double thanhtien = soluong * sp.getGiaban();
+            String giatien = formatter.format(sp.getGiaban());
+            String VNDthanhtien = formatter.format(thanhtien);
+            dtmGiohang.addRow(new Object[] {i,sp.getMctsp(),sp.getIddongsp(),sp.getIdphoimau(),sp.getIdsize(),sp.getIdchatlieu(),sp.getIdday(),soluong,giatien,VNDthanhtien
+            });         
         }
     }
 
@@ -959,7 +979,13 @@ public class banhhang extends javax.swing.JInternalFrame {
 
     private void tbldanhsachsanphamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbldanhsachsanphamMouseClicked
         // TODO add your handling code here:
-        
+       int selectedRowIndex = tbldanhsachsanpham.getSelectedRow();
+
+    sanphamchitietviewmodel sp = listsp.get(selectedRowIndex);
+    sps.click();
+    listsp = sps.getall();
+    showdatagiohang(listsp);
+
         
     }//GEN-LAST:event_tbldanhsachsanphamMouseClicked
 
