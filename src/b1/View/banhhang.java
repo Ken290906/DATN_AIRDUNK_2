@@ -175,7 +175,6 @@ public class banhhang extends javax.swing.JInternalFrame {
 //                }
 //            }
 //        });
-        
         //
         cbbgiamrgia.addActionListener(new ActionListener() {
             @Override
@@ -193,31 +192,29 @@ public class banhhang extends javax.swing.JInternalFrame {
                     giamGia = tongTien * 0.2;
                 } else if (chonphieugiamgia.equalsIgnoreCase("- 10 % FF-2023")) {
                     giamGia = tongTien * 0.1;
-                } 
+                }
 
-                int tongTienSauGiamGia = (int) (tongTien - giamGia);                          
+                int tongTienSauGiamGia = (int) (tongTien - giamGia);
                 txttongtien.setText(String.valueOf(tongTienSauGiamGia));
 
             }
         });
-        
-         txtkhachdua.addActionListener(new ActionListener() {
+
+        txtkhachdua.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-               
+
                 int khachDua = Integer.valueOf(txtkhachdua.getText());
 
-                
                 int tongTien = Integer.valueOf(txttongtien.getText());
 
-                
                 int thoiLai = tongTien - khachDua;
 
                 // Cập nhật giá trị số tiền thối lại lên UI (ví dụ: một JTextField khác)
                 txttongtien.setText(String.valueOf(thoiLai));
             }
         });
-        
+
     }
 
     public void showHoaDonBH(List<HoaDonBH> listHDBH) {
@@ -242,8 +239,8 @@ public class banhhang extends javax.swing.JInternalFrame {
             });
         }
     }
-    
-    public void getkh(String ten,String ten2,String makh){
+
+    public void getkh(String ten, String ten2, String makh) {
         txtTenKH.setText(ten);
         txttenkhdonhang.setText(ten2);
         txtMaKH.setText(makh);
@@ -292,22 +289,25 @@ public class banhhang extends javax.swing.JInternalFrame {
         }
     }
 
-    public void showdatagiohang(List<sanphamchitietviewmodel> giohang) {
-        dtmGiohang.setRowCount(0);
-        int i = 0;
-        int soluong = 1;
-//         NumberFormat formatter = new DecimalFormat("#,###");
+//    public void showdatagiohang(List<sanphamchitietviewmodel> giohang) {
+//        dtmGiohang.setRowCount(0);
+//        int i = 0;
+//
+//        for (sanphamchitietviewmodel sp : giohang) {
+//            i++;
+//            String thanhtien = String.valueOf(soluong * sp.getGiaban());
+//            txttongtien.setText(thanhtien);
+//            txttong.setText(thanhtien);
+//            dtmGiohang.addRow(new Object[]{i, sp.getMctsp(), sp.getIddongsp(), sp.getIdphoimau(), sp.getIdsize(), sp.getIdchatlieu(), sp.getIdday(), soluong, sp.getGiaban(), thanhtien
+//            });
+//        }
+//    }
+    private void addToCart(String maSP, String tenSanPham, String mau, String size, String chatlieu, String day, int soLuong, int giaBan) {
+        String thanhtien = String.valueOf(soLuong * giaBan);
 
-        for (sanphamchitietviewmodel sp : giohang) {
-            i++;
-            String thanhtien = String.valueOf(soluong * sp.getGiaban());
-//            String giatien = formatter.format(sp.getGiaban());
-//            String VNDthanhtien = formatter.format(thanhtien);
-            txttongtien.setText(thanhtien);
-            txttong.setText(thanhtien);
-            dtmGiohang.addRow(new Object[]{i, sp.getMctsp(), sp.getIddongsp(), sp.getIdphoimau(), sp.getIdsize(), sp.getIdchatlieu(), sp.getIdday(), soluong, sp.getGiaban(), thanhtien
-            });
-        }
+        txttongtien.setText(thanhtien);
+        txttong.setText(thanhtien);
+        dtmGiohang.addRow(new Object[]{maSP, tenSanPham, mau, size, chatlieu, day, soLuong, giaBan, thanhtien});
     }
 
     //showcombbox
@@ -329,6 +329,18 @@ public class banhhang extends javax.swing.JInternalFrame {
         }
 
         return filteredList;
+    }
+
+    private int nhapSoLuong() {
+        String input = JOptionPane.showInputDialog("Nhập số lượng:");
+        if (input != null && !input.isEmpty()) {
+            try {
+                return Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Vui lòng nhập số nguyên dương.");
+            }
+        }
+        return 0; // Trả về 0 nếu không nhập hoặc nhập không hợp lệ
     }
 
     /**
@@ -812,7 +824,7 @@ public class banhhang extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "#", "Mã SPCT", "Tên", "Màu", "Size", "Chất Liệu", "Dây", "Số Lượng", "Gía", "Thành Tiền"
+                "Mã SPCT", "Tên", "Màu", "Size", "Chất Liệu", "Dây", "Số Lượng", "Gía", "Thành Tiền"
             }
         ));
         tblgiohang.setGridColor(new java.awt.Color(255, 255, 255));
@@ -826,6 +838,11 @@ public class banhhang extends javax.swing.JInternalFrame {
         buttonGradient10.setColor1(new java.awt.Color(204, 204, 255));
         buttonGradient10.setColor2(new java.awt.Color(255, 255, 255));
         buttonGradient10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonGradient10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonGradient10ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
         jPanel8.setLayout(jPanel8Layout);
@@ -1056,15 +1073,25 @@ public class banhhang extends javax.swing.JInternalFrame {
 
     private void tbldanhsachsanphamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbldanhsachsanphamMouseClicked
         // TODO add your handling code here:
-        int selectedRowIndex = tbldanhsachsanpham.getSelectedRow();
-
-        sanphamchitietviewmodel sp = listsp.get(selectedRowIndex);
-        sps.click();
-        listsp = sps.getall();
-        showdatagiohang(listsp);
-
-
+        tbldanhsachsanpham.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (e.getClickCount() == 2) { // Kiểm tra xem đã click 2 lần chưa
+                    int selectedRow = tbldanhsachsanpham.getSelectedRow();                 
+                        String maSP = tbldanhsachsanpham.getValueAt(selectedRow, 0).toString();
+                        String tenSanPham = tbldanhsachsanpham.getValueAt(selectedRow, 1).toString();
+                        String mau = tbldanhsachsanpham.getValueAt(selectedRow, 2).toString();
+                        String size = tbldanhsachsanpham.getValueAt(selectedRow, 3).toString();
+                        String chatlieu = tbldanhsachsanpham.getValueAt(selectedRow, 4).toString();
+                        String day = tbldanhsachsanpham.getValueAt(selectedRow, 5).toString();
+                        String giaBan = tbldanhsachsanpham.getValueAt(selectedRow, 6).toString();
+                        int soLuong = nhapSoLuong();
+                        addToCart(maSP, tenSanPham, mau, size, chatlieu, day, soLuong, Integer.parseInt(giaBan));               
+                }
+            }
+        });
     }//GEN-LAST:event_tbldanhsachsanphamMouseClicked
+
 
     private void buttonGradient9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient9ActionPerformed
         // TODO add your handling code here:
@@ -1091,6 +1118,11 @@ public class banhhang extends javax.swing.JInternalFrame {
         });        // TODO add your handling code here:
 
     }//GEN-LAST:event_txttongtienActionPerformed
+
+    private void buttonGradient10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient10ActionPerformed
+        // TODO add your handling code here:
+        dtmGiohang.setRowCount(0);
+    }//GEN-LAST:event_buttonGradient10ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

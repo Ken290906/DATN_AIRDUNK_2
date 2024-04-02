@@ -455,30 +455,8 @@ public class sanphamthem extends javax.swing.JFrame {
     private void btnthem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthem1ActionPerformed
         // TODO add your handling code here:
         int dk = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn thêm?");
-        sanphamchitietviewmodel spct = new sanphamchitietviewmodel();
         if (dk == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(this, itf.Add(getformdata()));
-            String maSP = UUID.randomUUID().toString().substring(0, 3);// Tao ma qr ngau nhien
-            String data = "Mã sản phẩm: " + maSP + "\nTên sản phẩm: " + getformdata().getMasp(); // Tạo dữ liệu cho mã QR
-
-            // Tạo mã QR từ dữ liệu của sản phẩm
-            ByteArrayOutputStream stream = QRCode.from(data).to(ImageType.PNG).stream();
-
-            // Lưu ảnh mã QR vào thư mục cụ thể, ví dụ: "qr_images"
-            String qrImagePath = "C:\\QRSanPham\\" + maSP + ".png";
-
-            try {
-                FileOutputStream fos = new FileOutputStream(new File(qrImagePath));
-                fos.write(stream.toByteArray());
-                fos.flush();
-                fos.close();
-                // Hiển thị đường dẫn hoặc thông báo khi lưu ảnh thành công
-                JOptionPane.showMessageDialog(this, "Đã lưu ảnh mã QR vào: " + qrImagePath);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                // Hiển thị thông báo khi lưu ảnh không thành công
-                JOptionPane.showMessageDialog(this, "Lỗi khi lưu ảnh mã QR");
-            }
+            
             listviewmodel = itf.getall();
 
         }
@@ -509,7 +487,6 @@ public class sanphamthem extends javax.swing.JFrame {
         viewThemThuocTinhSP.add(panelCTSP, BorderLayout.CENTER);
         viewThemThuocTinhSP.revalidate();
         viewThemThuocTinhSP.repaint();
-
     }//GEN-LAST:event_btnbackActionPerformed
 
     private void txtsizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtsizeActionPerformed

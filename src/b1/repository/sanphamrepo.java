@@ -26,7 +26,7 @@ public class sanphamrepo {
                                                                                                                   dbo.ChiTietSP ON dbo.DSP.IDdsp = dbo.ChiTietSP.IDDongSP
                                                                                          						 Where ChiTietSP.Deleted = 0 ORDER BY MaCTSP DESC
                      """;
-        try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+        try ( Connection c = DBConnect.getConnection();  PreparedStatement ps = c.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 sanphamviewmodel spvm = new sanphamviewmodel();
@@ -44,6 +44,30 @@ public class sanphamrepo {
         return list;
     }
 
+    public List<sanphamviewmodel> getAllGioHang() {
+        List<sanphamviewmodel> listsanpham = new ArrayList<>();
+        String sql = """
+                     SELECT        dbo.ChiTietSP.MaCTSP, dbo.DSP.TenDSP, dbo.ChiTietSP.Soluong
+                        FROM            dbo.ChiTietSP INNER JOIN
+                                            dbo.DSP ON dbo.ChiTietSP.IDDongSP = dbo.DSP.IDdsp                                                                                                                                                                                    						 Where ChiTietSP.Deleted = '0' ORDER BY MaCTSP DESC
+                     """;
+        try ( Connection c = DBConnect.getConnection();  PreparedStatement ps = c.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                sanphamviewmodel sp = new sanphamviewmodel();
+                sp.setMasp(rs.getString(1));
+                sp.setTensp(rs.getString(2));
+                sp.setSoluong(rs.getInt(3));
+           
+                listsanpham.add(sp);
+            }
+
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return listsanpham;
+    }
+
     public boolean add(chitietsanpham ctsp, String tensp) {
         int check = 0;
         String sql = """
@@ -58,7 +82,7 @@ public class sanphamrepo {
                       ,[Soluong])
                 VALUES (?,(Select IDdsp from DSP where TenDSP = ?),?,?,?,?)
                      """;
-        try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+        try ( Connection c = DBConnect.getConnection();  PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setObject(1, ctsp.getMasp());
             ps.setObject(2, tensp);
             ps.setObject(3, ctsp.getGhichu());
@@ -81,7 +105,7 @@ public class sanphamrepo {
                              
                         WHERE MaCTSP = ?
                      """;
-        try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+        try ( Connection c = DBConnect.getConnection();  PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setObject(1, xoa);
             check = ps.executeUpdate();
 
@@ -106,7 +130,7 @@ public class sanphamrepo {
                   ,[Soluong] = ?
              WHERE MaCTSP = ?
                      """;
-        try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+        try ( Connection c = DBConnect.getConnection();  PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setObject(1, ctsp.getMasp());
             ps.setObject(2, tensp);
             ps.setObject(3, ctsp.getGhichu());
@@ -129,7 +153,7 @@ FROM            dbo.DSP INNER JOIN
 dbo.ChiTietSP ON dbo.DSP.IDdsp = dbo.ChiTietSP.IDDongSP
                   Where ChiTietSP.Deleted = 0 AND MaCTSP LIKE ? or DSP.TenDSP LIKE ?
                      """;
-        try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+        try ( Connection c = DBConnect.getConnection();  PreparedStatement ps = c.prepareStatement(sql)) {
 
             ps.setObject(1, '%' + timkiem + '%');
             ps.setObject(2, '%' + timkiem + '%');

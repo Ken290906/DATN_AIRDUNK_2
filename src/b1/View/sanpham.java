@@ -138,10 +138,10 @@ public class sanpham extends javax.swing.JInternalFrame {
         bang3 = (DefaultTableModel) tblthuoctinhsanpham.getModel();
         showdata3(listtt);
 //dsp
-         combo2 = (DefaultComboBoxModel) cbbtensanpham.getModel();
-         listdsp = dsps.getall();
-         showcombo2(listdsp);
-        
+        combo2 = (DefaultComboBoxModel) cbbtensanpham.getModel();
+        listdsp = dsps.getall();
+        showcombo2(listdsp);
+
         txtsearch.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -202,62 +202,6 @@ public class sanpham extends javax.swing.JInternalFrame {
                 }
             }
         });
-//        cbbchatlieu.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                String timkiem = cbbchatlieu.getSelectedItem().toString();
-//                if (!timkiem.isEmpty()) {
-//                    List<sanphamchitietviewmodel> searchedList = searchChatlieu(timkiem);
-//                    showdata2(searchedList);
-//                } else {
-//                    // If no manufacturer is selected, reload all products
-//                    listviewmodel = itf.getall();
-//                    showdata2(listviewmodel);
-//                }
-//            }
-//        });
-        cbbday.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String timkiem = cbbday.getSelectedItem().toString();
-                if (!timkiem.isEmpty()) {
-                    List<sanphamchitietviewmodel> searchedList = searchday(timkiem);
-                    showdata2(searchedList);
-                } else {
-                    // If no manufacturer is selected, reload all products
-                    listviewmodel = itf.getall();
-                    showdata2(listviewmodel);
-                }
-            }
-        });
-//        cbbmatde.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                String timkiem = cbbmatde.getSelectedItem().toString();
-//                if (!timkiem.isEmpty()) {
-//                    List<sanphamchitietviewmodel> searchedList = searchmatde(timkiem);
-//                    showdata2(searchedList);
-//                } else {
-//                    // If no manufacturer is selected, reload all products
-//                    listviewmodel = itf.getall();
-//                    showdata2(listviewmodel);
-//                }
-//            }
-//        });
-//        cbbdoday.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                String timkiem = cbbdoday.getSelectedItem().toString();
-//                if (!timkiem.isEmpty()) {
-//                    List<sanphamchitietviewmodel> searchedList = searchdoday(timkiem);
-//                    showdata2(searchedList);
-//                } else {
-//                    // If no manufacturer is selected, reload all products
-//                    listviewmodel = itf.getall();
-//                    showdata2(listviewmodel);
-//                }
-//            }
-//        });
 
         setOtherFrame(ttsp);
         tblhienthichitietsanpham.addMouseListener(new MouseAdapter() {
@@ -278,10 +222,10 @@ public class sanpham extends javax.swing.JInternalFrame {
                     String Matde = ctspViewModel.getIdmatde();
                     String day = ctspViewModel.getIdday();
                     String GiaB = ctspViewModel.getGiaban() + "";
-                    String SL = ctspViewModel.getSoluong()+"";
+                    String SL = ctspViewModel.getSoluong() + "";
 
                     // Open your ThongTinChiTietSP dialog or perform any other action here
-                    thongtinsanpham tt = new thongtinsanpham(MCTSP, HSX, DSP, Chatlieu, Size, Matde, GiaB, day, MauSac, doday,SL);
+                    thongtinsanpham tt = new thongtinsanpham(MCTSP, HSX, DSP, Chatlieu, Size, Matde, GiaB, day, MauSac, doday, SL);
                     tt.setVisible(true);
 
                 }
@@ -415,12 +359,10 @@ public class sanpham extends javax.swing.JInternalFrame {
             rdohethang.setSelected(true);
         }
         txtghichu.setText(spvm.getMota());
-       
+
     }
 
     private void searchSP() {
-//        listviewmodel = itf.Search(txtsearch.getText());
-//        showdata2(listviewmodel);
         listsanpham = sps.Search(txtsearch.getText());
         showdata(listsanpham);
 
@@ -557,7 +499,7 @@ public class sanpham extends javax.swing.JInternalFrame {
 
     public chitietsanpham getformdatasp() {
         String MSP = txtmasanpham.getText();
-        
+
         String TT = "";
         if (rdoconhang.isSelected()) {
             TT = rdoconhang.getText();
@@ -566,9 +508,7 @@ public class sanpham extends javax.swing.JInternalFrame {
         }
 
         String GC = txtghichu.getText();
-        
-        
-        
+
         chitietsanpham ctsp = new chitietsanpham(MSP, GC, 0, TT, 0);
         return ctsp;
     }
@@ -740,6 +680,7 @@ public class sanpham extends javax.swing.JInternalFrame {
         tblhienthisanpham = new javax.swing.JTable();
         btnreseat3 = new b1.View.chucnang.ButtonGradient();
         cbbtensanpham = new b1.View.Combobox();
+        btnQR = new b1.View.chucnang.ButtonGradient();
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -1149,6 +1090,18 @@ public class sanpham extends javax.swing.JInternalFrame {
         cbbtensanpham.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cbbtensanpham.setLabeText("Tên Sản Phẩm");
 
+        btnQR.setBackground(new java.awt.Color(153, 255, 255));
+        btnQR.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnQR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/b1/khoanh/qr-code.png"))); // NOI18N
+        btnQR.setColor1(new java.awt.Color(102, 255, 102));
+        btnQR.setColor2(new java.awt.Color(102, 255, 102));
+        btnQR.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnQR.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQRActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -1189,7 +1142,9 @@ public class sanpham extends javax.swing.JInternalFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jSeparator2)
                             .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(102, 102, 102))))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnQR, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(152, 152, 152))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane4))
@@ -1198,12 +1153,17 @@ public class sanpham extends javax.swing.JInternalFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(42, 42, 42)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(txtmasanpham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 91, Short.MAX_VALUE)
                         .addComponent(cbbtensanpham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(80, 80, 80))
+                        .addGap(80, 80, 80)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(rdohethang)
+                            .addComponent(rdoconhang))
+                        .addGap(8, 8, 8))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1217,18 +1177,15 @@ public class sanpham extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnxoa1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnupdate, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(72, 72, 72)))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel3)
-                        .addComponent(rdohethang)
-                        .addComponent(rdoconhang))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
                             .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(2, 2, 2)
-                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnQR, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 315, Short.MAX_VALUE)
                 .addContainerGap())
@@ -1685,9 +1642,6 @@ public class sanpham extends javax.swing.JInternalFrame {
         spt.setVisible(true);
         spt.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 
-        //        itf.Add(getformdata());
-        //        listviewmodel = itf.getall();
-        //        showdata2(listviewmodel);
     }//GEN-LAST:event_btnthem1ActionPerformed
 
     private void btnthem1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnthem1MouseClicked
@@ -1742,7 +1696,7 @@ public class sanpham extends javax.swing.JInternalFrame {
             cbbtensanpham.setSelectedItem(0);
             txtghichu.setText("");
             rdotrangthai.clearSelection();
-          
+
             JOptionPane.showMessageDialog(this, "Đã Reseat thành công");
         }
         if (dk == JOptionPane.NO_OPTION) {
@@ -2023,8 +1977,38 @@ public class sanpham extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_txtsearchActionPerformed
 
+    private void btnQRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQRActionPerformed
+        // TODO add your handling code here:
+
+        String maSP = txtmasanpham.getText();// Tao ma qr ngau nhien
+        if (maSP != null) {
+            String data = maSP; // Tạo dữ liệu cho mã QR
+
+            // Tạo mã QR từ dữ liệu của sản phẩm
+            ByteArrayOutputStream stream = QRCode.from(data).to(ImageType.PNG).stream();
+
+            // Lưu ảnh mã QR vào thư mục cụ thể, ví dụ: "qr_images"
+            String qrImagePath = "C:\\QRSanPham\\" + maSP + ".png";
+
+            try {
+                FileOutputStream fos = new FileOutputStream(new File(qrImagePath));
+                fos.write(stream.toByteArray());
+                fos.flush();
+                fos.close();
+                // Hiển thị đường dẫn hoặc thông báo khi lưu ảnh thành công
+                JOptionPane.showMessageDialog(this, "Đã lưu ảnh mã QR vào: " + qrImagePath);
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                // Hiển thị thông báo khi lưu ảnh không thành công
+                JOptionPane.showMessageDialog(this, "Lỗi khi lưu ảnh mã QR");
+            }
+         
+        }
+    }//GEN-LAST:event_btnQRActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    b1.View.chucnang.ButtonGradient btnQR;
     private b1.View.chucnang.ButtonGradient btnexel;
     private b1.View.chucnang.ButtonGradient btnquetmaqr;
     private b1.View.chucnang.ButtonGradient btnreseat2;

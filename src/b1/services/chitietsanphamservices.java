@@ -21,6 +21,10 @@ public class chitietsanphamservices {
     public List<sanphamviewmodel> getall() {
         return listrp.getall();
     }
+    
+    public List<sanphamviewmodel> getAllGioHang() {
+        return listrp.getAllGioHang();
+    }
 
     public boolean Add(chitietsanpham ctsp, String Dongsp) {
         return listrp.add(ctsp, Dongsp);
