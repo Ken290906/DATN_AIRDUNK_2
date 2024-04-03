@@ -51,6 +51,8 @@ import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -83,7 +85,7 @@ public class banhhang extends javax.swing.JInternalFrame {
     private List<hangsanxuat> listhang = new ArrayList<>();
     private List<HoaDonBH> listBH = new ArrayList<>();
     private List<GiamGia1> listVCH = new ArrayList<>();
-
+    
 //ITF
     interfacesp itf = new iterface2() {
     };
@@ -92,7 +94,8 @@ public class banhhang extends javax.swing.JInternalFrame {
     private hangsxservices hsxs = new hangsxservices();
     private HoaDonBHService srhd = new HoaDonBHService();
     private GiamGiaService srvch = new GiamGiaService();
-
+    
+    DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
     /**
      * Creates new form gd1
      */
@@ -342,6 +345,17 @@ public class banhhang extends javax.swing.JInternalFrame {
         }
         return 0; // Trả về 0 nếu không nhập hoặc nhập không hợp lệ
     }
+    
+    public HoaDonBH getformdatabanhang() throws ParseException{
+        String MaHD = txtMaHD.getText();
+        String TT = txttongtien.getText();
+        String MKH = txttenkhdonhang.getText();
+        String MaNV = txtmaNV.getText();
+        Date NT = dateFormat.parse(txtNgayTao.getText());
+        
+        HoaDonBH hd = new HoaDonBH(MaHD, NT, MaNV, 1, iconable);
+        return hd;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -379,7 +393,7 @@ public class banhhang extends javax.swing.JInternalFrame {
         btnAddHD = new b1.View.chucnang.ButtonGradient();
         jLabel11 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        txtMaSP = new javax.swing.JTextField();
+        txtmaNV = new javax.swing.JTextField();
         jSeparator9 = new javax.swing.JSeparator();
         jLabel15 = new javax.swing.JLabel();
         jSeparator10 = new javax.swing.JSeparator();
@@ -545,9 +559,9 @@ public class banhhang extends javax.swing.JInternalFrame {
 
         jLabel13.setText("Mã NV");
 
-        txtMaSP.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtMaSP.setText("NV-001");
-        txtMaSP.setBorder(null);
+        txtmaNV.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtmaNV.setText("NV-001");
+        txtmaNV.setBorder(null);
 
         jSeparator9.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -633,7 +647,7 @@ public class banhhang extends javax.swing.JInternalFrame {
                                                     .addComponent(cbbgiamrgia, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                         .addComponent(jSeparator9)
-                                                        .addComponent(txtMaSP, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                                        .addComponent(txtmaNV, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                                 .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                     .addComponent(jSeparator10)
                                                     .addComponent(txtkhachdua, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))))
@@ -704,7 +718,7 @@ public class banhhang extends javax.swing.JInternalFrame {
                         .addGap(27, 27, 27)
                         .addComponent(jLabel15))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(txtMaSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtmaNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, 0)
                         .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -1014,7 +1028,7 @@ public class banhhang extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddHDActionPerformed
-
+     
     }//GEN-LAST:event_btnAddHDActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
@@ -1027,7 +1041,7 @@ public class banhhang extends javax.swing.JInternalFrame {
             txtNgayTT.setText("");
             txtMaHD.setText("");
             txtkhachdua.setText("");
-            txtMaSP.setText("");
+            txtmaNV.setText("");
             txttongtien.setText("");
             txttong.setText("");
         }
@@ -1178,11 +1192,11 @@ public class banhhang extends javax.swing.JInternalFrame {
     private javax.swing.JTable tblhoadon;
     private javax.swing.JTextField txtMaHD;
     private b1.View.chucnang.TextField txtMaKH;
-    private javax.swing.JTextField txtMaSP;
     private javax.swing.JTextField txtNgayTT;
     private javax.swing.JTextField txtNgayTao;
     private b1.View.chucnang.TextField txtTenKH;
     private javax.swing.JTextField txtkhachdua;
+    private javax.swing.JTextField txtmaNV;
     private b1.View.chucnang.TextField txtsearch;
     private javax.swing.JTextField txttenkhdonhang;
     private javax.swing.JTextField txttong;

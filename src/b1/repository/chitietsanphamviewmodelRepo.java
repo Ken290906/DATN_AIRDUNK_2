@@ -326,13 +326,15 @@ FROM            dbo.ChiTietSP INNER JOIN
                          dbo.DSP ON dbo.ChiTietSP.IDDongSP = dbo.DSP.IDdsp INNER JOIN
                          dbo.HSX ON dbo.ChiTietSP.IDHangSX = dbo.HSX.IDhsx INNER JOIN
                          dbo.Size ON dbo.ChiTietSP.IDSize = dbo.Size.IDSize
- Where ChiTietSP.Deleted = '0' And DSP.TenDSP Like ? or Soluong Like ? or Size.SizeSP  Like ? or Giaban Like ?
+ Where ChiTietSP.Deleted = '0' And MaCTSP Like ? or  DSP.TenDSP Like ? or Soluong Like ? or Size.SizeSP  Like ? or Giaban Like ?
                        """;
         try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setObject(1, '%' + timkiem + '%');
             ps.setObject(2, '%' + timkiem + '%');
             ps.setObject(3, '%' + timkiem + '%');
             ps.setObject(4, '%' + timkiem + '%');
+                        ps.setObject(5, '%' + timkiem + '%');
+
           
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
