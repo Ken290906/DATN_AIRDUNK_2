@@ -40,6 +40,7 @@ public class giamgia extends javax.swing.JInternalFrame {
      * Creates new form giamgia
      */
     private List<GiamGia1> lists = new ArrayList<>();
+    private List<GiamGia1> lists1 = new ArrayList<>();
     private DefaultTableModel tableModel = new DefaultTableModel();
     private GiamGiaService service = new GiamGiaService();
     private DefaultComboBoxModel cbbModel = new DefaultComboBoxModel();
@@ -56,6 +57,29 @@ public class giamgia extends javax.swing.JInternalFrame {
         tableModel = (DefaultTableModel) tblHienThi.getModel();
         showDataTable(lists);
     }
+    
+    public void timTrangThai() throws ParseException {
+        int tt = 0;
+        if (cbbTrangThai.getSelectedItem().equals("Đã kết thúc")) {
+            tt = 2;
+            lists1 = service.timTrangThai(tt);
+            
+            showDataTable(lists1);
+        } else if (cbbTrangThai.getSelectedItem().equals("Đang diễn ra")) {
+            tt = 1;
+            lists1 = service.timTrangThai(tt);
+            showDataTable(lists1);
+
+        } else if (cbbTrangThai.getSelectedItem().equals("Sắp diễn ra")) {
+            tt = 0;
+            lists1 = service.timTrangThai(tt);
+            showDataTable(lists1);
+        } else if (cbbTrangThai.getSelectedItem().equals("Tất cả")) {
+            lists1.clear();
+            lists = service.getAll();
+            showDataTable(lists);
+        }
+    }
 
     public void showDataTable(List<GiamGia1> listGiamGia) {
         int i = 0;
@@ -63,10 +87,12 @@ public class giamgia extends javax.swing.JInternalFrame {
         tableModel.setRowCount(0);
         for (GiamGia1 gg1 : listGiamGia) {
             i++;
-            if (gg1.getTrangThai() == 0) {
+            if (gg1.getTrangThai() == 2) {
                 trangTHai = "Het han";
-            } else {
+            }else if (gg1.getTrangThai() == 1){
                 trangTHai = "Dang dien ra";
+            }else if (gg1.getTrangThai() == 0){
+                trangTHai = "Sap dien ra";
             }
             tableModel.addRow(new Object[]{i, gg1.getMaVCH(), gg1.getMaGiamGia(), gg1.getSoLuong(), gg1.getGiaTri(), gg1.getHanMuc(), gg1.getNgayBatDau(), gg1.getNgayKetThuc(), trangTHai});
         }
@@ -139,7 +165,7 @@ public class giamgia extends javax.swing.JInternalFrame {
         tblHienThi = new javax.swing.JTable();
         txtTim = new b1.View.chucnang.TextField();
         btnSearch = new b1.View.chucnang.ButtonGradient();
-        cbbTrangthai = new b1.View.chucnang.Combobox();
+        cbbTrangThai = new b1.View.chucnang.Combobox();
         txtGiaTri1 = new b1.View.chucnang.TextField();
         btnEdit1 = new b1.View.chucnang.ButtonGradient();
         dcNgayBatDau = new com.toedter.calendar.JDateChooser();
@@ -239,7 +265,13 @@ public class giamgia extends javax.swing.JInternalFrame {
             }
         });
 
-        cbbTrangthai.setLabeText("Trạng thái");
+        cbbTrangThai.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Đã kết thúc", "Đang diễn ra", "Sắp diễn ra", "Tất cả" }));
+        cbbTrangThai.setLabeText("Trạng thái");
+        cbbTrangThai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbTrangThaiActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -248,25 +280,27 @@ public class giamgia extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1371, Short.MAX_VALUE)
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 1371, Short.MAX_VALUE)
+                        .addContainerGap())
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cbbTrangthai, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap())
+                        .addComponent(cbbTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(19, 19, 19))))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(9, 9, 9)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cbbTrangthai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -485,7 +519,7 @@ public class giamgia extends javax.swing.JInternalFrame {
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
         // TODO add your handling code here:
-//        showDataTable(service.Search(txtTim.getText(), txtTim.getText()));
+         showDataTable(service.Search(txtTim.getText(), txtTim.getText()));
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void tblHienThiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHienThiMouseClicked
@@ -517,6 +551,15 @@ public class giamgia extends javax.swing.JInternalFrame {
         txtVCH.setText("");
     }//GEN-LAST:event_btnEdit1ActionPerformed
 
+    private void cbbTrangThaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbTrangThaiActionPerformed
+        try {
+            timTrangThai();
+        } catch (ParseException ex) {
+            Logger.getLogger(giamgia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_cbbTrangThaiActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private b1.View.chucnang.ButtonGradient btnEdit;
@@ -524,7 +567,7 @@ public class giamgia extends javax.swing.JInternalFrame {
     private b1.View.chucnang.ButtonGradient btnSearch;
     private b1.View.chucnang.ButtonGradient btnThem;
     private b1.View.chucnang.ButtonGradient btnXoa;
-    private b1.View.chucnang.Combobox cbbTrangthai;
+    private b1.View.chucnang.Combobox cbbTrangThai;
     private com.toedter.calendar.JDateChooser dcNgayBatDau;
     private com.toedter.calendar.JDateChooser dcNgayKetThuc;
     private javax.swing.JLabel jLabel1;

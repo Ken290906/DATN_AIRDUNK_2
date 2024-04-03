@@ -285,16 +285,19 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jScrollPane3" alignment="1" pref="1371" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Component id="jScrollPane3" pref="1371" max="32767" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                  </Group>
                                   <Group type="102" alignment="1" attributes="0">
                                       <Component id="txtTim" min="-2" pref="368" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Component id="btnSearch" min="-2" pref="48" max="-2" attributes="0"/>
                                       <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="cbbTrangthai" min="-2" pref="121" max="-2" attributes="0"/>
+                                      <Component id="cbbTrangThai" min="-2" pref="195" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
-                              <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -303,12 +306,12 @@
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="9" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="cbbTrangthai" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="cbbTrangThai" alignment="0" min="-2" max="-2" attributes="0"/>
                                   <Component id="txtTim" min="-2" pref="41" max="-2" attributes="0"/>
                                   <Component id="btnSearch" max="32767" attributes="0"/>
                               </Group>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jScrollPane3" pref="243" max="32767" attributes="0"/>
+                              <Component id="jScrollPane3" pref="235" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -431,10 +434,21 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSearchActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="b1.View.chucnang.Combobox" name="cbbTrangthai">
+                    <Component class="b1.View.chucnang.Combobox" name="cbbTrangThai">
                       <Properties>
+                        <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                          <StringArray count="4">
+                            <StringItem index="0" value="&#x110;&#xe3; k&#x1ebf;t th&#xfa;c"/>
+                            <StringItem index="1" value="&#x110;ang di&#x1ec5;n ra"/>
+                            <StringItem index="2" value="S&#x1eaf;p di&#x1ec5;n ra"/>
+                            <StringItem index="3" value="T&#x1ea5;t c&#x1ea3;"/>
+                          </StringArray>
+                        </Property>
                         <Property name="labeText" type="java.lang.String" value="Tr&#x1ea1;ng th&#xe1;i"/>
                       </Properties>
+                      <Events>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbbTrangThaiActionPerformed"/>
+                      </Events>
                     </Component>
                   </SubComponents>
                 </Container>

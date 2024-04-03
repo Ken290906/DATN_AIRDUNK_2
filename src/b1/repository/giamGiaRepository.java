@@ -33,7 +33,42 @@ public class giamGiaRepository {
                        FROM [dbo].[VCH]
                         WHERE Deleted = 0;
                      """;
-        try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                GiamGia1 gg = new GiamGia1();
+                gg.setMaVCH(rs.getString(1));
+                gg.setMaGiamGia(rs.getString(2));
+                gg.setSoLuong(rs.getInt(3));
+                gg.setGiaTri(rs.getInt(4));
+                gg.setHanMuc(rs.getFloat(5));
+                gg.setNgayBatDau(rs.getDate(6));
+                gg.setNgayKetThuc(rs.getDate(7));
+                gg.setTrangThai(rs.getInt(8));
+                listGiamGia.add(gg);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listGiamGia;
+    }
+
+    public List<GiamGia1> trangThai(String trangthai) {
+        List<GiamGia1> listGiamGia = new ArrayList<>();
+        String sql = """
+                     SELECT [MaVCH]
+                           ,[MaGiamGia]
+                           ,[SoLuong]
+                           ,[Giatri]
+                           ,[giatritoida]
+                           ,[NgayBD]
+                           ,[NgayKT]
+                           ,[trangThai]
+                       FROM [dbo].[VCH]
+                        WHERE [trangThai] = ?;
+                     """;
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setObject(1, trangthai);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 GiamGia1 gg = new GiamGia1();
@@ -61,7 +96,7 @@ public class giamGiaRepository {
                        FROM [dbo].[VCH]
                         WHERE Deleted = 0;
                      """;
-        try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 GiamGia1 gg = new GiamGia1();
@@ -95,7 +130,7 @@ INSERT INTO [dbo].[VCH]
                           VALUES
                                 (?,?,?,?,?,?,?,?,?,?,?,?,?)
                      """;
-        try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setObject(1, gg.getMaVCH());
             ps.setObject(2, gg.getMaGiamGia());
             ps.setObject(3, gg.getSoLuong());
@@ -124,7 +159,7 @@ INSERT INTO [dbo].[VCH]
                                  Deleted = 1
                             WHERE MaVCH=?
                      """;
-        try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setObject(1, id);
             check = ps.executeUpdate();
         } catch (Exception e) {
@@ -148,7 +183,7 @@ INSERT INTO [dbo].[VCH]
                                                                        ,[NgayKT] = ?
                                                                   WHERE [MaVCH] = ?
                    """;
-            try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
+            try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
                 ps.setObject(1, gg.getMaGiamGia());
                 ps.setObject(2, gg.getSoLuong());
                 ps.setObject(3, gg.getGiaTri());
@@ -177,7 +212,7 @@ INSERT INTO [dbo].[VCH]
                        FROM [dbo].[VCH]
                        Where MaVCH like ? or MaGiamGia like ? or SoLuong like ? or GiaTri like ? or giatritoida like ? or NgayBD like ? or NgayKT like ?
                       """;
-        try ( Connection c = DBConnect.getConnection();  PreparedStatement ps = c.prepareStatement(sql)) {
+        try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setObject(1, timkiem + "%");
             ps.setObject(2, timkiem + "%");
             ps.setObject(3, timkiem + "%");
@@ -202,6 +237,39 @@ INSERT INTO [dbo].[VCH]
             e.printStackTrace();
         }
         return listGiamGia;
+    }
+
+    public List<GiamGia1> timTrangThai(int trangThai) {
+        List<GiamGia1> ds = new ArrayList<>();
+        String sql = """
+                       SELECT [MaGiamGia]
+                                                ,[Soluong]
+                                                ,[GiaTri]
+                                                ,[GiaTriToida]
+                                                ,[NgayBD]
+                                                ,[NgayKT]
+                                                ,[trangThai]
+                                            FROM [dbo].[VCH] where trangThai = ?  
+                                          		order by [CreatedAt] DESC		
+                   """;
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setObject(1, trangThai);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                GiamGia1 gg = new GiamGia1();
+                gg.setMaGiamGia(rs.getString(1));
+                gg.setSoLuong(rs.getInt(2));
+                gg.setGiaTri(rs.getInt(3));
+                gg.setHanMuc(rs.getFloat(4));
+                gg.setNgayBatDau(rs.getDate(5));
+                gg.setNgayKetThuc(rs.getDate(6));
+                gg.setTrangThai(rs.getInt(7));
+                ds.add(gg);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ds;
     }
 
     public static void main(String[] args) {

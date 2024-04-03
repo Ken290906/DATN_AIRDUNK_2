@@ -13,7 +13,9 @@ import java.util.List;
  * @author ADMIN
  */
 public class GiamGiaService {
+
     giamGiaRepository repo = new giamGiaRepository();
+
     public List<GiamGia1> getAll() {
         return repo.getAll();
     }
@@ -22,19 +24,23 @@ public class GiamGiaService {
         return repo.cbbBH();
     }
     
-    public boolean add(GiamGia1 gg){
+    public boolean add(GiamGia1 gg) {
         return repo.add(gg);
     }
     
     public boolean remove(String id) {
-       return repo.remove(id);
+        return repo.remove(id);
     }
-     
+    
     public boolean updateData(GiamGia1 gg, String id) {
         return repo.updateData(gg, id);
     }
     
-    public List<GiamGia1> Search(String timkiem,String tiemkiem1) {
+    public List<GiamGia1> Search(String timkiem, String tiemkiem1) {
         return repo.Search(timkiem);
+    }
+    
+    public List<GiamGia1> timTrangThai(int trangThai) {
+        return repo.timTrangThai(trangThai);
     }
 }
