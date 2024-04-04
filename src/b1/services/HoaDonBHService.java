@@ -19,6 +19,10 @@ public class HoaDonBHService {
         return repo.getAllBanHang();
     }
     
+    public List<HoaDonBH> searchHDBH(String maHD) {
+        return repo.searchHDBH(maHD);
+    }
+    
     public boolean Add(HoaDonBH hdbh) {
         return repo.Add(hdbh);
     }

@@ -24,8 +24,44 @@ public class HDBanHangRepository {
                     SELECT        dbo.HoaDon.MaHD, dbo.HoaDon.MaNV, dbo.HoaDon.Soluong, dbo.HoaDon.NgayTaoHoaDon, dbo.HoaDon.Deleted
                            FROM            dbo.HoaDon FULL JOIN dbo.HoaDonChiTiet ON dbo.HoaDon.MaHD = dbo.HoaDonChiTiet.MaHoaDon 
                                                       FULL JOIN dbo.LichsuHD ON dbo.HoaDon.MaHD = dbo.LichsuHD.IDHoaDon
+                     WHERE dbo.HoaDon.Deleted = 0
                      """;
         try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                HoaDonBH hd = new HoaDonBH();
+                hd.setMaHD(rs.getString(1));
+                hd.setMaNV(rs.getString(2));
+                hd.setSoluong(rs.getInt(3));
+                hd.setNgaytao(rs.getDate(4));
+                hd.setTrangthai(rs.getBoolean(5));
+
+                list.add(hd);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
+    public List<HoaDonBH> searchHDBH(String maHD) {
+        List<HoaDonBH> list = new ArrayList<>();
+
+        String sql = """
+                    SELECT        dbo.HoaDon.MaHD, dbo.HoaDon.MaNV, dbo.HoaDon.Soluong, dbo.HoaDon.NgayTaoHoaDon, dbo.HoaDon.Deleted
+                           FROM            dbo.HoaDon FULL JOIN dbo.HoaDonChiTiet ON dbo.HoaDon.MaHD = dbo.HoaDonChiTiet.MaHoaDon 
+                                                      FULL JOIN dbo.LichsuHD ON dbo.HoaDon.MaHD = dbo.LichsuHD.IDHoaDon
+                     WHERE dbo.HoaDon.MaHD like ? OR
+                           dbo.HoaDon.MaNV like ? OR
+                           dbo.HoaDon.Soluong like ? OR
+                           dbo.HoaDon.NgayTaoHoaDon like ?
+                     AND dbo.HoaDon.Deleted = 0
+                     """;
+        try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setObject(1,'%' + maHD + '%');
+            ps.setObject(2,'%' + maHD + '%');
+            ps.setObject(3,'%' + maHD + '%');
+            ps.setObject(4,'%' + maHD + '%');
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 HoaDonBH hd = new HoaDonBH();

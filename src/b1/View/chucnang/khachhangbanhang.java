@@ -65,9 +65,8 @@ private banhhang bh;
                 int index = tbldanhsachkhachhang.getSelectedRow();
                 if (index >=0 && e.getClickCount() == 2) {
                     String idmakh = (String) tbldanhsachkhachhang.getValueAt(index, 2);
-                    String idmakh2 = (String) tbldanhsachkhachhang.getValueAt(index, 2);
                     String idmakh3 = (String) tbldanhsachkhachhang.getValueAt(index, 1);
-                    bh.getkh(idmakh, idmakh2, idmakh3);
+                    bh.getkh(idmakh, idmakh3);
                     setVisible(false);
                 }
             }
