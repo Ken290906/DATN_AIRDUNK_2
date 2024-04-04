@@ -245,12 +245,24 @@ public class banhhang extends javax.swing.JInternalFrame {
                     String chatlieu = tbldanhsachsanpham.getValueAt(selectedRow, 6).toString();
                     String day = tbldanhsachsanpham.getValueAt(selectedRow, 7).toString();
                     String giaBan = tbldanhsachsanpham.getValueAt(selectedRow, 9).toString();
+
                     int soLuong = nhapSoLuong();
+
+                    for (sanphamchitietviewmodel object : listsp) {
+                        if (object.getMctsp().equals(maSP)) {
+                            object.setSoluong(object.getSoluong() - soLuong);
+                        }
+                    }
+
                     addToCart(maSP, tenSanPham, hang, mau, size, chatlieu, day, soLuong, Integer.parseInt(giaBan));
+
+                    // Hiển thị lại dữ liệu trong bảng giỏ hàng
+                    showdata(listsp);
+                    rowCount++;
+
                 }
             }
         });
-       
 
     }
 
@@ -297,7 +309,6 @@ public class banhhang extends javax.swing.JInternalFrame {
                 trangthai
             });
         }
-       
 
     }
 
@@ -318,18 +329,22 @@ public class banhhang extends javax.swing.JInternalFrame {
         }
     }
 
+    private int rowSTT = 0;
+
     public HoaDonBH getFormData() {
 
-        String maHD = "HD-" + UUID.randomUUID().toString().substring(0, 3); // Tạo mã hóa đơn duy nhất
+        String maHD = "HD-000" + rowSTT; // Tạo mã hóa đơn duy nhất
         String maNV = "NV-001";
         Date ngayTao = new Date();
         int soluongSP = 0;
         boolean trangThai = false;
-
+        
         HoaDonBH hd = new HoaDonBH(maHD, ngayTao, maNV, soluongSP, trangThai);
         txtMaHD.setText(maHD);
         txtNgayTT.setText(dateFormat.format(ngayTao));
+        rowSTT++;
         return hd;
+        
     }
 
     public void sanphamshow() {
@@ -803,6 +818,11 @@ public class banhhang extends javax.swing.JInternalFrame {
         tblhoadon.setGridColor(new java.awt.Color(255, 255, 255));
         tblhoadon.setRowHeight(30);
         tblhoadon.setSelectionBackground(new java.awt.Color(153, 153, 255));
+        tblhoadon.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblhoadonMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblhoadon);
 
         btnAddHoaDon.setBackground(new java.awt.Color(153, 255, 255));
@@ -823,6 +843,11 @@ public class banhhang extends javax.swing.JInternalFrame {
         buttonGradient7.setColor1(new java.awt.Color(204, 204, 255));
         buttonGradient7.setColor2(new java.awt.Color(255, 255, 255));
         buttonGradient7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonGradient7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonGradient7ActionPerformed(evt);
+            }
+        });
 
         txtSearchHD.setLabelText("Tìm kiếm");
 
@@ -1116,6 +1141,22 @@ public class banhhang extends javax.swing.JInternalFrame {
 
     private void buttonGradient10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient10ActionPerformed
         // TODO add your handling code here:
+
+        for (int i = 0; i < dtmGiohang.getRowCount(); i++) {
+            String maSP = dtmGiohang.getValueAt(i, 1).toString();
+            int soLuong = Integer.parseInt(dtmGiohang.getValueAt(i, 8).toString()); // Lấy số lượng ban đầu từ cột số lượng trong giỏ hàng
+            for (sanphamchitietviewmodel sp : listsp) {
+                if (sp.getMctsp().equals(maSP)) {
+                    sp.setSoluong(sp.getSoluong() + soLuong); // Cập nhật lại số lượng của sản phẩm trong danh sách sản phẩm
+                    break;
+                }
+            }
+        }
+
+        // Hiển thị lại dữ liệu trong bảng tbldanhsachsanpham
+        showdata(listsp);
+
+        // Xóa toàn bộ dữ liệu trong giỏ hàng
         dtmGiohang.setRowCount(0);
     }//GEN-LAST:event_buttonGradient10ActionPerformed
 
@@ -1174,7 +1215,23 @@ public class banhhang extends javax.swing.JInternalFrame {
 
     private void deleteGHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteGHActionPerformed
         // TODO add your handling code here:
+
     }//GEN-LAST:event_deleteGHActionPerformed
+
+    private void tblhoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblhoadonMouseClicked
+        // TODO add your handling code here:
+        int index = tblhoadon.getSelectedRow();
+
+        HoaDonBH hd = listBH.get(index);
+
+        txtMaHD.setText(hd.getMaHD());
+        txtNgayTao.setText(String.valueOf(hd.getNgaytao()));
+    }//GEN-LAST:event_tblhoadonMouseClicked
+
+    private void buttonGradient7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient7ActionPerformed
+        // TODO add your handling code here:
+        dtmGiohang.setRowCount(0);
+    }//GEN-LAST:event_buttonGradient7ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
