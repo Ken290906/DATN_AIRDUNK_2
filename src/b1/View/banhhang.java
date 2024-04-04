@@ -197,21 +197,24 @@ public class banhhang extends javax.swing.JInternalFrame {
 
                 if (TienTong >= 20000000 && TienTong < 60000000 && chonphieugiamgia.equals("NGHÈO")) {
                     giamGia = tongTien * 0.1;
-                    dudkphieugiamgia(); 
+                    dudkphieugiamgia();
                 } else if (TienTong >= 60000000 && TienTong < 90000000 && chonphieugiamgia.equals("THƯỜNG")) {
                     giamGia = tongTien * 0.3;
-                    dudkphieugiamgia(); 
+                    dudkphieugiamgia();
                 } else if (TienTong >= 90000000 && chonphieugiamgia.equals("VIP")) {
                     giamGia = tongTien * 0.5;
-                    dudkphieugiamgia(); 
+                    dudkphieugiamgia();
                 } else {
-                    dkphieugiamgia(); 
+                    dkphieugiamgia();
                 }
 
                 int tongTienSauGiamGia = (int) (tongTien - giamGia);
-                txttongtien.setText(String.valueOf(tongTienSauGiamGia));
+                DecimalFormat Chuyendang = new DecimalFormat("#,### đ");
+                String chuyentien = Chuyendang.format(tongTienSauGiamGia);
+                txttongtien.setText(String.valueOf(chuyentien));
 
             }
+
         });
 
         txtkhachdua.addActionListener(new ActionListener() {
@@ -247,6 +250,8 @@ public class banhhang extends javax.swing.JInternalFrame {
                 }
             }
         });
+       
+
     }
 
     public void dkphieugiamgia() {
@@ -292,6 +297,12 @@ public class banhhang extends javax.swing.JInternalFrame {
                 trangthai
             });
         }
+       
+
+    }
+
+    private void tuhienhoadon() {
+        showHoaDonBH(listBH);
     }
 
     public void getkh(String ten, String makh) {
@@ -316,6 +327,8 @@ public class banhhang extends javax.swing.JInternalFrame {
         boolean trangThai = false;
 
         HoaDonBH hd = new HoaDonBH(maHD, ngayTao, maNV, soluongSP, trangThai);
+        txtMaHD.setText(maHD);
+        txtNgayTT.setText(dateFormat.format(ngayTao));
         return hd;
     }
 
@@ -646,10 +659,10 @@ public class banhhang extends javax.swing.JInternalFrame {
                                             .addComponent(jLabel5))
                                         .addGap(95, 95, 95)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jSeparator4)
                                             .addComponent(txtMaHD)
                                             .addComponent(jSeparator5)
-                                            .addComponent(txtNgayTao)))
+                                            .addComponent(txtNgayTao, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
+                                            .addComponent(jSeparator4)))
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel11)
@@ -755,6 +768,9 @@ public class banhhang extends javax.swing.JInternalFrame {
                     .addComponent(btnUpdateHD, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
+
+        cbbgiamrgia.getAccessibleContext().setAccessibleName("");
+        cbbgiamrgia.getAccessibleContext().setAccessibleDescription("");
 
         panel4.addTab("Đơn Hàng", jPanel1);
 

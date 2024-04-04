@@ -154,10 +154,10 @@
                                                   </Group>
                                                   <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                                      <Component id="jSeparator4" max="32767" attributes="0"/>
                                                       <Component id="txtMaHD" max="32767" attributes="0"/>
                                                       <Component id="jSeparator5" alignment="0" max="32767" attributes="0"/>
-                                                      <Component id="txtNgayTao" alignment="0" max="32767" attributes="0"/>
+                                                      <Component id="txtNgayTao" alignment="0" pref="130" max="32767" attributes="0"/>
+                                                      <Component id="jSeparator4" max="32767" attributes="0"/>
                                                   </Group>
                                               </Group>
                                               <Group type="102" alignment="0" attributes="0">
@@ -621,6 +621,10 @@
                     </Property>
                     <Property name="labeText" type="java.lang.String" value="Ch&#x1ecd;n phi&#x1ebf;u gi&#x1ea3;m gi&#xe1;"/>
                   </Properties>
+                  <AccessibilityProperties>
+                    <Property name="AccessibleContext.accessibleName" type="java.lang.String" value=""/>
+                    <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value=""/>
+                  </AccessibilityProperties>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel16">
                   <Properties>
