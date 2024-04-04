@@ -85,7 +85,7 @@ public class banhhang extends javax.swing.JInternalFrame {
     private List<hangsanxuat> listhang = new ArrayList<>();
     private List<HoaDonBH> listBH = new ArrayList<>();
     private List<GiamGia1> listVCH = new ArrayList<>();
-    
+
 //ITF
     interfacesp itf = new iterface2() {
     };
@@ -94,8 +94,10 @@ public class banhhang extends javax.swing.JInternalFrame {
     private hangsxservices hsxs = new hangsxservices();
     private HoaDonBHService srhd = new HoaDonBHService();
     private GiamGiaService srvch = new GiamGiaService();
-    
+    DecimalFormat VND = new DecimalFormat("#,##0 đ");
+
     DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
     /**
      * Creates new form gd1
      */
@@ -148,7 +150,7 @@ public class banhhang extends javax.swing.JInternalFrame {
             }
 
         });
-        
+
         txtsearch.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -191,15 +193,19 @@ public class banhhang extends javax.swing.JInternalFrame {
 
                 double tongTien = Double.parseDouble(txttongtien.getText());
                 double giamGia = 0;
+                int TienTong = Integer.valueOf(txttong.getText());
 
-                if (chonphieugiamgia.equalsIgnoreCase("- 70 %LQ-2006")) {
-                    giamGia = tongTien * 0.7;
-                } else if (chonphieugiamgia.equalsIgnoreCase("- 50 % MGG-2006")) {
-                    giamGia = tongTien * 0.5;
-                } else if (chonphieugiamgia.equalsIgnoreCase("- 20% MGG-2024")) {
-                    giamGia = tongTien * 0.2;
-                } else if (chonphieugiamgia.equalsIgnoreCase("- 10 % FF-2023")) {
+                if (TienTong >= 20000000 && TienTong < 60000000 && chonphieugiamgia.equals("NGHÈO")) {
                     giamGia = tongTien * 0.1;
+                    dudkphieugiamgia(); 
+                } else if (TienTong >= 60000000 && TienTong < 90000000 && chonphieugiamgia.equals("THƯỜNG")) {
+                    giamGia = tongTien * 0.3;
+                    dudkphieugiamgia(); 
+                } else if (TienTong >= 90000000 && chonphieugiamgia.equals("VIP")) {
+                    giamGia = tongTien * 0.5;
+                    dudkphieugiamgia(); 
+                } else {
+                    dkphieugiamgia(); 
                 }
 
                 int tongTienSauGiamGia = (int) (tongTien - giamGia);
@@ -227,20 +233,42 @@ public class banhhang extends javax.swing.JInternalFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) { // Kiểm tra xem đã click 2 lần chưa
-                    int selectedRow = tbldanhsachsanpham.getSelectedRow();                 
-                        String maSP = tbldanhsachsanpham.getValueAt(selectedRow, 1).toString();
-                        String tenSanPham = tbldanhsachsanpham.getValueAt(selectedRow, 2).toString();
-                        String hang = tbldanhsachsanpham.getValueAt(selectedRow, 3).toString();
-                        String mau = tbldanhsachsanpham.getValueAt(selectedRow, 4).toString();
-                        String size = tbldanhsachsanpham.getValueAt(selectedRow, 5).toString();
-                        String chatlieu = tbldanhsachsanpham.getValueAt(selectedRow, 6).toString();
-                        String day = tbldanhsachsanpham.getValueAt(selectedRow, 7).toString();
-                        String giaBan = tbldanhsachsanpham.getValueAt(selectedRow, 9).toString();
-                        int soLuong = nhapSoLuong();
-                        addToCart(maSP, tenSanPham, hang, mau, size, chatlieu, day, soLuong, Integer.parseInt(giaBan));               
+                    int selectedRow = tbldanhsachsanpham.getSelectedRow();
+                    String maSP = tbldanhsachsanpham.getValueAt(selectedRow, 1).toString();
+                    String tenSanPham = tbldanhsachsanpham.getValueAt(selectedRow, 2).toString();
+                    String hang = tbldanhsachsanpham.getValueAt(selectedRow, 3).toString();
+                    String mau = tbldanhsachsanpham.getValueAt(selectedRow, 4).toString();
+                    String size = tbldanhsachsanpham.getValueAt(selectedRow, 5).toString();
+                    String chatlieu = tbldanhsachsanpham.getValueAt(selectedRow, 6).toString();
+                    String day = tbldanhsachsanpham.getValueAt(selectedRow, 7).toString();
+                    String giaBan = tbldanhsachsanpham.getValueAt(selectedRow, 9).toString();
+                    int soLuong = nhapSoLuong();
+                    addToCart(maSP, tenSanPham, hang, mau, size, chatlieu, day, soLuong, Integer.parseInt(giaBan));
                 }
             }
         });
+    }
+
+    public void dkphieugiamgia() {
+        JOptionPane.showMessageDialog(this, "Số tiền không đủ để áp dụng phiếu giảm giá này");
+        return;
+    }
+
+    public void dudkphieugiamgia() {
+        JOptionPane.showMessageDialog(this, "Đã giảm giá thành công");
+        return;
+    }
+
+    private void calculateTotal() {
+        DefaultTableModel model = (DefaultTableModel) tblgiohang.getModel();
+        int total = 0;
+        for (int i = 0; i < model.getRowCount(); i++) {
+            // Assuming the column index of the 'total' column is 3
+            total += Integer.valueOf((String) model.getValueAt(i, 10));
+        }
+        txttongtien.setText(String.valueOf(total));
+        txttong.setText(String.valueOf(total));
+
     }
 
     public void showHoaDonBH(List<HoaDonBH> listHDBH) {
@@ -313,13 +341,12 @@ public class banhhang extends javax.swing.JInternalFrame {
     }
 
     private int rowCount = 0;
-    
+
     private void addToCart(String maSP, String tenSanPham, String hang, String mau, String size, String chatlieu, String day, int soLuong, int giaBan) {
         String thanhtien = String.valueOf(soLuong * giaBan);
-
-        txttongtien.setText(thanhtien);
-        txttong.setText(thanhtien);
         dtmGiohang.addRow(new Object[]{rowCount + 1, maSP, tenSanPham, hang, mau, size, chatlieu, day, soLuong, giaBan, thanhtien});
+        calculateTotal();
+
     }
 
     //showcombbox
@@ -354,13 +381,13 @@ public class banhhang extends javax.swing.JInternalFrame {
         }
         return 0; // Trả về 0 nếu không nhập hoặc nhập không hợp lệ
     }
-    
-    public HoaDonBH getformdatabanhang() throws ParseException{
+
+    public HoaDonBH getformdatabanhang() throws ParseException {
         String MaHD = txtMaHD.getText();
         String TT = txttongtien.getText();
         String MaNV = txtmaNV.getText();
         Date NT = dateFormat.parse(txtNgayTao.getText());
-        
+
         HoaDonBH hd = new HoaDonBH(MaHD, NT, MaNV, 1, iconable);
         return hd;
     }
@@ -459,7 +486,7 @@ public class banhhang extends javax.swing.JInternalFrame {
 
         txtMaKH.setDisabledTextColor(new java.awt.Color(0, 204, 204));
         txtMaKH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtMaKH.setLabelText("Mã khách hàng");
+        txtMaKH.setLabelText("SDT");
 
         buttonGradient9.setBackground(new java.awt.Color(153, 255, 255));
         buttonGradient9.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -616,7 +643,7 @@ public class banhhang extends javax.swing.JInternalFrame {
                                     .addGroup(jPanel1Layout.createSequentialGroup()
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel6)
-                                            .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                                            .addComponent(jLabel5))
                                         .addGap(95, 95, 95)
                                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(jSeparator4)

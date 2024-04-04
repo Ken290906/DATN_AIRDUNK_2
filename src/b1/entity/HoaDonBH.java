@@ -14,6 +14,7 @@ public class HoaDonBH {
     
     private String maHD;
     private Date ngaytao;
+    private Date ngaythanh;
     private String maNV;
     private int soluong;
     private boolean trangthai;
@@ -29,6 +30,24 @@ public class HoaDonBH {
         this.trangthai = trangthai;
     }
 
+    public HoaDonBH(String maHD, Date ngaytao, Date ngaythanh, String maNV, int soluong, boolean trangthai) {
+        this.maHD = maHD;
+        this.ngaytao = ngaytao;
+        this.ngaythanh = ngaythanh;
+        this.maNV = maNV;
+        this.soluong = soluong;
+        this.trangthai = trangthai;
+    }
+
+    public Date getNgaythanh() {
+        return ngaythanh;
+    }
+
+    public void setNgaythanh(Date ngaythanh) {
+        this.ngaythanh = ngaythanh;
+    }
+    
+    
     public String getMaHD() {
         return maHD;
     }
@@ -71,8 +90,10 @@ public class HoaDonBH {
 
     @Override
     public String toString() {
-        return "HoaDonBH{" + "maHD=" + maHD + ", ngaytao=" + ngaytao + ", maNV=" + maNV + ", soluong=" + soluong + ", trangthai=" + trangthai + '}';
+        return "HoaDonBH{" + "maHD=" + maHD + ", ngaytao=" + ngaytao + ", ngaythanh=" + ngaythanh + ", maNV=" + maNV + ", soluong=" + soluong + ", trangthai=" + trangthai + '}';
     }
+
+    
 
     
     

@@ -150,7 +150,7 @@
                                               <Group type="102" alignment="0" attributes="0">
                                                   <Group type="103" groupAlignment="0" attributes="0">
                                                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
-                                                      <Component id="jLabel5" alignment="1" min="-2" max="-2" attributes="0"/>
+                                                      <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                                                   </Group>
                                                   <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
                                                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -367,7 +367,7 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="14" style="1"/>
                         </Property>
-                        <Property name="labelText" type="java.lang.String" value="M&#xe3; kh&#xe1;ch h&#xe0;ng"/>
+                        <Property name="labelText" type="java.lang.String" value="SDT"/>
                       </Properties>
                     </Component>
                     <Component class="b1.View.chucnang.ButtonGradient" name="buttonGradient9">

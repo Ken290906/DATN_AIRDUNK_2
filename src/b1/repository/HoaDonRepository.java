@@ -262,6 +262,7 @@ public class HoaDonRepository {
                 hd.setDiaChi(rs.getString(6));
                 hd.setSdtKH(rs.getInt(7));
                 hd.setTrangThai(rs.getInt(8));
+         
 
                 list.add(hd);
             }
