@@ -442,12 +442,26 @@ public class banhhang extends javax.swing.JInternalFrame {
 
     private int rowCount = 0;
 
-    private void addToCart(String maSP, String tenSanPham, String hang, String mau, String size, String chatlieu, String day, int soLuong, int giaBan) {
+   private void addToCart(String maSP, String tenSanPham, String hang, String mau, String size, String chatlieu, String day, int soLuong, int giaBan) {
+    boolean productExists = false;
+
+    for (int i = 0; i < dtmGiohang.getRowCount(); i++) {
+        if (dtmGiohang.getValueAt(i, 1).equals(maSP)) {    
+            int oldQuantity = (int) dtmGiohang.getValueAt(i, 8);
+            dtmGiohang.setValueAt(oldQuantity + soLuong, i, 8); 
+            productExists = true;
+            break;
+        }
+    }
+
+    if (!productExists) {
         String thanhtien = String.valueOf(soLuong * giaBan);
         dtmGiohang.addRow(new Object[]{rowCount + 1, maSP, tenSanPham, hang, mau, size, chatlieu, day, soLuong, giaBan, thanhtien});
-        calculateTotal();
-
+        rowCount++;
     }
+
+    calculateTotal();
+}
 
     //showcombbox
     public void Combobox(List<hangsanxuat> hsx) {
