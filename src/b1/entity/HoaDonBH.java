@@ -11,8 +11,14 @@ import java.util.Date;
  * @author Huanh
  */
 public class HoaDonBH {
-    
+
+   
     private String maHD;
+    private String MaKH;
+    private String MaHTTT;
+    private String MaVCH;
+    private String TenSP;
+    private double Tongtien;  
     private Date ngaytao;
     private Date ngaythanh;
     private String maNV;
@@ -39,15 +45,25 @@ public class HoaDonBH {
         this.trangthai = trangthai;
     }
 
-    public Date getNgaythanh() {
-        return ngaythanh;
+    public HoaDonBH(String maHD, String MaKH, String MaHTTT, String MaVCH, String TenSP, double Tongtien, Date ngaytao, Date ngaythanh, String maNV, int soluong, boolean trangthai) {
+        this.maHD = maHD;
+        this.MaKH = MaKH;
+        this.MaHTTT = MaHTTT;
+        this.MaVCH = MaVCH;
+        this.TenSP = TenSP;
+        this.Tongtien = Tongtien;
+        this.ngaytao = ngaytao;
+        this.ngaythanh = ngaythanh;
+        this.maNV = maNV;
+        this.soluong = soluong;
+        this.trangthai = trangthai;
     }
 
-    public void setNgaythanh(Date ngaythanh) {
-        this.ngaythanh = ngaythanh;
+    @Override
+    public String toString() {
+        return "HoaDonBH{" + "maHD=" + maHD + ", MaKH=" + MaKH + ", MaHTTT=" + MaHTTT + ", MaVCH=" + MaVCH + ", TenSP=" + TenSP + ", Tongtien=" + Tongtien + ", ngaytao=" + ngaytao + ", ngaythanh=" + ngaythanh + ", maNV=" + maNV + ", soluong=" + soluong + ", trangthai=" + trangthai + '}';
     }
-    
-    
+
     public String getMaHD() {
         return maHD;
     }
@@ -56,12 +72,60 @@ public class HoaDonBH {
         this.maHD = maHD;
     }
 
+    public String getMaKH() {
+        return MaKH;
+    }
+
+    public void setMaKH(String MaKH) {
+        this.MaKH = MaKH;
+    }
+
+    public String getMaHTTT() {
+        return MaHTTT;
+    }
+
+    public void setMaHTTT(String MaHTTT) {
+        this.MaHTTT = MaHTTT;
+    }
+
+    public String getMaVCH() {
+        return MaVCH;
+    }
+
+    public void setMaVCH(String MaVCH) {
+        this.MaVCH = MaVCH;
+    }
+
+    public String getTenSP() {
+        return TenSP;
+    }
+
+    public void setTenSP(String TenSP) {
+        this.TenSP = TenSP;
+    }
+
+    public double getTongtien() {
+        return Tongtien;
+    }
+
+    public void setTongtien(double Tongtien) {
+        this.Tongtien = Tongtien;
+    }
+
     public Date getNgaytao() {
         return ngaytao;
     }
 
     public void setNgaytao(Date ngaytao) {
         this.ngaytao = ngaytao;
+    }
+
+    public Date getNgaythanh() {
+        return ngaythanh;
+    }
+
+    public void setNgaythanh(Date ngaythanh) {
+        this.ngaythanh = ngaythanh;
     }
 
     public String getMaNV() {
@@ -87,16 +151,7 @@ public class HoaDonBH {
     public void setTrangthai(boolean trangthai) {
         this.trangthai = trangthai;
     }
-
-    @Override
-    public String toString() {
-        return "HoaDonBH{" + "maHD=" + maHD + ", ngaytao=" + ngaytao + ", ngaythanh=" + ngaythanh + ", maNV=" + maNV + ", soluong=" + soluong + ", trangthai=" + trangthai + '}';
-    }
-
+    
     
 
-    
-    
-    
-    
 }

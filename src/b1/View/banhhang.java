@@ -205,9 +205,10 @@ public class banhhang extends javax.swing.JInternalFrame {
             public void actionPerformed(ActionEvent e) {
                 String chonphieugiamgia = (String) cbbgiamrgia.getSelectedItem();
 
-                double tongTien = Double.parseDouble(txttongtien.getText());
+                double tongTien = Double.parseDouble(txttongtien.getText().replaceAll("[^0-9]", ""));
+
+                int TienTong = Integer.parseInt(txttong.getText().replaceAll("[^0-9]", ""));
                 double giamGia = 0;
-                int TienTong = Integer.valueOf(txttong.getText());
 
                 if (TienTong <= 40000000 && chonphieugiamgia.equals("NGHÈO")) {
                     JOptionPane.showMessageDialog(null, "Khi chọn sản phẩm giá trên 40000000 mới được PGG này ");
@@ -245,8 +246,55 @@ public class banhhang extends javax.swing.JInternalFrame {
 //                }
                 int tongTienSauGiamGia = (int) (tongTien - giamGia);
 
-                txttongtien.setText(String.valueOf(tongTienSauGiamGia));
+                txttongtien.setText(VND.format(tongTienSauGiamGia));
+                cbbPTTT.addItemListener(new ItemListener() {
+                    public void itemStateChanged(ItemEvent e) {
+                        if (e.getStateChange() == ItemEvent.SELECTED) {
+                            String selectedValue = (String) cbbPTTT.getSelectedItem();
+                            if (selectedValue.equals("Tiền Mặt")) {
+                                txtchuyenkhoan.setEditable(false);
+                                txtchuyenkhoan.setText("");
+                                txtkhachdua.addActionListener(new ActionListener() {
+                                    @Override
+                                    public void actionPerformed(ActionEvent e) {
+                                        int khachDua = Integer.valueOf(txtkhachdua.getText());
+                                        int tongTien = tongTienSauGiamGia;
+                                        int thoiLai = tongTienSauGiamGia - khachDua;
+                                        txttongtien.setText(VND.format(thoiLai));
+                                      
 
+                                    }
+                                });
+                            } else {
+                                txtchuyenkhoan.setEditable(true);
+                            }
+                        }
+                    }
+                });
+                cbbPTTT.addItemListener(new ItemListener() {
+                    public void itemStateChanged(ItemEvent e) {
+                        if (e.getStateChange() == ItemEvent.SELECTED) {
+                            String selectedValue = (String) cbbPTTT.getSelectedItem();
+                            if (selectedValue.equals("Chuyển khoản")) {
+                                txtkhachdua.setEditable(false);
+                                txtkhachdua.setText("");
+                                txtchuyenkhoan.addActionListener(new ActionListener() {
+                                    @Override
+                                    public void actionPerformed(ActionEvent e) {
+                                       int khachDua = Integer.valueOf(txtchuyenkhoan.getText());
+                                        int tongTien = tongTienSauGiamGia;
+                                        int thoiLai = tongTienSauGiamGia - khachDua;
+                                        txttongtien.setText(VND.format(thoiLai));
+
+                                       
+                                    }
+                                });
+                            } else {
+                                txtkhachdua.setEditable(true);
+                            }
+                        }
+                    }
+                });
             }
 
         });
@@ -282,52 +330,6 @@ public class banhhang extends javax.swing.JInternalFrame {
             }
         });
 
-        cbbPTTT.addItemListener(new ItemListener() {
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    String selectedValue = (String) cbbPTTT.getSelectedItem();
-                    if (selectedValue.equals("Tiền Mặt")) {
-                        txtchuyenkhoan.setEditable(false);
-                        txtchuyenkhoan.setText("");
-                        txtkhachdua.addActionListener(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                int khachDua = Integer.valueOf(txtkhachdua.getText());
-                                int tongTien = Integer.valueOf(txttongtien.getText());
-                                int thoiLai = tongTien - khachDua;
-                                txttongtien.setText(String.valueOf(thoiLai));
-
-                            }
-                        });
-                    } else {
-                        txtchuyenkhoan.setEditable(true);
-                    }
-                }
-            }
-        });
-        cbbPTTT.addItemListener(new ItemListener() {
-            public void itemStateChanged(ItemEvent e) {
-                if (e.getStateChange() == ItemEvent.SELECTED) {
-                    String selectedValue = (String) cbbPTTT.getSelectedItem();
-                    if (selectedValue.equals("Chuyển khoản")) {
-                        txtkhachdua.setEditable(false);
-                        txtkhachdua.setText("");
-                        txtchuyenkhoan.addActionListener(new ActionListener() {
-                            @Override
-                            public void actionPerformed(ActionEvent e) {
-                                int chuyenkhoan = Integer.valueOf(txtchuyenkhoan.getText());
-                                int tongTien = Integer.valueOf(txttongtien.getText());
-                                int thoiLai = tongTien - chuyenkhoan;
-                                txttongtien.setText(String.valueOf(thoiLai));
-                            }
-                        });
-                    } else {
-                        txtkhachdua.setEditable(true);
-                    }
-                }
-            }
-        });
-
     }
 
     //ComboboxPTTT
@@ -352,12 +354,10 @@ public class banhhang extends javax.swing.JInternalFrame {
         DefaultTableModel model = (DefaultTableModel) tblgiohang.getModel();
         int total = 0;
         for (int i = 0; i < model.getRowCount(); i++) {
-            // Assuming the column index of the 'total' column is 3
             total += Integer.valueOf((String) model.getValueAt(i, 10));
         }
-        txttongtien.setText(String.valueOf(total));
-        txttong.setText(String.valueOf(total));
-
+        txttongtien.setText(VND.format(total));
+        txttong.setText(VND.format(total));
     }
 
     public void showHoaDonBH(List<HoaDonBH> listHDBH) {
@@ -410,13 +410,13 @@ public class banhhang extends javax.swing.JInternalFrame {
         Date ngayTao = new Date();
         int soluongSP = 0;
         boolean trangThai = false;
-        
+
         HoaDonBH hd = new HoaDonBH(maHD, ngayTao, maNV, soluongSP, trangThai);
         txtMaHD.setText(maHD);
         txtNgayTT.setText(dateFormat.format(ngayTao));
         rowSTT++;
         return hd;
-        
+
     }
 
     public void sanphamshow() {
@@ -442,26 +442,35 @@ public class banhhang extends javax.swing.JInternalFrame {
 
     private int rowCount = 0;
 
-   private void addToCart(String maSP, String tenSanPham, String hang, String mau, String size, String chatlieu, String day, int soLuong, int giaBan) {
-    boolean productExists = false;
+    private void addToCart(String maSP, String tenSanPham, String hang, String mau, String size, String chatlieu, String day, int soLuong, int giaBan) {
+        boolean productExists = false;
 
-    for (int i = 0; i < dtmGiohang.getRowCount(); i++) {
-        if (dtmGiohang.getValueAt(i, 1).equals(maSP)) {    
-            int oldQuantity = (int) dtmGiohang.getValueAt(i, 8);
-            dtmGiohang.setValueAt(oldQuantity + soLuong, i, 8); 
-            productExists = true;
-            break;
+        for (int i = 0; i < dtmGiohang.getRowCount(); i++) {
+            if (dtmGiohang.getValueAt(i, 1).equals(maSP)) {
+                // Sản phẩm đã tồn tại trong giỏ hàng, cập nhật số lượng của nó
+                int oldQuantity = (int) dtmGiohang.getValueAt(i, 8);
+                int newQuantity = oldQuantity + soLuong;
+                dtmGiohang.setValueAt(newQuantity, i, 8); // Cập nhật số lượng
+
+                // Tính lại thành tiền của sản phẩm
+                int thanhTien = newQuantity * giaBan;
+                dtmGiohang.setValueAt(thanhTien, i, 9); // Cập nhật thành tiền
+
+                productExists = true;
+                break;
+            }
+
         }
-    }
 
-    if (!productExists) {
-        String thanhtien = String.valueOf(soLuong * giaBan);
-        dtmGiohang.addRow(new Object[]{rowCount + 1, maSP, tenSanPham, hang, mau, size, chatlieu, day, soLuong, giaBan, thanhtien});
-        rowCount++;
-    }
+        if (!productExists) {
+            String thanhtien = String.valueOf(soLuong * giaBan);
+            dtmGiohang.addRow(new Object[]{rowCount + 1, maSP, tenSanPham, hang, mau, size, chatlieu, day, soLuong, giaBan, thanhtien});
 
-    calculateTotal();
-}
+            rowCount++;
+        }
+        calculateTotal();
+
+    }
 
     //showcombbox
     public void Combobox(List<hangsanxuat> hsx) {
@@ -556,6 +565,7 @@ public class banhhang extends javax.swing.JInternalFrame {
         jLabel14 = new javax.swing.JLabel();
         txtchuyenkhoan = new javax.swing.JTextField();
         jSeparator11 = new javax.swing.JSeparator();
+        panel5 = new b1.View.chucnang.Panel();
         panel1 = new b1.View.chucnang.Panel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -919,7 +929,8 @@ public class banhhang extends javax.swing.JInternalFrame {
         cbbPTTT.getAccessibleContext().setAccessibleName("");
         cbbPTTT.getAccessibleContext().setAccessibleDescription("");
 
-        panel4.addTab("Đơn Hàng", jPanel1);
+        panel4.addTab("Đơn Hàng Tai Quan", jPanel1);
+        panel4.addTab("Đơn Hàng Onl", panel5);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1276,19 +1287,17 @@ public class banhhang extends javax.swing.JInternalFrame {
 
         for (int i = 0; i < dtmGiohang.getRowCount(); i++) {
             String maSP = dtmGiohang.getValueAt(i, 1).toString();
-            int soLuong = Integer.parseInt(dtmGiohang.getValueAt(i, 8).toString()); // Lấy số lượng ban đầu từ cột số lượng trong giỏ hàng
+            int soLuong = Integer.parseInt(dtmGiohang.getValueAt(i, 8).toString());
             for (sanphamchitietviewmodel sp : listsp) {
                 if (sp.getMctsp().equals(maSP)) {
-                    sp.setSoluong(sp.getSoluong() + soLuong); // Cập nhật lại số lượng của sản phẩm trong danh sách sản phẩm
+                    sp.setSoluong(sp.getSoluong() + soLuong);
                     break;
                 }
             }
         }
 
-        // Hiển thị lại dữ liệu trong bảng tbldanhsachsanpham
         showdata(listsp);
 
-        // Xóa toàn bộ dữ liệu trong giỏ hàng
         dtmGiohang.setRowCount(0);
     }//GEN-LAST:event_buttonGradient10ActionPerformed
 
@@ -1432,6 +1441,7 @@ public class banhhang extends javax.swing.JInternalFrame {
     private b1.View.chucnang.Panel panel2;
     private b1.View.chucnang.Panel panel3;
     private b1.View.chucnang.Panel panel4;
+    private b1.View.chucnang.Panel panel5;
     private javax.swing.JTable tbldanhsachsanpham;
     private javax.swing.JTable tblgiohang;
     private javax.swing.JTable tblhoadon;

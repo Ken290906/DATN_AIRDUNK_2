@@ -122,8 +122,8 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-                  <JTabbedPaneConstraints tabName="&#x110;&#x1a1;n H&#xe0;ng">
-                    <Property name="tabTitle" type="java.lang.String" value="&#x110;&#x1a1;n H&#xe0;ng"/>
+                  <JTabbedPaneConstraints tabName="&#x110;&#x1a1;n H&#xe0;ng Tai Quan">
+                    <Property name="tabTitle" type="java.lang.String" value="&#x110;&#x1a1;n H&#xe0;ng Tai Quan"/>
                   </JTabbedPaneConstraints>
                 </Constraint>
               </Constraints>
@@ -731,6 +731,17 @@
                   </Properties>
                 </Component>
               </SubComponents>
+            </Container>
+            <Container class="b1.View.chucnang.Panel" name="panel5">
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
+                  <JTabbedPaneConstraints tabName="&#x110;&#x1a1;n H&#xe0;ng Onl">
+                    <Property name="tabTitle" type="java.lang.String" value="&#x110;&#x1a1;n H&#xe0;ng Onl"/>
+                  </JTabbedPaneConstraints>
+                </Constraint>
+              </Constraints>
+
+              <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
             </Container>
           </SubComponents>
         </Container>

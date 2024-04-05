@@ -272,14 +272,6 @@ public class HoaDonRepository {
 
         return list;
     }
-//    public boolean update(HoaDon hd,String sua){
-//        int check = 0;
-//        String sql = """
-//                     
-//                     """;
-//    }
-   
-
     public static void main(String[] args) {
         List<HoaDon> list = new HoaDonRepository().getAll();
 
