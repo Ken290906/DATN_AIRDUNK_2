@@ -262,7 +262,6 @@ public class banhhang extends javax.swing.JInternalFrame {
                                         int tongTien = tongTienSauGiamGia;
                                         int thoiLai = tongTienSauGiamGia - khachDua;
                                         txttongtien.setText(VND.format(thoiLai));
-                                      
 
                                     }
                                 });
@@ -282,12 +281,11 @@ public class banhhang extends javax.swing.JInternalFrame {
                                 txtchuyenkhoan.addActionListener(new ActionListener() {
                                     @Override
                                     public void actionPerformed(ActionEvent e) {
-                                       int khachDua = Integer.valueOf(txtchuyenkhoan.getText());
+                                        int khachDua = Integer.valueOf(txtchuyenkhoan.getText());
                                         int tongTien = tongTienSauGiamGia;
                                         int thoiLai = tongTienSauGiamGia - khachDua;
                                         txttongtien.setText(VND.format(thoiLai));
 
-                                       
                                     }
                                 });
                             } else {
@@ -300,9 +298,11 @@ public class banhhang extends javax.swing.JInternalFrame {
 
         });
         tbldanhsachsanpham.addMouseListener(new MouseAdapter() {
+
             @Override
             public void mouseClicked(MouseEvent e) {
-                if (e.getClickCount() == 2) { // Kiểm tra xem đã click 2 lần chưa
+
+                if (e.getClickCount() == 2) {
                     int selectedRow = tbldanhsachsanpham.getSelectedRow();
                     String maSP = tbldanhsachsanpham.getValueAt(selectedRow, 1).toString();
                     String tenSanPham = tbldanhsachsanpham.getValueAt(selectedRow, 2).toString();
@@ -321,13 +321,14 @@ public class banhhang extends javax.swing.JInternalFrame {
                         }
                     }
 
-                    addToCart(maSP, tenSanPham, hang, mau, size, chatlieu, day, soLuong, Integer.parseInt(giaBan));
+                    addToCart(maSP, tenSanPham, hang, mau, size, chatlieu, day, soLuong, giaBan);
 
                     // Hiển thị lại dữ liệu trong bảng giỏ hàng
                     showdata(listsp);
                     rowCount++;
 
                 }
+
             }
         });
 
@@ -365,7 +366,7 @@ public class banhhang extends javax.swing.JInternalFrame {
         dtmHoaDon.setRowCount(0);
         int i = 0;
         String trangthai = "";
-        
+
         for (HoaDonBH hoaDonBH : listHDBH) {
             i++;
             if (hoaDonBH.isTrangthai() == false) {
@@ -415,7 +416,7 @@ public class banhhang extends javax.swing.JInternalFrame {
         HoaDonBH hd = new HoaDonBH(maHD, ngayTao, maNV, soluongSP, trangThai);
         txtMaHD.setText(maHD);
         txtNgayTT.setText(dateFormat.format(ngayTao));
-        
+
         return hd;
 
     }
@@ -439,15 +440,16 @@ public class banhhang extends javax.swing.JInternalFrame {
         NumberFormat currentFormater = NumberFormat.getCurrencyInstance(lc);
         for (sanphamchitietviewmodel sp : sanpham) {
             i++;
-            bangsanpham.addRow(new Object[]{i, sp.getMctsp(), sp.getIddongsp(), sp.getIdhangsx(), sp.getIdphoimau(), sp.getIdsize(), sp.getIdchatlieu(), sp.getIdday(), sp.getSoluong(), sp.getGiaban()});
+            bangsanpham.addRow(new Object[]{i, sp.getMctsp(), sp.getIddongsp(), sp.getIdhangsx(), sp.getIdphoimau(), sp.getIdsize(), sp.getIdchatlieu(), sp.getIdday(), sp.getSoluong(), currentFormater.format(sp.getGiaban())});
         }
     }
 
     private int rowCount = 0;
 
-    private void addToCart(String maSP, String tenSanPham, String hang, String mau, String size, String chatlieu, String day, int soLuong, int giaBan) {
+    private void addToCart(String maSP, String tenSanPham, String hang, String mau, String size, String chatlieu, String day, int soLuong, String giaBan) {
         boolean productExists = false;
-        
+        Locale lc = new Locale("vi", "VN");
+        NumberFormat currentFormater = NumberFormat.getCurrencyInstance(lc);
         for (int i = 0; i < dtmGiohang.getRowCount(); i++) {
             if (dtmGiohang.getValueAt(i, 1).equals(maSP)) {
                 // Sản phẩm đã tồn tại trong giỏ hàng, cập nhật số lượng của nó
@@ -456,26 +458,34 @@ public class banhhang extends javax.swing.JInternalFrame {
                 dtmGiohang.setValueAt(newQuantity, i, 8); // Cập nhật số lượng
 
                 // Tính lại thành tiền của sản phẩm
-                int thanhTien = newQuantity * giaBan;
-                dtmGiohang.setValueAt(thanhTien, i, 9); // Cập nhật thành tiền
+                int giaBanValue = parseCurrencyString(giaBan); // Parse giaBan to integer
+                int thanhTien = newQuantity * giaBanValue;
+                dtmGiohang.setValueAt(currentFormater.format(giaBanValue), i, 9); // Cập nhật giá bán
+                dtmGiohang.setValueAt(currentFormater.format(thanhTien), i, 10); // Cập nhật thành tiền
 
                 productExists = true;
                 break;
             }
-
         }
 
         if (!productExists) {
-            String thanhtien = String.valueOf(soLuong * giaBan);
-            dtmGiohang.addRow(new Object[]{rowCount + 1, maSP, tenSanPham, hang, mau, size, chatlieu, day, soLuong, giaBan, thanhtien});
+            int giaBanValue = parseCurrencyString(giaBan); // Parse giaBan to integer
+            int thanhTien = soLuong * giaBanValue;
+            dtmGiohang.addRow(new Object[]{rowCount + 1, maSP, tenSanPham, hang, mau, size, chatlieu, day, soLuong, currentFormater.format(giaBanValue), currentFormater.format(thanhTien)});
 
             rowCount++;
         }
         calculateTotal();
-
     }
 
-    //showcombbox
+// Method to parse currency string to integer
+    private int parseCurrencyString(String currencyString) {
+        // Remove non-numeric characters from the currency string
+        String cleanCurrencyString = currencyString.replaceAll("[^\\d]", "");
+        return Integer.parseInt(cleanCurrencyString);
+    }
+
+    //showcombboxGiải
     public void Combobox(List<hangsanxuat> hsx) {
         comboHang.removeAllElements();
         for (hangsanxuat object : hsx) {
