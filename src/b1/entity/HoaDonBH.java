@@ -45,18 +45,16 @@ public class HoaDonBH {
         this.trangthai = trangthai;
     }
 
-    public HoaDonBH(String maHD, String MaKH, String MaHTTT, String MaVCH, String TenSP, double Tongtien, Date ngaytao, Date ngaythanh, String maNV, int soluong, boolean trangthai) {
+  
+     public HoaDonBH(String maHD, String MaKH,double Tongtien, Date ngaytao, Date ngaythanh, String maNV, int soluong,String MaHTTT) {
         this.maHD = maHD;
-        this.MaKH = MaKH;
-        this.MaHTTT = MaHTTT;
-        this.MaVCH = MaVCH;
-        this.TenSP = TenSP;
+        this.MaKH = MaKH;      
         this.Tongtien = Tongtien;
         this.ngaytao = ngaytao;
         this.ngaythanh = ngaythanh;
         this.maNV = maNV;
         this.soluong = soluong;
-        this.trangthai = trangthai;
+         this.MaHTTT = MaHTTT;
     }
 
     @Override

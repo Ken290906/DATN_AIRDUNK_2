@@ -321,7 +321,7 @@ public class banhhang extends javax.swing.JInternalFrame {
                         }
                     }
 
-                    addToCart(maSP, tenSanPham, hang, mau, size, chatlieu, day, soLuong, giaBan);
+                    addToCart(maSP, tenSanPham, hang, mau, size, chatlieu, day, soLuong, Integer.parseInt(giaBan));
 
                     // Hiển thị lại dữ liệu trong bảng giỏ hàng
                     showdata(listsp);
@@ -440,16 +440,46 @@ public class banhhang extends javax.swing.JInternalFrame {
         NumberFormat currentFormater = NumberFormat.getCurrencyInstance(lc);
         for (sanphamchitietviewmodel sp : sanpham) {
             i++;
-            bangsanpham.addRow(new Object[]{i, sp.getMctsp(), sp.getIddongsp(), sp.getIdhangsx(), sp.getIdphoimau(), sp.getIdsize(), sp.getIdchatlieu(), sp.getIdday(), sp.getSoluong(), currentFormater.format(sp.getGiaban())});
+            bangsanpham.addRow(new Object[]{i, sp.getMctsp(), sp.getIddongsp(), sp.getIdhangsx(), sp.getIdphoimau(), sp.getIdsize(), sp.getIdchatlieu(), sp.getIdday(), sp.getSoluong(), sp.getGiaban()});
         }
     }
 
     private int rowCount = 0;
 
-    private void addToCart(String maSP, String tenSanPham, String hang, String mau, String size, String chatlieu, String day, int soLuong, String giaBan) {
+//    private void addToCart(String maSP, String tenSanPham, String hang, String mau, String size, String chatlieu, String day, int soLuong, String giaBan) {
+//        boolean productExists = false;
+//        Locale lc = new Locale("vi", "VN");
+//        NumberFormat currentFormater = NumberFormat.getCurrencyInstance(lc);
+//        for (int i = 0; i < dtmGiohang.getRowCount(); i++) {
+//            if (dtmGiohang.getValueAt(i, 1).equals(maSP)) {
+//                // Sản phẩm đã tồn tại trong giỏ hàng, cập nhật số lượng của nó
+//                int oldQuantity = (int) dtmGiohang.getValueAt(i, 8);
+//                int newQuantity = oldQuantity + soLuong;
+//                dtmGiohang.setValueAt(newQuantity, i, 8); // Cập nhật số lượng
+//
+//                // Tính lại thành tiền của sản phẩm
+//                int giaBanValue = parseCurrencyString(giaBan); // Parse giaBan to integer
+//                int thanhTien = newQuantity * giaBanValue;
+//                dtmGiohang.setValueAt(giaBanValue, i, 9); // Cập nhật giá bán
+//                dtmGiohang.setValueAt(thanhTien, i, 10); // Cập nhật thành tiền
+//
+//                productExists = true;
+//                break;
+//            }
+//        }
+//
+//        if (!productExists) {
+//            int giaBanValue = parseCurrencyString(giaBan); // Parse giaBan to integer
+//            int thanhTien = soLuong * giaBanValue;
+//            dtmGiohang.addRow(new Object[]{rowCount + 1, maSP, tenSanPham, hang, mau, size, chatlieu, day, soLuong, giaBanValue, thanhTien});
+//
+//            rowCount++;
+//        }
+//        calculateTotal();
+//    }
+     private void addToCart(String maSP, String tenSanPham, String hang, String mau, String size, String chatlieu, String day, int soLuong, int giaBan) {
         boolean productExists = false;
-        Locale lc = new Locale("vi", "VN");
-        NumberFormat currentFormater = NumberFormat.getCurrencyInstance(lc);
+
         for (int i = 0; i < dtmGiohang.getRowCount(); i++) {
             if (dtmGiohang.getValueAt(i, 1).equals(maSP)) {
                 // Sản phẩm đã tồn tại trong giỏ hàng, cập nhật số lượng của nó
@@ -458,24 +488,23 @@ public class banhhang extends javax.swing.JInternalFrame {
                 dtmGiohang.setValueAt(newQuantity, i, 8); // Cập nhật số lượng
 
                 // Tính lại thành tiền của sản phẩm
-                int giaBanValue = parseCurrencyString(giaBan); // Parse giaBan to integer
-                int thanhTien = newQuantity * giaBanValue;
-                dtmGiohang.setValueAt(currentFormater.format(giaBanValue), i, 9); // Cập nhật giá bán
-                dtmGiohang.setValueAt(currentFormater.format(thanhTien), i, 10); // Cập nhật thành tiền
+                int thanhTien = newQuantity * giaBan;
+                dtmGiohang.setValueAt(thanhTien, i, 9); // Cập nhật thành tiền
 
                 productExists = true;
                 break;
             }
+
         }
 
         if (!productExists) {
-            int giaBanValue = parseCurrencyString(giaBan); // Parse giaBan to integer
-            int thanhTien = soLuong * giaBanValue;
-            dtmGiohang.addRow(new Object[]{rowCount + 1, maSP, tenSanPham, hang, mau, size, chatlieu, day, soLuong, currentFormater.format(giaBanValue), currentFormater.format(thanhTien)});
+            String thanhtien = String.valueOf(soLuong * giaBan);
+            dtmGiohang.addRow(new Object[]{rowCount + 1, maSP, tenSanPham, hang, mau, size, chatlieu, day, soLuong, giaBan, thanhtien});
 
             rowCount++;
         }
         calculateTotal();
+
     }
 
 // Method to parse currency string to integer
@@ -517,13 +546,18 @@ public class banhhang extends javax.swing.JInternalFrame {
         return 0; // Trả về 0 nếu không nhập hoặc nhập không hợp lệ
     }
 
-    public HoaDonBH getformdatabanhang() throws ParseException {
+     public HoaDonBH getformdatabanhang() throws ParseException {
         String MaHD = txtMaHD.getText();
-        String TT = txttongtien.getText();
+        String TT = txttongtien.getText().replaceAll("[, đ]", ""); // Loại bỏ dấu phẩy và ký tự đ
         String MaNV = txtmaNV.getText();
         Date NT = dateFormat.parse(txtNgayTao.getText());
+        String MaKH = txtTenKH.getText();
+        Date NTT = dateFormat.parse(txtNgayTT.getText());
+       
+        // Chuyển đổi chuỗi TT thành một số nguyên
+        int tongTien = Integer.valueOf(TT);
 
-        HoaDonBH hd = new HoaDonBH(MaHD, NT, MaNV, 1, iconable);
+        HoaDonBH hd = new HoaDonBH(MaHD, MaKH, tongTien, NT, NTT, MaNV, 0,"HTTT-001");
         return hd;
     }
 
@@ -1331,21 +1365,17 @@ public class banhhang extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_buttonGradient10ActionPerformed
 
     private void btnUpdateHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateHDActionPerformed
-        if (txtkhachdua.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Vui lòng hãy nhập số tiền khách hàng muốn đưa?");
-            return;
-        }
-        if (txtkhachdua.getText().matches("[A-Z a-z]+")) {
-            JOptionPane.showMessageDialog(null, "Vui lòng hãy nhập số");
-            return;
-        }
-        if (txtchuyenkhoan.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Vui lòng hãy nhập số tiền khách hàng muốn đưa?");
-            return;
-        }
-        if (txtchuyenkhoan.getText().matches("[A-Z a-z]+")) {
-            JOptionPane.showMessageDialog(null, "Vui lòng hãy nhập số");
-            return;
+        String MVC = (String) cbbgiamrgia.getSelectedItem();
+        String MKH = txtTenKH.getText();
+
+        try {
+            srhd.UpdateBanhang(getformdatabanhang(), MVC, txtMaHD.getText(), MKH);
+            listBH = srhd.getAll();
+            showHoaDonBH(listBH);
+            JOptionPane.showMessageDialog(this, "Thêm thành công");
+        } catch (ParseException ex) {
+            Logger.getLogger(banhhang.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "Lỗi xảy ra khi thêm dữ liệu. Vui lòng thử lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnUpdateHDActionPerformed
 

@@ -30,7 +30,7 @@ public class HoaDonBHService {
     public boolean Delete(String maHD) {
         return repo.Delete(maHD);
     }
-    public boolean UpdateBanhang(HoaDonBH hd, String sua, String HTTT, String MaVCH, String TenKH){
-        return repo.update(hd, sua, HTTT, MaVCH, TenKH);
+    public boolean UpdateBanhang(HoaDonBH hd, String MaVCH, String sua,String MaKH){
+        return repo.update(hd, MaVCH, sua, MaKH);
     }
 }

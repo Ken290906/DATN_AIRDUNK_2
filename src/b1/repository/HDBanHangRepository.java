@@ -123,38 +123,35 @@ public class HDBanHangRepository {
         return check > 0;
     }
 
-    public boolean update(HoaDonBH hd, String sua, String HTTT, String MaVCH, String TenKH) {
+     public boolean update(HoaDonBH hd, String MaVCH, String sua,String MaKH) {
         int check = 0;
         String sql = """
-                     UPDATE [dbo].[HoaDon]
-                        SET [MaKH] = ?
-                           ,[MaHTTT] = (SELECT MaTT FROM PTthanhtoan WHERE KieuThanhtoan = ? )
-                           ,[MaVCH] = (SELECT MaVCH FROM VCH WHERE MaGiamGia = ?)
-                           ,[TenSP] = ?
-                           ,[TenKH] = (SELECT MaKH from KhachHang where TenKhachHang = ?)
-                           ,[Soluong] = ?
-                           ,[Tongtien] = ?
-                           ,[NgayThanhtoan] = ?
-                           ,[NgayTaoHoaDon] = ?
-                         
-                      WHERE MaHD = ?
-                    
-                     """;
+   UPDATE [dbo].[HoaDon]
+                  SET 
+                      [MaKH] = (SELECT TOP 1 MaKH FROM KhachHang WHERE TenKhachhang = ?),  
+                                   [MaHTTT] = ?,     
+                      [MaVCH] = (SELECT MaVCH FROM VCH WHERE MaGiamGia = ?),
+                      [Soluong] = ?,
+                      [Tongtien] = ?,   
+                      [NgayThanhtoan] = ?,
+                      [NgayTaoHoaDon] = ?     
+                  WHERE MaHD = ?
+                     
+                     
+         
+    """;
         try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setObject(1, hd.getMaKH());
-            ps.setObject(2, HTTT);
+            ps.setObject(1, MaKH);
+            ps.setObject(2, hd.getMaHTTT());
             ps.setObject(3, MaVCH);
-            ps.setObject(4, hd.getTenSP());
-            ps.setObject(5, TenKH);
-            ps.setObject(6, hd.getSoluong());
-            ps.setObject(7, hd.getTongtien());
-            ps.setObject(8, hd.getNgaythanh());
-            ps.setObject(9, hd.getNgaytao());
-            ps.setObject(10, sua);
+            ps.setObject(4, hd.getSoluong());
+            ps.setObject(5, hd.getTongtien());
+            ps.setObject(6, hd.getNgaythanh());
+            ps.setObject(7, hd.getNgaytao());
+            ps.setObject(8, sua); // Chỉ số thứ tự 7 cho MaHD
             check = ps.executeUpdate();
-            ;
-
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return check > 0;
     }
