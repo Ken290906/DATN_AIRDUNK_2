@@ -1537,7 +1537,7 @@ public class banhhang extends javax.swing.JInternalFrame {
         );
 
         panel1.addTab("Hóa Đơn", jPanel4);
-        panel1.addTab("Hóa Đơn Onl", panel5);
+        panel1.addTab("", panel5);
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1754,28 +1754,6 @@ public class banhhang extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonGradient4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient4ActionPerformed
-        // Make QR code
-        quetmaqr qr = new quetmaqr();
-        qr.setVisible(true);
-
-        String qrCode = qr.getName();
-        if (qrCode != null && !qrCode.isEmpty()) {
-            List<sanphamchitietviewmodel> listSP = sps.searchQR(qrCode);
-
-            showdata(listSP);
-        }
-
-    }//GEN-LAST:event_buttonGradient4ActionPerformed
-
-    private void btnAddHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddHoaDonActionPerformed
-        // TODO add your handling code here:
-        srhd.Add(getFormData());
-        listBH = srhd.getAll();
-        showHoaDonBH(listBH);
-
-    }//GEN-LAST:event_btnAddHoaDonActionPerformed
-
     private void buttonGradient8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient8ActionPerformed
         // TODO add your handling code here:
         cbbhang.setSelectedIndex(0);
@@ -1871,30 +1849,6 @@ public class banhhang extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_deleteGHActionPerformed
 
-    private void tblhoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblhoadonMouseClicked
-        // TODO add your handling code here:
-        int index = tblhoadon.getSelectedRow();
-
-        HoaDonBH hd = listBH.get(index);
-
-        txtMaHD.setText(hd.getMaHD());
-        txtNgayTao.setText(String.valueOf(hd.getNgaytao()));
-    }//GEN-LAST:event_tblhoadonMouseClicked
-
-    private void buttonGradient7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient7ActionPerformed
-        // TODO add your handling code here:
-        dtmGiohang.setRowCount(0);
-    }//GEN-LAST:event_buttonGradient7ActionPerformed
-
-    private void btnDeleteHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteHDActionPerformed
-        // TODO add your handling code here:
-        int index = tblhoadon.getSelectedRow();
-        HoaDonBH hd = listBH.get(index);
-        srhd.Delete(hd.getMaHD());
-        listBH = srhd.getAll();
-        showHoaDonBH(listBH);
-    }//GEN-LAST:event_btnDeleteHDActionPerformed
-
     private void buttonGradient12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient12ActionPerformed
         khachhangbanhang kh = new khachhangbanhang(this);
         kh.setVisible(true);    }//GEN-LAST:event_buttonGradient12ActionPerformed
@@ -1910,6 +1864,50 @@ public class banhhang extends javax.swing.JInternalFrame {
     private void btnUpdateHD1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateHD1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnUpdateHD1ActionPerformed
+
+    private void btnDeleteHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteHDActionPerformed
+        // TODO add your handling code here:
+        int index = tblhoadon.getSelectedRow();
+        HoaDonBH hd = listBH.get(index);
+        srhd.Delete(hd.getMaHD());
+        listBH = srhd.getAll();
+        showHoaDonBH(listBH);
+    }//GEN-LAST:event_btnDeleteHDActionPerformed
+
+    private void buttonGradient7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient7ActionPerformed
+        // TODO add your handling code here:
+        dtmGiohang.setRowCount(0);
+    }//GEN-LAST:event_buttonGradient7ActionPerformed
+
+    private void btnAddHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddHoaDonActionPerformed
+        // TODO add your handling code here:
+        srhd.Add(getFormData());
+        listBH = srhd.getAll();
+        showHoaDonBH(listBH);
+    }//GEN-LAST:event_btnAddHoaDonActionPerformed
+
+    private void tblhoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblhoadonMouseClicked
+        // TODO add your handling code here:
+        int index = tblhoadon.getSelectedRow();
+
+        HoaDonBH hd = listBH.get(index);
+
+        txtMaHD.setText(hd.getMaHD());
+        txtNgayTao.setText(String.valueOf(hd.getNgaytao()));
+    }//GEN-LAST:event_tblhoadonMouseClicked
+
+    private void buttonGradient4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient4ActionPerformed
+        // Make QR code
+        quetmaqr qr = new quetmaqr();
+        qr.setVisible(true);
+
+        String qrCode = qr.getName();
+        if (qrCode != null && !qrCode.isEmpty()) {
+            List<sanphamchitietviewmodel> listSP = sps.searchQR(qrCode);
+
+            showdata(listSP);
+        }
+    }//GEN-LAST:event_buttonGradient4ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
