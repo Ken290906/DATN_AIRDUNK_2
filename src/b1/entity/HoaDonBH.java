@@ -12,19 +12,18 @@ import java.util.Date;
  */
 public class HoaDonBH {
 
-   
     private String maHD;
     private String MaKH;
     private String MaHTTT;
     private String MaVCH;
     private String TenSP;
-    private double Tongtien;  
+    private double Tongtien;
     private Date ngaytao;
     private Date ngaythanh;
     private String maNV;
     private int soluong;
     private boolean trangthai;
-
+    private int trangthai2;
     public HoaDonBH() {
     }
 
@@ -45,25 +44,37 @@ public class HoaDonBH {
         this.trangthai = trangthai;
     }
 
-  
-     public HoaDonBH(String maHD, String MaKH,double Tongtien, Date ngaytao, Date ngaythanh, String maNV, int soluong,String MaHTTT) {
+    public HoaDonBH(String maHD, String MaKH, double Tongtien, Date ngaytao, Date ngaythanh, String maNV, int soluong, String MaHTTT, int trangthai2) {
         this.maHD = maHD;
-        this.MaKH = MaKH;      
+        this.MaKH = MaKH;
         this.Tongtien = Tongtien;
         this.ngaytao = ngaytao;
         this.ngaythanh = ngaythanh;
         this.maNV = maNV;
         this.soluong = soluong;
-         this.MaHTTT = MaHTTT;
+        this.MaHTTT = MaHTTT;
+        this.trangthai2 = trangthai2;
+
+    }
+
+    public int getTrangthai2() {
+        return trangthai2;
+    }
+
+    public void setTrangthai2(int trangthai2) {
+        this.trangthai2 = trangthai2;
+    }
+
+
+   
+
+    public String getMaHD() {
+        return maHD;
     }
 
     @Override
     public String toString() {
-        return "HoaDonBH{" + "maHD=" + maHD + ", MaKH=" + MaKH + ", MaHTTT=" + MaHTTT + ", MaVCH=" + MaVCH + ", TenSP=" + TenSP + ", Tongtien=" + Tongtien + ", ngaytao=" + ngaytao + ", ngaythanh=" + ngaythanh + ", maNV=" + maNV + ", soluong=" + soluong + ", trangthai=" + trangthai + '}';
-    }
-
-    public String getMaHD() {
-        return maHD;
+        return "HoaDonBH{" + "maHD=" + maHD + ", MaKH=" + MaKH + ", MaHTTT=" + MaHTTT + ", MaVCH=" + MaVCH + ", TenSP=" + TenSP + ", Tongtien=" + Tongtien + ", ngaytao=" + ngaytao + ", ngaythanh=" + ngaythanh + ", maNV=" + maNV + ", soluong=" + soluong + ", trangthai=" + trangthai + ", trangthai2=" + trangthai2 + '}';
     }
 
     public void setMaHD(String maHD) {
@@ -149,7 +160,5 @@ public class HoaDonBH {
     public void setTrangthai(boolean trangthai) {
         this.trangthai = trangthai;
     }
-    
-    
 
 }

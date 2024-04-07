@@ -134,7 +134,8 @@ public class HDBanHangRepository {
                       [Soluong] = ?,
                       [Tongtien] = ?,   
                       [NgayThanhtoan] = ?,
-                      [NgayTaoHoaDon] = ?     
+                      [NgayTaoHoaDon] = ?   
+                        ,[Deleted] = ?
                   WHERE MaHD = ?
                      
                      
@@ -148,7 +149,8 @@ public class HDBanHangRepository {
             ps.setObject(5, hd.getTongtien());
             ps.setObject(6, hd.getNgaythanh());
             ps.setObject(7, hd.getNgaytao());
-            ps.setObject(8, sua); // Chỉ số thứ tự 7 cho MaHD
+            ps.setObject(8, hd.getTrangthai2());
+            ps.setObject(9, sua); // Chỉ số thứ tự 7 cho MaHD
             check = ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
