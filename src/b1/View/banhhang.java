@@ -326,7 +326,12 @@ public class banhhang extends javax.swing.JInternalFrame {
                     // Hiển thị lại dữ liệu trong bảng giỏ hàng
                     showdata(listsp);
                     rowCount++;
+                    String giaBanStr = giaBan.replaceAll("[^\\d]", ""); // Loại bỏ tất cả các ký tự không phải là số
+                    int giaBanInt = Integer.parseInt(giaBanStr); // Chuyển đổi chuỗi thành số nguyên
+                    int thanhTien = soLuong * giaBanInt; // Tính toán tổng tiền
 
+                    txttongtien.setText(String.valueOf(VND.format(thanhTien))); // Cập nhật giá trị của txttongtien
+                    txttong.setText(String.valueOf(VND.format(thanhTien))); // Cập nhật giá trị của txttongtien
                 }
 
             }
@@ -351,8 +356,6 @@ public class banhhang extends javax.swing.JInternalFrame {
         JOptionPane.showMessageDialog(this, "Đã giảm giá thành công");
         return;
     }
-
-    
 
     public void showHoaDonBH(List<HoaDonBH> listHDBH) {
         dtmHoaDon.setRowCount(0);
@@ -454,7 +457,7 @@ public class banhhang extends javax.swing.JInternalFrame {
                 int thanhTien = newQuantity * giaBanValue;
                 dtmGiohang.setValueAt(currentFormater.format(giaBanValue), i, 9); // Cập nhật giá bán
                 dtmGiohang.setValueAt(currentFormater.format(thanhTien), i, 10); // Cập nhật thành tiền
-
+                
                 productExists = true;
                 break;
             }
@@ -466,11 +469,10 @@ public class banhhang extends javax.swing.JInternalFrame {
             dtmGiohang.addRow(new Object[]{rowCount + 1, maSP, tenSanPham, hang, mau, size, chatlieu, day, soLuong, currentFormater.format(giaBanValue), currentFormater.format(thanhTien)});
 
             rowCount++;
+          
         }
-        
+  
     }
-     
-
 // Method to parse currency string to integer
     private int parseCurrencyString(String currencyString) {
         // Remove non-numeric characters from the currency string
@@ -510,20 +512,21 @@ public class banhhang extends javax.swing.JInternalFrame {
         return 0; // Trả về 0 nếu không nhập hoặc nhập không hợp lệ
     }
 
-     public HoaDonBH getformdatabanhang() throws ParseException {
+    public HoaDonBH getformdatabanhang() throws ParseException {
         String MaHD = txtMaHD.getText();
         String TT = txttongtien.getText().replaceAll("[, đ]", ""); // Loại bỏ dấu phẩy và ký tự đ
         String MaNV = txtmaNV.getText();
         Date NT = dateFormat.parse(txtNgayTao.getText());
         String MaKH = txtTenKH.getText();
         Date NTT = dateFormat.parse(txtNgayTT.getText());
-       
+
         // Chuyển đổi chuỗi TT thành một số nguyên
         int tongTien = Integer.valueOf(TT);
 
-        HoaDonBH hd = new HoaDonBH(MaHD, MaKH, tongTien, NT, NTT, MaNV, 0,"HTTT-001");
+        HoaDonBH hd = new HoaDonBH(MaHD, MaKH, tongTien, NT, NTT, MaNV, 0, "HTTT-001");
         return hd;
     }
+  
 
     /**
      * This method is called from within the constructor to initialize the form.
