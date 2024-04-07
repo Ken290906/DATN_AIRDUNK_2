@@ -622,6 +622,7 @@ public class banhhang extends javax.swing.JInternalFrame {
         buttonGradient7 = new b1.View.chucnang.ButtonGradient();
         txtSearchHD = new b1.View.chucnang.TextField();
         btnDeleteHD = new b1.View.chucnang.ButtonGradient();
+        panel5 = new b1.View.chucnang.Panel();
         panel2 = new b1.View.chucnang.Panel();
         jPanel6 = new javax.swing.JPanel();
         jPanel8 = new javax.swing.JPanel();
@@ -1408,6 +1409,7 @@ public class banhhang extends javax.swing.JInternalFrame {
         );
 
         panel1.addTab("Hóa Đơn", jPanel4);
+        panel1.addTab("Hóa Đơn Onl", panel5);
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1859,6 +1861,7 @@ public class banhhang extends javax.swing.JInternalFrame {
     private b1.View.chucnang.Panel panel2;
     private b1.View.chucnang.Panel panel3;
     private b1.View.chucnang.Panel panel4;
+    private b1.View.chucnang.Panel panel5;
     private javax.swing.JTable tbldanhsachsanpham;
     private javax.swing.JTable tblgiohang;
     private javax.swing.JTable tblhoadon;
