@@ -435,21 +435,25 @@ public class banhhang extends javax.swing.JInternalFrame {
                     // Hiển thị lại dữ liệu trong bảng giỏ hàng
                     showdata(listsp);
                     rowCount++;
-                    String giaBanStr = giaBan.replaceAll("[^\\d]", ""); // Loại bỏ tất cả các ký tự không phải là số
-                    int giaBanInt = Integer.parseInt(giaBanStr); // Chuyển đổi chuỗi thành số nguyên
-                    int thanhTien = soLuong * giaBanInt; // Tính toán tổng tiền
-
-                    txttongtien.setText(String.valueOf(VND.format(thanhTien))); // Cập nhật giá trị của txttongtien
-                    txttong.setText(String.valueOf(VND.format(thanhTien))); // Cập nhật giá trị của txttongtien
-                    txttongtien1.setText(String.valueOf(VND.format(thanhTien))); // Cập nhật giá trị của txttongtien
-                    txttong1.setText(String.valueOf(VND.format(thanhTien))); // Cập nhật giá trị của txttongtien
+                    updateTotalAmount();
                 }
 
             }
         });
+        
 
     }
-
+private void updateTotalAmount() {
+    int totalAmount = 0;
+    for (int i = 0; i < tblgiohang.getRowCount(); i++) {
+        int thanhTien = Integer.parseInt(tblgiohang.getValueAt(i, 10).toString().replaceAll("[^\\d]", ""));
+        totalAmount += thanhTien;
+    }
+    txttongtien.setText(String.valueOf(VND.format(totalAmount)));
+    txttong.setText(String.valueOf(VND.format(totalAmount)));
+    txttongtien1.setText(String.valueOf(VND.format(totalAmount)));
+    txttong1.setText(String.valueOf(VND.format(totalAmount)));
+}
     //ComboboxPTTT
     public void showcombobxPTTT(List<PTTT> list) {
         comboPTTT.removeAllElements();
