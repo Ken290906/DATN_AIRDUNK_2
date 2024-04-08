@@ -110,8 +110,10 @@ public class HDBanHangRepository {
         int check = 0;
 
         String sql = """
-                    DELETE FROM [dbo].[HoaDon]
-                                                   WHERE MaHD = ?
+                    UPDATE [dbo].[HoaDon]
+                                                      SET [Deleted] = 0
+                                                   
+                                                    WHERE MaHD = ? 
                      """;
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setObject(1, maHD);
@@ -126,31 +128,35 @@ public class HDBanHangRepository {
      public boolean update(HoaDonBH hd, String MaVCH, String sua,String MaKH) {
         int check = 0;
         String sql = """
-   UPDATE [dbo].[HoaDon]
-                  SET 
-                      [MaKH] = (SELECT TOP 1 MaKH FROM KhachHang WHERE TenKhachhang = ?),  
-                                   [MaHTTT] = ?,     
-                      [MaVCH] = (SELECT MaVCH FROM VCH WHERE MaGiamGia = ?),
-                      [Soluong] = ?,
-                      [Tongtien] = ?,   
-                      [NgayThanhtoan] = ?,
-                      [NgayTaoHoaDon] = ?   
-                        ,[Deleted] = ?
-                  WHERE MaHD = ?
-                     
-                     
-         
-    """;
+                  UPDATE [dbo].[HoaDon]
+                   SET [MaNV] = ?
+                      ,[MaKH] = (SELECT TOP 1 MaKH FROM KhachHang WHERE TenKhachhang = ?) 
+                      ,[MaHTTT] = ?
+                      ,[MaVCH] = (SELECT MaVCH FROM VCH WHERE MaGiamGia = ?)
+                      ,[TenKH] = ?
+                      ,[Soluong] = ?
+                      ,[Tongtien] = ?
+                      ,[DiachiKH] = ?
+                      ,[NgayThanhtoan] = ?
+                      ,[NgayTaoHoaDon] = ?
+                      ,[SdtKH] = ?
+                      ,[Deleted] = ?
+                 WHERE MaHD = ?   
+                      """;
         try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setObject(1, MaKH);
-            ps.setObject(2, hd.getMaHTTT());
-            ps.setObject(3, MaVCH);
-            ps.setObject(4, hd.getSoluong());
-            ps.setObject(5, hd.getTongtien());
-            ps.setObject(6, hd.getNgaythanh());
-            ps.setObject(7, hd.getNgaytao());
-            ps.setObject(8, hd.getTrangthai2());
-            ps.setObject(9, sua); // Chỉ số thứ tự 7 cho MaHD
+            ps.setObject(1, hd.getMaNV());
+            ps.setObject(2, MaKH);
+            ps.setObject(3, hd.getMaHTTT());
+            ps.setObject(4, MaVCH);
+            ps.setObject(5, hd.getTenKH());
+            ps.setObject(6, hd.getSoluong());
+            ps.setObject(7, hd.getTongtien());
+            ps.setObject(8, hd.getDiaChi());
+            ps.setObject(9, hd.getNgaythanh());
+            ps.setObject(10, hd.getNgaytao());
+            ps.setObject(11, hd.getSdt());
+            ps.setObject(12, hd.getTrangthai2());
+            ps.setObject(13, sua);
             check = ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();

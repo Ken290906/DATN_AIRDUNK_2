@@ -45,13 +45,13 @@ import java.util.Locale;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-
 /**
  *
  * @author DELL
  */
 public class hoadon extends javax.swing.JInternalFrame {
-private khachhangService khs = new khachhangService();
+
+    private khachhangService khs = new khachhangService();
     private DefaultTableModel dtmHDCT = new DefaultTableModel();
     private HDCTService sr = new HDCTService();
     private List<HoaDonChiTiet> list = new ArrayList<>();
@@ -118,9 +118,9 @@ private khachhangService khs = new khachhangService();
             }
         });
     }
-    
+
     private String SearchTT(String trangthai) {
-        if("0".equalsIgnoreCase(trangthai)) {
+        if ("0".equalsIgnoreCase(trangthai)) {
             return "Chưa thanh toán";
         } else {
             return "Đã thanh toán";
@@ -221,7 +221,7 @@ private khachhangService khs = new khachhangService();
             });
         }
     }
-    
+
 //    private void printHD() {
 //        try {
 //            int rowIndex = TblHoaDon.getSelectedRow();
@@ -296,7 +296,6 @@ private khachhangService khs = new khachhangService();
 //            e.printStackTrace();
 //        }
 //    }
-
     public void Show() {
         int index = TblHoaDon.getSelectedRow();
 
@@ -393,7 +392,7 @@ private khachhangService khs = new khachhangService();
         jLabel3 = new javax.swing.JLabel();
         txtMin = new b1.View.chucnang.TextField();
         btnPDF = new b1.View.chucnang.ButtonGradient();
-        QuetQR = new b1.View.chucnang.ButtonGradient();
+        btnQuetQR = new b1.View.chucnang.ButtonGradient();
         cbbTrangthai = new b1.View.Combobox();
         cbbHTTT = new b1.View.Combobox();
         panel2 = new b1.View.chucnang.Panel();
@@ -492,16 +491,16 @@ private khachhangService khs = new khachhangService();
             }
         });
 
-        QuetQR.setBackground(new java.awt.Color(153, 255, 255));
-        QuetQR.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        QuetQR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/b1/khoanh/qr-code.png"))); // NOI18N
-        QuetQR.setText("QUÉT QR");
-        QuetQR.setColor1(new java.awt.Color(102, 255, 102));
-        QuetQR.setColor2(new java.awt.Color(102, 255, 102));
-        QuetQR.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        QuetQR.addActionListener(new java.awt.event.ActionListener() {
+        btnQuetQR.setBackground(new java.awt.Color(153, 255, 255));
+        btnQuetQR.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnQuetQR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/b1/khoanh/qr-code.png"))); // NOI18N
+        btnQuetQR.setText("QUÉT QR");
+        btnQuetQR.setColor1(new java.awt.Color(102, 255, 102));
+        btnQuetQR.setColor2(new java.awt.Color(102, 255, 102));
+        btnQuetQR.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnQuetQR.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                QuetQRActionPerformed(evt);
+                btnQuetQRActionPerformed(evt);
             }
         });
 
@@ -531,7 +530,7 @@ private khachhangService khs = new khachhangService();
                                         .addComponent(cbbHTTT, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(31, 31, 31)
-                                .addComponent(QuetQR, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnQuetQR, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(32, 32, 32)
                                 .addComponent(jLabel2)
                                 .addGap(47, 47, 47)
@@ -569,7 +568,7 @@ private khachhangService khs = new khachhangService();
                                 .addComponent(jLabel3)
                                 .addComponent(txtMin, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(btnSearchGia, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(QuetQR, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(btnQuetQR, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbbTrangthai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -710,16 +709,14 @@ private khachhangService khs = new khachhangService();
 
     private void btnAddHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddHDActionPerformed
         // TODO add your handling code here:
-         khachhangViewModel kh = new khachhangViewModel();
-         String maKH = String.valueOf(kh.getMaKH()); // Lấy mã khách hàng từ cửa sổ chọn khách hàng
+        khachhangViewModel kh = new khachhangViewModel();
+        String maKH = String.valueOf(kh.getMaKH()); // Lấy mã khách hàng từ cửa sổ chọn khách hàng
         String tenKH = String.valueOf(kh.getTenKH()); // Lấy tên khách hàng từ cửa sổ chọn khách hàng
         banhhang bh = new banhhang();
         panel1.removeAll();
         panel1.add(bh).setVisible(true);
-        
-        
-        
-      
+
+
     }//GEN-LAST:event_btnAddHDActionPerformed
 
     private void TblHoaDonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TblHoaDonMouseClicked
@@ -784,29 +781,33 @@ private khachhangService khs = new khachhangService();
 
     }//GEN-LAST:event_btnPDFActionPerformed
 
-    private void QuetQRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_QuetQRActionPerformed
+    private void btnQuetQRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuetQRActionPerformed
         // TODO add your handling code here:
-        quetmaqr qr = new quetmaqr();
-        qr.setVisible(true);
+        btnQuetQR.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                quetmaqr qr = new quetmaqr();
+                qr.setVisible(true);
 
-        String qrCode = qr.getName();
-        if (qrCode != null && !qrCode.isEmpty()) {
-            List<HoaDon> listHD = hdsr.searchQR(qrCode);
+                String qrCode = qr.getName();
 
-            showDataHD(listHD);
-        }
+                List<HoaDon> listhd = hdsr.searchQR(qrCode);
+                showDataHD(listhd);
+            }
+        });
 
-    }//GEN-LAST:event_QuetQRActionPerformed
+
+    }//GEN-LAST:event_btnQuetQRActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private b1.View.chucnang.ButtonGradient ExportExcel;
-    private b1.View.chucnang.ButtonGradient QuetQR;
     private javax.swing.JTable TblHDCT;
     private javax.swing.JTable TblHoaDon;
     private javax.swing.JTable TblLSHD;
     private b1.View.chucnang.ButtonGradient btnAddHD;
     private b1.View.chucnang.ButtonGradient btnPDF;
+    private b1.View.chucnang.ButtonGradient btnQuetQR;
     private b1.View.chucnang.ButtonGradient btnSearchGia;
     private javax.swing.ButtonGroup buttonGroup1;
     private b1.View.Combobox cbbHTTT;

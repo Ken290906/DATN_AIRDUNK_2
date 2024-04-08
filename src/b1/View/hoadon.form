@@ -137,7 +137,7 @@
                                               <Component id="txtSearch" min="-2" pref="368" max="-2" attributes="0"/>
                                           </Group>
                                           <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                                          <Component id="QuetQR" min="-2" pref="116" max="-2" attributes="0"/>
+                                          <Component id="btnQuetQR" min="-2" pref="116" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                           <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
@@ -183,7 +183,7 @@
                                           <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="txtMin" alignment="3" min="-2" pref="41" max="-2" attributes="0"/>
                                           <Component id="btnSearchGia" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
-                                          <Component id="QuetQR" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
+                                          <Component id="btnQuetQR" alignment="3" min="-2" pref="46" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <EmptySpace max="32767" attributes="0"/>
@@ -418,7 +418,7 @@
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPDFActionPerformed"/>
                   </Events>
                 </Component>
-                <Component class="b1.View.chucnang.ButtonGradient" name="QuetQR">
+                <Component class="b1.View.chucnang.ButtonGradient" name="btnQuetQR">
                   <Properties>
                     <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                       <Color blue="ff" green="ff" red="99" type="rgb"/>
@@ -443,7 +443,7 @@
                     </Property>
                   </Properties>
                   <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="QuetQRActionPerformed"/>
+                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnQuetQRActionPerformed"/>
                   </Events>
                 </Component>
                 <Component class="b1.View.Combobox" name="cbbTrangthai">

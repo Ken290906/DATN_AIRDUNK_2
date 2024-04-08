@@ -23,16 +23,11 @@ public class HoaDonService {
     public List<HoaDon> getAll() {
         return repo.getAll();
     }
-    
-//    public List<HoaDon> getAll(String maHD) {
-//        return repo.getAll(maHD);
-//    }
-    
+
     public List<HoaDon> searchHoaDon(String maHD) {
         return repo.searchHoaDon(maHD);
     }
-    
-   
+
     public boolean exportToExcel(String filePath) {
         List<HoaDon> hds = repo.getAll();
         List<HoaDonChiTiet> hdct = repo1.getAll();

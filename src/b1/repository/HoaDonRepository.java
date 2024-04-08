@@ -55,6 +55,8 @@ public class HoaDonRepository {
         }
         return list;
     }
+    
+
 
     public List<HoaDon> searchHoaDon(String maHD) {
         List<HoaDon> list = new ArrayList<>();
@@ -262,8 +264,6 @@ public class HoaDonRepository {
                 hd.setDiaChi(rs.getString(6));
                 hd.setSdtKH(rs.getInt(7));
                 hd.setTrangThai(rs.getInt(8));
-         
-
                 list.add(hd);
             }
         } catch (Exception e) {

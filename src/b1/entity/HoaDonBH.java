@@ -17,13 +17,17 @@ public class HoaDonBH {
     private String MaHTTT;
     private String MaVCH;
     private String TenSP;
+    private String tenKH;
     private double Tongtien;
+    private String Sdt;
+    private String diaChi;
     private Date ngaytao;
     private Date ngaythanh;
     private String maNV;
     private int soluong;
     private boolean trangthai;
     private int trangthai2;
+
     public HoaDonBH() {
     }
 
@@ -44,17 +48,19 @@ public class HoaDonBH {
         this.trangthai = trangthai;
     }
 
-    public HoaDonBH(String maHD, String MaKH, double Tongtien, Date ngaytao, Date ngaythanh, String maNV, int soluong, String MaHTTT, int trangthai2) {
+    public HoaDonBH(String maHD, String MaKH, String tenKH, String Sdt, double Tongtien, String diaChi, Date ngaytao, Date ngaythanh, String maNV, int soluong, String MaHTTT, int trangthai2) {
         this.maHD = maHD;
         this.MaKH = MaKH;
+        this.tenKH = tenKH;
+        this.Sdt = Sdt;
         this.Tongtien = Tongtien;
+        this.diaChi = diaChi;
         this.ngaytao = ngaytao;
         this.ngaythanh = ngaythanh;
         this.maNV = maNV;
         this.soluong = soluong;
         this.MaHTTT = MaHTTT;
         this.trangthai2 = trangthai2;
-
     }
 
     public int getTrangthai2() {
@@ -65,8 +71,29 @@ public class HoaDonBH {
         this.trangthai2 = trangthai2;
     }
 
+    public String getTenKH() {
+        return tenKH;
+    }
 
-   
+    public void setTenKH(String tenKH) {
+        this.tenKH = tenKH;
+    }
+
+    public String getSdt() {
+        return Sdt;
+    }
+
+    public void setSdt(String Sdt) {
+        this.Sdt = Sdt;
+    }
+
+    public String getDiaChi() {
+        return diaChi;
+    }
+
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
+    }
 
     public String getMaHD() {
         return maHD;
