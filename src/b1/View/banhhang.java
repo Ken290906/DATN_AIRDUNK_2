@@ -222,27 +222,27 @@ public class banhhang extends javax.swing.JInternalFrame {
                 int TienTong = Integer.parseInt(txttong.getText().replaceAll("[^0-9]", ""));
                 double giamGia = 0;
 
-                if (TienTong <= 40000000 && chonphieugiamgia.equals("NGHÈO")) {
+                if (TienTong <= 400000 && chonphieugiamgia.equals("NGHÈO")) {
                     JOptionPane.showMessageDialog(null, "Khi chọn sản phẩm giá trên 40000000 mới được PGG này ");
                     return;
                 }
-                if (TienTong > 40000000 && chonphieugiamgia.equals("NGHÈO")) {
+                if (TienTong > 400000 && chonphieugiamgia.equals("NGHÈO")) {
                     giamGia = tongTien * 0.2;
                     dudkphieugiamgia();
                 }
-                if (TienTong <= 70000000 && chonphieugiamgia.equals("THƯỜNG")) {
+                if (TienTong <= 700000 && chonphieugiamgia.equals("THƯỜNG")) {
                     JOptionPane.showMessageDialog(null, "Khi chọn sản phẩm giá trên 70000000 mới được PGG này ");
                     return;
                 }
-                if (TienTong > 70000000 && chonphieugiamgia.equals("THƯỜNG")) {
+                if (TienTong > 700000 && chonphieugiamgia.equals("THƯỜNG")) {
                     giamGia = tongTien * 0.5;
                     dudkphieugiamgia();
                 }
-                if (TienTong <= 90000000 && chonphieugiamgia.equals("VIP")) {
+                if (TienTong <= 900000 && chonphieugiamgia.equals("VIP")) {
                     JOptionPane.showMessageDialog(null, "Khi chọn sản phẩm giá trên 90000000 mới được PGG này ");
                     return;
                 }
-                if (TienTong > 90000000 && chonphieugiamgia.equals("VIP")) {
+                if (TienTong > 900000 && chonphieugiamgia.equals("VIP")) {
                     giamGia = tongTien * 1.0;
                     dudkphieugiamgia();
                 }
