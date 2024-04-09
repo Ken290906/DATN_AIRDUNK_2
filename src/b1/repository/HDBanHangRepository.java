@@ -24,7 +24,7 @@ public class HDBanHangRepository {
                     SELECT        dbo.HoaDon.MaHD, dbo.HoaDon.MaNV, dbo.HoaDon.Soluong, dbo.HoaDon.NgayTaoHoaDon, dbo.HoaDon.Deleted
                            FROM            dbo.HoaDon FULL JOIN dbo.HoaDonChiTiet ON dbo.HoaDon.MaHD = dbo.HoaDonChiTiet.MaHoaDon 
                                                       FULL JOIN dbo.LichsuHD ON dbo.HoaDon.MaHD = dbo.LichsuHD.IDHoaDon
-                     WHERE dbo.HoaDon.Deleted = 0
+                     WHERE dbo.HoaDon.Deleted = 1 OR dbo.HoaDon.Deleted = 2
                      """;
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
@@ -34,7 +34,7 @@ public class HDBanHangRepository {
                 hd.setMaNV(rs.getString(2));
                 hd.setSoluong(rs.getInt(3));
                 hd.setNgaytao(rs.getDate(4));
-                hd.setTrangthai(rs.getBoolean(5));
+                hd.setTrangthai2(rs.getFloat(5));
 
                 list.add(hd);
             }
@@ -69,7 +69,7 @@ public class HDBanHangRepository {
                 hd.setMaNV(rs.getString(2));
                 hd.setSoluong(rs.getInt(3));
                 hd.setNgaytao(rs.getDate(4));
-                hd.setTrangthai(rs.getBoolean(5));
+                hd.setTrangthai2(rs.getFloat(5));
 
                 list.add(hd);
             }
@@ -97,7 +97,7 @@ public class HDBanHangRepository {
             ps.setObject(2, hdbh.getMaNV());
             ps.setObject(3, hdbh.getSoluong());
             ps.setObject(4, hdbh.getNgaytao());
-            ps.setObject(5, hdbh.isTrangthai());
+            ps.setObject(5, hdbh.getTrangthai2());
 
             check = ps.executeUpdate();
         } catch (Exception e) {
@@ -111,7 +111,7 @@ public class HDBanHangRepository {
 
         String sql = """
                     UPDATE [dbo].[HoaDon]
-                                                      SET [Deleted] = 0
+                                                      SET [Deleted] = 3
                                                    
                                                     WHERE MaHD = ? 
                      """;

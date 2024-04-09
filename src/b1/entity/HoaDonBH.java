@@ -25,30 +25,29 @@ public class HoaDonBH {
     private Date ngaythanh;
     private String maNV;
     private int soluong;
-    private boolean trangthai;
-    private int trangthai2;
+    private float trangthai2;
 
     public HoaDonBH() {
     }
 
-    public HoaDonBH(String maHD, Date ngaytao, String maNV, int soluong, boolean trangthai) {
+    public HoaDonBH(String maHD, Date ngaytao, String maNV, int soluong, float trangthai2) {
         this.maHD = maHD;
         this.ngaytao = ngaytao;
         this.maNV = maNV;
         this.soluong = soluong;
-        this.trangthai = trangthai;
+        this.trangthai2 = trangthai2;
     }
 
-    public HoaDonBH(String maHD, Date ngaytao, Date ngaythanh, String maNV, int soluong, boolean trangthai) {
+    public HoaDonBH(String maHD, Date ngaytao, Date ngaythanh, String maNV, int soluong, float trangthai2) {
         this.maHD = maHD;
         this.ngaytao = ngaytao;
         this.ngaythanh = ngaythanh;
         this.maNV = maNV;
         this.soluong = soluong;
-        this.trangthai = trangthai;
+        this.trangthai2 = trangthai2;
     }
 
-    public HoaDonBH(String maHD, String MaKH, String tenKH, String Sdt, double Tongtien, String diaChi, Date ngaytao, Date ngaythanh, String maNV, int soluong, String MaHTTT, int trangthai2) {
+    public HoaDonBH(String maHD, String MaKH, String tenKH, String Sdt, double Tongtien, String diaChi, Date ngaytao, Date ngaythanh, String maNV, int soluong, String MaHTTT, float trangthai2) {
         this.maHD = maHD;
         this.MaKH = MaKH;
         this.tenKH = tenKH;
@@ -63,11 +62,11 @@ public class HoaDonBH {
         this.trangthai2 = trangthai2;
     }
 
-    public int getTrangthai2() {
+    public float getTrangthai2() {
         return trangthai2;
     }
 
-    public void setTrangthai2(int trangthai2) {
+    public void setTrangthai2(float trangthai2) {
         this.trangthai2 = trangthai2;
     }
 
@@ -101,8 +100,10 @@ public class HoaDonBH {
 
     @Override
     public String toString() {
-        return "HoaDonBH{" + "maHD=" + maHD + ", MaKH=" + MaKH + ", MaHTTT=" + MaHTTT + ", MaVCH=" + MaVCH + ", TenSP=" + TenSP + ", Tongtien=" + Tongtien + ", ngaytao=" + ngaytao + ", ngaythanh=" + ngaythanh + ", maNV=" + maNV + ", soluong=" + soluong + ", trangthai=" + trangthai + ", trangthai2=" + trangthai2 + '}';
+        return "HoaDonBH{" + "maHD=" + maHD + ", MaKH=" + MaKH + ", MaHTTT=" + MaHTTT + ", MaVCH=" + MaVCH + ", TenSP=" + TenSP + ", tenKH=" + tenKH + ", Tongtien=" + Tongtien + ", Sdt=" + Sdt + ", diaChi=" + diaChi + ", ngaytao=" + ngaytao + ", ngaythanh=" + ngaythanh + ", maNV=" + maNV + ", soluong=" + soluong + ", trangthai2=" + trangthai2 + '}';
     }
+
+    
 
     public void setMaHD(String maHD) {
         this.maHD = maHD;
@@ -180,12 +181,5 @@ public class HoaDonBH {
         this.soluong = soluong;
     }
 
-    public boolean isTrangthai() {
-        return trangthai;
-    }
-
-    public void setTrangthai(boolean trangthai) {
-        this.trangthai = trangthai;
-    }
-
+    
 }
