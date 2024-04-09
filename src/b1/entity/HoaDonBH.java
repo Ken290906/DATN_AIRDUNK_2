@@ -62,6 +62,19 @@ public class HoaDonBH {
         this.trangthai2 = trangthai2;
     }
 
+    public HoaDonBH(String MaKH, String tenKH, double Tongtien, String Sdt, String diaChi, Date ngaythanh, String maNV, float trangthai2,String MaHTTT) {
+        this.MaKH = MaKH;
+        this.tenKH = tenKH;
+        this.Tongtien = Tongtien;
+        this.Sdt = Sdt;
+        this.diaChi = diaChi;
+        this.ngaythanh = ngaythanh;
+        this.maNV = maNV;
+        this.trangthai2 = trangthai2;
+        this.MaHTTT = MaHTTT;
+    }
+    
+
     public float getTrangthai2() {
         return trangthai2;
     }

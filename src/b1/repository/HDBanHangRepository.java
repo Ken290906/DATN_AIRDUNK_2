@@ -163,6 +163,8 @@ public class HDBanHangRepository {
         }
         return check > 0;
     }
+    
+     
 
     public static void main(String[] args) {
         List<HoaDonBH> list = new HDBanHangRepository().getAllBanHang();

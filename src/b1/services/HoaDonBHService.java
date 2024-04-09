@@ -33,4 +33,5 @@ public class HoaDonBHService {
     public boolean UpdateBanhang(HoaDonBH hd, String MaVCH, String sua,String MaKH){
         return repo.update(hd, MaVCH, sua, MaKH);
     }
+    
 }
