@@ -629,9 +629,9 @@
                               <Table columnCount="5" rowCount="4">
                                 <Column editable="true" title="STT" type="java.lang.Object"/>
                                 <Column editable="true" title="M&#xc3; H&#xd3;A &#x110;&#x1a0;N" type="java.lang.Object"/>
+                                <Column editable="true" title="M&#xc3; H&#xd3;A &#x110;&#x1a0;N CHI TI&#x1ebe;T" type="java.lang.Object"/>
                                 <Column editable="true" title="M&#xc3; CHI TI&#x1ebe;T S&#x1ea2;N PH&#x1ea8;M" type="java.lang.Object"/>
                                 <Column editable="true" title="&#x110;&#x1a0;N GI&#xc1;" type="java.lang.Object"/>
-                                <Column editable="true" title="TH&#xc0;NH TI&#x1ec0;N" type="java.lang.Object"/>
                               </Table>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

@@ -20,7 +20,7 @@ public class HDCTService {
         return repo.getAll();
     }
     
-    public List<HoaDonChiTiet> getAll(String maHD) {
-        return repo.getAll(maHD);
+    public List<HoaDonChiTiet> getAllID(String maHD) {
+        return repo.getAllID(maHD);
     }
 }

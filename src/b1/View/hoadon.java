@@ -15,6 +15,7 @@ import b1.services.HoaDonService;
 import b1.services.LichsuHDService;
 import b1.services.khachhangService;
 import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.BaseColor;
 import java.awt.Color;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -38,9 +39,14 @@ import com.itextpdf.text.pdf.PdfWriter;
 import net.glxn.qrgen.QRCode;
 import net.glxn.qrgen.image.ImageType;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
+import java.util.Arrays;
 import java.util.Locale;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -169,9 +175,9 @@ public class hoadon extends javax.swing.JInternalFrame {
             dtmHDCT.addRow(new Object[]{
                 i,
                 hdct.getMaHD(),
+                hdct.getMaHDCT(),
                 hdct.getIdCTSP(),
-                currentFormater.format(hdct.getDonGia()),
-                currentFormater.format(hdct.getThanhTien()),});
+                currentFormater.format(hdct.getDonGia()),});
         }
     }
 
@@ -199,7 +205,7 @@ public class hoadon extends javax.swing.JInternalFrame {
         NumberFormat currentFormater = NumberFormat.getCurrencyInstance(lc);
         for (HoaDon hd : listHD) {
             String tt = "";
-            if (hd.getTrangThai() == 1) {
+            if (hd.getTrangThai() == 0) {
                 tt = "Đã thanh toán";
             } else {
                 tt = "Chưa thanh toán";
@@ -222,80 +228,6 @@ public class hoadon extends javax.swing.JInternalFrame {
         }
     }
 
-//    private void printHD() {
-//        try {
-//            int rowIndex = TblHoaDon.getSelectedRow();
-//            if (rowIndex >= 0) {
-//                HoaDon hd = listhd.get(rowIndex);
-//                dtmHDCT = (DefaultTableModel) TblHDCT.getModel();
-//                list = sr.getAll(hd.getMaHD());
-//                showDataHDCT(list);
-//                List<FieldReportPayment> fields = new ArrayList<>();
-//
-//                // Lặp qua các hàng trong bảng jTable2 để lấy thông tin chi tiết
-//                for (int i = 0; i < jTable2.getRowCount(); i++) {
-//                    // Lấy dữ liệu từ mỗi hàng
-//                    String tenSP = jTable2.getValueAt(i, 2).toString();
-//
-//                    // Kiểm tra và chuyển đổi số lượng
-//                    int soLuong = 0;
-//                    try {
-//                        soLuong = Integer.parseInt(jTable2.getValueAt(i, 7).toString());
-//                    } catch (NumberFormatException e) {
-//                        e.printStackTrace();
-//                        // Xử lý nếu giá trị không hợp lệ
-//                    }
-//
-//                    // Kiểm tra và chuyển đổi giá bán
-//                    double giaBan = 0.0;
-//                    String giaBanStr = jTable2.getValueAt(i, 8).toString().replaceAll("[^\\d.]", "");
-//                    if (!giaBanStr.isEmpty()) {
-//                        try {
-//                            giaBan = Double.parseDouble(giaBanStr);
-//                        } catch (NumberFormatException e) {
-//                            e.printStackTrace();
-//                            // Xử lý nếu giá trị không hợp lệ
-//                        }
-//                    }
-//
-//                    double tongTien = soLuong * giaBan;
-//
-//                    // In dữ liệu ra console
-//                    System.out.println("Tên sản phẩm: " + tenSP);
-//                    System.out.println("Số lượng: " + soLuong);
-//                    System.out.println("Đơn giá: " + giaBan);
-//                    System.out.println("Tổng tiền: " + tongTien);
-//
-//                    // Thêm thông tin vào danh sách fields để tạo báo cáo
-//                    fields.add(new FieldReportPayment(i + 1, tenSP, String.valueOf(giaBan), String.valueOf(soLuong), String.valueOf(tongTien)));
-//                }
-//                // Kiểm tra nếu có dữ liệu để tạo báo cáo
-//                if (!fields.isEmpty()) {
-//                    // Tạo mã QR Code
-//                    InputStream qrCodeStream = generateQrcode(selectedInvoiceId);
-//                    if (qrCodeStream != null) {
-//                        // Tạo tham số để in báo cáo
-//                        ParameterReportPayment dataPrint = new ParameterReportPayment(
-//                                hd.getMaHD(), String.valueOf(hd.getNgayTao().format(formatter)), hd.getTenKH(), hd.getSoDT(), hd.getDiaChi(), String.valueOf(hd.getGiaTien()).replaceAll("[^\\d.]", ""), qrCodeStream, fields);
-//
-//                        // Trước khi gọi printReportPayment
-//                        ReportManager.getInstance().checkJRXMLPath();
-//                        ReportManager.getInstance().checkCompilation();
-//                        ReportManager.getInstance().checkReportParameters(dataPrint);
-//
-//                        // Gọi phương thức in báo cáo
-//                        ReportManager.getInstance().printReportPayment(dataPrint);
-//                    }
-//                } else {
-//                    JOptionPane.showMessageDialog(this, "Không có dữ liệu để tạo báo cáo.");
-//                }
-//            } else {
-//                JOptionPane.showMessageDialog(this, "Bạn chưa chọn hóa đơn để in ra.");
-//            }
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//    }
     public void Show() {
         int index = TblHoaDon.getSelectedRow();
 
@@ -306,11 +238,11 @@ public class hoadon extends javax.swing.JInternalFrame {
         showDataLSHD(listLSHD);
 
         dtmHDCT = (DefaultTableModel) TblHDCT.getModel();
-        list = sr.getAll(hd.getMaHD());
+        list = sr.getAllID(hd.getMaHD());
         showDataHDCT(list);
     }
 
-    private void createPDF(String maHD) throws BadElementException, IOException {
+    private void createPDF(String maHD) throws DocumentException, IOException {
         int selectedRowIndex = TblHoaDon.getSelectedRow();
         try {
             Document document = new Document(PageSize.A4, 30, 30, 30, 30); // Giảm lề
@@ -320,34 +252,41 @@ public class hoadon extends javax.swing.JInternalFrame {
 
             // Tiêu đề hóa đơn
             Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.BOLD);
-            Paragraph title = new Paragraph("Thong tin hoa don - " + maHD, titleFont);
+            Paragraph title = new Paragraph("Mã hóa đơn: HD - " + maHD, titleFont);
             title.setAlignment(Element.ALIGN_CENTER);
             title.setSpacingAfter(16f);
 
-            // Thông tin hóa đơn
-            Font contentFont = new Font(Font.FontFamily.TIMES_ROMAN, 16);
-            Paragraph content = new Paragraph();
-            content.setFont(contentFont);
-            content.setLeading(24f); // Đặt khoảng cách giữa các dòng
-            content.add("Ma HD: " + TblHoaDon.getValueAt(selectedRowIndex, 1).toString() + "\n");
-            content.add("Ten Khach Hang: " + TblHoaDon.getValueAt(selectedRowIndex, 2).toString() + "\n");
-            content.add("Ngay tao: " + TblHoaDon.getValueAt(selectedRowIndex, 7).toString() + "\n");
-            content.add("Dia chi: " + TblHoaDon.getValueAt(selectedRowIndex, 4).toString() + "\n");
-            content.add("So dien thoai: " + TblHoaDon.getValueAt(selectedRowIndex, 5).toString() + "\n");
-            content.add("Tong tien: " + TblHoaDon.getValueAt(selectedRowIndex, 6).toString() + "VND" + "\n");
-            content.add("Hinh thuc thanh toan: " + TblHoaDon.getValueAt(selectedRowIndex, 3).toString() + "\n");
-            content.add("\n");
-            content.add("\n");
-            content.add("\n");
-            content.add("\n");
-            content.add("\n");
-            content.add("\n");
-            content.add("\n");
-            content.add("\n");
-            content.add("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -");
+            // Thông tin khách hàng
+            Font infoFont = new Font(Font.FontFamily.TIMES_ROMAN, 12);
+            Paragraph info = new Paragraph();
+            info.setFont(infoFont);
+            info.setSpacingAfter(16f);
+            info.add("Tên Khách Hàng: " + TblHoaDon.getValueAt(selectedRowIndex, 2).toString() + "\n");
+            info.add("Số điện thoại: " + TblHoaDon.getValueAt(selectedRowIndex, 5).toString() + "\n");
+            info.add("Hình thức thanh toán: " + TblHoaDon.getValueAt(selectedRowIndex, 3).toString() + "\n");
+            info.add("Địa chỉ: " + TblHoaDon.getValueAt(selectedRowIndex, 4).toString() + "\n");
+
+            // Bảng dữ liệu
+            PdfPTable table = new PdfPTable(5); // 5 cột
+            table.setWidthPercentage(100); // Đặt chiều rộng của bảng là 100% của trang
+            table.setSpacingAfter(20f); // Đặt khoảng cách giữa bảng và phần tiêu đề
+
+            // Thêm tiêu đề của các cột
+            String[] columnNames = {"STT", "Mã Hóa Đơn", "Tổng tiền", "Ngày Tạo", "Trạng thái"};
+            for (String columnName : columnNames) {
+                PdfPCell cell = new PdfPCell(new Phrase(columnName));
+                cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                table.addCell(cell);
+            }
+
+            // Thêm dữ liệu từ bảng dữ liệu
+            for (int i = 0; i < TblHoaDon.getColumnCount(); i++) {
+                table.addCell(TblHoaDon.getValueAt(selectedRowIndex, i).toString());
+            }
 
             document.add(title);
-            document.add(content);
+            document.add(info);
+            document.add(table);
 
             // Thêm mã QR dưới cùng và ở giữa
             String qrFilePath = "C:\\QRCode\\" + maHD + ".png";
@@ -358,7 +297,7 @@ public class hoadon extends javax.swing.JInternalFrame {
             document.add(qrImage);
 
             document.close();
-        } catch (DocumentException | FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -626,7 +565,7 @@ public class hoadon extends javax.swing.JInternalFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "STT", "MÃ HÓA ĐƠN", "MÃ CHI TIẾT SẢN PHẨM", "ĐƠN GIÁ", "THÀNH TIỀN"
+                "STT", "MÃ HÓA ĐƠN", "MÃ HÓA ĐƠN CHI TIẾT", "MÃ CHI TIẾT SẢN PHẨM", "ĐƠN GIÁ"
             }
         ));
         TblHDCT.setGridColor(new java.awt.Color(255, 255, 255));
@@ -771,9 +710,11 @@ public class hoadon extends javax.swing.JInternalFrame {
             FileOutputStream fout = new FileOutputStream(new File(fileName));
             fout.write(out.toByteArray());
             fout.flush();
-            createPDF(maHD);
-        } catch (BadElementException ex) {
-            Logger.getLogger(hoadon.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                createPDF(maHD);
+            } catch (DocumentException ex) {
+                Logger.getLogger(hoadon.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } catch (IOException ex) {
             Logger.getLogger(hoadon.class.getName()).log(Level.SEVERE, null, ex);
         }
