@@ -184,7 +184,7 @@ public class HDBanHangRepository {
         return check > 0;
     }
 
-     public boolean update(HoaDonBH hd, HDChiTiet hdct, LichSuHoaDon lshd, String MaVCH, String sua,String MaKH) {
+     public boolean update(HoaDonBH hd, HDChiTiet hdct, LichSuHoaDon lshd, String MaVCH, String sua, String sua1, String sua2, String MaKH) {
         int check = 0;
         String sql = """
                   UPDATE [dbo].[HoaDon]
@@ -208,7 +208,6 @@ public class HDBanHangRepository {
                             SET [MaHDCT] = ?
                                ,[IDChiTietSP] = ?
                                ,[DonGia] = ?
-                               ,[Thanhtien] = ?
                           WHERE MaHoaDon = ?
                          """;
         
@@ -221,7 +220,9 @@ public class HDBanHangRepository {
                           WHERE IDHoaDon = ?
                          """;
         
-        try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql);
+                PreparedStatement ps1 = con.prepareStatement(sqlHDCT);
+                PreparedStatement ps2 = con.prepareStatement(sqlLSHD)) {
             ps.setObject(1, hd.getMaNV());
             ps.setObject(2, MaKH);
             ps.setObject(3, hd.getMaHTTT());
@@ -236,6 +237,19 @@ public class HDBanHangRepository {
             ps.setObject(12, hd.getTrangthai2());
             ps.setObject(13, sua);
             check = ps.executeUpdate();
+            
+            ps1.setObject(1, hdct.getMaHDCT());
+            ps1.setObject(2, hdct.getMaCTSP());
+            ps1.setObject(3, hdct.getDonGia());
+            ps1.setObject(4, sua1);
+            check = ps1.executeUpdate();
+            
+            ps2.setObject(1, lshd.getMaLSHD());
+            ps2.setObject(2, lshd.getMaNV());
+            ps2.setObject(3, lshd.getHanhDong());
+            ps2.setObject(4, lshd.getNgayTao());
+            ps2.setObject(5, sua2);
+            check = ps2.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -383,7 +383,7 @@ public class banhhang extends javax.swing.JInternalFrame {
                                         int khachDua = Integer.valueOf(txtkhachdua.getText());
                                         int tongTien = tongTienSauGiamGia;
                                         int congDon = chuyenkhoan + khachDua;
-                                        int thoiLai =  tongTienSauGiamGia - congDon ;
+                                        int thoiLai = tongTienSauGiamGia - congDon;
                                         txttienthua1.setText(VND.format(thoiLai));
                                     }
                                 });
@@ -633,8 +633,12 @@ public class banhhang extends javax.swing.JInternalFrame {
         }
     }
 
+    private String generateMaHD() {
+        return "HD-00" + String.format("%03d", random.nextInt(1000));
+    }
+
     public HoaDonBH getFormData() {
-        String maHD = "HD-00" + String.format("%03d", random.nextInt(1000)); // Tạo mã hóa đơn duy nhất
+        String maHD = generateMaHD(); // Generate maHD only once
         String maNV = "NV-001";
         Date ngayTao = new Date();
         int soluongSP = 0;
@@ -665,20 +669,19 @@ public class banhhang extends javax.swing.JInternalFrame {
         txthoadonONL.setText(maHD);
 
         return hd;
-
     }
 
     public HDChiTiet getformdataAdd() {
-        String maHD = getFormData().getMaHD();
-        String maHDCT = "HDCT - " + maHD;
+        String maHD = txtMaHD.getText();
+        String maHDCT = "HDCT-" + maHD;
 
         HDChiTiet hdct = new HDChiTiet(maHDCT, maHD);
         return hdct;
     }
 
     public LichSuHoaDon getFormdataAddLSHD() {
-        String maHD = getFormData().getMaHD();
-        String maLSHD = "LSHD - " + maHD;
+        String maHD = txtMaHD.getText();
+        String maLSHD = "LSHD-" + maHD;
 
         LichSuHoaDon lshd = new LichSuHoaDon(maLSHD, maHD, "NV-001");
         return lshd;
@@ -708,7 +711,7 @@ public class banhhang extends javax.swing.JInternalFrame {
     }
 
     public void showcomboboxMau(List<MauSanPham> list) {
-        combomau.removeAllElements();;
+        combomau.removeAllElements();
         for (MauSanPham mauSanPham : list) {
             combomau.addElement(mauSanPham.getTenmau());
         }
@@ -850,7 +853,7 @@ public class banhhang extends javax.swing.JInternalFrame {
         // Chuyển đổi chuỗi TT thành một số nguyên
         String loaiThanhToan = (String) cbbgiamrgia.getSelectedItem();
         if (loaiThanhToan.isEmpty()) {
-            JOptionPane.showMessageDialog(this  , "Vui lòng hãy chọn phiếu giảm giá");
+            JOptionPane.showMessageDialog(this, "Vui lòng hãy chọn phiếu giảm giá");
             return null;
         }
         if (TT.trim().isEmpty()) {
@@ -902,18 +905,18 @@ public class banhhang extends javax.swing.JInternalFrame {
         String maHD = txtMaHD.getText();
         String maHDCT = txtMaHD.getText();
         String maCTSP = txtMaSP.getText();
-        float donGia = Float.parseFloat(VND.format(txttongtien.getText()));
+        String donGia = txttongtien.getText().replaceAll("[, đ]", "");
 
-        HDChiTiet hdct = new HDChiTiet(maHDCT, maHD, maCTSP, donGia, donGia);
+        HDChiTiet hdct = new HDChiTiet(maHDCT, maHD, maCTSP, Integer.parseInt(donGia), Integer.parseInt(donGia));
         return hdct;
     }
 
-    public LichSuHoaDon getformdataUpdateLSHD() {
+    public LichSuHoaDon getformdataUpdateLSHD() throws ParseException {
         String maHD = txtMaHD.getText();
         String maLSHD = txtMaHD.getText();
         String maNV = txtmaNV.getText();
         String hanhDong = txtMaSP.getText();
-        Date ngayTao = new Date();
+        Date ngayTao = dateFormat.parse(txtNgayTao.getText());
 
         LichSuHoaDon lshd = new LichSuHoaDon(maLSHD, maHD, maNV, "Tạo hóa đơn", ngayTao);
         return lshd;
@@ -1878,7 +1881,7 @@ public class banhhang extends javax.swing.JInternalFrame {
                 .addGroup(DHONLLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnUpdateHD1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnReset1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         panel4.addTab("Đơn Hàng Online", DHONL);
@@ -2208,32 +2211,31 @@ public class banhhang extends javax.swing.JInternalFrame {
                 .addGroup(mahinhbanhangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mahinhbanhangLayout.createSequentialGroup()
                         .addComponent(jLabel10)
-                        .addGap(619, 619, 619))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mahinhbanhangLayout.createSequentialGroup()
+                        .addGap(106, 106, 106))
+                    .addGroup(mahinhbanhangLayout.createSequentialGroup()
                         .addGroup(mahinhbanhangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(panel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(panel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(panel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
-                        .addComponent(panel4, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(127, 127, 127))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)))
+                .addComponent(panel4, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(127, 127, 127))
         );
         mahinhbanhangLayout.setVerticalGroup(
             mahinhbanhangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mahinhbanhangLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(mahinhbanhangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(mahinhbanhangLayout.createSequentialGroup()
+                .addGroup(mahinhbanhangLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(panel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, mahinhbanhangLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(14, 14, 14)
                         .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panel3, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(panel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                        .addComponent(panel3, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -2245,7 +2247,7 @@ public class banhhang extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(mahinhbanhang, javax.swing.GroupLayout.PREFERRED_SIZE, 842, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mahinhbanhang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 24, Short.MAX_VALUE))
         );
 
@@ -2283,7 +2285,7 @@ public class banhhang extends javax.swing.JInternalFrame {
         String MKH = txtTenKH.getText();
 
         try {
-            srhd.UpdateBanhang(getformdatabanhang(), getformdataUpdateHDCT(), getformdataUpdateLSHD(), MVC, txtMaHD.getText(), MKH);
+            srhd.UpdateBanhang(getformdatabanhang(), getformdataUpdateHDCT(), getformdataUpdateLSHD(), MVC, txtMaHD.getText(), txtMaHD.getText(), txtMaHD.getText(), MKH);
             listBH = srhd.getAll();
             showHoaDonBH(listBH);
             JOptionPane.showMessageDialog(this, "Thêm thành công");
