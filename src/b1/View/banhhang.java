@@ -371,6 +371,28 @@ public class banhhang extends javax.swing.JInternalFrame {
                         }
                     }
                 });
+                cbbPTTT.addItemListener(new ItemListener() {
+                    public void itemStateChanged(ItemEvent e) {
+                        if (e.getStateChange() == ItemEvent.SELECTED) {
+                            String selectedValue = (String) cbbPTTT.getSelectedItem();
+                            if (selectedValue.equals("Cả Hai")) {
+                                txtkhachdua.addActionListener(new ActionListener() {
+                                    @Override
+                                    public void actionPerformed(ActionEvent e) {
+                                        int chuyenkhoan = Integer.valueOf(txtchuyenkhoan.getText());
+                                        int khachDua = Integer.valueOf(txtkhachdua.getText());
+                                        int tongTien = tongTienSauGiamGia;
+                                        int congDon = chuyenkhoan + khachDua;
+                                        int thoiLai =  tongTienSauGiamGia - congDon ;
+                                        txttienthua1.setText(VND.format(thoiLai));
+                                    }
+                                });
+                            } else {
+                                txtkhachdua.setEditable(true);
+                            }
+                        }
+                    }
+                });
             }
 
         });
@@ -475,41 +497,45 @@ public class banhhang extends javax.swing.JInternalFrame {
         });
 
         tbldanhsachsanpham.addMouseListener(new MouseAdapter() {
-
             @Override
             public void mouseClicked(MouseEvent e) {
-
                 if (e.getClickCount() == 2) {
                     int selectedRow = tbldanhsachsanpham.getSelectedRow();
-                    String maSP = tbldanhsachsanpham.getValueAt(selectedRow, 1).toString();
-                    String tenSanPham = tbldanhsachsanpham.getValueAt(selectedRow, 2).toString();
-                    String hang = tbldanhsachsanpham.getValueAt(selectedRow, 3).toString();
-                    String mau = tbldanhsachsanpham.getValueAt(selectedRow, 4).toString();
-                    String size = tbldanhsachsanpham.getValueAt(selectedRow, 5).toString();
-                    String chatlieu = tbldanhsachsanpham.getValueAt(selectedRow, 6).toString();
-                    String day = tbldanhsachsanpham.getValueAt(selectedRow, 7).toString();
-                    String giaBan = tbldanhsachsanpham.getValueAt(selectedRow, 9).toString();
+                    if (selectedRow != -1) {
+                        String maSP = tbldanhsachsanpham.getValueAt(selectedRow, 1).toString();
+                        String tenSanPham = tbldanhsachsanpham.getValueAt(selectedRow, 2).toString();
+                        String hang = tbldanhsachsanpham.getValueAt(selectedRow, 3).toString();
+                        String mau = tbldanhsachsanpham.getValueAt(selectedRow, 4).toString();
+                        String size = tbldanhsachsanpham.getValueAt(selectedRow, 5).toString();
+                        String chatlieu = tbldanhsachsanpham.getValueAt(selectedRow, 6).toString();
+                        String day = tbldanhsachsanpham.getValueAt(selectedRow, 7).toString();
+                        String giaBan = tbldanhsachsanpham.getValueAt(selectedRow, 9).toString();
+                        int soLuongTrongBang = Integer.parseInt(tbldanhsachsanpham.getValueAt(selectedRow, 8).toString());
 
-                    int soLuong = nhapSoLuong();
+                        if (soLuongTrongBang > 0) {
+                            int soLuong = nhapSoLuong();
 
-                    if (soLuong > 0) {
-                        for (sanphamchitietviewmodel object : listsp) {
-                            if (object.getMctsp().equals(maSP)) {
-                                object.setSoluong(object.getSoluong() - soLuong);
+                            if (soLuong > 0 && soLuong <= soLuongTrongBang) {
+                                for (sanphamchitietviewmodel object : listsp) {
+                                    if (object.getMctsp().equals(maSP)) {
+                                        object.setSoluong(object.getSoluong() - soLuong);
+                                    }
+                                }
+                                // Thêm sản phẩm vào giỏ hàng
+                                addToCart(maSP, tenSanPham, hang, mau, size, chatlieu, day, soLuong, giaBan);
+                                showdata(listsp);
+                                rowCount++;
+                                updateTotalAmount();
+                            } else if (soLuong > soLuongTrongBang) {
+                                JOptionPane.showMessageDialog(null, "Không đủ hàng.");
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Vui lòng nhập số nguyên dương lớn hơn 0.");
                             }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Số lượng sản phẩm đã hết.");
                         }
-                        addToCart(maSP, tenSanPham, hang, mau, size, chatlieu, day, soLuong, giaBan);
-
-                        // Hiển thị lại dữ liệu trong bảng giỏ hàng
-                        showdata(listsp);
-                        rowCount++;
-                        updateTotalAmount();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Vui lòng nhập số nguyên dương lớn hơn 0.");
                     }
-
                 }
-
             }
         });
 
@@ -641,20 +667,20 @@ public class banhhang extends javax.swing.JInternalFrame {
         return hd;
 
     }
-    
+
     public HDChiTiet getformdataAdd() {
         String maHD = getFormData().getMaHD();
         String maHDCT = "HDCT - " + maHD;
-        
+
         HDChiTiet hdct = new HDChiTiet(maHDCT, maHD);
         return hdct;
     }
-    
+
     public LichSuHoaDon getFormdataAddLSHD() {
         String maHD = getFormData().getMaHD();
         String maLSHD = "LSHD - " + maHD;
-        
-        LichSuHoaDon lshd = new LichSuHoaDon(maLSHD, maHD,"NV-001");
+
+        LichSuHoaDon lshd = new LichSuHoaDon(maLSHD, maHD, "NV-001");
         return lshd;
     }
 
@@ -822,30 +848,73 @@ public class banhhang extends javax.swing.JInternalFrame {
         Date NTT = dateFormat.parse(txtNgayTT.getText());
 
         // Chuyển đổi chuỗi TT thành một số nguyên
-        int tongTien = Integer.valueOf(TT);
+        String loaiThanhToan = (String) cbbgiamrgia.getSelectedItem();
+        if (loaiThanhToan.isEmpty()) {
+            JOptionPane.showMessageDialog(this  , "Vui lòng hãy chọn phiếu giảm giá");
+            return null;
+        }
+        if (TT.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng hãy chọn hàng để tính tiền?");
+            return null;
+        }
+        if (txttong.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng hãy chọn hàng để tính tiền?");
+            return null;
+        }
+        if (txtchuyenkhoan.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng hãy nhập số tiền chuyển khoản?");
+            return null;
+        }
+        if (txtkhachdua.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập số tiền?");
+            return null;
+        }
+        if (loaiThanhToan != null && loaiThanhToan.equals("Chuyển khoản")) {
+            if (txtchuyenkhoan.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng hãy nhập số tiền chuyển khoản?");
+                return null;
+            }
+        }
+        if (loaiThanhToan != null && loaiThanhToan.equals("Tiền Mặt")) {
+            if (txtchuyenkhoan.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng hãy nhập số tiền?");
+                return null;
+            }
+        }
+        if (loaiThanhToan != null && loaiThanhToan.equals("Cả Hai")) {
+            if (txtchuyenkhoan.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng hãy nhập số tiền chuyển khoản?");
+                return null;
+            }
+            if (txtkhachdua.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập số tiền?");
+                return null;
+            }
+        }
 
+        int tongTien = Integer.valueOf(TT);
         HoaDonBH hd = new HoaDonBH(MaHD, MaKH, tenKH, sdtKH, tongTien, "FPT", NT, NTT, MaNV, 0, "HTTT-001", 0);
         return hd;
 
     }
-    
+
     public HDChiTiet getformdataUpdateHDCT() {
         String maHD = txtMaHD.getText();
         String maHDCT = txtMaHD.getText();
         String maCTSP = txtMaSP.getText();
-        float donGia = Float.parseFloat(txttongtien.getText());
-        
+        float donGia = Float.parseFloat(VND.format(txttongtien.getText()));
+
         HDChiTiet hdct = new HDChiTiet(maHDCT, maHD, maCTSP, donGia, donGia);
         return hdct;
     }
-    
+
     public LichSuHoaDon getformdataUpdateLSHD() {
         String maHD = txtMaHD.getText();
         String maLSHD = txtMaHD.getText();
         String maNV = txtmaNV.getText();
         String hanhDong = txtMaSP.getText();
         Date ngayTao = new Date();
-        
+
         LichSuHoaDon lshd = new LichSuHoaDon(maLSHD, maHD, maNV, "Tạo hóa đơn", ngayTao);
         return lshd;
     }
@@ -1084,9 +1153,10 @@ public class banhhang extends javax.swing.JInternalFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
+        txtTenKH.setText("Khách lẻ");
         txtTenKH.setDisabledTextColor(new java.awt.Color(0, 204, 204));
         txtTenKH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtTenKH.setLabelText("Khách lẻ");
+        txtTenKH.setLabelText("Tên khách hàng");
 
         txtSdtKH.setDisabledTextColor(new java.awt.Color(0, 204, 204));
         txtSdtKH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -1456,6 +1526,7 @@ public class banhhang extends javax.swing.JInternalFrame {
 
         jPanel10.setBackground(new java.awt.Color(255, 255, 255));
 
+        txtTenKhachHangONL.setText("Khách lẻ");
         txtTenKhachHangONL.setDisabledTextColor(new java.awt.Color(0, 204, 204));
         txtTenKhachHangONL.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtTenKhachHangONL.setLabelText("Tên khách hàng");
@@ -2212,7 +2283,7 @@ public class banhhang extends javax.swing.JInternalFrame {
         String MKH = txtTenKH.getText();
 
         try {
-            srhd.UpdateBanhang(getformdatabanhang(), getformdataUpdateHDCT(), getformdataUpdateLSHD() ,MVC, txtMaHD.getText(), MKH);
+            srhd.UpdateBanhang(getformdatabanhang(), getformdataUpdateHDCT(), getformdataUpdateLSHD(), MVC, txtMaHD.getText(), MKH);
             listBH = srhd.getAll();
             showHoaDonBH(listBH);
             JOptionPane.showMessageDialog(this, "Thêm thành công");
@@ -2355,7 +2426,7 @@ public class banhhang extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         int index = tblgiohang.getSelectedRow();
         sanphamchitietviewmodel ctsp = listsp.get(index);
-        
+
         txtMaSP.setText(ctsp.getMctsp());
     }//GEN-LAST:event_tblgiohangMouseClicked
 

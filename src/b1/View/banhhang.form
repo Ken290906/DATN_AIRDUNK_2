@@ -424,13 +424,14 @@
                   <SubComponents>
                     <Component class="b1.View.chucnang.TextField" name="txtTenKH">
                       <Properties>
+                        <Property name="text" type="java.lang.String" value="Kh&#xe1;ch l&#x1ebb;"/>
                         <Property name="disabledTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="cc" green="cc" red="0" type="rgb"/>
                         </Property>
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="14" style="1"/>
                         </Property>
-                        <Property name="labelText" type="java.lang.String" value="Kh&#xe1;ch l&#x1ebb;"/>
+                        <Property name="labelText" type="java.lang.String" value="T&#xea;n kh&#xe1;ch h&#xe0;ng"/>
                       </Properties>
                     </Component>
                     <Component class="b1.View.chucnang.TextField" name="txtSdtKH">
@@ -1122,6 +1123,7 @@
                   <SubComponents>
                     <Component class="b1.View.chucnang.TextField" name="txtTenKhachHangONL">
                       <Properties>
+                        <Property name="text" type="java.lang.String" value="Kh&#xe1;ch l&#x1ebb;"/>
                         <Property name="disabledTextColor" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="cc" green="cc" red="0" type="rgb"/>
                         </Property>
