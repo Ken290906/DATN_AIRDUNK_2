@@ -597,10 +597,11 @@ public class banhhang extends javax.swing.JInternalFrame {
             dtmHoaDon.addRow(new Object[]{
                 i,
                 hoaDonBH.getMaHD(),
-                hoaDonBH.getNgaytao(),
                 hoaDonBH.getMaNV(),
+                hoaDonBH.getTenKH(),
                 hoaDonBH.getSoluong(),
-                trangthai
+                trangthai,
+                hoaDonBH.getSdt()
             });
         }
 
@@ -640,7 +641,8 @@ public class banhhang extends javax.swing.JInternalFrame {
     public HoaDonBH getFormData() {
         String maHD = generateMaHD(); // Generate maHD only once
         String maNV = "NV-001";
-        Date ngayTao = new Date();
+        String tenKH = "Khách lẻ";
+        String sdt = "0000000000";
         int soluongSP = 0;
         float trangThai = 0;
         if (DHOFF.isVisible()) {
@@ -663,9 +665,9 @@ public class banhhang extends javax.swing.JInternalFrame {
             Logger.getLogger(hoadon.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        HoaDonBH hd = new HoaDonBH(maHD, ngayTao, maNV, soluongSP, trangThai);
+        HoaDonBH hd = new HoaDonBH(maHD, maNV, tenKH, soluongSP, trangThai, 1000000000);
         txtMaHD.setText(maHD);
-        txtNgayTT.setText(dateFormat.format(ngayTao));
+//        txtNgayTT.setText(String.valueOf(new Date()));
         txthoadonONL.setText(maHD);
 
         return hd;
@@ -841,14 +843,14 @@ public class banhhang extends javax.swing.JInternalFrame {
     }
 
     public HoaDonBH getformdatabanhang() throws ParseException {
-        String MaHD = txtMaHD.getText();
+        String MaHD = txtMaHD.getText().trim();
         String TT = txttongtien.getText().replaceAll("[, đ]", "");
-        String sdtKH = txtSdtKH.getText();
-        String tenKH = txtTenKH.getText();
-        String MaNV = txtmaNV.getText();
-        Date NT = dateFormat.parse(txtNgayTao.getText());
-        String MaKH = txtTenKH.getText();
-        Date NTT = dateFormat.parse(txtNgayTT.getText());
+        String sdtKH = txtSdtKH.getText().trim();
+        String tenKH = txtTenKH.getText().trim();
+        String MaNV = txtmaNV.getText().trim();
+        Date NT = dateFormat.parse(txtNgayTao.getText().trim());
+        String MaKH = txtTenKH.getText().trim();
+        Date NTT = dateFormat.parse(txtNgayTT.getText().trim());
 
         // Chuyển đổi chuỗi TT thành một số nguyên
         String loaiThanhToan = (String) cbbgiamrgia.getSelectedItem();
@@ -877,10 +879,19 @@ public class banhhang extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Vui lòng hãy nhập số tiền chuyển khoản?");
                 return null;
             }
+            if (txtchuyenkhoan.getText().matches("[A-Z a-z]+")) {
+                JOptionPane.showMessageDialog(this, "ko dien chu");
+                return null;
+            }
+            
         }
         if (loaiThanhToan != null && loaiThanhToan.equals("Tiền Mặt")) {
-            if (txtchuyenkhoan.getText().trim().isEmpty()) {
+            if (txtkhachdua.getText().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Vui lòng hãy nhập số tiền?");
+                return null;
+            }
+            if (txtkhachdua.getText().matches("[A-Z a-z]+")) {
+                JOptionPane.showMessageDialog(this, "ko dien chu");
                 return null;
             }
         }
@@ -893,30 +904,38 @@ public class banhhang extends javax.swing.JInternalFrame {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập số tiền?");
                 return null;
             }
+            if (txtkhachdua.getText().matches("[A-Z a-z]+")) {
+                JOptionPane.showMessageDialog(this, "ko dien chu");
+                return null;
+            }
+             if (txtchuyenkhoan.getText().matches("[A-Z a-z]+")) {
+                JOptionPane.showMessageDialog(this, "ko dien chu");
+                return null;
+            }
         }
 
         int tongTien = Integer.valueOf(TT);
-        HoaDonBH hd = new HoaDonBH(MaHD, MaKH, tenKH, sdtKH, tongTien, "FPT", NT, NTT, MaNV, 0, "HTTT-001", 0);
+        HoaDonBH hd = new HoaDonBH(MaHD, MaKH, tenKH, Integer.parseInt(sdtKH), tongTien, "FPT", NT, NTT, MaNV, 0, "HTTT-001", 0);
         return hd;
 
     }
 
     public HDChiTiet getformdataUpdateHDCT() {
-        String maHD = txtMaHD.getText();
-        String maHDCT = txtMaHD.getText();
-        String maCTSP = txtMaSP.getText();
-        String donGia = txttongtien.getText().replaceAll("[, đ]", "");
+        String maHD = txtMaHD.getText().trim();
+        String maHDCT = txtMaHD.getText().trim();
+        String maCTSP = txtMaSP.getText().trim();
+        String donGia = txttongtien.getText().replaceAll("[, đ]", "").trim();
 
         HDChiTiet hdct = new HDChiTiet(maHDCT, maHD, maCTSP, Integer.parseInt(donGia), Integer.parseInt(donGia));
         return hdct;
     }
 
     public LichSuHoaDon getformdataUpdateLSHD() throws ParseException {
-        String maHD = txtMaHD.getText();
-        String maLSHD = txtMaHD.getText();
-        String maNV = txtmaNV.getText();
-        String hanhDong = txtMaSP.getText();
-        Date ngayTao = dateFormat.parse(txtNgayTao.getText());
+        String maHD = txtMaHD.getText().trim();
+        String maLSHD = txtMaHD.getText().trim();
+        String maNV = txtmaNV.getText().trim();
+        String hanhDong = txtMaSP.getText().trim();
+        Date ngayTao = dateFormat.parse(txtNgayTao.getText().trim());
 
         LichSuHoaDon lshd = new LichSuHoaDon(maLSHD, maHD, maNV, "Tạo hóa đơn", ngayTao);
         return lshd;
@@ -931,7 +950,7 @@ public class banhhang extends javax.swing.JInternalFrame {
         String sdtKH = txtSdtKH.getText();
         String tenKH = txtTenKH.getText();
 
-        HoaDonBH hd = new HoaDonBH(tenKH, tenKH, Integer.valueOf(tt), SDT, DC, Date.from(ngaybatdau.atStartOfDay(ZoneId.systemDefault()).toInstant()), MNV, 2, "HTTT-001");
+        HoaDonBH hd = new HoaDonBH(tenKH, tenKH, Integer.valueOf(tt), Integer.parseInt(SDT), DC, Date.from(ngaybatdau.atStartOfDay(ZoneId.systemDefault()).toInstant()), MNV, 2, "HTTT-001");
         return hd;
     }
 
@@ -1519,7 +1538,7 @@ public class banhhang extends javax.swing.JInternalFrame {
         cbbPTTT.getAccessibleContext().setAccessibleName("");
         cbbPTTT.getAccessibleContext().setAccessibleDescription("");
 
-        panel4.addTab("Đơn Hàng Offline", DHOFF);
+        panel4.addTab("     Tại Quầy", DHOFF);
 
         DHONL.setBackground(new java.awt.Color(255, 255, 255));
         DHONL.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -1884,7 +1903,7 @@ public class banhhang extends javax.swing.JInternalFrame {
                 .addContainerGap(33, Short.MAX_VALUE))
         );
 
-        panel4.addTab("Đơn Hàng Online", DHONL);
+        panel4.addTab("Đặt Hàng", DHONL);
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1905,13 +1924,13 @@ public class banhhang extends javax.swing.JInternalFrame {
 
         tblhoadon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null}
             },
             new String [] {
-                "#", "Mã đơn hàng", "Ngày Tạo", "Mã NV", "Tổng SP", "Trạng Thái"
+                "#", "Mã đơn hàng", "Mã NV", "Tên Khách hàng", "Tổng SP", "Trạng Thái", "Số điện thoại"
             }
         ));
         tblhoadon.setGridColor(new java.awt.Color(255, 255, 255));
@@ -2290,7 +2309,11 @@ public class banhhang extends javax.swing.JInternalFrame {
             showHoaDonBH(listBH);
             JOptionPane.showMessageDialog(this, "Thêm thành công");
 
-            inHoaDon(txtMaHD.getText());
+            int check = JOptionPane.showConfirmDialog(this, "Bạn có muốn in hóa đơn");
+            if(check == JOptionPane.YES_OPTION) {
+                inHoaDon(txtMaHD.getText());
+            }
+            
         } catch (ParseException ex) {
             Logger.getLogger(banhhang.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Lỗi xảy ra khi thêm dữ liệu. Vui lòng thử lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);

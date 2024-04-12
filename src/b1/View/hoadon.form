@@ -124,40 +124,40 @@
                                   <EmptySpace max="32767" attributes="0"/>
                                   <Component id="btnPDF" min="-2" pref="99" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
+                              <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="27" pref="27" max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
                                       <Group type="102" attributes="0">
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <Component id="cbbTrangthai" min="-2" pref="170" max="-2" attributes="0"/>
-                                                  <EmptySpace max="32767" attributes="0"/>
-                                                  <Component id="cbbHTTT" min="-2" pref="154" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Component id="txtSearch" min="-2" pref="368" max="-2" attributes="0"/>
-                                          </Group>
-                                          <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
-                                          <Component id="btnQuetQR" min="-2" pref="116" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
-                                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                                          <Component id="txtMin" min="-2" pref="149" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
-                                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="txtMax" pref="164" max="32767" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="btnSearchGia" min="-2" pref="99" max="-2" attributes="0"/>
-                                          <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                                          <Component id="ExportExcel" min="-2" max="-2" attributes="0"/>
-                                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                                          <Component id="btnAddHD" min="-2" pref="52" max="-2" attributes="0"/>
+                                          <Component id="cbbTrangthai" min="-2" pref="170" max="-2" attributes="0"/>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="cbbHTTT" min="-2" pref="154" max="-2" attributes="0"/>
                                       </Group>
-                                      <Component id="jScrollPane1" max="32767" attributes="0"/>
+                                      <Component id="txtSearch" min="-2" pref="368" max="-2" attributes="0"/>
                                   </Group>
+                                  <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+                                  <Component id="btnQuetQR" min="-2" pref="116" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                                  <Component id="txtMin" min="-2" pref="149" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                                  <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="txtMax" pref="164" max="32767" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btnSearchGia" min="-2" pref="99" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
+                                  <Component id="ExportExcel" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="btnAddHD" min="-2" pref="52" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                          <Component id="jScrollPane1" min="-2" pref="1378" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -191,7 +191,7 @@
                                       <Component id="cbbTrangthai" alignment="3" min="-2" max="-2" attributes="0"/>
                                       <Component id="cbbHTTT" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
-                                  <EmptySpace type="separate" max="32767" attributes="0"/>
+                                  <EmptySpace pref="18" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                           <Component id="jScrollPane1" min="-2" pref="194" max="-2" attributes="0"/>

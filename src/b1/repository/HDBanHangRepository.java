@@ -23,10 +23,11 @@ public class HDBanHangRepository {
         List<HoaDonBH> list = new ArrayList<>();
 
         String sql = """
-                    SELECT        dbo.HoaDon.MaHD, dbo.HoaDon.MaNV, dbo.HoaDon.Soluong, dbo.HoaDon.NgayTaoHoaDon, dbo.HoaDon.Deleted
-                           FROM            dbo.HoaDon FULL JOIN dbo.HoaDonChiTiet ON dbo.HoaDon.MaHD = dbo.HoaDonChiTiet.MaHoaDon 
-                                                      FULL JOIN dbo.LichsuHD ON dbo.HoaDon.MaHD = dbo.LichsuHD.IDHoaDon
+                    SELECT        dbo.HoaDon.MaHD, dbo.HoaDon.MaNV, dbo.HoaDon.Soluong, dbo.HoaDon.TenKH, dbo.HoaDon.SdtKH, dbo.HoaDon.Deleted
+                           FROM            dbo.HoaDon LEFT JOIN dbo.HoaDonChiTiet ON dbo.HoaDon.MaHD = dbo.HoaDonChiTiet.MaHoaDon 
+                                                      LEFT JOIN dbo.LichsuHD ON dbo.HoaDon.MaHD = dbo.LichsuHD.IDHoaDon
                      WHERE dbo.HoaDon.Deleted = 1 OR dbo.HoaDon.Deleted = 2
+                     ORDER BY dbo.HoaDon.MaHD DESC
                      """;
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
@@ -35,8 +36,9 @@ public class HDBanHangRepository {
                 hd.setMaHD(rs.getString(1));
                 hd.setMaNV(rs.getString(2));
                 hd.setSoluong(rs.getInt(3));
-                hd.setNgaytao(rs.getDate(4));
-                hd.setTrangthai2(rs.getFloat(5));
+                hd.setTenKH(rs.getString(4));
+                hd.setSdt(rs.getInt(5));
+                hd.setTrangthai2(rs.getFloat(6));
 
                 list.add(hd);
             }
@@ -50,9 +52,9 @@ public class HDBanHangRepository {
         List<HoaDonBH> list = new ArrayList<>();
 
         String sql = """
-                    SELECT        dbo.HoaDon.MaHD, dbo.HoaDon.MaNV, dbo.HoaDon.Soluong, dbo.HoaDon.NgayTaoHoaDon, dbo.HoaDon.Deleted
-                           FROM            dbo.HoaDon FULL JOIN dbo.HoaDonChiTiet ON dbo.HoaDon.MaHD = dbo.HoaDonChiTiet.MaHoaDon 
-                                                      FULL JOIN dbo.LichsuHD ON dbo.HoaDon.MaHD = dbo.LichsuHD.IDHoaDon
+                    SELECT        SELECT        dbo.HoaDon.MaHD, dbo.HoaDon.MaNV, dbo.HoaDon.Soluong, dbo.HoaDon.TenKH, dbo.HoaDon.SdtKH, dbo.HoaDon.Deleted
+                                                FROM            dbo.HoaDon LEFT JOIN dbo.HoaDonChiTiet ON dbo.HoaDon.MaHD = dbo.HoaDonChiTiet.MaHoaDon 
+                                              LEFT JOIN dbo.LichsuHD ON dbo.HoaDon.MaHD = dbo.LichsuHD.IDHoaDon
                      WHERE dbo.HoaDon.MaHD = ?
                      """;
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
@@ -63,8 +65,9 @@ public class HDBanHangRepository {
                 hd.setMaHD(rs.getString(1));
                 hd.setMaNV(rs.getString(2));
                 hd.setSoluong(rs.getInt(3));
-                hd.setNgaytao(rs.getDate(4));
-                hd.setTrangthai2(rs.getFloat(5));
+                hd.setTenKH(rs.getString(4));
+                hd.setSdt(rs.getInt(5));
+                hd.setTrangthai2(rs.getFloat(6));
 
                 list.add(hd);
             }
@@ -78,13 +81,14 @@ public class HDBanHangRepository {
         List<HoaDonBH> list = new ArrayList<>();
 
         String sql = """
-                    SELECT        dbo.HoaDon.MaHD, dbo.HoaDon.MaNV, dbo.HoaDon.Soluong, dbo.HoaDon.NgayTaoHoaDon, dbo.HoaDon.Deleted
-                           FROM            dbo.HoaDon FULL JOIN dbo.HoaDonChiTiet ON dbo.HoaDon.MaHD = dbo.HoaDonChiTiet.MaHoaDon 
-                                                      FULL JOIN dbo.LichsuHD ON dbo.HoaDon.MaHD = dbo.LichsuHD.IDHoaDon
+                    SELECT        dbo.HoaDon.MaHD, dbo.HoaDon.MaNV, dbo.HoaDon.Soluong, dbo.HoaDon.TenKH, dbo.HoaDon.SdtKH, dbo.HoaDon.Deleted
+                                FROM            dbo.HoaDon LEFT JOIN dbo.HoaDonChiTiet ON dbo.HoaDon.MaHD = dbo.HoaDonChiTiet.MaHoaDon 
+                                    LEFT JOIN dbo.LichsuHD ON dbo.HoaDon.MaHD = dbo.LichsuHD.IDHoaDon
                      WHERE dbo.HoaDon.MaHD like ? OR
                            dbo.HoaDon.MaNV like ? OR
                            dbo.HoaDon.Soluong like ? OR
-                           dbo.HoaDon.NgayTaoHoaDon like ?
+                           dbo.HoaDon.TenKH like ? OR
+                           dbo.HoaDon.SdtKH like ?
                      AND dbo.HoaDon.Deleted = 0
                      """;
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
@@ -92,14 +96,16 @@ public class HDBanHangRepository {
             ps.setObject(2, '%' + maHD + '%');
             ps.setObject(3, '%' + maHD + '%');
             ps.setObject(4, '%' + maHD + '%');
+            ps.setObject(5, '%' + maHD + '%');
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 HoaDonBH hd = new HoaDonBH();
                 hd.setMaHD(rs.getString(1));
                 hd.setMaNV(rs.getString(2));
                 hd.setSoluong(rs.getInt(3));
-                hd.setNgaytao(rs.getDate(4));
-                hd.setTrangthai2(rs.getFloat(5));
+                hd.setTenKH(rs.getString(4));
+                hd.setSdt(rs.getInt(5));
+                hd.setTrangthai2(rs.getFloat(6));
 
                 list.add(hd);
             }
@@ -114,13 +120,14 @@ public class HDBanHangRepository {
 
         String sqlHD = """
                     INSERT INTO [dbo].[HoaDon]
-                                             ([MaHD]
-                                             ,[MaNV]
-                                             ,[Soluong]
-                                             ,[NgayTaoHoaDon]
-                                             ,[Deleted])
-                                       VALUES
-                                             (?, ?, ?, ?, ?)
+                                                                   ([MaHD]
+                                                                   ,[MaNV]
+                                                                   ,[TenKH]
+                                                                   ,[Soluong]
+                                                                   ,[SdtKH]
+                                                                   ,[Deleted])
+                                                             VALUES
+                                                                   (?, ?, ?, ?, ?, ?)
                      """;
         
         String sqlHDCT = """
@@ -145,9 +152,10 @@ public class HDBanHangRepository {
                 PreparedStatement ps2 = con.prepareStatement(sqlLSHD)) {
             ps.setObject(1, hdbh.getMaHD());
             ps.setObject(2, hdbh.getMaNV());
-            ps.setObject(3, hdbh.getSoluong());
-            ps.setObject(4, hdbh.getNgaytao());
-            ps.setObject(5, hdbh.getTrangthai2());
+            ps.setObject(3, hdbh.getTenKH());
+            ps.setObject(4, hdbh.getSoluong());
+            ps.setObject(5, hdbh.getSdt());
+            ps.setObject(6, hdbh.getTrangthai2());
             check = ps.executeUpdate();
             
             ps1.setObject(1, hdct.getMaHDCT());

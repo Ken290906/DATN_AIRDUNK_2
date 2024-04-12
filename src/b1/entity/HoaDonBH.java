@@ -19,7 +19,7 @@ public class HoaDonBH {
     private String TenSP;
     private String tenKH;
     private double Tongtien;
-    private String Sdt;
+    private int Sdt;
     private String diaChi;
     private Date ngaytao;
     private Date ngaythanh;
@@ -30,12 +30,13 @@ public class HoaDonBH {
     public HoaDonBH() {
     }
 
-    public HoaDonBH(String maHD, Date ngaytao, String maNV, int soluong, float trangthai2) {
+    public HoaDonBH(String maHD, String maNV, String tenKH, int soluong, float trangthai2, int Sdt) {
         this.maHD = maHD;
-        this.ngaytao = ngaytao;
         this.maNV = maNV;
+        this.tenKH = tenKH;
         this.soluong = soluong;
         this.trangthai2 = trangthai2;
+        this.Sdt = Sdt;
     }
 
     public HoaDonBH(String maHD, Date ngaytao, Date ngaythanh, String maNV, int soluong, float trangthai2) {
@@ -47,7 +48,7 @@ public class HoaDonBH {
         this.trangthai2 = trangthai2;
     }
 
-    public HoaDonBH(String maHD, String MaKH, String tenKH, String Sdt, double Tongtien, String diaChi, Date ngaytao, Date ngaythanh, String maNV, int soluong, String MaHTTT, float trangthai2) {
+    public HoaDonBH(String maHD, String MaKH, String tenKH, int Sdt, double Tongtien, String diaChi, Date ngaytao, Date ngaythanh, String maNV, int soluong, String MaHTTT, float trangthai2) {
         this.maHD = maHD;
         this.MaKH = MaKH;
         this.tenKH = tenKH;
@@ -62,7 +63,7 @@ public class HoaDonBH {
         this.trangthai2 = trangthai2;
     }
 
-    public HoaDonBH(String MaKH, String tenKH, double Tongtien, String Sdt, String diaChi, Date ngaythanh, String maNV, float trangthai2,String MaHTTT) {
+    public HoaDonBH(String MaKH, String tenKH, double Tongtien, int Sdt, String diaChi, Date ngaythanh, String maNV, float trangthai2,String MaHTTT) {
         this.MaKH = MaKH;
         this.tenKH = tenKH;
         this.Tongtien = Tongtien;
@@ -91,11 +92,11 @@ public class HoaDonBH {
         this.tenKH = tenKH;
     }
 
-    public String getSdt() {
+    public int getSdt() {
         return Sdt;
     }
 
-    public void setSdt(String Sdt) {
+    public void setSdt(int Sdt) {
         this.Sdt = Sdt;
     }
 
@@ -113,8 +114,10 @@ public class HoaDonBH {
 
     @Override
     public String toString() {
-        return "HoaDonBH{" + "maHD=" + maHD + ", MaKH=" + MaKH + ", MaHTTT=" + MaHTTT + ", MaVCH=" + MaVCH + ", TenSP=" + TenSP + ", tenKH=" + tenKH + ", Tongtien=" + Tongtien + ", Sdt=" + Sdt + ", diaChi=" + diaChi + ", ngaytao=" + ngaytao + ", ngaythanh=" + ngaythanh + ", maNV=" + maNV + ", soluong=" + soluong + ", trangthai2=" + trangthai2 + '}';
+        return "HoaDonBH{" + "maHD=" + maHD + ", tenKH=" + tenKH + ", Sdt=" + Sdt + ", maNV=" + maNV + ", soluong=" + soluong + ", trangthai2=" + trangthai2 + '}';
     }
+
+    
 
     
 
