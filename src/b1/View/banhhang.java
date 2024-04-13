@@ -312,12 +312,12 @@ public class banhhang extends javax.swing.JInternalFrame {
                     giamGia = tongTien * 0.5;
                     dudkphieugiamgia();
                 }
-                if (TienTong <= 900000 && chonphieugiamgia.equals("VIP")) {
+                if (TienTong <= 1200000 && chonphieugiamgia.equals("VIP")) {
                     JOptionPane.showMessageDialog(null, "Khi chọn sản phẩm giá trên 90000000 mới được PGG này ");
                     return;
                 }
-                if (TienTong > 900000 && chonphieugiamgia.equals("VIP")) {
-                    giamGia = tongTien * 1.0;
+                if (TienTong > 1200000 && chonphieugiamgia.equals("VIP")) {
+                    giamGia = tongTien * 0.8;
                     dudkphieugiamgia();
                 }
 
@@ -496,6 +496,7 @@ public class banhhang extends javax.swing.JInternalFrame {
             }
 
         });
+       
 
         tbldanhsachsanpham.addMouseListener(new MouseAdapter() {
             @Override
@@ -634,9 +635,34 @@ public class banhhang extends javax.swing.JInternalFrame {
             cbbGiamgia2.addElement(gg.getMaGiamGia());
         }
     }
+    private int generatedCount = 0;
 
     private String generateMaHD() {
-        return "HD-00" + String.format("%03d", random.nextInt(1000));
+        if (generatedCount < 6) {
+            generatedCount++;
+            String maHD = "HD-00" + String.format("%03d", random.nextInt(1000));
+            highlightNewRow(maHD);
+            return maHD;
+        } else {
+            JOptionPane.showMessageDialog(this, "Đã quá giới hạn tạo hóa đơn");
+            return null;
+        }
+    }
+
+    private void highlightNewRow(String maHD) {
+        // Duyệt qua từng hàng trong bảng
+        for (int i = 0; i < tblhoadon.getRowCount(); i++) {
+            // Lấy giá trị trong cột mã hóa đơn của hàng hiện tại
+            String maHDRow = tblhoadon.getValueAt(i, 0).toString();
+
+            // So sánh giá trị của cột mã hóa đơn với mã hóa đơn được tạo mới
+            if (maHDRow.equals(maHD)) {
+                // Chọn hàng đơn và thiết lập kiểu chữ in đậm
+                tblhoadon.setRowSelectionInterval(i, i);
+                tblhoadon.setFont(tblhoadon.getFont().deriveFont(Font.BOLD)); // In đậm chữ
+                break; // Dừng vòng lặp khi tìm thấy hàng đơn tương ứng
+            }
+        }
     }
 
     public HoaDonBH getFormData() {
@@ -2244,7 +2270,7 @@ public class banhhang extends javax.swing.JInternalFrame {
     private void btnUpdateHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateHDActionPerformed
         String MVC = (String) cbbgiamrgia.getSelectedItem();
         String MKH = txtTenKH.getText();
-          if (txttong.getText().isEmpty()) {
+        if (txttong.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui lòng hãy chọn sản phẩm.");
             return;
         }
@@ -2268,7 +2294,7 @@ public class banhhang extends javax.swing.JInternalFrame {
                 return;
             }
         }
-         if (cbbPTTT.getSelectedItem().equals("Cả Hai")) {
+        if (cbbPTTT.getSelectedItem().equals("Cả Hai")) {
             if (txtchuyenkhoan.getText().trim().isEmpty() || txtkhachdua.getText().trim().isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Vui lòng nhập số tiền khách vừa chuyển khoản và số tiền khách vừa đưa.");
                 return;
@@ -2276,10 +2302,8 @@ public class banhhang extends javax.swing.JInternalFrame {
             if (txtchuyenkhoan.getText().matches(".*[A-Za-z]+.*") || txtkhachdua.getText().matches(".*[A-Za-z]+.*")) {
                 JOptionPane.showMessageDialog(this, "Vui lòng hãy nhập số.");
                 return;
-            }                    
+            }
         }
-      
-        
 
         try {
             srhd.UpdateBanhang(getformdatabanhang(), getformdataUpdateHDCT(), getformdataUpdateLSHD(), MVC, txtMaHD.getText(), txtMaHD.getText(), txtMaHD.getText(), MKH);
