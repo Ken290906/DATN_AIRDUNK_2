@@ -50,4 +50,7 @@ public class chitietsanphamp2services {
     public List<sanphamchitietviewmodel> click(){
         return spr.clicksanpham();
     }
+    public  List<sanphamchitietviewmodel> timgia(int gia1,int gia2){
+        return spr.TIMGIA(gia1, gia2);
+    }
 }

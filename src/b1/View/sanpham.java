@@ -661,6 +661,11 @@ public class sanpham extends javax.swing.JInternalFrame {
         cbbhang = new b1.View.Combobox();
         cbbday = new b1.View.Combobox();
         btnreseat2 = new b1.View.chucnang.ButtonGradient();
+        txtgia1 = new b1.View.chucnang.TextField();
+        txtgia2 = new b1.View.chucnang.TextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        buttonGradient1 = new b1.View.ButtonGradient();
         panelsanpham = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         txtmasanpham = new b1.View.chucnang.TextField();
@@ -872,27 +877,65 @@ public class sanpham extends javax.swing.JInternalFrame {
             }
         });
 
+        txtgia1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtgia1.setLabelText("");
+        txtgia1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtgia1ActionPerformed(evt);
+            }
+        });
+
+        txtgia2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtgia2.setLabelText("");
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel1.setText("Giá :");
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setText("Đến");
+
+        buttonGradient1.setText("Tìm");
+        buttonGradient1.setColor1(new java.awt.Color(51, 255, 255));
+        buttonGradient1.setColor2(new java.awt.Color(0, 204, 255));
+        buttonGradient1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        buttonGradient1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonGradient1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout giaodiensanphamLayout = new javax.swing.GroupLayout(giaodiensanpham);
         giaodiensanpham.setLayout(giaodiensanphamLayout);
         giaodiensanphamLayout.setHorizontalGroup(
             giaodiensanphamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(giaodiensanphamLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnexel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(28, 28, 28)
-                .addComponent(btnthem1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(btnquetmaqr, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnreseat2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(rdoall, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37))
-            .addGroup(giaodiensanphamLayout.createSequentialGroup()
                 .addGap(61, 61, 61)
-                .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addGroup(giaodiensanphamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(giaodiensanphamLayout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(34, 34, 34)
+                        .addComponent(txtgia1, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel4)
+                        .addGap(36, 36, 36)
+                        .addComponent(txtgia2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(27, 27, 27)
+                        .addComponent(buttonGradient1, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnexel, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(btnthem1, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(btnquetmaqr, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnreseat2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addComponent(rdoall, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(37, 37, 37))
+                    .addGroup(giaodiensanphamLayout.createSequentialGroup()
+                        .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(91, Short.MAX_VALUE))))
         );
         giaodiensanphamLayout.setVerticalGroup(
             giaodiensanphamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -900,15 +943,25 @@ public class sanpham extends javax.swing.JInternalFrame {
                 .addGap(28, 28, 28)
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(giaodiensanphamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnthem1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnquetmaqr, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnexel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rdoall, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnreseat2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(24, 24, 24)
+                .addGroup(giaodiensanphamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(giaodiensanphamLayout.createSequentialGroup()
+                        .addGroup(giaodiensanphamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnthem1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnquetmaqr, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnexel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(rdoall, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnreseat2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(24, 24, 24))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, giaodiensanphamLayout.createSequentialGroup()
+                        .addGroup(giaodiensanphamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(txtgia1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtgia2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel4)
+                            .addComponent(buttonGradient1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout panelchitietsanphamLayout = new javax.swing.GroupLayout(panelchitietsanpham);
@@ -2002,9 +2055,31 @@ public class sanpham extends javax.swing.JInternalFrame {
                 // Hiển thị thông báo khi lưu ảnh không thành công
                 JOptionPane.showMessageDialog(this, "Lỗi khi lưu ảnh mã QR");
             }
-         
+
         }
     }//GEN-LAST:event_btnQRActionPerformed
+
+    private void txtgia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtgia1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtgia1ActionPerformed
+
+    private void buttonGradient1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient1ActionPerformed
+        // TODO add your handling code here:
+        try {
+            int gia1 = Integer.parseInt(txtgia1.getText().trim());
+            int gia2 = Integer.parseInt(txtgia2.getText().trim());
+
+            // Gọi phương thức TIMGIA với hai giá trị số nguyên vừa nhận được
+           
+            showdata2(spr2.TIMGIA(gia1, gia2));
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập giá trị số nguyên hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    
+    }//GEN-LAST:event_buttonGradient1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -2021,6 +2096,7 @@ public class sanpham extends javax.swing.JInternalFrame {
     private b1.View.chucnang.ButtonGradient btnupdate1;
     b1.View.chucnang.ButtonGradient btnxoa1;
     b1.View.chucnang.ButtonGradient btnxoa2;
+    private b1.View.ButtonGradient buttonGradient1;
     private javax.swing.ButtonGroup buttonGroup2;
     private b1.View.Combobox cbbday;
     private b1.View.Combobox cbbhang;
@@ -2028,8 +2104,10 @@ public class sanpham extends javax.swing.JInternalFrame {
     private b1.View.Combobox cbbsize;
     private b1.View.Combobox cbbtensanpham;
     private javax.swing.JPanel giaodiensanpham;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -2060,6 +2138,8 @@ public class sanpham extends javax.swing.JInternalFrame {
     private javax.swing.JTable tblhienthisanpham;
     private javax.swing.JTable tblthuoctinhsanpham;
     private javax.swing.JTextArea txtghichu;
+    private b1.View.chucnang.TextField txtgia1;
+    private b1.View.chucnang.TextField txtgia2;
     b1.View.chucnang.TextField txtmasanpham;
     private b1.View.chucnang.TextField txtmathuoctinh;
     private javax.swing.JTextField txtsearch;

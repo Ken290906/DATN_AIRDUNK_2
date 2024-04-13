@@ -63,7 +63,7 @@ public class chitietsanphamviewmodelRepo {
         }
         return listsanpham;
     }
-    
+
     public List<sanphamchitietviewmodel> searchQR(String QRCode) {
         List<sanphamchitietviewmodel> listsanpham = new ArrayList<>();
         String sql = """
@@ -333,9 +333,8 @@ FROM            dbo.ChiTietSP INNER JOIN
             ps.setObject(2, '%' + timkiem + '%');
             ps.setObject(3, '%' + timkiem + '%');
             ps.setObject(4, '%' + timkiem + '%');
-                        ps.setObject(5, '%' + timkiem + '%');
+            ps.setObject(5, '%' + timkiem + '%');
 
-          
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 sanphamchitietviewmodel ctsp = new sanphamchitietviewmodel();
@@ -353,7 +352,8 @@ FROM            dbo.ChiTietSP INNER JOIN
         }
         return listsanpham;
     }
-      public List<sanphamchitietviewmodel> clicksanpham() {
+
+    public List<sanphamchitietviewmodel> clicksanpham() {
         List<sanphamchitietviewmodel> listsanpham = new ArrayList<>();
         String sql = """
                                SELECT        dbo.ChiTietSP.MaCTSP, dbo.HSX.TenHang, dbo.DSP.TenDSP, dbo.PhoiMau.TenMau, dbo.Size.SizeSP, dbo.DoDay.doDaySP, dbo.ChatLieu.ChatlieuSP, dbo.MatDe.MatDeSP, dbo.Dayy.dAYsp, dbo.ChiTietSP.Giaban,dbo.ChiTietSP.Soluong
@@ -392,6 +392,48 @@ FROM            dbo.ChiTietSP INNER JOIN
         }
         return listsanpham;
     }
+
+    public List<sanphamchitietviewmodel> TIMGIA(int gia1,int gia2) {
+        List<sanphamchitietviewmodel> listsanpham = new ArrayList<>();
+        String sql = """
+                 SELECT        dbo.ChiTietSP.MaCTSP, dbo.HSX.TenHang, dbo.DSP.TenDSP, dbo.PhoiMau.TenMau, dbo.Size.SizeSP, dbo.DoDay.doDaySP, dbo.ChatLieu.ChatlieuSP, dbo.MatDe.MatDeSP, dbo.Dayy.dAYsp, dbo.ChiTietSP.Giaban,dbo.ChiTietSP.Soluong
+                                                                                                                                                                                                                                                                         FROM            dbo.ChiTietSP INNER JOIN
+                                                                                                                                                                                                                                                                                                  dbo.HSX ON dbo.ChiTietSP.IDHangSX = dbo.HSX.IDhsx INNER JOIN
+                                                                                                                                                                                                                                                                                                  dbo.DSP ON dbo.ChiTietSP.IDDongSP = dbo.DSP.IDdsp INNER JOIN
+                                                                                                                                                                                                                                                                                                  dbo.PhoiMau ON dbo.ChiTietSP.IDPhoiMau = dbo.PhoiMau.IDMau INNER JOIN
+                                                                                                                                                                                                                                                                                                  dbo.Size ON dbo.ChiTietSP.IDSize = dbo.Size.IDSize INNER JOIN
+                                                                                                                                                                                                                                                                                                  dbo.DoDay ON dbo.ChiTietSP.IDDoDay = dbo.DoDay.IDDoday INNER JOIN
+                                                                                                                                                                                                                                                                                                  dbo.ChatLieu ON dbo.ChiTietSP.IDChatlieu = dbo.ChatLieu.IDChatlieu INNER JOIN
+                                                                                                                                                                                                                                                                                                  dbo.MatDe ON dbo.ChiTietSP.IDMatDe = dbo.MatDe.IDMatDe INNER JOIN
+                                                                                                                                                                                                                                                                                                  dbo.Dayy ON dbo.ChiTietSP.IDDay = dbo.Dayy.IDDay
+                                                                                                                                                                                                                                                						WHERE ChiTietSP.Giaban BETWEEN ? AND ?
+                       """;
+        try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setObject(1, gia1);
+            ps.setObject(2, gia2);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                sanphamchitietviewmodel ctsp = new sanphamchitietviewmodel();
+                ctsp.setMctsp(rs.getString(1));
+                ctsp.setIdhangsx(rs.getString(2));
+                ctsp.setIddongsp(rs.getString(3));
+                ctsp.setIdphoimau(rs.getString(4));
+                ctsp.setIdsize(rs.getString(5));
+                ctsp.setIddoday(rs.getString(6));
+                ctsp.setIdchatlieu(rs.getString(7));
+                ctsp.setIdmatde(rs.getString(8));
+                ctsp.setIdday(rs.getString(9));
+                ctsp.setGiaban(rs.getInt(10));
+                ctsp.setSoluong(rs.getInt(11));
+                listsanpham.add(ctsp);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listsanpham;
+    }
+
     public static void main(String[] args) {
         List<sanphamchitietviewmodel> list = new chitietsanphamviewmodelRepo().getall();
         for (sanphamchitietviewmodel object : list) {
