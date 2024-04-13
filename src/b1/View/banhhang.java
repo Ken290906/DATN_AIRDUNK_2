@@ -334,12 +334,13 @@ public class banhhang extends javax.swing.JInternalFrame {
                                 txtkhachdua.addActionListener(new ActionListener() {
                                     @Override
                                     public void actionPerformed(ActionEvent e) {
-                                        int khachDua = Integer.valueOf(txtkhachdua.getText());
+                                        int khachDua = Integer.valueOf(txtkhachdua.getText().trim());
                                         int tongTien = tongTienSauGiamGia;
                                         int thoiLai = khachDua - tongTienSauGiamGia;
                                         txttienthua1.setText(VND.format(thoiLai));
 
                                     }
+
                                 });
                             } else {
                                 txtchuyenkhoan.setEditable(true);
@@ -854,65 +855,6 @@ public class banhhang extends javax.swing.JInternalFrame {
 
         // Chuyển đổi chuỗi TT thành một số nguyên
         String loaiThanhToan = (String) cbbgiamrgia.getSelectedItem();
-        if (loaiThanhToan.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng hãy chọn phiếu giảm giá");
-            return null;
-        }
-        if (TT.trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng hãy chọn hàng để tính tiền?");
-            return null;
-        }
-        if (txttong.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng hãy chọn hàng để tính tiền?");
-            return null;
-        }
-        if (txtchuyenkhoan.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng hãy nhập số tiền chuyển khoản?");
-            return null;
-        }
-        if (txtkhachdua.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập số tiền?");
-            return null;
-        }
-        if (loaiThanhToan != null && loaiThanhToan.equals("Chuyển khoản")) {
-            if (txtchuyenkhoan.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Vui lòng hãy nhập số tiền chuyển khoản?");
-                return null;
-            }
-            if (txtchuyenkhoan.getText().matches("[A-Z a-z]+")) {
-                JOptionPane.showMessageDialog(this, "ko dien chu");
-                return null;
-            }
-            
-        }
-        if (loaiThanhToan != null && loaiThanhToan.equals("Tiền Mặt")) {
-            if (txtkhachdua.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Vui lòng hãy nhập số tiền?");
-                return null;
-            }
-            if (txtkhachdua.getText().matches("[A-Z a-z]+")) {
-                JOptionPane.showMessageDialog(this, "ko dien chu");
-                return null;
-            }
-        }
-        if (loaiThanhToan != null && loaiThanhToan.equals("Cả Hai")) {
-            if (txtchuyenkhoan.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Vui lòng hãy nhập số tiền chuyển khoản?");
-                return null;
-            }
-            if (txtkhachdua.getText().trim().isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Vui lòng nhập số tiền?");
-                return null;
-            }
-            if (txtkhachdua.getText().matches("[A-Z a-z]+")) {
-                JOptionPane.showMessageDialog(this, "ko dien chu");
-                return null;
-            }
-             if (txtchuyenkhoan.getText().matches("[A-Z a-z]+")) {
-                JOptionPane.showMessageDialog(this, "ko dien chu");
-                return null;
-            }
-        }
 
         int tongTien = Integer.valueOf(TT);
         HoaDonBH hd = new HoaDonBH(MaHD, MaKH, tenKH, Integer.parseInt(sdtKH), tongTien, "FPT", NT, NTT, MaNV, 0, "HTTT-001", 0);
@@ -2302,6 +2244,42 @@ public class banhhang extends javax.swing.JInternalFrame {
     private void btnUpdateHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateHDActionPerformed
         String MVC = (String) cbbgiamrgia.getSelectedItem();
         String MKH = txtTenKH.getText();
+          if (txttong.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng hãy chọn sản phẩm.");
+            return;
+        }
+        if (cbbPTTT.getSelectedItem().equals("Tiền Mặt")) {
+            if (txtkhachdua.getText().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập số tiền khách đưa.");
+                return;
+            }
+            if (txtkhachdua.getText().trim().matches(".*[A-Za-z]+.*")) {
+                JOptionPane.showMessageDialog(this, "Vui lòng hãy nhập số.");
+                return;
+            }
+        }
+        if (cbbPTTT.getSelectedItem().equals("Chuyển khoản")) {
+            if (txtchuyenkhoan.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập số tiền khách vừa chuyển khoản.");
+                return;
+            }
+            if (txtchuyenkhoan.getText().matches(".*[A-Za-z]+.*")) {
+                JOptionPane.showMessageDialog(this, "Vui lòng hãy nhập số.");
+                return;
+            }
+        }
+         if (cbbPTTT.getSelectedItem().equals("Cả Hai")) {
+            if (txtchuyenkhoan.getText().trim().isEmpty() || txtkhachdua.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Vui lòng nhập số tiền khách vừa chuyển khoản và số tiền khách vừa đưa.");
+                return;
+            }
+            if (txtchuyenkhoan.getText().matches(".*[A-Za-z]+.*") || txtkhachdua.getText().matches(".*[A-Za-z]+.*")) {
+                JOptionPane.showMessageDialog(this, "Vui lòng hãy nhập số.");
+                return;
+            }                    
+        }
+      
+        
 
         try {
             srhd.UpdateBanhang(getformdatabanhang(), getformdataUpdateHDCT(), getformdataUpdateLSHD(), MVC, txtMaHD.getText(), txtMaHD.getText(), txtMaHD.getText(), MKH);
@@ -2309,16 +2287,14 @@ public class banhhang extends javax.swing.JInternalFrame {
             showHoaDonBH(listBH);
             JOptionPane.showMessageDialog(this, "Thêm thành công");
 
-            int check = JOptionPane.showConfirmDialog(this, "Bạn có muốn in hóa đơn");
-            if(check == JOptionPane.YES_OPTION) {
-                inHoaDon(txtMaHD.getText());
-            }
-            
+            inHoaDon(txtMaHD.getText());
         } catch (ParseException ex) {
             Logger.getLogger(banhhang.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Lỗi xảy ra khi thêm dữ liệu. Vui lòng thử lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
         }
         dtmGiohang.setRowCount(0);
+
     }//GEN-LAST:event_btnUpdateHDActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
