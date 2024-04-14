@@ -159,7 +159,6 @@ public class HoaDonRepository {
                         Row detailRow = detailSheet.createRow(detailSheetRowIndex++);
                         detailRow.createCell(0).setCellValue(hd.getIdCTSP());
                         detailRow.createCell(1).setCellValue(hd.getDonGia());
-                        detailRow.createCell(2).setCellValue(hd.getThanhTien());
                     }
                 }
 

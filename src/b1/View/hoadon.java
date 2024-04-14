@@ -177,7 +177,14 @@ public class hoadon extends javax.swing.JInternalFrame {
                 hdct.getMaHD(),
                 hdct.getMaHDCT(),
                 hdct.getIdCTSP(),
-                currentFormater.format(hdct.getDonGia()),});
+                hdct.getHang(),
+                hdct.getMau(),
+                hdct.getSize(),
+                hdct.getDoday(),
+                hdct.getChatlieu(),
+                hdct.getMatde(),
+                hdct.getDay(),
+                currentFormater.format(hdct.getDonGia())});
         }
     }
 
@@ -560,13 +567,13 @@ public class hoadon extends javax.swing.JInternalFrame {
 
         TblHDCT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "MÃ HÓA ĐƠN", "MÃ HÓA ĐƠN CHI TIẾT", "MÃ CHI TIẾT SẢN PHẨM", "ĐƠN GIÁ"
+                "STT", "MÃ HÓA ĐƠN", "MÃ HÓA ĐƠN CHI TIẾT", "MÃ CHI TIẾT SẢN PHẨM", "HÃNG", "MÀU", "SIZE", "ĐỘ DÀY", "CHẤT LIỆU", "MẶT ĐẾ", "DÂY", "ĐƠN GIÁ"
             }
         ));
         TblHDCT.setGridColor(new java.awt.Color(255, 255, 255));

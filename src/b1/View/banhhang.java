@@ -922,77 +922,7 @@ public class banhhang extends javax.swing.JInternalFrame {
         return hd;
     }
 
-    public void inHoaDon(String maHD) {
-        try {
-
-            HoaDonBH hd = (HoaDonBH) srhd.getAll();
-            // Tạo một đối tượng Document
-            Document document = new Document();
-            PdfWriter.getInstance(document, new FileOutputStream("C:\\PDF\\" + maHD + "_HoaDon.pdf"));
-            document.open();
-
-            // Tiêu đề hóa đơn
-            Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 20, Font.BOLD);
-            Paragraph title = new Paragraph("Hóa đơn thanh toán - " + maHD, titleFont);
-            title.setAlignment(Element.ALIGN_CENTER);
-            title.setSpacingAfter(16f);
-            document.add(title);
-
-            // Thông tin hóa đơn
-            Paragraph info = new Paragraph();
-            info.setSpacingAfter(10f);
-            info.add("Mã hóa đon: " + hd.getMaHD() + "\n");
-            info.add("Tên khách hàng: " + hd.getTenKH() + "\n");
-            info.add("So dien thoai: " + hd.getSdt() + "\n");
-            info.add("Tong tien: " + hd.getTongtien() + " đồng\n");
-            // Thêm thông tin khác tùy thuộc vào dữ liệu hóa đơn
-
-            document.add(info);
-
-            // Thêm dòng kẻ ngang
-            LineSeparator line = new LineSeparator();
-            document.add(new Chunk(line));
-
-            // Bảng chi tiết hóa đơn
-            PdfPTable table = new PdfPTable(5); // Số cột tùy thuộc vào cấu trúc chi tiết hóa đơn
-            table.setWidthPercentage(100);
-            table.setSpacingAfter(10f);
-
-            // Thêm tiêu đề của các cột
-            String[] columnNames = {"STT", "Mã hàng", "Tên hàng", "Số lượng", "Đơn giá"};
-            for (String columnName : columnNames) {
-                PdfPCell cell = new PdfPCell(new Phrase(columnName));
-                cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
-                table.addCell(cell);
-            }
-
-            // Thêm dữ liệu từ chi tiết hóa đơn
-            List<HoaDonChiTiet> chiTietHoaDonList = srhdct.getAllID(maHD); // Giả sử có một phương thức để lấy chi tiết hóa đơn dựa trên mã hóa đơn
-            int stt = 1;
-            for (HoaDonChiTiet chiTiet : chiTietHoaDonList) {
-                table.addCell(String.valueOf(stt++));
-                table.addCell(chiTiet.getMaHD());
-                table.addCell(chiTiet.getIdCTSP());
-                table.addCell(String.valueOf(chiTiet.getDonGia()));
-                table.addCell(String.valueOf(chiTiet.getThanhTien()));
-            }
-
-            document.add(table);
-
-            // Thêm mã QR dưới cùng và ở giữa (nếu cần)
-            String qrFilePath = "C:\\QRCode\\" + maHD + ".png";
-            Image qrImage = Image.getInstance(qrFilePath);
-            qrImage.setAlignment(Element.ALIGN_CENTER);
-            qrImage.scaleToFit(300, 300);
-            document.add(qrImage);
-
-            document.close();
-            JOptionPane.showMessageDialog(this, "In hóa đơn thành công");
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Lỗi xảy ra khi in hóa đơn", "Lỗi", JOptionPane.ERROR_MESSAGE);
-        }
-    }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -2311,7 +2241,7 @@ public class banhhang extends javax.swing.JInternalFrame {
             showHoaDonBH(listBH);
             JOptionPane.showMessageDialog(this, "Thêm thành công");
 
-            inHoaDon(txtMaHD.getText());
+   
         } catch (ParseException ex) {
             Logger.getLogger(banhhang.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Lỗi xảy ra khi thêm dữ liệu. Vui lòng thử lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);

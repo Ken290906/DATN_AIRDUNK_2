@@ -14,19 +14,23 @@ public class HoaDonChiTiet {
     private String maHD;
     private String idCTSP;
     private float donGia;
-    private float thanhTien;
-    
+    private String hang;
+    private String mau;
+    private String size;
+    private String doday;
+    private String chatlieu;
+    private String matde;
+    private String day;
     
 
     public HoaDonChiTiet() {
     }
 
-    public HoaDonChiTiet(String maHDCT, String maHD, String idCTSP, float donGia, float thanhTien) {
+    public HoaDonChiTiet(String maHDCT, String maHD, String idCTSP, float donGia) {
         this.maHDCT = maHDCT;
         this.maHD = maHD;
         this.idCTSP = idCTSP;
         this.donGia = donGia;
-        this.thanhTien = thanhTien;
     }
 
     public String getMaHDCT() {
@@ -61,20 +65,66 @@ public class HoaDonChiTiet {
         this.donGia = donGia;
     }
 
-    public float getThanhTien() {
-        return thanhTien;
+    public String getHang() {
+        return hang;
     }
 
-    public void setThanhTien(float thanhTien) {
-        this.thanhTien = thanhTien;
+    public void setHang(String hang) {
+        this.hang = hang;
+    }
+
+    public String getMau() {
+        return mau;
+    }
+
+    public void setMau(String mau) {
+        this.mau = mau;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public String getDoday() {
+        return doday;
+    }
+
+    public void setDoday(String doday) {
+        this.doday = doday;
+    }
+
+    public String getChatlieu() {
+        return chatlieu;
+    }
+
+    public void setChatlieu(String chatlieu) {
+        this.chatlieu = chatlieu;
+    }
+
+    public String getMatde() {
+        return matde;
+    }
+
+    public void setMatde(String matde) {
+        this.matde = matde;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public void setDay(String day) {
+        this.day = day;
     }
 
     @Override
     public String toString() {
-        return "HoaDonChiTiet{" + "maHDCT=" + maHDCT + ", maHD=" + maHD + ", idCTSP=" + idCTSP + ", donGia=" + donGia + ", thanhTien=" + thanhTien + '}';
+        return "HoaDonChiTiet{" + "maHDCT=" + maHDCT + ", maHD=" + maHD + ", idCTSP=" + idCTSP + ", donGia=" + donGia + ", hang=" + hang + ", mau=" + mau + ", size=" + size + ", doday=" + doday + ", chatlieu=" + chatlieu + ", matde=" + matde + ", day=" + day + '}';
     }
-    
-    
-    
+
     
 }

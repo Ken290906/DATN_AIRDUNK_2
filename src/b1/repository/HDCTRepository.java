@@ -22,10 +22,18 @@ public class HDCTRepository {
         List<HoaDonChiTiet> list = new ArrayList<>();
         
         String sql = """
-                     SELECT        dbo.HoaDon.MaHD, dbo.HoaDonChiTiet.MaHDCT, dbo.ChiTietSP.MaCTSP, dbo.HoaDonChiTiet.DonGia
-                                              FROM            dbo.HoaDon INNER JOIN
-                                                                       dbo.HoaDonChiTiet ON dbo.HoaDon.MaHD = dbo.HoaDonChiTiet.MaHoaDon INNER JOIN
-                                                                       dbo.ChiTietSP ON dbo.HoaDonChiTiet.IDChiTietSP = dbo.ChiTietSP.MaCTSP
+                     SELECT        dbo.HoaDon.MaHD, dbo.HoaDonChiTiet.MaHDCT, dbo.ChiTietSP.MaCTSP, dbo.HoaDonChiTiet.DonGia, dbo.HSX.TenHang, dbo.PhoiMau.TenMau, dbo.Size.SizeSP, dbo.DoDay.doDaySP, dbo.ChatLieu.ChatlieuSP, 
+                                                                                                dbo.MatDe.MatDeSP, dbo.Dayy.dAYsp
+                                                                       FROM            dbo.HoaDon INNER JOIN
+                                                                                                dbo.HoaDonChiTiet ON dbo.HoaDon.MaHD = dbo.HoaDonChiTiet.MaHoaDon INNER JOIN
+                                                                                                dbo.ChiTietSP ON dbo.HoaDonChiTiet.IDChiTietSP = dbo.ChiTietSP.MaCTSP INNER JOIN
+                                                                                                dbo.ChatLieu ON dbo.ChiTietSP.IDChatlieu = dbo.ChatLieu.IDChatlieu INNER JOIN
+                                                                                                dbo.Dayy ON dbo.ChiTietSP.IDDay = dbo.Dayy.IDDay INNER JOIN
+                                                                                                dbo.DoDay ON dbo.ChiTietSP.IDDoDay = dbo.DoDay.IDDoday INNER JOIN
+                                                                                                dbo.HSX ON dbo.ChiTietSP.IDHangSX = dbo.HSX.IDhsx INNER JOIN
+                                                                                                dbo.MatDe ON dbo.ChiTietSP.IDMatDe = dbo.MatDe.IDMatDe INNER JOIN
+                                                                                                dbo.PhoiMau ON dbo.ChiTietSP.IDPhoiMau = dbo.PhoiMau.IDMau INNER JOIN
+                                                                                                dbo.Size ON dbo.ChiTietSP.IDSize = dbo.Size.IDSize
                      """;
         
         try(Connection con = DBConnect.getConnection(); 
@@ -37,6 +45,13 @@ public class HDCTRepository {
                 hdct.setMaHDCT(rs.getString(2));
                 hdct.setIdCTSP(rs.getString(3));
                 hdct.setDonGia(rs.getFloat(4));
+                hdct.setHang(rs.getString(5));
+                hdct.setMau(rs.getString(6));
+                hdct.setSize(rs.getString(7));
+                hdct.setDoday(rs.getString(8));
+                hdct.setChatlieu(rs.getString(9));
+                hdct.setMatde(rs.getString(10));
+                hdct.setDay(rs.getString(11));
                 
                 list.add(hdct);
             }
@@ -52,12 +67,21 @@ public class HDCTRepository {
         List<HoaDonChiTiet> list = new ArrayList<>();
         
         String sql = """
-                     SELECT        dbo.HoaDon.MaHD, dbo.HoaDonChiTiet.MaHDCT, dbo.ChiTietSP.MaCTSP, dbo.HoaDonChiTiet.DonGia
-                                              FROM            dbo.ChiTietSP INNER JOIN
-                                                                       dbo.HoaDonChiTiet ON dbo.ChiTietSP.MaCTSP = dbo.HoaDonChiTiet.IDChiTietSP INNER JOIN
-                                                                       dbo.HoaDon ON dbo.HoaDonChiTiet.MaHoaDon = dbo.HoaDon.MaHD
-                                              WHERE dbo.HoaDon.MaHD = ?
-                                              GROUP BY dbo.HoaDonChiTiet.MaHDCT, dbo.HoaDon.MaHD, dbo.ChiTietSP.MaCTSP, dbo.HoaDonChiTiet.DonGia, dbo.HoaDonChiTiet.Thanhtien
+                     SELECT dbo.HoaDon.MaHD, dbo.HoaDonChiTiet.MaHDCT, dbo.ChiTietSP.MaCTSP, dbo.HoaDonChiTiet.DonGia, dbo.HSX.TenHang, dbo.PhoiMau.TenMau, dbo.Size.SizeSP, dbo.DoDay.doDaySP, dbo.ChatLieu.ChatlieuSP, 
+                                                                       dbo.MatDe.MatDeSP, dbo.Dayy.dAYsp
+                                              FROM            dbo.HoaDon INNER JOIN
+                                                                       dbo.HoaDonChiTiet ON dbo.HoaDon.MaHD = dbo.HoaDonChiTiet.MaHoaDon INNER JOIN
+                                                                       dbo.ChiTietSP ON dbo.HoaDonChiTiet.IDChiTietSP = dbo.ChiTietSP.MaCTSP INNER JOIN
+                                                                       dbo.ChatLieu ON dbo.ChiTietSP.IDChatlieu = dbo.ChatLieu.IDChatlieu INNER JOIN
+                                                                       dbo.Dayy ON dbo.ChiTietSP.IDDay = dbo.Dayy.IDDay INNER JOIN
+                                                                       dbo.DoDay ON dbo.ChiTietSP.IDDoDay = dbo.DoDay.IDDoday INNER JOIN
+                                                                       dbo.HSX ON dbo.ChiTietSP.IDHangSX = dbo.HSX.IDhsx INNER JOIN
+                                                                       dbo.MatDe ON dbo.ChiTietSP.IDMatDe = dbo.MatDe.IDMatDe INNER JOIN
+                                                                       dbo.PhoiMau ON dbo.ChiTietSP.IDPhoiMau = dbo.PhoiMau.IDMau INNER JOIN
+                                                                       dbo.Size ON dbo.ChiTietSP.IDSize = dbo.Size.IDSize
+                     WHERE dbo.HoaDon.MaHD = ?
+                                              GROUP BY dbo.HoaDon.MaHD, dbo.HoaDonChiTiet.MaHDCT, dbo.ChiTietSP.MaCTSP, dbo.HoaDonChiTiet.DonGia, dbo.HSX.TenHang, dbo.PhoiMau.TenMau, dbo.Size.SizeSP, dbo.DoDay.doDaySP, dbo.ChatLieu.ChatlieuSP, 
+                                                                       dbo.MatDe.MatDeSP, dbo.Dayy.dAYsp
                      """;
         
         try(Connection con = DBConnect.getConnection(); 
@@ -70,6 +94,13 @@ public class HDCTRepository {
                 hdct.setMaHDCT(rs.getString(2));
                 hdct.setIdCTSP(rs.getString(3));
                 hdct.setDonGia(rs.getFloat(4));
+                hdct.setHang(rs.getString(5));
+                hdct.setMau(rs.getString(6));
+                hdct.setSize(rs.getString(7));
+                hdct.setDoday(rs.getString(8));
+                hdct.setChatlieu(rs.getString(9));
+                hdct.setMatde(rs.getString(10));
+                hdct.setDay(rs.getString(11));
                 
                 list.add(hdct);
             }
