@@ -456,8 +456,11 @@ public class sanphamthem extends javax.swing.JFrame {
         // TODO add your handling code here:
         int dk = JOptionPane.showConfirmDialog(this, "Bạn chắc chắn muốn thêm?");
         if (dk == JOptionPane.YES_OPTION) {
-            
+            itf.Add(getformdata());
             listviewmodel = itf.getall();
+            sanpham sp = new sanpham();
+            sp.setVisible(true);
+            sp.showdata2(listviewmodel);
 
         }
 
@@ -487,6 +490,9 @@ public class sanphamthem extends javax.swing.JFrame {
         viewThemThuocTinhSP.add(panelCTSP, BorderLayout.CENTER);
         viewThemThuocTinhSP.revalidate();
         viewThemThuocTinhSP.repaint();
+       
+        sp.setVisible(true);
+        sp.showdata2(listviewmodel);
     }//GEN-LAST:event_btnbackActionPerformed
 
     private void txtsizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtsizeActionPerformed

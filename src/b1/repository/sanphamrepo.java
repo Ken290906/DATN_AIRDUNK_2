@@ -149,14 +149,16 @@ public class sanphamrepo {
         List<sanphamviewmodel> list = new ArrayList<>();
         String sql = """
               SELECT        dbo.ChiTietSP.MaCTSP, dbo.DSP.TenDSP, dbo.ChiTietSP.Ghichu, dbo.ChiTietSP.Soluong, dbo.ChiTietSP.Trangthai
-FROM            dbo.DSP INNER JOIN
-dbo.ChiTietSP ON dbo.DSP.IDdsp = dbo.ChiTietSP.IDDongSP
-                  Where ChiTietSP.Deleted = 0 AND MaCTSP LIKE ? or DSP.TenDSP LIKE ?
+                  FROM            dbo.DSP INNER JOIN
+                  dbo.ChiTietSP ON dbo.DSP.IDdsp = dbo.ChiTietSP.IDDongSP
+                                    Where ChiTietSP.Deleted = 0 AND MaCTSP LIKE ? or DSP.TenDSP LIKE ? or Ghichu Like ? or Soluong = ?
                      """;
         try ( Connection c = DBConnect.getConnection();  PreparedStatement ps = c.prepareStatement(sql)) {
 
             ps.setObject(1, '%' + timkiem + '%');
             ps.setObject(2, '%' + timkiem + '%');
+            ps.setObject(3, '%' + timkiem + '%');
+            ps.setObject(4, timkiem);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 sanphamviewmodel spvm = new sanphamviewmodel();

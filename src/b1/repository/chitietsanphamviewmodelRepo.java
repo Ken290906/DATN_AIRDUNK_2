@@ -118,32 +118,35 @@ public class chitietsanphamviewmodelRepo {
     public boolean Add(chitietsanpham ctsp) {
         int check = 0;
         String sql = """
-                  INSERT INTO [dbo].[ChiTietSP]
-                                   (
-                                   [IDHangSX]
-                                   ,[IDDongSP]
-                                   ,[IDPhoiMau]
-                                   ,[IDSize]
-                                   ,[IDDoDay]
-                                   ,[IDChatlieu]
-                                   ,[IDMatDe]
-                                   ,[IDDay]
-                                   ,[Ghichu]
-                                   ,[Giaban]
-                                   ,[Deleted]
-                                   ,[CreatedAt]
-                                   ,[CreatedBy]
-                                   ,[UpdatedAt]
-                                   ,[UpdatedBy]
-                     ,[Soluong])
-                             VALUES ((select TOP 1 IDhsx from HSX where TenHang = ?),
-                        	(select TOP 1 IDdsp from DSP where TenDSP = ? ),
-                        	(select TOP 1 IDMau from PhoiMau where TenMau = ?),
-                        	(select TOP 1 IDSize from Size where SizeSP = ?),
-                        	(select TOP 1 IDDoday from DoDay where doDaySP = ?),
-                        	(select TOP 1 IDChatlieu from ChatLieu where ChatlieuSP = ?),
-                        	(select TOP 1 IDMatDe from MatDe where MatDeSP = ?),
-                        	(select TOP 1 IDDay from Dayy where dAYsp = ?),?,?,?,?,?,?,?,?)
+               INSERT INTO [dbo].[ChiTietSP]
+                                                                                (
+                                                                                [IDHangSX]
+                                                                                ,[IDDongSP]
+                                                                                ,[IDPhoiMau]
+                                                                                ,[IDSize]
+                                                                                ,[IDDoDay]
+                                                                                ,[IDChatlieu]
+                                                                                ,[IDMatDe]
+                                                                                ,[IDDay]
+                                                                                ,[Ghichu]
+                                                                                ,[Giaban]
+                                                                                ,[Deleted]
+                                                                                ,[CreatedAt]
+                                                                                ,[CreatedBy]
+                                                                                ,[UpdatedAt]
+                                                                                ,[UpdatedBy]
+                                                                                ,[Soluong]
+                                                                                )
+                                                                        VALUES ((select TOP 1 IDhsx from HSX where TenHang = ?),
+                                                                                (select TOP 1 IDdsp from DSP where TenDSP = ?),
+                                                                                (select TOP 1 IDMau from PhoiMau where TenMau = ?),
+                                                                                (select TOP 1 IDSize from Size where SizeSP = ?),
+                                                                                (select TOP 1 IDDoday from DoDay where doDaySP = ?),
+                                                                                (select TOP 1 IDChatlieu from ChatLieu where ChatlieuSP = ?),
+                                                                                (select TOP 1 IDMatDe from MatDe where MatDeSP = ?),
+                                                                                (select TOP 1 IDDay from Dayy where dAYsp = ?),
+                                                                                ?,?,?,?,?,?,?,?)
+                                        
                     """;
         try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setObject(1, ctsp.getIdhangsx());
@@ -321,19 +324,27 @@ public class chitietsanphamviewmodelRepo {
     public List<sanphamchitietviewmodel> Searchbanhang(String timkiem) {
         List<sanphamchitietviewmodel> listsanpham = new ArrayList<>();
         String sql = """
-SELECT        dbo.ChiTietSP.MaCTSP, dbo.DSP.TenDSP, dbo.HSX.TenHang, dbo.ChiTietSP.Soluong, dbo.Size.SizeSP, dbo.ChiTietSP.Giaban
-FROM            dbo.ChiTietSP INNER JOIN
-                         dbo.DSP ON dbo.ChiTietSP.IDDongSP = dbo.DSP.IDdsp INNER JOIN
-                         dbo.HSX ON dbo.ChiTietSP.IDHangSX = dbo.HSX.IDhsx INNER JOIN
-                         dbo.Size ON dbo.ChiTietSP.IDSize = dbo.Size.IDSize
- Where ChiTietSP.Deleted = '0' And MaCTSP Like ? or  DSP.TenDSP Like ? or Soluong Like ? or Size.SizeSP  Like ? or Giaban Like ?
+SELECT        dbo.ChiTietSP.MaCTSP, dbo.DSP.TenDSP, dbo.HSX.TenHang, dbo.PhoiMau.TenMau, dbo.Size.SizeSP, dbo.ChatLieu.ChatlieuSP, dbo.Dayy.dAYsp, dbo.ChiTietSP.Soluong, dbo.ChiTietSP.Giaban
+ FROM            dbo.ChiTietSP INNER JOIN
+                          dbo.DSP ON dbo.ChiTietSP.IDDongSP = dbo.DSP.IDdsp INNER JOIN
+                          dbo.HSX ON dbo.ChiTietSP.IDHangSX = dbo.HSX.IDhsx INNER JOIN
+                          dbo.PhoiMau ON dbo.ChiTietSP.IDPhoiMau = dbo.PhoiMau.IDMau INNER JOIN
+                          dbo.Size ON dbo.ChiTietSP.IDSize = dbo.Size.IDSize INNER JOIN
+                          dbo.ChatLieu ON dbo.ChiTietSP.IDChatlieu = dbo.ChatLieu.IDChatlieu INNER JOIN
+                          dbo.Dayy ON dbo.ChiTietSP.IDDay = dbo.Dayy.IDDay
+						  Where ChiTietSP.Deleted = '0' And MaCTSP Like ? or  DSP.TenDSP Like ? or Soluong Like ? or Size.SizeSP  Like ? or Giaban Like ? or HSX.TenHang Like ? or PhoiMau.TenMau Like ? or Size.SizeSP = ? or ChatLieu.ChatlieuSP Like ? or Dayy.dAYsp Like ?                     
                        """;
         try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setObject(1, '%' + timkiem + '%');
             ps.setObject(2, '%' + timkiem + '%');
             ps.setObject(3, '%' + timkiem + '%');
             ps.setObject(4, '%' + timkiem + '%');
-            ps.setObject(5, '%' + timkiem + '%');
+            ps.setObject(5, timkiem );
+            ps.setObject(6, '%' + timkiem + '%');
+            ps.setObject(7, '%' + timkiem + '%');
+            ps.setObject(8, '%' + timkiem + '%');
+            ps.setObject(9, '%' + timkiem + '%');
+            ps.setObject(10, '%' + timkiem + '%');
 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -341,9 +352,12 @@ FROM            dbo.ChiTietSP INNER JOIN
                 ctsp.setMctsp(rs.getString(1));
                 ctsp.setIddongsp(rs.getString(2));
                 ctsp.setIdhangsx(rs.getString(3));
-                ctsp.setSoluong(rs.getInt(4));
+                ctsp.setIdphoimau(rs.getString(4));
                 ctsp.setIdsize(rs.getString(5));
-                ctsp.setGiaban(rs.getInt(6));
+                ctsp.setIdchatlieu(rs.getString(6));
+                ctsp.setIdday(rs.getString(7));
+                ctsp.setSoluong(rs.getInt(8));
+                ctsp.setGiaban(rs.getInt(9));
                 listsanpham.add(ctsp);
             }
 
@@ -393,7 +407,7 @@ FROM            dbo.ChiTietSP INNER JOIN
         return listsanpham;
     }
 
-    public List<sanphamchitietviewmodel> TIMGIA(int gia1,int gia2) {
+    public List<sanphamchitietviewmodel> TIMGIA(int gia1, int gia2) {
         List<sanphamchitietviewmodel> listsanpham = new ArrayList<>();
         String sql = """
                  SELECT        dbo.ChiTietSP.MaCTSP, dbo.HSX.TenHang, dbo.DSP.TenDSP, dbo.PhoiMau.TenMau, dbo.Size.SizeSP, dbo.DoDay.doDaySP, dbo.ChatLieu.ChatlieuSP, dbo.MatDe.MatDeSP, dbo.Dayy.dAYsp, dbo.ChiTietSP.Giaban,dbo.ChiTietSP.Soluong
