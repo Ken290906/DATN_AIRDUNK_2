@@ -47,11 +47,10 @@ public class chitietsanpham {
          this.soluong = soluong;
     }
 
-    public chitietsanpham(String masp, String ghichu, int delete, String trangthai, int soluong) {
+    public chitietsanpham(String masp, String ghichu, int delete, int soluong) {
         this.masp = masp;
         this.ghichu = ghichu;
         this.delete = delete;
-        this.trangthai = trangthai;
         this.soluong = soluong;
     }
 
