@@ -130,7 +130,7 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
     public void onQRCodeScanned(String result) {
         List<HoaDon> listHD = hdsr.searchQR(result);
         showDataHD(listHD);
-        if (!list.isEmpty()) {
+        if (!listHD.isEmpty()) {
             dtmHDCT = (DefaultTableModel) TblHDCT.getModel();
             List<HoaDonChiTiet> list22 = sr.getAllID(result);
             showDataHDCT(list22);

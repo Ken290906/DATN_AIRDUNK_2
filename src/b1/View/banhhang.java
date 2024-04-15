@@ -4,9 +4,6 @@
  */
 package b1.View;
 
-import ViewModelHD.HoaDon;
-import ViewModelHD.HoaDonChiTiet;
-import ViewModelHD.LichSuHD;
 import ViewModelSP.sanphamchitietviewmodel;
 import b1.View.chucnang.khachhangbanhang;
 import b1.View.chucnang.quetmaqr;
@@ -30,19 +27,8 @@ import b1.services.chitietsanphamp2services;
 import b1.services.dayservices;
 import b1.services.hangsxservices;
 import b1.services.tenmauservices;
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chunk;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.Element;
+import b1.View.chucnang.quetmaqr.QRCodeListener;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Phrase;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
-import com.itextpdf.text.pdf.draw.LineSeparator;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
@@ -57,8 +43,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import static java.lang.Math.random;
-import static java.lang.StrictMath.random;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -82,7 +66,7 @@ import net.glxn.qrgen.image.ImageType;
  *
  * @author DELL
  */
-public class banhhang extends javax.swing.JInternalFrame {
+public class banhhang extends javax.swing.JInternalFrame implements QRCodeListener{
 //Table
 
     private DefaultTableModel dtmHoaDon = new DefaultTableModel();
@@ -542,6 +526,12 @@ public class banhhang extends javax.swing.JInternalFrame {
         });
 
     }
+    
+    @Override
+    public void onQRCodeScanned(String result) {
+        List<sanphamchitietviewmodel> listSP = sps.searchQR(result);
+        showGioHang(listSP);
+    }
 
     private void updateTotalAmount() {
         int totalAmount = 0;
@@ -607,6 +597,27 @@ public class banhhang extends javax.swing.JInternalFrame {
             });
         }
 
+    }
+    
+    public void showGioHang(List<sanphamchitietviewmodel> ListSP) {
+        dtmGiohang.setRowCount(0);
+        int i = 0;
+        for (sanphamchitietviewmodel sp : ListSP) {
+            i++;
+            int soLuong = nhapSoLuong();
+            dtmGiohang.addRow(new Object[] {
+                i,
+                sp.getMctsp(),
+                sp.getIddongsp(),
+                sp.getIdhangsx(),
+                sp.getIdphoimau(),
+                sp.getIdsize(),
+                sp.getIdchatlieu(),
+                sp.getIdday(),
+                soLuong,
+                sp.getGiaban()
+            });
+        }
     }
 
     private void tuhienhoadon() {
@@ -2361,14 +2372,9 @@ public class banhhang extends javax.swing.JInternalFrame {
     private void buttonGradient4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient4ActionPerformed
         // Make QR code
         quetmaqr qr = new quetmaqr();
+        qr.setQRCodeListener(this);
         qr.setVisible(true);
-
-        String qrCode = qr.getName();
-        if (qrCode != null && !qrCode.isEmpty()) {
-            List<sanphamchitietviewmodel> listSP = sps.searchQR(qrCode);
-
-            showdata(listSP);
-        }
+        return;
     }//GEN-LAST:event_buttonGradient4ActionPerformed
 
     private void tblgiohangMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblgiohangMouseClicked
@@ -2504,4 +2510,6 @@ public class banhhang extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txttongtien;
     private javax.swing.JTextField txttongtien1;
     // End of variables declaration//GEN-END:variables
+
+    
 }
