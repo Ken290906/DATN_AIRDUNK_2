@@ -29,11 +29,12 @@ public class HoaDonRepository {
 
         String sql = """
                      SELECT        dbo.HoaDon.MaHD, dbo.HoaDon.NgayTaoHoaDon, dbo.HoaDon.Tongtien, dbo.HTTT.MaHTTT, dbo.HoaDon.TenKH, dbo.HoaDon.DiachiKH, dbo.HoaDon.SdtKH, dbo.HoaDon.Deleted
-                                                                                                FROM            dbo.HoaDon INNER JOIN
-                                                          dbo.NhanVien ON dbo.HoaDon.MaNV = dbo.NhanVien.MaNV INNER JOIN
-                                                           dbo.KhachHang ON dbo.HoaDon.MaKH = dbo.KhachHang.MaKH INNER JOIN
-                                                            dbo.HTTT ON dbo.HoaDon.MaHTTT = dbo.HTTT.MaHTTT INNER JOIN
+                                                                                                FROM            dbo.HoaDon FULL JOIN
+                                                          dbo.NhanVien ON dbo.HoaDon.MaNV = dbo.NhanVien.MaNV FULL JOIN
+                                                           dbo.KhachHang ON dbo.HoaDon.MaKH = dbo.KhachHang.MaKH LEFT JOIN
+                                                            dbo.HTTT ON dbo.HoaDon.MaHTTT = dbo.HTTT.MaHTTT LEFT JOIN
                                                              dbo.VCH ON dbo.HoaDon.MaVCH = dbo.VCH.MaVCH
+                     WHERE dbo.HoaDon.Deleted = 0 OR dbo.HoaDon.Deleted = 1
                      """;
         try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
@@ -70,7 +71,7 @@ public class HoaDonRepository {
                      , dbo.HoaDon.TenKH
                      , dbo.HoaDon.DiachiKH
                      , dbo.HoaDon.SdtKH
-                     , dbo.HoaDon.Trangthai
+                     , dbo.HoaDon.Deleted
              FROM dbo.HoaDon
              INNER JOIN dbo.HoaDonChiTiet ON dbo.HoaDon.MaHD = dbo.HoaDonChiTiet.MaHoaDon
              INNER JOIN dbo.LichsuHD ON dbo.HoaDon.MaHD = dbo.LichsuHD.IDHoaDon

@@ -40,13 +40,13 @@ import net.glxn.qrgen.QRCode;
 import net.glxn.qrgen.image.ImageType;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
-import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.NumberFormat;
-import java.util.Arrays;
+import b1.View.chucnang.quetmaqr.QRCodeListener;
+
 import java.util.Locale;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -55,7 +55,7 @@ import javax.swing.event.DocumentListener;
  *
  * @author DELL
  */
-public class hoadon extends javax.swing.JInternalFrame {
+public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener {
 
     private khachhangService khs = new khachhangService();
     private DefaultTableModel dtmHDCT = new DefaultTableModel();
@@ -123,10 +123,29 @@ public class hoadon extends javax.swing.JInternalFrame {
                 showDataHD(hd);
             }
         });
+
+    }
+
+    @Override
+    public void onQRCodeScanned(String result) {
+        List<HoaDon> listHD = hdsr.searchQR(result);
+        showDataHD(listHD);
+        if (!list.isEmpty()) {
+            dtmHDCT = (DefaultTableModel) TblHDCT.getModel();
+            List<HoaDonChiTiet> list22 = sr.getAllID(result);
+            showDataHDCT(list22);
+
+            dtmLSHD = (DefaultTableModel) TblLSHD.getModel();
+            List<LichSuHD> listLS2 = lssr.getAll(result);
+            showDataLSHD(listLS2);
+        } else {
+            JOptionPane.showMessageDialog(null, "Quét không thành công. Vui lòng thử lại hoặc chọn QR khác.", "Lỗi", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
     }
 
     private String SearchTT(String trangthai) {
-        if ("0".equalsIgnoreCase(trangthai)) {
+        if ("1".equalsIgnoreCase(trangthai)) {
             return "Chưa thanh toán";
         } else {
             return "Đã thanh toán";
@@ -452,6 +471,11 @@ public class hoadon extends javax.swing.JInternalFrame {
 
         cbbTrangthai.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Đã thanh toán", "Chưa thanh toán" }));
         cbbTrangthai.setLabeText("Trạng thái");
+        cbbTrangthai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbTrangthaiActionPerformed(evt);
+            }
+        });
 
         cbbHTTT.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Chuyển khoản", "Tiền mặt" }));
         cbbHTTT.setLabeText("Hình thức thanh toán");
@@ -731,22 +755,16 @@ public class hoadon extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnPDFActionPerformed
 
     private void btnQuetQRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQuetQRActionPerformed
-        // TODO add your handling code here:
-        btnQuetQR.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                quetmaqr qr = new quetmaqr();
-                qr.setVisible(true);
 
-                String qrCode = qr.getName();
-
-                List<HoaDon> listhd = hdsr.searchQR(qrCode);
-                showDataHD(listhd);
-            }
-        });
-
-
+        quetmaqr qr = new quetmaqr();
+        qr.setQRCodeListener(this);
+        qr.setVisible(true);
+        return;
     }//GEN-LAST:event_btnQuetQRActionPerformed
+
+    private void cbbTrangthaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbTrangthaiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbTrangthaiActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -778,4 +796,6 @@ public class hoadon extends javax.swing.JInternalFrame {
     private b1.View.chucnang.TextField txtMin;
     private b1.View.chucnang.TextField txtSearch;
     // End of variables declaration//GEN-END:variables
+
+    
 }

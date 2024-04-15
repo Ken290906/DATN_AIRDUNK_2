@@ -78,7 +78,7 @@ public class thongtinsanpham extends javax.swing.JFrame {
      */
     public thongtinsanpham(String MSPCT, String Hsx, String tensanpham, String cl, String size, String matde, String gia, String day, String mau, String doday,String SL) {
         initComponents();
-        setLocation(361, 200);
+        setLocation(361, 180);
         combo1 = (DefaultComboBoxModel) cbbhang.getModel();
         listhsx = hsxs.getall();
         showcombobox1(listhsx);

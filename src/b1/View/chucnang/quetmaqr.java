@@ -15,6 +15,7 @@ import java.awt.image.BufferedImage;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
+import javax.swing.JFrame;
 
 public class quetmaqr extends javax.swing.JFrame implements Runnable, ThreadFactory {
 
@@ -24,16 +25,37 @@ public class quetmaqr extends javax.swing.JFrame implements Runnable, ThreadFact
     private static final long serialVersionUID = 6441489157408381878L;
     private Executor executor = Executors.newSingleThreadExecutor(this);
 
+    public interface QRCodeListener {
+
+        void onQRCodeScanned(String result);
+    }
+
+    private QRCodeListener qrCodeListener;
+
+    // ... (các phương thức và khai báo khác)
+    public void setQRCodeListener(QRCodeListener listener) {
+        this.qrCodeListener = listener;
+    }
+
+    public void closeWindowAndWebcam() {
+        webcam.close();
+        setVisible(false);
+        dispose();
+    }
+
     public quetmaqr() {
         initComponents();
         initWebcam();
         setLocationRelativeTo(null);
-    }
-    
-    public String getQRCode() {
-        // Thực hiện quét mã QR và trả về kết quả
-        String qrCode = "QR Code đã quét được";
-        return qrCode;
+        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if (webcam != null) {
+                    webcam.close();
+                }
+            }
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -136,24 +158,27 @@ public class quetmaqr extends javax.swing.JFrame implements Runnable, ThreadFact
             Result result = null;
             BufferedImage image = null;
 
-            if (webcam.isOpen()) {
-                if ((image = webcam.getImage()) == null) {
-                    continue;
+            if (webcam != null && webcam.isOpen()) {
+                image = webcam.getImage();
+            }
+
+            if (image != null) {
+                LuminanceSource source = new BufferedImageLuminanceSource(image);
+                BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+
+                try {
+                    result = new MultiFormatReader().decode(bitmap);
+                } catch (NotFoundException e) {
+                    // No result...
                 }
-            }
 
-            LuminanceSource source = new BufferedImageLuminanceSource(image);
-            BinaryBitmap bitmap = new BinaryBitmap(new HybridBinarizer(source));
+                if (result != null) {
+                    result_field.setText(result.getText());
 
-            try {
-                result = new MultiFormatReader().decode(bitmap);
-            } catch (NotFoundException e) {
-                //No result...
-                
-            }
-
-            if (result != null) {
-                result_field.setText(result.getText());
+                    if (qrCodeListener != null) {
+                        qrCodeListener.onQRCodeScanned(result.getText());
+                    }
+                }
             }
         } while (true);
     }
