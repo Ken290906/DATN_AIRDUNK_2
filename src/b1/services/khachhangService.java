@@ -26,6 +26,9 @@ public class khachhangService {
  public boolean add(khachhang kh){
      return repo.add(kh);
  }
+ public boolean addbanhang(khachhang kh){
+     return repo.addkhachhangbanhang(kh);
+ }
  public boolean  sua (b1.entity.khachhang kh , String oldma){
      return repo.sua(kh, oldma);
  }

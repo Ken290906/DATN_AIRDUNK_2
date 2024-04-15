@@ -37,7 +37,6 @@ public class khachhang {
         this.GioiTinh = GioiTinh;
         this.Deleted = Deleted;
     }
-    
 
     public String getMaKH() {
         return MaKH;
@@ -86,6 +85,9 @@ public class khachhang {
     public void setDeleted(int Deleted) {
         this.Deleted = Deleted;
     }
+    
+
+   
 
     @Override
     public String toString() {

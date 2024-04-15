@@ -5,6 +5,7 @@
 package b1.repository;
 
 import ViewModelKH.khachhangViewModel;
+import b1.View.khachhang;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.PreparedStatement;
@@ -47,7 +48,9 @@ public class khachhangRepository {
         }
         return list;
 
-    }public List<khachhangViewModel> getMaKH() {
+    }
+
+    public List<khachhangViewModel> getMaKH() {
         List<khachhangViewModel> list = new ArrayList<>();
         String sql = """
                   SELECT [MaKH]                                                                     
@@ -68,6 +71,7 @@ public class khachhangRepository {
         return list;
 
     }
+
     public List<khachhangViewModel> getTenKH() {
         List<khachhangViewModel> list = new ArrayList<>();
         String sql = """
@@ -157,6 +161,32 @@ public class khachhangRepository {
             e.printStackTrace();
         }
         return check > 0;
+    }
+
+    public boolean addkhachhangbanhang(b1.entity.khachhang kh) {
+        int check = 0;
+        String sql = """
+                     INSERT INTO [dbo].[KhachHang]
+                                                  ([MaKH]
+                                                  ,[TenKhachHang]
+                                                  ,[SDT]                                               
+                                                  ,[Deleted])
+                                                   VALUES(?,?,?,?)
+                     """;
+        try (Connection c = DBConnect.getConnection();PreparedStatement ps = c.prepareStatement(sql)) {
+           
+                 
+               ps.setObject(1, kh.getMaKH());
+               ps.setObject(2, kh.getTenKH());
+               ps.setObject(3, kh.getSDT());
+               ps.setObject(4, kh.getDeleted());
+               check = ps.executeUpdate();
+           
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check > 0;
+       
     }
 
     public static void main(String[] args) {

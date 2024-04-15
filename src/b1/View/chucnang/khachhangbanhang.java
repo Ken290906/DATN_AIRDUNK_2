@@ -13,6 +13,7 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
@@ -23,7 +24,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class khachhangbanhang extends javax.swing.JFrame {
     //List
-private banhhang bh;
+
+    private banhhang bh;
     private List<khachhangViewModel> listkh = new ArrayList<>();
 //Services
     private khachhangService khs = new khachhangService();
@@ -59,11 +61,11 @@ private banhhang bh;
 
         }
         );
-        tbldanhsachkhachhang.addMouseListener(new MouseAdapter(){
+        tbldanhsachkhachhang.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int index = tbldanhsachkhachhang.getSelectedRow();
-                if (index >=0 && e.getClickCount() == 2) {
+                if (index >= 0 && e.getClickCount() == 2) {
                     String idmakh = (String) tbldanhsachkhachhang.getValueAt(index, 2);
                     String idmakh3 = (String) tbldanhsachkhachhang.getValueAt(index, 3);
                     bh.getkh(idmakh, idmakh3);
@@ -72,8 +74,6 @@ private banhhang bh;
             }
 
         });
-    
-    
 
     }
 
@@ -93,13 +93,13 @@ private banhhang bh;
         showdataKh(listkh);
     }
 
-    public khachhang getformdata() {
+    public b1.entity.khachhang getformdata() {
         String MAKH = txtMaKH.getText();
-        String TKH = txtMaKH.getText();
+        String TKH = txtTenKH.getText();
         String SDT = txtsdt.getText();
         Boolean GT = !rdonam.isSelected();
 
-        khachhang kh = new khachhang();
+        b1.entity.khachhang kh = new b1.entity.khachhang(MAKH, TKH, SDT, GT, 0);
         return kh;
     }
 
@@ -268,6 +268,7 @@ private banhhang bh;
 
         rdonam.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         rdonam.setText("Nam");
+        rdonam.setBorder(null);
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
         jPanel6.setLayout(jPanel6Layout);
@@ -285,8 +286,10 @@ private banhhang bh;
                             .addComponent(btnthem, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rdonam, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnreseat, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(btnreseat, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel6Layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(rdonam))))
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -354,6 +357,21 @@ private banhhang bh;
 
     private void btnthemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnthemActionPerformed
         // TODO add your handling code here:
+        int check = JOptionPane.showConfirmDialog(this, "B co chac chan ko");
+        if (check == JOptionPane.YES_OPTION) {
+            khs.addbanhang(getformdata());
+            listkh = khs.getAll();
+            showdataKh(listkh);
+        }
+        if (check == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(this, "da chon ko");
+            return;
+        }
+        if (check == JOptionPane.CANCEL_OPTION) {
+            JOptionPane.showMessageDialog(this, "Da chon cancel");
+        }
+
+
     }//GEN-LAST:event_btnthemActionPerformed
 
     private void buttonGradient9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient9ActionPerformed
@@ -409,7 +427,7 @@ private banhhang bh;
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-               
+
             }
         });
     }
