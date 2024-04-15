@@ -47,7 +47,7 @@ public class quetmaqr extends javax.swing.JFrame implements Runnable, ThreadFact
         initComponents();
         initWebcam();
         setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
