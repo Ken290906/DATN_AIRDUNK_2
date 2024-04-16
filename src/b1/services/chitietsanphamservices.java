@@ -27,8 +27,13 @@ public class chitietsanphamservices {
         return listrp.getAllGioHang();
     }
 
-    public boolean Add(DongSanPham ctsp) {
-        return listrp.add(ctsp);
+    public String Add(DongSanPham ctsp) {
+        if (ctsp == null) {
+            return "Add không thành công";
+        }
+        listrp.add(ctsp);
+        return "Add thành công";
+               
     }
 
     public boolean Xoa(String xoa) {

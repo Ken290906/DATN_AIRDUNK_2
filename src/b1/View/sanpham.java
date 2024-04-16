@@ -65,7 +65,7 @@ import b1.services.chitietsanphamp2services;
  *
  * @author DELL
  */
-public class sanpham extends javax.swing.JInternalFrame implements QRCodeListener{
+public class sanpham extends javax.swing.JInternalFrame implements QRCodeListener {
 //Table
 
     private DefaultTableModel bang3 = new DefaultTableModel();
@@ -135,7 +135,7 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
 //        combo2 = (DefaultComboBoxModel) cbbtensanpham.getModel();
 //        listdsp = dsps.getall();
 //        showcombo2(listdsp);
-      
+
         txtsearch.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -285,12 +285,12 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
         });
 
     }
-    
+
     @Override
     public void onQRCodeScanned(String result) {
         List<sanphamchitietviewmodel> listSP = sps1.searchQR(result);
         showdata2(listSP);
-        
+
     }
 
     public void setOtherFrame(thongtinsanpham ttsp) {
@@ -323,6 +323,7 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
 
         return filteredList;
     }
+
     private List<DongSanPham> searchtrangthai(String manufacturerName) {
         List<DongSanPham> filteredList = new ArrayList<>();
 
@@ -468,6 +469,11 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
             String tt = (object.getSoluong() == 0) ? "Hết hàng" : "Còn hàng";
             bang.addRow(new Object[]{stt, object.getIDdsp(), object.getTendsp(), object.getMota(), object.getSoluong(), tt});
         }
+        StatusCellRenderer statusCellRenderer = new StatusCellRenderer();
+
+// Áp dụng renderer cho cột Trạng thái của bảng
+        tblhienthisanpham.getColumnModel().getColumn(5).setCellRenderer(statusCellRenderer);
+
     }
 
     public void showdata2(List<sanphamchitietviewmodel> list) {
@@ -563,9 +569,20 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
 
     public DongSanPham getformdatasp() {
         String MSP = txtmasanpham.getText();
-       String TSP = txttensp.getText();
+        String TSP = txttensp.getText();
         String GC = txtghichu.getText();
-
+        if (MSP.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng hãy điền mã sp");
+            return null;
+        }
+        if (TSP.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng hãy điền tên sp");
+            return null;
+        }
+        if (GC.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng hãy điền ghi chú");
+            return null;
+        }
         DongSanPham ctsp = new DongSanPham(MSP, TSP, 0, GC, 0);
         return ctsp;
     }
@@ -575,13 +592,28 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
         String M = txtmathuoctinh.getText();
         String T = txttenthuoctinh.getText();
         ThuocTinh tt = new ThuocTinh(M, T, 0);
+        if (M.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng diền mã tt");
+            return null;
+        }
+        if (T.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng diền tên tt");
+            return null;
+        }
         return tt;
     }
 
     public hangsanxuat getformdatahsx() {
         String M = txtmathuoctinh.getText();
         String T = txttenthuoctinh.getText();
-
+        if (M.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng diền mã tt");
+            return null;
+        }
+        if (T.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng diền tên tt");
+            return null;
+        }
         hangsanxuat hsx = new hangsanxuat(M, T, 0, "Phúc", "Phúc");
         return hsx;
     }
@@ -589,7 +621,14 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
     public Chatlieusp getformdatachatlieu() {
         String M = txtmathuoctinh.getText();
         String T = txttenthuoctinh.getText();
-
+        if (M.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng diền mã tt");
+            return null;
+        }
+        if (T.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng diền tên tt");
+            return null;
+        }
         Chatlieusp cl = new Chatlieusp(M, T, 0, "Phúc", "Phúc");
         return cl;
     }
@@ -597,7 +636,14 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
     public Daysp getformdataday() {
         String M = txtmathuoctinh.getText();
         String T = txttenthuoctinh.getText();
-
+        if (M.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng diền mã tt");
+            return null;
+        }
+        if (T.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng diền tên tt");
+            return null;
+        }
         Daysp d = new Daysp(M, T, 0, "Phúc", "Phúc");
         return d;
     }
@@ -605,7 +651,14 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
     public MauSanPham getformdatamau() {
         String M = txtmathuoctinh.getText();
         String T = txttenthuoctinh.getText();
-
+        if (M.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng diền mã tt");
+            return null;
+        }
+        if (T.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng diền tên tt");
+            return null;
+        }
         MauSanPham msp = new MauSanPham(M, T, 0, "Phúc", "Phúc");
         return msp;
     }
@@ -613,7 +666,14 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
     public Dodaysp getformddatadoday() {
         String M = txtmathuoctinh.getText();
         String T = txttenthuoctinh.getText();
-
+        if (M.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng diền mã tt");
+            return null;
+        }
+        if (T.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng diền tên tt");
+            return null;
+        }
         Dodaysp dd = new Dodaysp(M, T, 0, "Phúc", "Phúc");
         return dd;
     }
@@ -621,7 +681,14 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
     public Matdesanpham getformdatamatde() {
         String M = txtmathuoctinh.getText();
         String T = txttenthuoctinh.getText();
-
+        if (M.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng diền mã tt");
+            return null;
+        }
+        if (T.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng diền tên tt");
+            return null;
+        }
         Matdesanpham md = new Matdesanpham(M, T, 0, "Phúc", "Phúc");
         return md;
     }
@@ -1629,7 +1696,7 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
         if (dk == JOptionPane.YES_OPTION) {
             int sua = tblhienthisanpham.getSelectedRow();
             DongSanPham spvm = listdsp.get(sua);
-            
+
             sps.Sua(getformdatasp(), spvm.getIDdsp());
             listdsp = dsps.getall();
             showdata(listdsp);
@@ -1686,8 +1753,8 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
         // TODO add your handling code here
         int dk = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn Add?");
         if (dk == JOptionPane.YES_OPTION) {
-          
-            sps.Add(getformdatasp());
+
+            JOptionPane.showMessageDialog(this, sps.Add(getformdatasp()));
             listdsp = dsps.getall();
             showdata(listdsp);
             JOptionPane.showMessageDialog(this, "Đã Add thành công");
@@ -1792,7 +1859,7 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
         int dk = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn Reseat?");
         if (dk == JOptionPane.YES_OPTION) {
             txtmasanpham.setText("");
-             txttensp.setText("");
+            txttensp.setText("");
             txtghichu.setText("");
             rdotrangthai.clearSelection();
 
@@ -1823,29 +1890,29 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
         int dk = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn Thêm?");
         if (dk == JOptionPane.YES_OPTION) {
             if (rdohang.isSelected()) {
-                tts.add(getformdatahsx());
+                JOptionPane.showMessageDialog(this, tts.add(getformdatahsx()));
                 showdatahang(tts.gethsx());
             } else if (rdochatlieu.isSelected()) {
-                tts.addcl(getformdatachatlieu());
+                JOptionPane.showMessageDialog(this, tts.addcl(getformdatachatlieu()));
                 showdatachatlieu(tts.getchatlieu());
             } else if (rdoday.isSelected()) {
-                tts.addday(getformdataday());
+                JOptionPane.showMessageDialog(this, tts.addday(getformdataday()));
                 showdataday(tts.getday());
             } else if (rdododay.isSelected()) {
-                tts.adddoday(getformddatadoday());
+                JOptionPane.showMessageDialog(this, tts.adddoday(getformddatadoday()));
                 showdatadoday(tts.getdoday());
             } else if (rdomatde.isSelected()) {
-                tts.adddoday(getformddatadoday());
+                JOptionPane.showMessageDialog(this, tts.adddoday(getformddatadoday()));
                 showmatde(tts.getmatde());
             } else if (rdophoimau.isSelected()) {
-                tts.addmau(getformdatamau());
+                JOptionPane.showMessageDialog(this, tts.addmau(getformdatamau()));
                 showdataphoimau(tts.getmau());
             } else {
-                tts.add(getformdata());
+                JOptionPane.showMessageDialog(this, tts.add(getformdata()));
                 listtt = tts.getall();
                 showdata3(listtt);
             }
-            JOptionPane.showMessageDialog(this, "Đã thêm thành công");
+
         }
         if (dk == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(this, "Bạn đã bỏ qua");
@@ -2087,7 +2154,6 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
             int gia2 = Integer.parseInt(txtgia2.getText().trim());
 
             // Gọi phương thức TIMGIA với hai giá trị số nguyên vừa nhận được
-           
             showdata2(spr2.TIMGIA(gia1, gia2));
         } catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(null, "Vui lòng nhập giá trị số nguyên hợp lệ.", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -2095,7 +2161,7 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
             ex.printStackTrace();
         }
 
-    
+
     }//GEN-LAST:event_buttonGradient1ActionPerformed
 
 

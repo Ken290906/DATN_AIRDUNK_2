@@ -373,7 +373,9 @@ public class nhanvien extends javax.swing.JInternalFrame {
         int confirm = JOptionPane.showConfirmDialog(this, "Ban co muon sua nhan vien khong");
         if (confirm == JOptionPane.YES_OPTION) {
             try {
-                JOptionPane.showMessageDialog(this, service.addNhanVien(getFormData()));
+                int row = tblBangNV.getSelectedRow();
+                b1.entity.nhanvien b1env = list.get(row);
+                service.updateNhanVien(getFormData(), b1env.getId());
                 list = service.getAll();
                 showDataTable(list);
             } catch (ParseException ex) {

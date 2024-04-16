@@ -26,8 +26,12 @@ public class thuoctinhservices {
         return ttr.getall();
     }
 
-    public boolean add(ThuocTinh tt) {
-        return ttr.Add(tt);
+    public String add(ThuocTinh tt) {
+        if (tt == null) {
+           return "Add không thành công";
+        }
+        ttr.Add(tt);
+         return "Add thành công"; 
     }
 
     public boolean update(ThuocTinh tt, String update) {

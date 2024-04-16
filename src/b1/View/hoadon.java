@@ -369,6 +369,7 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
                 hd.getNgaytaoHD(),
                 tt
             });
+         
         }
     }
 
