@@ -722,7 +722,6 @@ public class sanpham extends javax.swing.JInternalFrame {
         tblhienthisanpham = new javax.swing.JTable();
         btnreseat3 = new b1.View.chucnang.ButtonGradient();
         cbbtensanpham = new b1.View.Combobox();
-        btnQR = new b1.View.chucnang.ButtonGradient();
         cbbtrangthai = new b1.View.Combobox();
         panelchitietsanpham = new javax.swing.JPanel();
         giaodiensanpham = new javax.swing.JPanel();
@@ -921,18 +920,6 @@ public class sanpham extends javax.swing.JInternalFrame {
         cbbtensanpham.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cbbtensanpham.setLabeText("Tên Sản Phẩm");
 
-        btnQR.setBackground(new java.awt.Color(153, 255, 255));
-        btnQR.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        btnQR.setIcon(new javax.swing.ImageIcon(getClass().getResource("/b1/khoanh/qr-code.png"))); // NOI18N
-        btnQR.setColor1(new java.awt.Color(102, 255, 102));
-        btnQR.setColor2(new java.awt.Color(102, 255, 102));
-        btnQR.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnQR.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnQRActionPerformed(evt);
-            }
-        });
-
         cbbtrangthai.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Còn hàng", "Hết hàng" }));
         cbbtrangthai.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cbbtrangthai.setLabeText("Trạng thái");
@@ -971,13 +958,11 @@ public class sanpham extends javax.swing.JInternalFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jSeparator2)
                             .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 298, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnQR, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(192, 192, 192))))
+                        .addGap(281, 281, 281))))
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 1360, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 174, Short.MAX_VALUE))
+                .addGap(0, 176, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1003,15 +988,12 @@ public class sanpham extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(btnxoa1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(btnupdate, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel5)
-                                    .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(2, 2, 2)
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(btnQR, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 75, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5)
+                            .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(2, 2, 2)
+                        .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(6, 6, 6)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(64, 64, 64))
@@ -2095,35 +2077,6 @@ public class sanpham extends javax.swing.JInternalFrame {
 
     }//GEN-LAST:event_txtsearchActionPerformed
 
-    private void btnQRActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQRActionPerformed
-        // TODO add your handling code here:
-
-        String maSP = txtmasanpham.getText();// Tao ma qr ngau nhien
-        if (maSP != null) {
-            String data = maSP; // Tạo dữ liệu cho mã QR
-
-            // Tạo mã QR từ dữ liệu của sản phẩm
-            ByteArrayOutputStream stream = QRCode.from(data).to(ImageType.PNG).stream();
-
-            // Lưu ảnh mã QR vào thư mục cụ thể, ví dụ: "qr_images"
-            String qrImagePath = "C:\\QRSanPham\\" + maSP + ".png";
-
-            try {
-                FileOutputStream fos = new FileOutputStream(new File(qrImagePath));
-                fos.write(stream.toByteArray());
-                fos.flush();
-                fos.close();
-                // Hiển thị đường dẫn hoặc thông báo khi lưu ảnh thành công
-                JOptionPane.showMessageDialog(this, "Đã lưu ảnh mã QR vào: " + qrImagePath);
-            } catch (Exception ex) {
-                ex.printStackTrace();
-                // Hiển thị thông báo khi lưu ảnh không thành công
-                JOptionPane.showMessageDialog(this, "Lỗi khi lưu ảnh mã QR");
-            }
-
-        }
-    }//GEN-LAST:event_btnQRActionPerformed
-
     private void txtgia1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtgia1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtgia1ActionPerformed
@@ -2148,7 +2101,6 @@ public class sanpham extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    b1.View.chucnang.ButtonGradient btnQR;
     private b1.View.chucnang.ButtonGradient btnexel;
     private b1.View.chucnang.ButtonGradient btnquetmaqr;
     private b1.View.chucnang.ButtonGradient btnreseat2;
