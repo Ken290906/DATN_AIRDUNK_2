@@ -5,6 +5,7 @@
 package b1.services;
 
 import ViewModelSP.sanphamviewmodel;
+import b1.entity.DongSanPham;
 import b1.entity.chitietsanpham;
 
 import b1.repository.sanphamrepo;
@@ -26,16 +27,16 @@ public class chitietsanphamservices {
         return listrp.getAllGioHang();
     }
 
-    public boolean Add(chitietsanpham ctsp, String Dongsp) {
-        return listrp.add(ctsp, Dongsp);
+    public boolean Add(DongSanPham ctsp) {
+        return listrp.add(ctsp);
     }
 
     public boolean Xoa(String xoa) {
         return listrp.xoa(xoa);
     }
 
-    public boolean Sua(chitietsanpham ctsp, String tensp, String sua) {
-        return listrp.sua(ctsp, tensp, sua);
+    public boolean Sua(DongSanPham ctsp, String sua) {
+        return listrp.sua(ctsp, sua);
     }
     public List<sanphamviewmodel> Search(String timkiem){
         return  listrp.Search(timkiem);

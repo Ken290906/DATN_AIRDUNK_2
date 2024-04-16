@@ -120,8 +120,8 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
         bang = (DefaultTableModel) tblhienthisanpham.getModel();
-        listsanpham = sps.getall();
-        showdata(listsanpham);
+        listdsp = dsps.getall();
+        showdata(listdsp);
 //      
         listviewmodel = itf.getall();
         bang2 = (DefaultTableModel) tblhienthichitietsanpham.getModel();
@@ -132,9 +132,9 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
         bang3 = (DefaultTableModel) tblthuoctinhsanpham.getModel();
         showdata3(listtt);
 //dsp
-        combo2 = (DefaultComboBoxModel) cbbtensanpham.getModel();
-        listdsp = dsps.getall();
-        showcombo2(listdsp);
+//        combo2 = (DefaultComboBoxModel) cbbtensanpham.getModel();
+//        listdsp = dsps.getall();
+//        showcombo2(listdsp);
       
         txtsearch.getDocument().addDocumentListener(new DocumentListener() {
             @Override
@@ -243,12 +243,12 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
             public void actionPerformed(ActionEvent e) {
                 String timkiemsize = cbbtrangthai.getSelectedItem().toString();
                 if (!timkiemsize.isEmpty()) {
-                    List<sanphamviewmodel> searchedList = searchtrangthai(timkiemsize);
+                    List<DongSanPham> searchedList = searchtrangthai(timkiemsize);
                     showdata(searchedList);
                 } else {
                     // If no manufacturer is selected, reload all products
-                    listviewmodel = itf.getall();
-                    showdata(listsanpham);
+                    listdsp = dsps.getall();
+                    showdata(listdsp);
                 }
             }
         });
@@ -323,10 +323,10 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
 
         return filteredList;
     }
-    private List<sanphamviewmodel> searchtrangthai(String manufacturerName) {
-        List<sanphamviewmodel> filteredList = new ArrayList<>();
+    private List<DongSanPham> searchtrangthai(String manufacturerName) {
+        List<DongSanPham> filteredList = new ArrayList<>();
 
-        for (sanphamviewmodel product : listsanpham) {
+        for (DongSanPham product : listdsp) {
             if (product.getTrangthai() != null && product.getTrangthai().equalsIgnoreCase(manufacturerName)) {
                 filteredList.add(product);
             }
@@ -419,16 +419,16 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
     }
 
     public void oneclicksp(int show) {
-        sanphamviewmodel spvm = listsanpham.get(show);
-        txtmasanpham.setText(spvm.getMasp());
-        cbbtensanpham.setSelectedItem(spvm.getTensp());
-        txtghichu.setText(spvm.getMota());
+        DongSanPham dsp = listdsp.get(show);
+        txtmasanpham.setText(dsp.getIDdsp());
+        txttensp.setText(dsp.getTendsp());
+        txtghichu.setText(dsp.getMota());
 
     }
 
     private void searchSP() {
         listsanpham = sps.Search(txtsearch.getText());
-        showdata(listsanpham);
+        showdata(listdsp);
 
     }
 //
@@ -459,14 +459,14 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
         }
     }
 
-    public void showdata(List<sanphamviewmodel> list) {
+    public void showdata(List<DongSanPham> list) {
         bang.setRowCount(0);
         int stt = 0;
 
-        for (sanphamviewmodel object : list) {
+        for (DongSanPham object : list) {
             stt++;
             String tt = (object.getSoluong() == 0) ? "Hết hàng" : "Còn hàng";
-            bang.addRow(new Object[]{stt, object.getMasp(), object.getTensp(), object.getMota(), object.getSoluong(), tt});
+            bang.addRow(new Object[]{stt, object.getIDdsp(), object.getTendsp(), object.getMota(), object.getSoluong(), tt});
         }
     }
 
@@ -561,15 +561,12 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
 
     }
 
-    public chitietsanpham getformdatasp() {
+    public DongSanPham getformdatasp() {
         String MSP = txtmasanpham.getText();
-
-        String TT = "";
-  
-
+       String TSP = txttensp.getText();
         String GC = txtghichu.getText();
 
-        chitietsanpham ctsp = new chitietsanpham(MSP, GC, 0, 0);
+        DongSanPham ctsp = new DongSanPham(MSP, TSP, 0, GC, 0);
         return ctsp;
     }
 
@@ -722,8 +719,8 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
         jScrollPane4 = new javax.swing.JScrollPane();
         tblhienthisanpham = new javax.swing.JTable();
         btnreseat3 = new b1.View.chucnang.ButtonGradient();
-        cbbtensanpham = new b1.View.Combobox();
         cbbtrangthai = new b1.View.Combobox();
+        txttensp = new b1.View.chucnang.TextField();
         panelchitietsanpham = new javax.swing.JPanel();
         giaodiensanpham = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
@@ -918,12 +915,12 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
             }
         });
 
-        cbbtensanpham.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        cbbtensanpham.setLabeText("Tên Sản Phẩm");
-
         cbbtrangthai.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Còn hàng", "Hết hàng" }));
         cbbtrangthai.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cbbtrangthai.setLabeText("Trạng thái");
+
+        txttensp.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txttensp.setLabelText("Tên Sản Phẩm");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -935,7 +932,7 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtmasanpham, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
-                            .addComponent(cbbtensanpham, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(txttensp, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(169, 169, 169)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -973,8 +970,8 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(txtmasanpham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cbbtensanpham, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(60, 60, 60)
+                        .addComponent(txttensp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65)
                         .addComponent(cbbtrangthai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel2)
@@ -1010,7 +1007,7 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
             panelsanphamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelsanphamLayout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 19, Short.MAX_VALUE))
         );
 
         panel1.addTab("Sản Phẩm", panelsanpham);
@@ -1631,11 +1628,11 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
         int dk = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn update?");
         if (dk == JOptionPane.YES_OPTION) {
             int sua = tblhienthisanpham.getSelectedRow();
-            sanphamviewmodel spvm = listsanpham.get(sua);
-            String TSP = (String) cbbtensanpham.getSelectedItem();
-            sps.Sua(getformdatasp(), TSP, spvm.getMasp());
-            listsanpham = sps.getall();
-            showdata(listsanpham);
+            DongSanPham spvm = listdsp.get(sua);
+            
+            sps.Sua(getformdatasp(), spvm.getIDdsp());
+            listdsp = dsps.getall();
+            showdata(listdsp);
             JOptionPane.showMessageDialog(this, "Đã Update thành công");
         }
         if (dk == JOptionPane.NO_OPTION) {
@@ -1663,10 +1660,10 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
         int dk = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn Xóa?");
         if (dk == JOptionPane.YES_OPTION) {
             int xoa = tblhienthisanpham.getSelectedRow();
-            sanphamviewmodel spvm = listsanpham.get(xoa);
-            sps.Xoa(spvm.getMasp());
-            listsanpham = sps.getall();
-            showdata(listsanpham);
+            DongSanPham spvm = listdsp.get(xoa);
+            sps.Xoa(spvm.getIDdsp());
+            listdsp = dsps.getall();
+            showdata(listdsp);
             JOptionPane.showMessageDialog(this, "Đã Xóa thành công");
         }
         if (dk == JOptionPane.NO_OPTION) {
@@ -1689,10 +1686,10 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
         // TODO add your handling code here
         int dk = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn Add?");
         if (dk == JOptionPane.YES_OPTION) {
-            String TSP = (String) cbbtensanpham.getSelectedItem();
-            sps.Add(getformdatasp(), TSP);
-            listsanpham = sps.getall();
-            showdata(listsanpham);
+          
+            sps.Add(getformdatasp());
+            listdsp = dsps.getall();
+            showdata(listdsp);
             JOptionPane.showMessageDialog(this, "Đã Add thành công");
         }
         if (dk == JOptionPane.NO_OPTION) {
@@ -1791,11 +1788,11 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
 
     private void btnreseat3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnreseat3ActionPerformed
         // TODO add your handling code here:
-        int show = tblthuoctinhsanpham.getSelectedRow();
+        int show = tblhienthichitietsanpham.getSelectedRow();
         int dk = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn Reseat?");
         if (dk == JOptionPane.YES_OPTION) {
             txtmasanpham.setText("");
-            cbbtensanpham.setSelectedItem(0);
+             txttensp.setText("");
             txtghichu.setText("");
             rdotrangthai.clearSelection();
 
@@ -2124,7 +2121,6 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
     private b1.View.Combobox cbbmatde;
     private b1.View.Combobox cbbphoimau;
     private b1.View.Combobox cbbsize;
-    private b1.View.Combobox cbbtensanpham;
     private b1.View.Combobox cbbtrangthai;
     private javax.swing.JPanel giaodiensanpham;
     private javax.swing.JLabel jLabel1;
@@ -2163,6 +2159,7 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
     b1.View.chucnang.TextField txtmasanpham;
     private b1.View.chucnang.TextField txtmathuoctinh;
     private javax.swing.JTextField txtsearch;
+    private b1.View.chucnang.TextField txttensp;
     private b1.View.chucnang.TextField txttenthuoctinh;
     // End of variables declaration//GEN-END:variables
 }

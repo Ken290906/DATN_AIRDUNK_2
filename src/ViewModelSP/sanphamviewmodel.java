@@ -11,6 +11,7 @@ package ViewModelSP;
 public class sanphamviewmodel {
    private String masp;
    private String tensp;
+   private int delete;
    private String mota;
    private int soluong;
    private String trangthai;
@@ -18,9 +19,10 @@ public class sanphamviewmodel {
     public sanphamviewmodel() {
     }
 
-    public sanphamviewmodel(String masp,String mota, int soluong, String trangthai) {
+    public sanphamviewmodel(String masp, String tensp, int delete, String mota, int soluong, String trangthai) {
         this.masp = masp;
-     
+        this.tensp = tensp;
+        this.delete = delete;
         this.mota = mota;
         this.soluong = soluong;
         this.trangthai = trangthai;
@@ -40,6 +42,14 @@ public class sanphamviewmodel {
 
     public void setTensp(String tensp) {
         this.tensp = tensp;
+    }
+
+    public int getDelete() {
+        return delete;
+    }
+
+    public void setDelete(int delete) {
+        this.delete = delete;
     }
 
     public String getMota() {
@@ -68,11 +78,10 @@ public class sanphamviewmodel {
 
     @Override
     public String toString() {
-        return "sanphamviewmodel{" + "masp=" + masp + ", tensp=" + tensp + ", mota=" + mota + ", soluong=" + soluong + ", trangthai=" + trangthai + '}';
+        return "sanphamviewmodel{" + "masp=" + masp + ", tensp=" + tensp + ", delete=" + delete + ", mota=" + mota + ", soluong=" + soluong + ", trangthai=" + trangthai + '}';
     }
-           
 
     
-    
+
     
 }

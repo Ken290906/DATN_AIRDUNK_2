@@ -5,6 +5,7 @@
 package b1.repository;
 
 import ViewModelSP.sanphamviewmodel;
+import b1.entity.DongSanPham;
 import b1.entity.chitietsanpham;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,20 +22,25 @@ public class sanphamrepo {
     public List<sanphamviewmodel> getall() {
         List<sanphamviewmodel> list = new ArrayList<>();
         String sql = """
-                SELECT        dbo.ChiTietSP.MaCTSP, dbo.DSP.TenDSP, dbo.ChiTietSP.Ghichu, dbo.ChiTietSP.Soluong, dbo.ChiTietSP.Trangthai
-                                                                                         FROM            dbo.DSP INNER JOIN
-                                                                                                                  dbo.ChiTietSP ON dbo.DSP.IDdsp = dbo.ChiTietSP.IDDongSP
-                                                                                         						 Where ChiTietSP.Deleted = 0 ORDER BY MaCTSP DESC
+             SELECT [IDdsp]
+                                                                                                                                               ,[TenDSP]
+                                                                                                                                               ,[Deleted]
+                                                                                                                                               ,[Trangthai]
+                                                                                                                                               ,[soluong]
+                                                                                                                                               ,[mota]
+                                                                                                                                           FROM [dbo].[DSP]
+                                                                                                                                           Where Deleted = 0
                      """;
-        try ( Connection c = DBConnect.getConnection();  PreparedStatement ps = c.prepareStatement(sql)) {
+        try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 sanphamviewmodel spvm = new sanphamviewmodel();
                 spvm.setMasp(rs.getString(1));
                 spvm.setTensp(rs.getString(2));
-                spvm.setMota(rs.getString(3));
-                spvm.setSoluong(rs.getInt(4));
-                spvm.setTrangthai(rs.getString(5));
+                spvm.setDelete(rs.getInt(3));
+                spvm.setTrangthai(rs.getString(4));
+                spvm.setSoluong(rs.getInt(5));
+                spvm.setMota(rs.getString(6));
                 list.add(spvm);
             }
 
@@ -51,14 +57,14 @@ public class sanphamrepo {
                         FROM            dbo.ChiTietSP INNER JOIN
                                             dbo.DSP ON dbo.ChiTietSP.IDDongSP = dbo.DSP.IDdsp                                                                                                                                                                                    						 Where ChiTietSP.Deleted = '0' ORDER BY MaCTSP DESC
                      """;
-        try ( Connection c = DBConnect.getConnection();  PreparedStatement ps = c.prepareStatement(sql)) {
+        try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 sanphamviewmodel sp = new sanphamviewmodel();
                 sp.setMasp(rs.getString(1));
                 sp.setTensp(rs.getString(2));
                 sp.setSoluong(rs.getInt(3));
-           
+
                 listsanpham.add(sp);
             }
 
@@ -68,27 +74,25 @@ public class sanphamrepo {
         return listsanpham;
     }
 
-    public boolean add(chitietsanpham ctsp, String tensp) {
+    public boolean add(DongSanPham dsp) {
         int check = 0;
         String sql = """
-           INSERT INTO [dbo].[ChiTietSP]
-                      ([MaCTSP]
-                      ,[IDDongSP]
-                      ,[Ghichu]
-                     
-                      ,[Deleted]
-                    
-                      ,[Trangthai]
-                      ,[Soluong])
-                VALUES (?,(Select IDdsp from DSP where TenDSP = ?),?,?,?,?)
+           INSERT INTO [dbo].[DSP]
+                           ([IDdsp]
+                           ,[TenDSP]
+                           ,[Deleted]
+                           ,[Trangthai]
+                           ,[soluong]
+                           ,[mota])
+                     VALUES (?,?,?,?,?,?)
                      """;
-        try ( Connection c = DBConnect.getConnection();  PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setObject(1, ctsp.getMasp());
-            ps.setObject(2, tensp);
-            ps.setObject(3, ctsp.getGhichu());
-            ps.setObject(4, ctsp.getDelete());
-            ps.setObject(5, ctsp.getTrangthai());
-            ps.setObject(6, ctsp.getSoluong());
+        try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setObject(1, dsp.getIDdsp());
+            ps.setObject(2, dsp.getTendsp());
+            ps.setObject(3, dsp.getDelete());
+            ps.setObject(4, dsp.getTrangthai());
+            ps.setObject(5, dsp.getSoluong());
+            ps.setObject(6, dsp.getMota());
             check = ps.executeUpdate();
 
         } catch (Exception e) {
@@ -105,7 +109,7 @@ public class sanphamrepo {
                              
                         WHERE MaCTSP = ?
                      """;
-        try ( Connection c = DBConnect.getConnection();  PreparedStatement ps = c.prepareStatement(sql)) {
+        try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setObject(1, xoa);
             check = ps.executeUpdate();
 
@@ -115,28 +119,19 @@ public class sanphamrepo {
         return check > 0;
     }
 
-    public boolean sua(chitietsanpham ctsp, String tensp, String sua) {
+    public boolean sua(DongSanPham ctsp, String sua) {
         int check = 0;
         String sql = """
-              UPDATE [dbo].[ChiTietSP]
-               SET [MaCTSP] = ?
-                  ,[IDDongSP] = (Select IDdsp from DSP where TenDSP = ?)
+            UPDATE [dbo].[DSP]
+                SET [TenDSP] = ?
                  
-                  ,[Ghichu] = ?
-                  
-                
-                  
-                  ,[Trangthai] = ?
-                  ,[Soluong] = ?
-             WHERE MaCTSP = ?
+                   ,[mota] = ?
+              WHERE IDdsp = ?
                      """;
-        try ( Connection c = DBConnect.getConnection();  PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setObject(1, ctsp.getMasp());
-            ps.setObject(2, tensp);
-            ps.setObject(3, ctsp.getGhichu());
-            ps.setObject(4, ctsp.getTrangthai());
-            ps.setObject(5, ctsp.getSoluong());
-            ps.setObject(6, sua);
+        try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setObject(1, ctsp.getTendsp());
+            ps.setObject(2, ctsp.getMota());
+            ps.setObject(3, sua);
             check = ps.executeUpdate();
 
         } catch (Exception e) {
@@ -148,25 +143,31 @@ public class sanphamrepo {
     public List<sanphamviewmodel> Search(String timkiem) {
         List<sanphamviewmodel> list = new ArrayList<>();
         String sql = """
-              SELECT        dbo.ChiTietSP.MaCTSP, dbo.DSP.TenDSP, dbo.ChiTietSP.Ghichu, dbo.ChiTietSP.Soluong, dbo.ChiTietSP.Trangthai
-                  FROM            dbo.DSP INNER JOIN
-                  dbo.ChiTietSP ON dbo.DSP.IDdsp = dbo.ChiTietSP.IDDongSP
-                                    Where ChiTietSP.Deleted = 0 AND MaCTSP LIKE ? or DSP.TenDSP LIKE ? or Ghichu Like ? or Soluong = ?
+             SELECT [IDdsp]
+                                          ,[TenDSP]
+                                          ,[Deleted]
+                                          ,[Trangthai]
+                                          ,[soluong]
+                                          ,[mota]
+                                      FROM [dbo].[DSP]
+                                  
+                       Where TenDSP LIKE ? OR Trangthai LIKE ? OR soluong LIKE ? OR mota LIKE ?
                      """;
-        try ( Connection c = DBConnect.getConnection();  PreparedStatement ps = c.prepareStatement(sql)) {
+        try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
 
             ps.setObject(1, '%' + timkiem + '%');
             ps.setObject(2, '%' + timkiem + '%');
-            ps.setObject(3, '%' + timkiem + '%');
-            ps.setObject(4, timkiem);
+            ps.setObject(3,  '%' + timkiem + '%');
+            ps.setObject(4, '%' + timkiem + '%');
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 sanphamviewmodel spvm = new sanphamviewmodel();
                 spvm.setMasp(rs.getString(1));
                 spvm.setTensp(rs.getString(2));
-                spvm.setMota(rs.getString(3));
-                spvm.setSoluong(rs.getInt(4));
-                spvm.setTrangthai(rs.getString(5));
+                spvm.setDelete(rs.getInt(3));
+                spvm.setTrangthai(rs.getString(4));
+                spvm.setSoluong(rs.getInt(5));
+                spvm.setMota(rs.getString(6));
                 list.add(spvm);
             }
 

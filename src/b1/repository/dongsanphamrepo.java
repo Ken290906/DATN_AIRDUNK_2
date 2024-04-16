@@ -17,14 +17,17 @@ public class dongsanphamrepo {
      public  List<DongSanPham> getall(){
          List<DongSanPham> listdsp = new ArrayList<>();
         String sql = """
-                     SELECT [IDdsp]
-                           ,[TenDSP]
-                           ,[Deleted]
-                           ,[CreatedAt]
-                           ,[CreatedBy]
-                           ,[UpdatedAt]
-                           ,[UpdatedBy]
-                       FROM [dbo].[DSP]
+                   SELECT [IDdsp]
+                             ,[TenDSP]
+                             ,[Deleted]
+                             ,[CreatedAt]
+                             ,[CreatedBy]
+                             ,[UpdatedAt]
+                             ,[UpdatedBy]
+                             ,[Trangthai]
+                             ,[soluong]
+                             ,[mota]
+                         FROM [dbo].[DSP]
                      """;
         try (Connection c = DBConnect.getConnection();PreparedStatement ps = c.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
@@ -32,11 +35,14 @@ public class dongsanphamrepo {
                 DongSanPham hsx = new DongSanPham();
                 hsx.setIDdsp(rs.getString(1));
                 hsx.setTendsp(rs.getString(2));
-                hsx.setDelete(rs.getBoolean(3));
+                hsx.setDelete(rs.getInt(3));
                 hsx.setCreatedat(rs.getDate(4));
                 hsx.setCreateby(rs.getString(5));
                 hsx.setUpdateat(rs.getDate(6));
                 hsx.setUpdateby(rs.getString(7));
+                hsx.setTrangthai(rs.getString(8));
+                hsx.setSoluong(rs.getInt(9));
+                hsx.setMota(rs.getString(10));
                 listdsp.add(hsx);
             }
         } catch (Exception e) {

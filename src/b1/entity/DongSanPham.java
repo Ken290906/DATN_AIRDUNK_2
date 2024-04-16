@@ -13,24 +13,51 @@ import java.util.Date;
 public class DongSanPham {
     private String IDdsp;
     private String tendsp;
-      private boolean delete;
+      private int delete;
     private Date createdat;
     private String createby;
     private Date updateat;
     private String updateby;
-
+    private String mota;
+    private int soluong;
+    private String trangthai;
     public DongSanPham() {
     }
 
-    public DongSanPham(String IDdsp, String tendsp, boolean delete, Date createdat, String createby, Date updateat, String updateby) {
+    public DongSanPham(String IDdsp, String tendsp, int delete, String mota, int soluong) {
         this.IDdsp = IDdsp;
         this.tendsp = tendsp;
         this.delete = delete;
-        this.createdat = createdat;
-        this.createby = createby;
-        this.updateat = updateat;
-        this.updateby = updateby;
+        this.mota = mota;
+        this.soluong = soluong;
+      
     }
+
+    public String getMota() {
+        return mota;
+    }
+
+    public void setMota(String mota) {
+        this.mota = mota;
+    }
+
+    public int getSoluong() {
+        return soluong;
+    }
+
+    public void setSoluong(int soluong) {
+        this.soluong = soluong;
+    }
+
+    public String getTrangthai() {
+        return trangthai;
+    }
+
+    public void setTrangthai(String trangthai) {
+        this.trangthai = trangthai;
+    }
+
+   
 
     public String getIDdsp() {
         return IDdsp;
@@ -48,11 +75,11 @@ public class DongSanPham {
         this.tendsp = tendsp;
     }
 
-    public boolean isDelete() {
+    public int getDelete() {
         return delete;
     }
 
-    public void setDelete(boolean delete) {
+    public void setDelete(int delete) {
         this.delete = delete;
     }
 
@@ -90,8 +117,14 @@ public class DongSanPham {
 
     @Override
     public String toString() {
-        return "DongSanPham{" + "IDdsp=" + IDdsp + ", tendsp=" + tendsp + ", delete=" + delete + ", createdat=" + createdat + ", createby=" + createby + ", updateat=" + updateat + ", updateby=" + updateby + '}';
+        return "DongSanPham{" + "IDdsp=" + IDdsp + ", tendsp=" + tendsp + ", delete=" + delete + ", createdat=" + createdat + ", createby=" + createby + ", updateat=" + updateat + ", updateby=" + updateby + ", mota=" + mota + ", soluong=" + soluong + ", trangthai=" + trangthai + '}';
     }
+
+    
+
+   
+
+   
     
     
 }
