@@ -239,6 +239,8 @@ public class giamgia extends javax.swing.JInternalFrame {
                 "STT", "Mã VCH", "Mã Giảm giá", "Số lượng", "Giá trị", "Hạn mức tối đa", "Ngày bắt đầu", "Ngày kết thúc", "Trạng thái"
             }
         ));
+        tblHienThi.setGridColor(new java.awt.Color(255, 255, 255));
+        tblHienThi.setRowHeight(30);
         tblHienThi.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblHienThiMouseClicked(evt);

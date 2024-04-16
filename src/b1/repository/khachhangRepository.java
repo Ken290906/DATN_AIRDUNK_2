@@ -173,20 +173,19 @@ public class khachhangRepository {
                                                   ,[Deleted])
                                                    VALUES(?,?,?,?)
                      """;
-        try (Connection c = DBConnect.getConnection();PreparedStatement ps = c.prepareStatement(sql)) {
-           
-                 
-               ps.setObject(1, kh.getMaKH());
-               ps.setObject(2, kh.getTenKH());
-               ps.setObject(3, kh.getSDT());
-               ps.setObject(4, kh.getDeleted());
-               check = ps.executeUpdate();
-           
+        try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setObject(1, kh.getMaKH());
+            ps.setObject(2, kh.getTenKH());
+            ps.setObject(3, kh.getSDT());
+            ps.setObject(4, kh.getDeleted());
+            check = ps.executeUpdate();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         return check > 0;
-       
+
     }
 
     public static void main(String[] args) {
@@ -214,10 +213,11 @@ public class khachhangRepository {
                      		GioiTinh LIKE ?;
                      """;
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-            for (int i = 1; i <= 5; i++) {
-                ps.setObject(i, type);
-
-            }
+            ps.setObject(1, '%' + type + '%');
+            ps.setObject(2, '%' + type + '%');
+            ps.setObject(3, '%' + type + '%');
+            ps.setObject(4, '%' + type + '%');
+            ps.setObject(5, '%' + type + '%');
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 khachhangViewModel kh = new khachhangViewModel();

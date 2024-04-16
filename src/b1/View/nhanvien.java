@@ -158,6 +158,8 @@ public class nhanvien extends javax.swing.JInternalFrame {
                 "STT", "MSV", "TSV", "NS", "ĐỊA CHỈ", "SĐT", "EMAIL"
             }
         ));
+        tblBangNV.setGridColor(new java.awt.Color(255, 255, 255));
+        tblBangNV.setRowHeight(30);
         tblBangNV.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblBangNVMouseClicked(evt);
@@ -282,17 +284,6 @@ public class nhanvien extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_btnXoaMouseClicked
 
-    private void tblBangNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBangNVMouseClicked
-        int row = tblBangNV.getSelectedRow();
-        b1.entity.nhanvien b1env = list.get(row);
-        txtId.setText(b1env.getId());
-        txtTen.setText(b1env.getTen());
-        dcNgaySinh.setDate(b1env.getNgaySinh());
-        txtDiachi.setText(b1env.getDiaChi());
-        txtSĐT.setText(b1env.getSđt());
-        txtEmail.setText(b1env.getEmail());
-    }//GEN-LAST:event_tblBangNVMouseClicked
-
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         if (txtId.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui long khong de trong ma nhan vien");
@@ -337,19 +328,7 @@ public class nhanvien extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        int row = tblBangNV.getSelectedRow();
-        b1.entity.nhanvien b1env = list.get(row);
-        int confirm = JOptionPane.showConfirmDialog(this, "Ban co muon sua nhan vien khong");
-        if (confirm == JOptionPane.YES_OPTION) {
-            try {
-                service.updateNhanVien(getFormData(), b1env.getId());
-            } catch (ParseException ex) {
-                Logger.getLogger(nhanvien.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            list = service.getAll();
-            showDataTable(list);
-            JOptionPane.showConfirmDialog(this, "Sua nhan vien thanh cong");
-        }
+      
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void TìmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TìmActionPerformed
@@ -361,6 +340,17 @@ public class nhanvien extends javax.swing.JInternalFrame {
             JOptionPane.showMessageDialog(this, "Vui lòng nhập Tên nhân viên để tìm kiếm", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_TìmActionPerformed
+
+    private void tblBangNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBangNVMouseClicked
+        int row = tblBangNV.getSelectedRow();
+        b1.entity.nhanvien b1env = list.get(row);
+        txtId.setText(b1env.getId());
+        txtTen.setText(b1env.getTen());
+        dcNgaySinh.setDate(b1env.getNgaySinh());
+        txtDiachi.setText(b1env.getDiaChi());
+        txtSĐT.setText(b1env.getSđt());
+        txtEmail.setText(b1env.getEmail());
+    }//GEN-LAST:event_tblBangNVMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Tìm;
