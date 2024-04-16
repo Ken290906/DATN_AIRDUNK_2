@@ -43,6 +43,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -61,6 +62,10 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import net.glxn.qrgen.QRCode;
 import net.glxn.qrgen.image.ImageType;
+import net.sf.jasperreports.engine.JRException;
+import print.ReportManager;
+import print_model.FieldReportPayment;
+import print_model.ParametReportPayment;
 
 /**
  *
@@ -84,6 +89,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
     private DefaultComboBoxModel combochatlieu = new DefaultComboBoxModel();
 //list
     private List<sanphamchitietviewmodel> listsp = new ArrayList<>();
+    private List<FieldReportPayment> listFieldReportPayment = new ArrayList<>();
     private List<hangsanxuat> listhang = new ArrayList<>();
     private List<HoaDonBH> listBH = new ArrayList<>();
     private List<GiamGia1> listVCH = new ArrayList<>();
@@ -112,6 +118,26 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
     DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 //Random
     private Random random = new Random();
+    
+    private ParametReportPayment createParametReportPayment() {
+        String maHD = txtMaHD.getText().trim();
+        String maNV = txtmaNV.getText().trim();
+        int tongTien = Integer.parseInt(txttongtien.getText().replaceAll("[, đ]", ""));
+        InputStream maqr = null; // Cần thêm logic để lấy InputStream cho QR Code
+        List<FieldReportPayment> fileds = new ArrayList<>();
+
+        // Ví dụ: Tạo dữ liệu cho FieldReportPayment
+        // for (int i = 0; i < tableModel.getRowCount(); i++) {
+        //     int stt = i + 1;
+        //     String name = (String) tableModel.getValueAt(i, 0);
+        //     int price = (int) tableModel.getValueAt(i, 1);
+        //     int total = (int) tableModel.getValueAt(i, 2);
+        //     FieldReportPayment field = new FieldReportPayment(stt, name, price, total);
+        //     fileds.add(field);
+        // }
+
+        return new ParametReportPayment(maHD, maNV, tongTien, maqr, fileds);
+    }
 
     /**
      * Creates new form gd1
@@ -584,7 +610,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
             });
             txttong.setText(VND.format(thanhTien));
         }
-        
+
     }
 
     private void updateTotalAmount() {
@@ -929,7 +955,6 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         int tongTien = Integer.valueOf(TT);
         HoaDonBH hd = new HoaDonBH(MaHD, MaKH, tenKH, Integer.parseInt(sdtKH), tongTien, "FPT", NT, NTT, MaNV, 0, "HTTT-001", 0);
         return hd;
-
     }
 
     public HDChiTiet getformdataUpdateHDCT() {
@@ -2271,20 +2296,25 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
                 return;
             }
         }
-
+        ParametReportPayment param = createParametReportPayment();
         try {
+            
             srhd.UpdateBanhang(getformdatabanhang(), getformdataUpdateHDCT(), getformdataUpdateLSHD(), MVC, txtMaHD.getText(), txtMaHD.getText(), txtMaHD.getText(), MKH);
             listBH = srhd.getAll();
             showHoaDonBH(listBH);
             JOptionPane.showMessageDialog(this, "Thêm thành công");
-
+            int check = JOptionPane.showConfirmDialog(this, "Ban co muon in hoa don khong");
+            if(check == JOptionPane.YES_OPTION) {
+                ReportManager.getInstance().printReportManager(param);
+            }
         } catch (ParseException ex) {
             Logger.getLogger(banhhang.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Lỗi xảy ra khi thêm dữ liệu. Vui lòng thử lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
             return;
+        } catch (JRException ex) {
+            Logger.getLogger(banhhang.class.getName()).log(Level.SEVERE, null, ex);
         }
         dtmGiohang.setRowCount(0);
-
     }//GEN-LAST:event_btnUpdateHDActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
@@ -2381,11 +2411,10 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
 
     private void btnAddHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddHoaDonActionPerformed
         // TODO add your handling code here:
-
+        
         srhd.Add(getFormData(), getformdataAdd(), getFormdataAddLSHD());
         listBH = srhd.getAll();
         showHoaDonBH(listBH);
-
     }//GEN-LAST:event_btnAddHoaDonActionPerformed
 
     private void tblhoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblhoadonMouseClicked

@@ -125,67 +125,65 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
                 showDataHD(hd);
             }
         });
-        cbbhang.addActionListener(new ActionListener(){
+        cbbhang.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String hang = (String) cbbhang.getSelectedItem();
                 List<HoaDonChiTiet> list = searchhang(hang);
                 showDataHDCT(list);
             }
-        
-    });
-        cbbchatlieu.addActionListener(new ActionListener(){
+
+        });
+        cbbchatlieu.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String chatlieu = (String) cbbchatlieu.getSelectedItem();
                 List<HoaDonChiTiet> list = searchchatlieu(chatlieu);
                 showDataHDCT(list);
-                
+
             }
-            
+
         });
-         cbbday.addActionListener(new ActionListener(){
+        cbbday.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String chatlieu = (String) cbbday.getSelectedItem();
                 List<HoaDonChiTiet> list = searchchatlieu(chatlieu);
                 showDataHDCT(list);
-                
+
             }
-            
+
         });
-          cbbmau.addActionListener(new ActionListener(){
+        cbbmau.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String chatlieu = (String) cbbmau.getSelectedItem();
                 List<HoaDonChiTiet> list = searchchatlieu(chatlieu);
                 showDataHDCT(list);
-                
+
             }
-            
+
         });
-            cbbmatde.addActionListener(new ActionListener(){
+        cbbmatde.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String chatlieu = (String) cbbmatde.getSelectedItem();
                 List<HoaDonChiTiet> list = searchchatlieu(chatlieu);
                 showDataHDCT(list);
-                
+
             }
-            
+
         });
-              cbbsize.addActionListener(new ActionListener(){
+        cbbsize.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String chatlieu = (String) cbbsize.getSelectedItem();
                 List<HoaDonChiTiet> list = searchchatlieu(chatlieu);
                 showDataHDCT(list);
-                
+
             }
-            
+
         });
-              
-          
 
     }
 
@@ -216,7 +214,8 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
         }
         return hangsanxuat;
     }
-     private List<HoaDonChiTiet> searchchatlieu(String chatlieu) {
+
+    private List<HoaDonChiTiet> searchchatlieu(String chatlieu) {
         List<HoaDonChiTiet> chatlieusp = new ArrayList<>();
         for (HoaDonChiTiet object : list) {
             if (object.getChatlieu().equals(chatlieu)) {
@@ -225,7 +224,8 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
         }
         return chatlieusp;
     }
-      private List<HoaDonChiTiet> searchsize(String size) {
+
+    private List<HoaDonChiTiet> searchsize(String size) {
         List<HoaDonChiTiet> sizesp = new ArrayList<>();
         for (HoaDonChiTiet object : list) {
             if (object.getChatlieu().equals(size)) {
@@ -233,8 +233,9 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
             }
         }
         return sizesp;
-      }
-      private List<HoaDonChiTiet> searchmausac(String mausac) {
+    }
+
+    private List<HoaDonChiTiet> searchmausac(String mausac) {
         List<HoaDonChiTiet> mausacsp = new ArrayList<>();
         for (HoaDonChiTiet object : list) {
             if (object.getChatlieu().equals(mausac)) {
@@ -242,8 +243,9 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
             }
         }
         return mausacsp;
-      }
-      private List<HoaDonChiTiet> searchmatde(String matde) {
+    }
+
+    private List<HoaDonChiTiet> searchmatde(String matde) {
         List<HoaDonChiTiet> matdesp = new ArrayList<>();
         for (HoaDonChiTiet object : list) {
             if (object.getChatlieu().equals(matde)) {
@@ -251,8 +253,9 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
             }
         }
         return matdesp;
-      }
-       private List<HoaDonChiTiet> searchday(String day) {
+    }
+
+    private List<HoaDonChiTiet> searchday(String day) {
         List<HoaDonChiTiet> daysp = new ArrayList<>();
         for (HoaDonChiTiet object : list) {
             if (object.getChatlieu().equals(day)) {
@@ -260,7 +263,7 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
             }
         }
         return daysp;
-      }
+    }
 
     private String SearchTT(String trangthai) {
         if ("1".equalsIgnoreCase(trangthai)) {
@@ -369,7 +372,7 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
                 hd.getNgaytaoHD(),
                 tt
             });
-         
+
         }
     }
 
@@ -386,6 +389,8 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
         list = sr.getAllID(hd.getMaHD());
         showDataHDCT(list);
     }
+
+    
 
     private void createPDF(String maHD) throws DocumentException, IOException {
         int selectedRowIndex = TblHoaDon.getSelectedRow();

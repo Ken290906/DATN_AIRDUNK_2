@@ -1333,7 +1333,7 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
                     .addGroup(giaodiensanphamLayout.createSequentialGroup()
                         .addGap(36, 36, 36)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 1370, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(152, Short.MAX_VALUE))
+                .addContainerGap(154, Short.MAX_VALUE))
         );
         giaodiensanphamLayout.setVerticalGroup(
             giaodiensanphamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1354,8 +1354,8 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
                     .addComponent(rdoall, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnreseat2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(85, Short.MAX_VALUE))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(32, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout panelchitietsanphamLayout = new javax.swing.GroupLayout(panelchitietsanpham);
