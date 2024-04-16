@@ -43,12 +43,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -64,21 +58,21 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
-import net.glxn.qrgen.image.ImageType;
-import net.glxn.qrgen.QRCode;
+import b1.View.chucnang.quetmaqr.QRCodeListener;
+import b1.services.chitietsanphamp2services;
 
 /**
  *
  * @author DELL
  */
-public class sanpham extends javax.swing.JInternalFrame {
+public class sanpham extends javax.swing.JInternalFrame implements QRCodeListener{
 //Table
 
     private DefaultTableModel bang3 = new DefaultTableModel();
     private List<sanphamviewmodel> listsanpham = new ArrayList<>();
     private DefaultTableModel bang = new DefaultTableModel();
     private chitietsanphamservices sps = new chitietsanphamservices();
+    private chitietsanphamp2services sps1 = new chitietsanphamp2services();
 
     private DefaultTableModel bang2 = new DefaultTableModel();
     private chitietsanphamviewmodelRepo spr2 = new chitietsanphamviewmodelRepo();
@@ -290,6 +284,13 @@ public class sanpham extends javax.swing.JInternalFrame {
 
         });
 
+    }
+    
+    @Override
+    public void onQRCodeScanned(String result) {
+        List<sanphamchitietviewmodel> listSP = sps1.searchQR(result);
+        showdata2(listSP);
+        
     }
 
     public void setOtherFrame(thongtinsanpham ttsp) {
@@ -1750,9 +1751,10 @@ public class sanpham extends javax.swing.JInternalFrame {
 
     private void btnquetmaqrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnquetmaqrActionPerformed
         // TODO add your handling code here:
-        quetmaqr mn = new quetmaqr();
-        mn.setVisible(true);
-        mn.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        quetmaqr qr = new quetmaqr();
+        qr.setQRCodeListener(this);
+        qr.setVisible(true);
+        qr.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }//GEN-LAST:event_btnquetmaqrActionPerformed
 
     private void tblhienthichitietsanphamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblhienthichitietsanphamMouseClicked

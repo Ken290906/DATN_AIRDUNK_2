@@ -66,7 +66,7 @@ import net.glxn.qrgen.image.ImageType;
  *
  * @author DELL
  */
-public class banhhang extends javax.swing.JInternalFrame implements QRCodeListener{
+public class banhhang extends javax.swing.JInternalFrame implements QRCodeListener {
 //Table
 
     private DefaultTableModel dtmHoaDon = new DefaultTableModel();
@@ -480,7 +480,6 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
             }
 
         });
-       
 
         tbldanhsachsanpham.addMouseListener(new MouseAdapter() {
             @Override
@@ -526,11 +525,66 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         });
 
     }
-    
+
     @Override
     public void onQRCodeScanned(String result) {
+        // Lấy thông tin sản phẩm từ mã QR
         List<sanphamchitietviewmodel> listSP = sps.searchQR(result);
-        showGioHang(listSP);
+        if (!listSP.isEmpty()) {
+            sanphamchitietviewmodel sp = listSP.get(0); // Giả sử chỉ có một sản phẩm trả về
+            int soLuongTrongBang = sp.getSoluong();
+
+            int soLuong = nhapSoLuong();
+
+            if (soLuongTrongBang > 0) {
+                if (soLuong > 0 && soLuong <= soLuongTrongBang) {
+                    // Trừ số lượng sản phẩm
+                    sp.setSoluong(soLuongTrongBang - soLuong);
+
+                    updateTotalAmount(); // Cập nhật tổng tiền
+
+                    // Hiển thị giỏ hàng
+                    showGioHang(listSP);
+                } else if (soLuong > soLuongTrongBang) {
+                    JOptionPane.showMessageDialog(null, "Không đủ hàng.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Vui lòng nhập số nguyên dương lớn hơn 0.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "Số lượng sản phẩm đã hết.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Không tìm thấy sản phẩm.");
+        }
+    }
+
+    public void showGioHang(List<sanphamchitietviewmodel> ListSP) {
+        dtmGiohang.setRowCount(0);
+        int i = 0;
+        Locale lc = new Locale("vi", "VN");
+        NumberFormat currentFormater = NumberFormat.getCurrencyInstance(lc);
+
+        for (sanphamchitietviewmodel sp : ListSP) {
+            i++;
+            int soLuong = sp.getSoluong();
+            double thanhTien = soLuong * sp.getGiaban(); // Tính toán thành tiền
+
+            dtmGiohang.addRow(new Object[]{
+                i,
+                sp.getMctsp(),
+                sp.getIddongsp(),
+                sp.getIdhangsx(),
+                sp.getIdphoimau(),
+                sp.getIdsize(),
+                sp.getIdchatlieu(),
+                sp.getIdday(),
+                soLuong,
+                currentFormater.format(sp.getGiaban()), // Định dạng giá bán
+                currentFormater.format(thanhTien) // Định dạng thành tiền
+            });
+            txttong.setText(VND.format(thanhTien));
+        }
+        
     }
 
     private void updateTotalAmount() {
@@ -597,27 +651,6 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
             });
         }
 
-    }
-    
-    public void showGioHang(List<sanphamchitietviewmodel> ListSP) {
-        dtmGiohang.setRowCount(0);
-        int i = 0;
-        for (sanphamchitietviewmodel sp : ListSP) {
-            i++;
-            int soLuong = nhapSoLuong();
-            dtmGiohang.addRow(new Object[] {
-                i,
-                sp.getMctsp(),
-                sp.getIddongsp(),
-                sp.getIdhangsx(),
-                sp.getIdphoimau(),
-                sp.getIdsize(),
-                sp.getIdchatlieu(),
-                sp.getIdday(),
-                soLuong,
-                sp.getGiaban()
-            });
-        }
     }
 
     private void tuhienhoadon() {
@@ -880,15 +913,15 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
     }
 
     public HoaDonBH getformdatabanhang() throws ParseException {
-                SimpleDateFormat spx = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat spx = new SimpleDateFormat("yyyy-MM-dd");
         String MaHD = txtMaHD.getText().trim();
         String TT = txttongtien.getText().replaceAll("[, đ]", "");
         String sdtKH = txtSdtKH.getText().trim();
         String tenKH = txtTenKH.getText().trim();
         String MaNV = txtmaNV.getText().trim();
-        Date NT = dateFormat.parse(dcNgayTao.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()+"");
+        Date NT = dateFormat.parse(dcNgayTao.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate() + "");
         String MaKH = txtTenKH.getText().trim();
-        Date NTT = dateFormat.parse(dcNgayThanhToan.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()+"");
+        Date NTT = dateFormat.parse(dcNgayThanhToan.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate() + "");
 
         // Chuyển đổi chuỗi TT thành một số nguyên
         String loaiThanhToan = (String) cbbgiamrgia.getSelectedItem();
@@ -914,7 +947,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         String maLSHD = txtMaHD.getText().trim();
         String maNV = txtmaNV.getText().trim();
         String hanhDong = txtMaSP.getText().trim();
-        Date ngayTao = dateFormat.parse(dcNgayTao.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate()+"");
+        Date ngayTao = dateFormat.parse(dcNgayTao.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate() + "");
 
         LichSuHoaDon lshd = new LichSuHoaDon(maLSHD, maHD, maNV, "Tạo hóa đơn", ngayTao);
         return lshd;
@@ -932,8 +965,6 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         HoaDonBH hd = new HoaDonBH(tenKH, tenKH, Integer.valueOf(tt), Integer.parseInt(SDT), DC, Date.from(ngaybatdau.atStartOfDay(ZoneId.systemDefault()).toInstant()), MNV, 2, "HTTT-001");
         return hd;
     }
-
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -2247,7 +2278,6 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
             showHoaDonBH(listBH);
             JOptionPane.showMessageDialog(this, "Thêm thành công");
 
-   
         } catch (ParseException ex) {
             Logger.getLogger(banhhang.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "Lỗi xảy ra khi thêm dữ liệu. Vui lòng thử lại.", "Lỗi", JOptionPane.ERROR_MESSAGE);
@@ -2511,5 +2541,4 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
     private javax.swing.JTextField txttongtien1;
     // End of variables declaration//GEN-END:variables
 
-    
 }
