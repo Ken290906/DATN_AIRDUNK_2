@@ -118,6 +118,31 @@ public class khachhang extends javax.swing.JInternalFrame {
         Date NS = dcNgaySinh.getDate(); // Get the date directly from the JDateChooser
         Boolean GT = !rbtnam.isSelected();
         int Deleted = 0;
+
+        if (MAKH.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng hãy điền mã KH");
+            return null;
+        }
+        if (HT.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng hãy điền mã KH");
+            return null;
+        }
+        if (SDT.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng hãy điền sdt KH");
+            return null;
+        }
+        if (SDT.matches("[A-Z a-z]+")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng không điền chữ vào SDT");
+            return null;
+        }
+        if (NS == null) {
+            JOptionPane.showMessageDialog(this, "Vui lòng hãy nhập ngày sinh khách hàng");
+            return null;
+        }
+        if (buttonGroup1 == null) {
+            JOptionPane.showMessageDialog(this, "Vui lòng hãy chọn giới tính");
+            return null;
+        }
         b1.entity.khachhang kh = new b1.entity.khachhang(MAKH, HT, SDT, NS, GT, Deleted);
         return kh;
     }
@@ -500,10 +525,9 @@ public class khachhang extends javax.swing.JInternalFrame {
 
         if (check == JOptionPane.YES_OPTION) {
             try {
-                sv.add(getformdata());
+                JOptionPane.showMessageDialog(this, sv.add(getformdata()));
                 listkh = sv.getAll();
                 ShowDataTable(listkh);
-                JOptionPane.showMessageDialog(this, "Thêm thành công");
             } catch (ParseException ex) {
                 Logger.getLogger(khachhang.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -531,7 +555,7 @@ public class khachhang extends javax.swing.JInternalFrame {
     private void XoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_XoaActionPerformed
         // TODO add your handling code here:
 
-        int check = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thêm?");
+        int check = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn xóa?");
 
         if (check == JOptionPane.YES_OPTION) {
             int xoa = tblhienthi.getSelectedRow();
@@ -563,7 +587,7 @@ public class khachhang extends javax.swing.JInternalFrame {
 //        ShowDataTable(listkh);
 
         //
-        int check = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn thêm?");
+        int check = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn sửa?");
 
         if (check == JOptionPane.YES_OPTION) {
             int sua = tblhienthi.getSelectedRow();

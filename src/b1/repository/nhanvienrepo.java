@@ -16,7 +16,8 @@ import java.sql.PreparedStatement;
  * @author ADMIN
  */
 public class nhanvienrepo {
-    public List<nhanvien> getAll(){
+
+    public List<nhanvien> getAll() {
         List<nhanvien> list = new ArrayList<>();
         String sql = """
                      SELECT [MaNV]
@@ -27,10 +28,10 @@ public class nhanvienrepo {
                              ,[Email]
                          FROM [dbo].[NhanVien]
                      """;
-        try(Connection con = DBConnect.getConnection()) {
+        try (Connection con = DBConnect.getConnection()) {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 nhanvien nv = new nhanvien();
                 nv.setId(rs.getString(1));
                 nv.setTen(rs.getString(2));
@@ -45,7 +46,8 @@ public class nhanvienrepo {
         }
         return list;
     }
-    public boolean addNhanVien(nhanvien nv){
+
+    public boolean addNhanVien(nhanvien nv) {
         int check = 0;
         String sql = """
                      INSERT INTO [dbo].[NhanVien]
@@ -65,7 +67,7 @@ public class nhanvienrepo {
                           VALUES
                                 (?,?,?,?,?,?,'CV-001', 1, 2024-01-27, 'Phúc', 2024-01-30, 'Phúc')
                      """;
-        try(Connection con = DBConnect.getConnection()) {
+        try (Connection con = DBConnect.getConnection()) {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setObject(1, nv.getId());
             ps.setObject(2, nv.getTen());
@@ -73,14 +75,15 @@ public class nhanvienrepo {
             ps.setObject(4, nv.getDiaChi());
             ps.setObject(5, nv.getSđt());
             ps.setObject(6, nv.getEmail());
-            
+
             check = ps.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return check > 0;
     }
-    public boolean updateNhanVien(nhanvien nv, String oldid){
+
+    public boolean updateNhanVien(nhanvien nv, String oldid) {
         int check = 0;
         String sql = """
                      UPDATE [dbo].[NhanVien]
@@ -92,7 +95,7 @@ public class nhanvienrepo {
                            ,[Email] = ?
                       WHERE IdNV LIKE ?
                      """;
-        try(Connection con = DBConnect.getConnection()) {
+        try (Connection con = DBConnect.getConnection()) {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setObject(1, nv.getId());
             ps.setObject(2, nv.getTen());
@@ -107,7 +110,8 @@ public class nhanvienrepo {
         }
         return check > 0;
     }
-    public boolean deleteNhanVien(String id){
+
+    public boolean deleteNhanVien(String id) {
         int check = 0;
         String sql = """
                      UPDATE [dbo].[NhanVien]
@@ -116,7 +120,7 @@ public class nhanvienrepo {
                           
                       WHERE MaNV like ?  
                      """;
-        try(Connection con = DBConnect.getConnection()) {
+        try (Connection con = DBConnect.getConnection()) {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setObject(1, id);
             check = ps.executeUpdate();
@@ -125,8 +129,8 @@ public class nhanvienrepo {
         }
         return check > 0;
     }
-      
-    public List<nhanvien> Search(String type){
+
+    public List<nhanvien> Search(String type) {
         List<nhanvien> list = new ArrayList<>();
         String sql = """
                 SELECT [MaNV]
@@ -144,36 +148,36 @@ public class nhanvienrepo {
 		Sdt LIKE ? OR
 		Email LIKE ?;
                      """;
-        try(Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-            String keywordlike = "%" + type + "%";
-            for (int i = 1; i <= 6; i++) {
-                ps.setObject(i, keywordlike);
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setObject(1, '%' + type + '%');
+            ps.setObject(2, '%' + type + '%');
+            ps.setObject(3, '%' + type + '%');
+            ps.setObject(4, '%' + type + '%');
+            ps.setObject(5, '%' + type + '%');
+            ps.setObject(6, '%' + type + '%');
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    nhanvien nv = new nhanvien();
+                    nv.setId(rs.getString(1));
+                    nv.setTen(rs.getString(2));
+                    nv.setNgaySinh(rs.getDate(3));
+                    nv.setDiaChi(rs.getString(4));
+                    nv.setSđt(rs.getString(5));
+                    nv.setEmail(rs.getString(6));
+                    list.add(nv);
+                }
             }
-            
-          try(ResultSet rs = ps.executeQuery()){
-              while (rs.next()) {                  
-                  nhanvien nv = new nhanvien();
-                  nv.setId(rs.getString(1));
-                  nv.setTen(rs.getString(2));
-                  nv.setNgaySinh(rs.getDate(3));
-                  nv.setDiaChi(rs.getString(4));
-                  nv.setSđt(rs.getString(5));
-                  nv.setEmail(rs.getString(6));
-                  list.add(nv);
-              }
-          }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
     }
-    
+
     public static void main(String[] args) {
         List<nhanvien> list = new nhanvienrepo().getAll();
         for (nhanvien object : list) {
             System.out.println(object.toString());
         }
     }
-    
-    
+
 }

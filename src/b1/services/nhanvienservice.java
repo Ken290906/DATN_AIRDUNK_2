@@ -14,25 +14,30 @@ import java.util.List;
  * @author ADMIN
  */
 public class nhanvienservice {
+
     nhanvienrepo repo = new nhanvienrepo();
-    
-    public List<nhanvien> getAll(){
+
+    public List<nhanvien> getAll() {
         return repo.getAll();
     }
-    
-    public boolean addNhanVien(nhanvien nv){
-        return repo.addNhanVien(nv);
+
+    public String addNhanVien(nhanvien nv) {
+        if (null == nv) {
+            return "Thêm không thành công";
+        }
+        repo.addNhanVien(nv);
+        return "Thêm thành công";
     }
-    
-    public boolean updateNhanVien(nhanvien nv, String oldid){
+
+    public boolean updateNhanVien(nhanvien nv, String oldid) {
         return repo.updateNhanVien(nv, oldid);
     }
-    
-    public boolean deleteNhanVien(String id){
+
+    public boolean deleteNhanVien(String id) {
         return repo.deleteNhanVien(id);
     }
-    
-    public List<nhanvien> Search(String type){
+
+    public List<nhanvien> Search(String type) {
         return repo.Search(type);
     }
 }

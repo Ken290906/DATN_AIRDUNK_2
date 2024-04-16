@@ -29,6 +29,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -56,14 +58,33 @@ public class giamgia extends javax.swing.JInternalFrame {
         lists = service.getAll();
         tableModel = (DefaultTableModel) tblHienThi.getModel();
         showDataTable(lists);
+
+        txtTim.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                search();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                search();
+
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                search();
+            }
+
+        });
     }
-    
+
     public void timTrangThai() throws ParseException {
         int tt = 0;
         if (cbbTrangThai.getSelectedItem().equals("Đã kết thúc")) {
             tt = 2;
             lists1 = service.timTrangThai(tt);
-            
+
             showDataTable(lists1);
         } else if (cbbTrangThai.getSelectedItem().equals("Đang diễn ra")) {
             tt = 1;
@@ -79,6 +100,9 @@ public class giamgia extends javax.swing.JInternalFrame {
             lists = service.getAll();
             showDataTable(lists);
         }
+        else {
+            showDataTable(lists);
+    }
     }
 
     public void showDataTable(List<GiamGia1> listGiamGia) {
@@ -89,9 +113,9 @@ public class giamgia extends javax.swing.JInternalFrame {
             i++;
             if (gg1.getTrangThai() == 2) {
                 trangTHai = "Het han";
-            }else if (gg1.getTrangThai() == 1){
+            } else if (gg1.getTrangThai() == 1) {
                 trangTHai = "Dang dien ra";
-            }else if (gg1.getTrangThai() == 0){
+            } else if (gg1.getTrangThai() == 0) {
                 trangTHai = "Sap dien ra";
             }
             tableModel.addRow(new Object[]{i, gg1.getMaVCH(), gg1.getMaGiamGia(), gg1.getSoLuong(), gg1.getGiaTri(), gg1.getHanMuc(), gg1.getNgayBatDau(), gg1.getNgayKetThuc(), trangTHai});
@@ -112,6 +136,11 @@ public class giamgia extends javax.swing.JInternalFrame {
             cbbModel.addElement(gg1.getNgayBatDau());
 
         }
+    }
+
+    private void search() {
+        lists = service.Search(txtTim.getText());
+        showDataTable(lists);
     }
 
     public GiamGia1 getFromData() throws ParseException {
@@ -164,7 +193,6 @@ public class giamgia extends javax.swing.JInternalFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         tblHienThi = new javax.swing.JTable();
         txtTim = new b1.View.chucnang.TextField();
-        btnSearch = new b1.View.chucnang.ButtonGradient();
         cbbTrangThai = new b1.View.chucnang.Combobox();
         txtGiaTri1 = new b1.View.chucnang.TextField();
         btnEdit1 = new b1.View.chucnang.ButtonGradient();
@@ -255,19 +283,7 @@ public class giamgia extends javax.swing.JInternalFrame {
             }
         });
 
-        btnSearch.setBackground(new java.awt.Color(153, 255, 255));
-        btnSearch.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/b1/khoanh/search.png"))); // NOI18N
-        btnSearch.setColor1(new java.awt.Color(255, 255, 255));
-        btnSearch.setColor2(new java.awt.Color(255, 255, 255));
-        btnSearch.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btnSearch.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSearchActionPerformed(evt);
-            }
-        });
-
-        cbbTrangThai.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Đã kết thúc", "Đang diễn ra", "Sắp diễn ra", "Tất cả" }));
+        cbbTrangThai.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Đã kết thúc", "Đang diễn ra", "Sắp diễn ra", "Tất cả" }));
         cbbTrangThai.setLabeText("Trạng thái");
         cbbTrangThai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -287,8 +303,6 @@ public class giamgia extends javax.swing.JInternalFrame {
                         .addContainerGap())
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, 368, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(cbbTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(19, 19, 19))))
@@ -297,16 +311,15 @@ public class giamgia extends javax.swing.JInternalFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(9, 9, 9)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(cbbTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnSearch, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(txtTim, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 235, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        panel2.addTab("", jPanel4);
+        panel2.addTab("Bảng Phiếu Giảm Gía", jPanel4);
 
         txtGiaTri1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         txtGiaTri1.setLabelText("Giá trị");
@@ -519,11 +532,6 @@ public class giamgia extends javax.swing.JInternalFrame {
         showDataTable(lists);
     }//GEN-LAST:event_btnEditActionPerformed
 
-    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
-         showDataTable(service.Search(txtTim.getText(), txtTim.getText()));
-    }//GEN-LAST:event_btnSearchActionPerformed
-
     private void tblHienThiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblHienThiMouseClicked
         // TODO add your handling code here:
         int row = tblHienThi.getSelectedRow();
@@ -559,14 +567,13 @@ public class giamgia extends javax.swing.JInternalFrame {
         } catch (ParseException ex) {
             Logger.getLogger(giamgia.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_cbbTrangThaiActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private b1.View.chucnang.ButtonGradient btnEdit;
     private b1.View.chucnang.ButtonGradient btnEdit1;
-    private b1.View.chucnang.ButtonGradient btnSearch;
     private b1.View.chucnang.ButtonGradient btnThem;
     private b1.View.chucnang.ButtonGradient btnXoa;
     private b1.View.chucnang.Combobox cbbTrangThai;

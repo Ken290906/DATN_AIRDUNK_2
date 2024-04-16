@@ -36,7 +36,7 @@ public class GiamGiaService {
         return repo.updateData(gg, id);
     }
     
-    public List<GiamGia1> Search(String timkiem, String tiemkiem1) {
+    public List<GiamGia1> Search(String timkiem) {
         return repo.Search(timkiem);
     }
     

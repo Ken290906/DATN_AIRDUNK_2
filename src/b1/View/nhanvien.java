@@ -15,6 +15,8 @@ import java.util.logging.Logger;
 import javax.swing.plaf.basic.BasicInternalFrameUI;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JOptionPane;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /**
  *
@@ -37,6 +39,23 @@ public class nhanvien extends javax.swing.JInternalFrame {
         list = service.getAll();
         dtm = (DefaultTableModel) tblBangNV.getModel();
         showDataTable(list);
+        txtSearch.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                sreachnv();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                sreachnv();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                sreachnv();
+            }
+
+        });
     }
 
     public void showDataTable(List<b1.entity.nhanvien> list) {
@@ -53,19 +72,53 @@ public class nhanvien extends javax.swing.JInternalFrame {
                 object.getSđt(),
                 object.getEmail(),});
         }
+
     }
 
-    private b1.entity.nhanvien getFormData() throws ParseException {
+    public b1.entity.nhanvien getFormData() throws ParseException {
         String id = txtId.getText();
         String ten = txtTen.getText();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Date ngaySinh = dateFormat.parse(dcNgaySinh.getDate()+"");
+        Date ngaySinh = dcNgaySinh.getDate(); // Retrieve date value directly
         String diaChi = txtDiachi.getText();
         String sđt = txtSĐT.getText();
         String email = txtEmail.getText();
+        if (id.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập mã");
+            return null;
+        }
+        if (ten.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập tên");
+            return null;
+        }
+        if (ngaySinh == null) {
+            JOptionPane.showMessageDialog(this, "Vui lòng chọn ngày sinh");
+            return null;
+        }
+
+        if (diaChi.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập địa chỉ khách hàng");
+            return null;
+        }
+        if (sđt.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập số điện thoại");
+            return null;
+        }
+        if (txtSĐT.getText().matches("[A-Za-z]+")) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập số điện thoại hợp lệ.");
+            return null;
+        }
+
+        if (email.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập địa email");
+            return null;
+        }
         b1.entity.nhanvien nv = new b1.entity.nhanvien(id, ten, ngaySinh, diaChi, sđt, email);
         return nv;
-        
+    }
+
+    private void sreachnv() {
+        list = service.Search(txtSearch.getText());
+        showDataTable(list);
     }
 
     /**
@@ -91,7 +144,6 @@ public class nhanvien extends javax.swing.JInternalFrame {
         tblBangNV = new javax.swing.JTable();
         txtDiachi = new b1.View.chucnang.TextField();
         txtSearch = new b1.View.chucnang.TextField();
-        Tìm = new javax.swing.JButton();
         dcNgaySinh = new com.toedter.calendar.JDateChooser();
         jLabel1 = new javax.swing.JLabel();
 
@@ -117,6 +169,11 @@ public class nhanvien extends javax.swing.JInternalFrame {
         btnSua.setColor1(new java.awt.Color(204, 204, 255));
         btnSua.setColor2(new java.awt.Color(255, 255, 255));
         btnSua.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnSua.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnSuaMouseClicked(evt);
+            }
+        });
         btnSua.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSuaActionPerformed(evt);
@@ -132,6 +189,11 @@ public class nhanvien extends javax.swing.JInternalFrame {
         btnXoa.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnXoaMouseClicked(evt);
+            }
+        });
+        btnXoa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnXoaActionPerformed(evt);
             }
         });
 
@@ -171,13 +233,6 @@ public class nhanvien extends javax.swing.JInternalFrame {
 
         txtSearch.setLabelText("Tìm kiếm");
 
-        Tìm.setText("Search");
-        Tìm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TìmActionPerformed(evt);
-            }
-        });
-
         dcNgaySinh.setDateFormatString("dd-MM-YYYY");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
@@ -192,10 +247,7 @@ public class nhanvien extends javax.swing.JInternalFrame {
                 .addGap(63, 63, 63)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel10Layout.createSequentialGroup()
-                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(Tìm)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 236, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(63, 63, 63)
                         .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -225,6 +277,10 @@ public class nhanvien extends javax.swing.JInternalFrame {
                                 .addGap(121, 121, 121)
                                 .addComponent(jLabel10)))
                         .addGap(99, 99, 99))))
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addGap(23, 23, 23)
+                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 273, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,15 +301,13 @@ public class nhanvien extends javax.swing.JInternalFrame {
                         .addComponent(txtTen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(62, 62, 62)
-                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Tìm))
-                    .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(92, 92, 92)
+                .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnThem, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnXoa, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSua, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(49, 49, 49)
+                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 305, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(128, 128, 128))
         );
@@ -282,64 +336,60 @@ public class nhanvien extends javax.swing.JInternalFrame {
             showDataTable(list);
             JOptionPane.showConfirmDialog(this, "Xoa nhan vien thanh cong");
         }
+        if (confirm == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(this, "Bạn đã chọn không");
+            return;
+        }
+        if (confirm == JOptionPane.CANCEL_OPTION) {
+            JOptionPane.showMessageDialog(this, "Bạn đã chọn Cancel");
+            return;
+        }
     }//GEN-LAST:event_btnXoaMouseClicked
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        if (txtId.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui long khong de trong ma nhan vien");
-            return;
-        }
 
-        if (txtTen.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui long khong de trong ten nhan vien");
-            return;
-        }
-
-        if (dcNgaySinh.getDate() == null) {
-            JOptionPane.showMessageDialog(this, "Vui long khong de trong ngay sinh nhan vien");
-            return;
-        }
-
-        if (txtDiachi.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui long khong de trong dia chi nhan vien");
-            return;
-        }
-
-        if (txtSĐT.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui long khong de trong sđt nhan vien");
-            return;
-        }
-
-        if (txtEmail.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Vui long khong de trong email nhan vien");
-            return;
-        }
         int confirm = JOptionPane.showConfirmDialog(this, "Ban co muon them nhan vien khong");
         if (confirm == JOptionPane.YES_OPTION) {
             try {
-                service.addNhanVien(getFormData());
+                JOptionPane.showMessageDialog(this, service.addNhanVien(getFormData()));
+                list = service.getAll();
+                showDataTable(list);
             } catch (ParseException ex) {
                 Logger.getLogger(nhanvien.class.getName()).log(Level.SEVERE, null, ex);
             }
-            list = service.getAll();
-            showDataTable(list);
-            JOptionPane.showMessageDialog(this, "Them nhan vien thanh cong");
+
+        }
+        if (confirm == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(this, "Bạn đã chọn không");
+            return;
+        }
+        if (confirm == JOptionPane.CANCEL_OPTION) {
+            JOptionPane.showMessageDialog(this, "Bạn đã chọn Cancel");
+            return;
         }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-      
-    }//GEN-LAST:event_btnSuaActionPerformed
+        int confirm = JOptionPane.showConfirmDialog(this, "Ban co muon sua nhan vien khong");
+        if (confirm == JOptionPane.YES_OPTION) {
+            try {
+                JOptionPane.showMessageDialog(this, service.addNhanVien(getFormData()));
+                list = service.getAll();
+                showDataTable(list);
+            } catch (ParseException ex) {
+                Logger.getLogger(nhanvien.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-    private void TìmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TìmActionPerformed
-        String searchType = txtSearch.getText().trim();
-        if (!searchType.isEmpty()) {
-            list = service.Search(searchType);
-            showDataTable(list);
-        } else {
-            JOptionPane.showMessageDialog(this, "Vui lòng nhập Tên nhân viên để tìm kiếm", "Thông báo", JOptionPane.INFORMATION_MESSAGE);
         }
-    }//GEN-LAST:event_TìmActionPerformed
+        if (confirm == JOptionPane.NO_OPTION) {
+            JOptionPane.showMessageDialog(this, "Bạn đã chọn không");
+            return;
+        }
+        if (confirm == JOptionPane.CANCEL_OPTION) {
+            JOptionPane.showMessageDialog(this, "Bạn đã chọn Cancel");
+            return;
+        }
+    }//GEN-LAST:event_btnSuaActionPerformed
 
     private void tblBangNVMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblBangNVMouseClicked
         int row = tblBangNV.getSelectedRow();
@@ -352,8 +402,15 @@ public class nhanvien extends javax.swing.JInternalFrame {
         txtEmail.setText(b1env.getEmail());
     }//GEN-LAST:event_tblBangNVMouseClicked
 
+    private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnXoaActionPerformed
+
+    private void btnSuaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSuaMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSuaMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Tìm;
     private b1.View.chucnang.ButtonGradient btnSua;
     private b1.View.chucnang.ButtonGradient btnThem;
     private b1.View.chucnang.ButtonGradient btnXoa;

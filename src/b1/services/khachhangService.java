@@ -23,8 +23,12 @@ public class khachhangService {
  public boolean xoa(String xoa){
      return repo.xoa(xoa);
  }
- public boolean add(khachhang kh){
-     return repo.add(kh);
+ public String add(khachhang kh){
+     if (kh == null) {
+         return "Add không thành công";
+     }
+     repo.add(kh);
+     return "Add thành công";
  }
  public boolean addbanhang(khachhang kh){
      return repo.addkhachhangbanhang(kh);
