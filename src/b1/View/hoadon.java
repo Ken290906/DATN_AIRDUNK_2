@@ -9,6 +9,7 @@ import ViewModelHD.HoaDon;
 import ViewModelHD.HoaDonChiTiet;
 import ViewModelHD.LichSuHD;
 import ViewModelKH.khachhangViewModel;
+import ViewModelSP.sanphamchitietviewmodel;
 import b1.View.chucnang.quetmaqr;
 import b1.services.HDCTService;
 import b1.services.HoaDonService;
@@ -57,6 +58,7 @@ import javax.swing.event.DocumentListener;
  */
 public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener {
 
+    private List<sanphamchitietviewmodel> listviewmodel = new ArrayList<>();
     private khachhangService khs = new khachhangService();
     private DefaultTableModel dtmHDCT = new DefaultTableModel();
     private HDCTService sr = new HDCTService();
@@ -123,6 +125,67 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
                 showDataHD(hd);
             }
         });
+        cbbhang.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String hang = (String) cbbhang.getSelectedItem();
+                List<HoaDonChiTiet> list = searchhang(hang);
+                showDataHDCT(list);
+            }
+        
+    });
+        cbbchatlieu.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String chatlieu = (String) cbbchatlieu.getSelectedItem();
+                List<HoaDonChiTiet> list = searchchatlieu(chatlieu);
+                showDataHDCT(list);
+                
+            }
+            
+        });
+         cbbday.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String chatlieu = (String) cbbday.getSelectedItem();
+                List<HoaDonChiTiet> list = searchchatlieu(chatlieu);
+                showDataHDCT(list);
+                
+            }
+            
+        });
+          cbbmau.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String chatlieu = (String) cbbmau.getSelectedItem();
+                List<HoaDonChiTiet> list = searchchatlieu(chatlieu);
+                showDataHDCT(list);
+                
+            }
+            
+        });
+            cbbmatde.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String chatlieu = (String) cbbmatde.getSelectedItem();
+                List<HoaDonChiTiet> list = searchchatlieu(chatlieu);
+                showDataHDCT(list);
+                
+            }
+            
+        });
+              cbbsize.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String chatlieu = (String) cbbsize.getSelectedItem();
+                List<HoaDonChiTiet> list = searchchatlieu(chatlieu);
+                showDataHDCT(list);
+                
+            }
+            
+        });
+              
+          
 
     }
 
@@ -143,6 +206,61 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
             return;
         }
     }
+
+    private List<HoaDonChiTiet> searchhang(String hang) {
+        List<HoaDonChiTiet> hangsanxuat = new ArrayList<>();
+        for (HoaDonChiTiet object : list) {
+            if (object.getHang().equals(hang)) {
+                hangsanxuat.add(object);
+            }
+        }
+        return hangsanxuat;
+    }
+     private List<HoaDonChiTiet> searchchatlieu(String chatlieu) {
+        List<HoaDonChiTiet> chatlieusp = new ArrayList<>();
+        for (HoaDonChiTiet object : list) {
+            if (object.getChatlieu().equals(chatlieu)) {
+                chatlieusp.add(object);
+            }
+        }
+        return chatlieusp;
+    }
+      private List<HoaDonChiTiet> searchsize(String size) {
+        List<HoaDonChiTiet> sizesp = new ArrayList<>();
+        for (HoaDonChiTiet object : list) {
+            if (object.getChatlieu().equals(size)) {
+                sizesp.add(object);
+            }
+        }
+        return sizesp;
+      }
+      private List<HoaDonChiTiet> searchmausac(String mausac) {
+        List<HoaDonChiTiet> mausacsp = new ArrayList<>();
+        for (HoaDonChiTiet object : list) {
+            if (object.getChatlieu().equals(mausac)) {
+                mausacsp.add(object);
+            }
+        }
+        return mausacsp;
+      }
+      private List<HoaDonChiTiet> searchmatde(String matde) {
+        List<HoaDonChiTiet> matdesp = new ArrayList<>();
+        for (HoaDonChiTiet object : list) {
+            if (object.getChatlieu().equals(matde)) {
+                matdesp.add(object);
+            }
+        }
+        return matdesp;
+      }
+       private List<HoaDonChiTiet> searchday(String day) {
+        List<HoaDonChiTiet> daysp = new ArrayList<>();
+        for (HoaDonChiTiet object : list) {
+            if (object.getChatlieu().equals(day)) {
+                daysp.add(object);
+            }
+        }
+        return daysp;
+      }
 
     private String SearchTT(String trangthai) {
         if ("1".equalsIgnoreCase(trangthai)) {
@@ -368,8 +486,13 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
         jPanel4 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         TblHDCT = new javax.swing.JTable();
+        cbbhang = new b1.View.Combobox();
+        cbbsize = new b1.View.Combobox();
+        cbbchatlieu = new b1.View.Combobox();
+        cbbmatde = new b1.View.Combobox();
+        cbbday = new b1.View.Combobox();
+        cbbmau = new b1.View.Combobox();
         jLabel1 = new javax.swing.JLabel();
-        combobox1 = new b1.View.Combobox();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -606,17 +729,63 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
         TblHDCT.setSelectionBackground(new java.awt.Color(153, 153, 255));
         jScrollPane3.setViewportView(TblHDCT);
 
+        cbbhang.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Nike", "Adidas", "Puma", "Rebook", "Convert", "Vans." }));
+        cbbhang.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cbbhang.setLabeText("Hãng");
+
+        cbbsize.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "30", "31", "32", "33", "34", "35", "36", "37", "38", "39", "40", "41", "42", "43", "44", "45", "46", "47", "48", "49", "50" }));
+        cbbsize.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cbbsize.setLabeText("Size");
+
+        cbbchatlieu.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Da", "Vải" }));
+        cbbchatlieu.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cbbchatlieu.setLabeText("Chất liệu");
+
+        cbbmatde.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Đế Sắt", "Đế Cao Su", "Đế Nhựa" }));
+        cbbmatde.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cbbmatde.setLabeText("Mặt đế");
+
+        cbbday.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Dây xanh", "Dây Trắng", "Dây Đen", "Dây Trăng lai Đen", "Dây Đỏ", "Dây 2light", "Dây Đỏ lai Xanh", "Dây Xám", "Dây Phát Sáng", "Dây Hồng" }));
+        cbbday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cbbday.setLabeText("Dây");
+
+        cbbmau.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Xanh", "Đỏ", "Xanh nhạt", "Xanh Lá", "Nâu", "Hồng", "Cam", "Xám", "Đen", "Nau Do" }));
+        cbbmau.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cbbmau.setLabeText("Màu");
+
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
+            .addComponent(jScrollPane3)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(31, 31, 31)
+                .addComponent(cbbhang, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(cbbmau, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(cbbsize, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(cbbchatlieu, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(10, 10, 10)
+                .addComponent(cbbmatde, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(cbbday, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(38, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(9, Short.MAX_VALUE)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cbbhang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbsize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbchatlieu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbmatde, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbmau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -639,8 +808,6 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(panel3, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(66, 66, 66)
-                        .addComponent(combobox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, 609, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -652,20 +819,14 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(panel3, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(92, 92, 92)
-                                .addComponent(combobox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
-                                .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(panel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                        .addComponent(panel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -683,7 +844,7 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 12, Short.MAX_VALUE)
+                .addGap(0, 6, Short.MAX_VALUE)
                 .addComponent(panel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -791,7 +952,12 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
     private javax.swing.ButtonGroup buttonGroup1;
     private b1.View.Combobox cbbHTTT;
     private b1.View.Combobox cbbTrangthai;
-    private b1.View.Combobox combobox1;
+    private b1.View.Combobox cbbchatlieu;
+    private b1.View.Combobox cbbday;
+    private b1.View.Combobox cbbhang;
+    private b1.View.Combobox cbbmatde;
+    private b1.View.Combobox cbbmau;
+    private b1.View.Combobox cbbsize;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -810,5 +976,4 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
     private b1.View.chucnang.TextField txtSearch;
     // End of variables declaration//GEN-END:variables
 
-    
 }

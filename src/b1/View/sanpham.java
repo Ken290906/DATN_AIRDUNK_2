@@ -1209,7 +1209,7 @@ public class sanpham extends javax.swing.JInternalFrame {
         });
 
         txtgia1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtgia1.setLabelText("");
+        txtgia1.setLabelText("Nhập giá");
         txtgia1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtgia1ActionPerformed(evt);
@@ -1217,7 +1217,7 @@ public class sanpham extends javax.swing.JInternalFrame {
         });
 
         txtgia2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtgia2.setLabelText("");
+        txtgia2.setLabelText("Nhập giá");
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Giá :");

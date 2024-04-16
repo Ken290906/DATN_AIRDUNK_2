@@ -1038,7 +1038,7 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="14" style="1"/>
                         </Property>
-                        <Property name="labelText" type="java.lang.String" value=""/>
+                        <Property name="labelText" type="java.lang.String" value="Nh&#x1ead;p gi&#xe1;"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtgia1ActionPerformed"/>
@@ -1049,7 +1049,7 @@
                         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                           <Font name="Segoe UI" size="14" style="1"/>
                         </Property>
-                        <Property name="labelText" type="java.lang.String" value=""/>
+                        <Property name="labelText" type="java.lang.String" value="Nh&#x1ead;p gi&#xe1;"/>
                       </Properties>
                     </Component>
                     <Component class="javax.swing.JLabel" name="jLabel1">
