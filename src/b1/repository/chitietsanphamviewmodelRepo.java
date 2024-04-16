@@ -13,6 +13,7 @@ import java.util.List;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.PreparedStatement;
+import java.util.Random;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
@@ -115,62 +116,45 @@ public class chitietsanphamviewmodelRepo {
         return listsanpham;
     }
 
-    public boolean Add(chitietsanpham ctsp) {
-        int check = 0;
-        String sql = """
-               INSERT INTO [dbo].[ChiTietSP]
-                                                                                (
-                                                                                [IDHangSX]
-                                                                                ,[IDDongSP]
-                                                                                ,[IDPhoiMau]
-                                                                                ,[IDSize]
-                                                                                ,[IDDoDay]
-                                                                                ,[IDChatlieu]
-                                                                                ,[IDMatDe]
-                                                                                ,[IDDay]
-                                                                                ,[Ghichu]
-                                                                                ,[Giaban]
-                                                                                ,[Deleted]
-                                                                                ,[CreatedAt]
-                                                                                ,[CreatedBy]
-                                                                                ,[UpdatedAt]
-                                                                                ,[UpdatedBy]
-                                                                                ,[Soluong]
-                                                                                )
-                                                                        VALUES ((select TOP 1 IDhsx from HSX where TenHang = ?),
-                                                                                (select TOP 1 IDdsp from DSP where TenDSP = ?),
-                                                                                (select TOP 1 IDMau from PhoiMau where TenMau = ?),
-                                                                                (select TOP 1 IDSize from Size where SizeSP = ?),
-                                                                                (select TOP 1 IDDoday from DoDay where doDaySP = ?),
-                                                                                (select TOP 1 IDChatlieu from ChatLieu where ChatlieuSP = ?),
-                                                                                (select TOP 1 IDMatDe from MatDe where MatDeSP = ?),
-                                                                                (select TOP 1 IDDay from Dayy where dAYsp = ?),
-                                                                                ?,?,?,?,?,?,?,?)
-                                        
-                    """;
-        try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setObject(1, ctsp.getIdhangsx());
-            ps.setObject(2, ctsp.getIddongsp());
-            ps.setObject(3, ctsp.getIdphoimau());
-            ps.setObject(4, ctsp.getIdsize());
-            ps.setObject(5, ctsp.getIddoday());
-            ps.setObject(6, ctsp.getIdchatlieu());
-            ps.setObject(7, ctsp.getIdmatde());
-            ps.setObject(8, ctsp.getIdday());
-            ps.setObject(9, ctsp.getGhichu());
-            ps.setObject(10, ctsp.getGiaban());
-            ps.setObject(11, ctsp.getDelete());
-            ps.setObject(12, ctsp.getCreateat());
-            ps.setObject(13, ctsp.getCreateby());
-            ps.setObject(14, ctsp.getUpdateat());
-            ps.setObject(15, ctsp.getUpdateby());
-            ps.setObject(16, ctsp.getSoluong());
-            check = ps.executeUpdate();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return check > 0;
+ public boolean Add(chitietsanpham ctsp) {
+    int check = 0;
+    String sql = "INSERT INTO [dbo].[ChiTietSP] " +
+            "([MaCTSP], [IDHangSX], [IDDongSP], [IDPhoiMau], [IDSize], [IDDoDay], [IDChatlieu], [IDMatDe], [IDDay], [Ghichu], [Giaban], [Deleted], [CreatedAt], [CreatedBy], [UpdatedAt], [UpdatedBy], [Soluong]) " +
+            "VALUES (?, (select TOP 1 IDhsx from HSX where TenHang = ?), (select TOP 1 IDdsp from DSP where TenDSP = ?), (select TOP 1 IDMau from PhoiMau where TenMau = ?), " +
+            "(select TOP 1 IDSize from Size where SizeSP = ?), (select TOP 1 IDDoday from DoDay where doDaySP = ?), (select TOP 1 IDChatlieu from ChatLieu where ChatlieuSP = ?), " +
+            "(select TOP 1 IDMatDe from MatDe where MatDeSP = ?), (select TOP 1 IDDay from Dayy where dAYsp = ?), ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+        int randomNumber = (int) (Math.random() * 1000) + 1;
+        String CTSP = "CTSP" + randomNumber;
+        
+        // Set the generated 'MaCTSP' value into the prepared statement
+        ps.setObject(1, CTSP);
+        ps.setObject(2, ctsp.getIdhangsx());
+        ps.setObject(3, ctsp.getIddongsp());
+        ps.setObject(4, ctsp.getIdphoimau());
+        ps.setObject(5, ctsp.getIdsize());
+        ps.setObject(6, ctsp.getIddoday());
+        ps.setObject(7, ctsp.getIdchatlieu());
+        ps.setObject(8, ctsp.getIdmatde());
+        ps.setObject(9, ctsp.getIdday());
+        ps.setObject(10, ctsp.getGhichu());
+        ps.setObject(11, ctsp.getGiaban());
+        ps.setObject(12, ctsp.getDelete());
+        ps.setObject(13, ctsp.getCreateat());
+        ps.setObject(14, ctsp.getCreateby());
+        ps.setObject(15, ctsp.getUpdateat());
+        ps.setObject(16, ctsp.getUpdateby());
+        ps.setObject(17, ctsp.getSoluong());
+
+        // Execute the query
+        check = ps.executeUpdate();
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+    return check > 0;
+}
+
 
     public boolean Xoa(String xoa) {
         int check = 0;

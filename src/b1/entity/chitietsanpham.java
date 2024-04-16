@@ -29,11 +29,12 @@ public class chitietsanpham {
     private Date Updateat;
     private String updateby;
     private String trangthai;
-    private int  soluong;
+    private int soluong;
+
     public chitietsanpham() {
     }
 
-    public chitietsanpham(String idhangsx, String iddongsp, String idphoimau, String idsize, String iddoday, String idchatlieu, String idmatde, String idday, int giaban, int delete,int soluong) {
+    public chitietsanpham(String idhangsx, String iddongsp, String idphoimau, String idsize, String iddoday, String idchatlieu, String idmatde, String idday, int giaban, int delete, int soluong) {
         this.idhangsx = idhangsx;
         this.iddongsp = iddongsp;
         this.idphoimau = idphoimau;
@@ -44,7 +45,22 @@ public class chitietsanpham {
         this.idday = idday;
         this.giaban = giaban;
         this.delete = delete;
-         this.soluong = soluong;
+        this.soluong = soluong;
+    }
+
+    public chitietsanpham(String masp, String idhangsx, String iddongsp, String idphoimau, String idsize, String iddoday, String idchatlieu, String idmatde, String idday, int giaban, int delete, int soluong) {
+        this.masp = masp;
+        this.idhangsx = idhangsx;
+        this.iddongsp = iddongsp;
+        this.idphoimau = idphoimau;
+        this.idsize = idsize;
+        this.iddoday = iddoday;
+        this.idchatlieu = idchatlieu;
+        this.idmatde = idmatde;
+        this.idday = idday;
+        this.giaban = giaban;
+        this.delete = delete;
+        this.soluong = soluong;
     }
 
     public chitietsanpham(String masp, String ghichu, int delete, int soluong) {
@@ -53,9 +69,6 @@ public class chitietsanpham {
         this.delete = delete;
         this.soluong = soluong;
     }
-
-    
-    
 
     public String getMasp() {
         return masp;
@@ -205,12 +218,5 @@ public class chitietsanpham {
     public String toString() {
         return "chitietsanpham{" + "masp=" + masp + ", idhangsx=" + idhangsx + ", iddongsp=" + iddongsp + ", idphoimau=" + idphoimau + ", idsize=" + idsize + ", iddoday=" + iddoday + ", idchatlieu=" + idchatlieu + ", idmatde=" + idmatde + ", idday=" + idday + ", ghichu=" + ghichu + ", giaban=" + giaban + ", delete=" + delete + ", createat=" + createat + ", createby=" + createby + ", Updateat=" + Updateat + ", updateby=" + updateby + ", trangthai=" + trangthai + ", soluong=" + soluong + '}';
     }
-
-   
-
-    
-
-
-    
 
 }
