@@ -28,6 +28,7 @@ import b1.services.dayservices;
 import b1.services.hangsxservices;
 import b1.services.tenmauservices;
 import b1.View.chucnang.quetmaqr.QRCodeListener;
+import b1.View.chucnang.themdanhsachsanpham;
 import com.itextpdf.text.Font;
 import java.util.ArrayList;
 import java.util.List;
@@ -511,41 +512,43 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
             @Override
             public void mouseClicked(MouseEvent e) {
                 if (e.getClickCount() == 2) {
-                    int selectedRow = tbldanhsachsanpham.getSelectedRow();
-                    if (selectedRow != -1) {
-                        String maSP = tbldanhsachsanpham.getValueAt(selectedRow, 1).toString();
-                        String tenSanPham = tbldanhsachsanpham.getValueAt(selectedRow, 2).toString();
-                        String hang = tbldanhsachsanpham.getValueAt(selectedRow, 3).toString();
-                        String mau = tbldanhsachsanpham.getValueAt(selectedRow, 4).toString();
-                        String size = tbldanhsachsanpham.getValueAt(selectedRow, 5).toString();
-                        String chatlieu = tbldanhsachsanpham.getValueAt(selectedRow, 6).toString();
-                        String day = tbldanhsachsanpham.getValueAt(selectedRow, 7).toString();
-                        String giaBan = tbldanhsachsanpham.getValueAt(selectedRow, 9).toString();
-                        int soLuongTrongBang = Integer.parseInt(tbldanhsachsanpham.getValueAt(selectedRow, 8).toString());
-
-                        if (soLuongTrongBang > 0) {
-                            int soLuong = nhapSoLuong();
-
-                            if (soLuong > 0 && soLuong <= soLuongTrongBang) {
-                                for (sanphamchitietviewmodel object : listsp) {
-                                    if (object.getMctsp().equals(maSP)) {
-                                        object.setSoluong(object.getSoluong() - soLuong);
-                                    }
-                                }
-                                // Thêm sản phẩm vào giỏ hàng
-                                addToCart(maSP, tenSanPham, hang, mau, size, chatlieu, day, soLuong, giaBan);
-                                showdata(listsp);
-                                rowCount++;
-                                updateTotalAmount();
-                            } else if (soLuong > soLuongTrongBang) {
-                                JOptionPane.showMessageDialog(null, "Không đủ hàng.");
-                            } else {
-                                JOptionPane.showMessageDialog(null, "Vui lòng nhập số nguyên dương lớn hơn 0.");
-                            }
-                        } else {
-                            JOptionPane.showMessageDialog(null, "Số lượng sản phẩm đã hết.");
-                        }
-                    }
+                    themdanhsachsanpham tdssp = new themdanhsachsanpham();
+                    tdssp.setVisible(true);
+//                    int selectedRow = tbldanhsachsanpham.getSelectedRow();
+//                    if (selectedRow != -1) {
+//                        String maSP = tbldanhsachsanpham.getValueAt(selectedRow, 1).toString();
+//                        String tenSanPham = tbldanhsachsanpham.getValueAt(selectedRow, 2).toString();
+//                        String hang = tbldanhsachsanpham.getValueAt(selectedRow, 3).toString();
+//                        String mau = tbldanhsachsanpham.getValueAt(selectedRow, 4).toString();
+//                        String size = tbldanhsachsanpham.getValueAt(selectedRow, 5).toString();
+//                        String chatlieu = tbldanhsachsanpham.getValueAt(selectedRow, 6).toString();
+//                        String day = tbldanhsachsanpham.getValueAt(selectedRow, 7).toString();
+//                        String giaBan = tbldanhsachsanpham.getValueAt(selectedRow, 9).toString();
+//                        int soLuongTrongBang = Integer.parseInt(tbldanhsachsanpham.getValueAt(selectedRow, 8).toString());
+//
+//                        if (soLuongTrongBang > 0) {
+//                            int soLuong = nhapSoLuong();
+//
+//                            if (soLuong > 0 && soLuong <= soLuongTrongBang) {
+//                                for (sanphamchitietviewmodel object : listsp) {
+//                                    if (object.getMctsp().equals(maSP)) {
+//                                        object.setSoluong(object.getSoluong() - soLuong);
+//                                    }
+//                                }
+//                                // Thêm sản phẩm vào giỏ hàng
+//                                addToCart(maSP, tenSanPham, hang, mau, size, chatlieu, day, soLuong, giaBan);
+//                                showdata(listsp);
+//                                rowCount++;
+//                                updateTotalAmount();
+//                            } else if (soLuong > soLuongTrongBang) {
+//                                JOptionPane.showMessageDialog(null, "Không đủ hàng.");
+//                            } else {
+//                                JOptionPane.showMessageDialog(null, "Vui lòng nhập số nguyên dương lớn hơn 0.");
+//                            }
+//                        } else {
+//                            JOptionPane.showMessageDialog(null, "Số lượng sản phẩm đã hết.");
+//                        }
+//                    }
                 }
             }
         });
@@ -2065,8 +2068,8 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
                             .addComponent(buttonGradient10, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(txtSearchGH, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18))
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
         );
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
