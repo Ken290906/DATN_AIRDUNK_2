@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package b1.repository;
+import ViewModelSP.sanphamviewmodel;
 import b1.entity.DongSanPham;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -46,6 +47,35 @@ public class dongsanphamrepo {
                 listdsp.add(hsx);
             }
         } catch (Exception e) {
+        }
+        return listdsp;
+    }
+     public List<DongSanPham> Search(String timkiem) {
+         List<DongSanPham> listdsp = new ArrayList<>();
+        String sql = """
+             SELECT [IDdsp]
+                                          ,[TenDSP]                                                                            
+                                          ,[soluong]                                    
+                                      FROM [dbo].[DSP]                                 
+                       Where TenDSP LIKE ?  OR IDdsp LIKE ? OR soluong LIKE ? 
+                     """;
+        try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setObject(1, '%' + timkiem + '%');
+            ps.setObject(2, '%' + timkiem + '%');
+             ps.setObject(3,  timkiem );
+ 
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                DongSanPham hsx = new DongSanPham();
+                hsx.setIDdsp(rs.getString(1));
+                hsx.setTendsp(rs.getString(2));   
+                hsx.setSoluong(rs.getInt(3));            
+                listdsp.add(hsx);
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return listdsp;
     }

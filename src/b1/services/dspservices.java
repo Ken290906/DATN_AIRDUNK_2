@@ -17,4 +17,7 @@ public class dspservices {
     public List<DongSanPham> getall(){
         return dspr.getall();
     }
+    public List<DongSanPham> search(String timkiem){
+        return dspr.Search(timkiem);
+    }
 }

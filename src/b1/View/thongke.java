@@ -4,7 +4,16 @@
  */
 package b1.View;
 
-
+import ViewModelHD.HoaDon;
+import ViewModelSP.sanphamviewmodel;
+import b1.entity.DongSanPham;
+import b1.entity.HoaDonBH;
+import b1.entity.chitietsanpham;
+import b1.services.HoaDonBHService;
+import b1.services.HoaDonService;
+import b1.services.chitietsanphamp2services;
+import b1.services.chitietsanphamservices;
+import b1.services.dspservices;
 import com.raven.chart.ModelChart;
 
 import java.awt.Color;
@@ -28,15 +37,28 @@ import org.jdesktop.animation.timing.TimingTarget;
 import org.jdesktop.animation.timing.interpolation.PropertySetter;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
 /**
  *
  * @author DELL
  */
 public class thongke extends javax.swing.JInternalFrame {
-    
-   
-  
-    
+
+    private DefaultTableModel bang = new DefaultTableModel();
+    private List<HoaDon> hdb = new ArrayList<>();
+    private List<sanphamviewmodel> spvm = new ArrayList<>();
+    private HoaDonService bhs = new HoaDonService();
+    private DefaultTableModel bang2 = new DefaultTableModel();
+    private List<DongSanPham> listdsp = new ArrayList<>();
+    private dspservices dsps = new dspservices();
+    private chitietsanphamservices sps2 = new chitietsanphamservices();
+    DecimalFormat VND = new DecimalFormat("#,##0 đ");
+
     /**
      * Creates new form gd1
      */
@@ -45,21 +67,138 @@ public class thongke extends javax.swing.JInternalFrame {
         this.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
+        bang = (DefaultTableModel) tblthongke.getModel();
+        hdb = bhs.getAll();
+        bang2 = (DefaultTableModel) tblsanphamhot.getModel();
+        listdsp = dsps.getall();
+        showdatasp(listdsp);
+        showdata(hdb);
         getContentPane().setBackground(new Color(250, 250, 250));
-        
         chart1.addLegend("Doanh Thu", new Color(245, 189, 135));
         chart1.addLegend("Số Hóa Đơn Đc Giao", new Color(135, 189, 245));
         chart1.addLegend("Số Lượng Bom Hàng", new Color(189, 135, 245));
         chart1.addLegend("Số lượng khách hàng", new Color(139, 229, 222));
         chart1.addData(new ModelChart("T1", new double[]{500, 200, 80, 89}));
-      
-        
-       
+        chart1.addData(new ModelChart("T2", new double[]{300, 100, 180, 389}));
+        chart1.addData(new ModelChart("T3", new double[]{220, 300, 40, 39}));
+        chart1.addData(new ModelChart("T4", new double[]{140, 220, 80, 19}));
+        chart1.addData(new ModelChart("T5", new double[]{140, 220, 80, 19}));
+        chart1.addData(new ModelChart("T6", new double[]{140, 220, 80, 19}));
+        chart1.addData(new ModelChart("T7", new double[]{140, 220, 80, 19}));
+        chart1.addData(new ModelChart("T8", new double[]{140, 220, 80, 19}));
+        chart1.addData(new ModelChart("T9", new double[]{140, 220, 80, 19}));
+        chart1.addData(new ModelChart("T10", new double[]{140, 220, 80, 19}));
+        chart1.addData(new ModelChart("T11", new double[]{140, 220, 80, 19}));
+        chart1.addData(new ModelChart("T12", new double[]{140, 220, 80, 19}));
+        cbbthongke.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String chon = (String) cbbthongke.getSelectedItem();
+                getContentPane().setBackground(new Color(250, 250, 250)); // Setting background color
 
+                // Clear existing legends and data
+                // Add legends and data based on selection
+                if (chon.equals("T1")) {
+                    chart1.clear();
+                    chart1.addData(new ModelChart("T1", new double[]{380, 200, 180, 89}));
+                    chart1.start();
+                } else if (chon.equals("T2")) {
+                    chart1.clear();
+                    chart1.addData(new ModelChart("T2", new double[]{300, 100, 180, 389}));
+                    chart1.start();
+                } else if (chon.equals("T3")) {
+                    chart1.clear();
+                    chart1.addData(new ModelChart("T3", new double[]{220, 300, 40, 39}));
+                    chart1.start();
+                } // Add more conditions as needed
+                else if (chon.equals("T4")) {
+                    chart1.clear();
+                    chart1.addData(new ModelChart("T4", new double[]{140, 220, 80, 19}));
+                    chart1.start();
+                } // Add more conditions as needed
+                else if (chon.equals("T5")) {
+                    chart1.clear();
+                    chart1.addData(new ModelChart("T5", new double[]{0, 0, 0, 0}));
+                    chart1.start();
+                } // Add more conditions as needed
+                else if (chon.equals("T6")) {
+                    chart1.clear();
+                    chart1.addData(new ModelChart("T6", new double[]{0, 0, 0, 0}));
+                    chart1.start();
+                } // Add more conditions as needed
+                else if (chon.equals("T7")) {
+                    chart1.clear();
+                    chart1.addData(new ModelChart("T7", new double[]{0, 0, 0, 0}));
+                    chart1.start();
+                } // Add more conditions as needed
+                else if (chon.equals("T8")) {
+                    chart1.clear();
+                    chart1.addData(new ModelChart("T8", new double[]{0, 0, 0, 0}));
+                    chart1.start();
+                } // Add more conditions as needed
+                else if (chon.equals("T9")) {
+                    chart1.clear();
+                    chart1.addData(new ModelChart("T9", new double[]{0, 0, 0, 0}));
+                    chart1.start();
+                } // Add more conditions as needed
+                else if (chon.equals("T10")) {
+                    chart1.clear();
+                    chart1.addData(new ModelChart("T10", new double[]{0, 0, 0, 0}));
+                    chart1.start();
+                } // Add more conditions as needed
+                else if (chon.equals("T11")) {
+                    chart1.clear();
+                    chart1.addData(new ModelChart("T11", new double[]{0, 0, 0, 0}));
+                    chart1.start();
+                } // Add more conditions as needed
+                else if (chon.equals("T12")) {
+                    chart1.clear();
+                    chart1.addData(new ModelChart("T12", new double[]{0, 0, 0, 0}));
+                    chart1.start();
+                } // Add more conditions as needed
+            }
+        });
+        txtsearchsp.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                searchsp();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                searchsp();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                searchsp();
+            }
+
+        });
     }
-    
 
-    
+    private void searchsp() {
+        listdsp = dsps.search(txtsearchsp.getText());
+        showdatasp(listdsp);
+    }
+
+    public void showdata(List<HoaDon> list) {
+        bang.setRowCount(0);
+        int i = 0;
+        for (HoaDon hoaDonBH : list) {
+            i++;
+            String HD = VND.format(hoaDonBH.getTongTien());
+            bang.addRow(new Object[]{i, hoaDonBH.getMaHD(), hoaDonBH.getNgaytaoHD(), HD});
+        }
+    }
+
+    public void showdatasp(List<DongSanPham> list) {
+        bang2.setRowCount(0);
+        int i = 0;
+        for (DongSanPham object : list) {
+            bang2.addRow(new Object[]{i, object.getIDdsp(), object.getTendsp(), object.getSoluong()});
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -89,6 +228,17 @@ public class thongke extends javax.swing.JInternalFrame {
         jPanel7 = new javax.swing.JPanel();
         chart1 = new com.raven.chart.Chart();
         buttonGradient1 = new b1.View.chucnang.ButtonGradient();
+        cbbthongke = new b1.View.Combobox();
+        jPanel6 = new javax.swing.JPanel();
+        jPanel8 = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        tblthongke = new javax.swing.JTable();
+        txtsearchhd = new b1.View.chucnang.TextField();
+        jPanel9 = new javax.swing.JPanel();
+        jPanel10 = new javax.swing.JPanel();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tblsanphamhot = new javax.swing.JTable();
+        txtsearchsp = new b1.View.chucnang.TextField();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -188,7 +338,7 @@ public class thongke extends javax.swing.JInternalFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel8)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         jPanel5.setBackground(new java.awt.Color(191, 170, 231));
@@ -221,7 +371,7 @@ public class thongke extends javax.swing.JInternalFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel5)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -275,28 +425,199 @@ public class thongke extends javax.swing.JInternalFrame {
             }
         });
 
+        cbbthongke.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "T1", "T2", "T3", "T4", "T5", "T6", "T7", "T8", "T9", "T10", "T11", "T12" }));
+        cbbthongke.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        cbbthongke.setLabeText("Tháng ");
+        cbbthongke.setName(""); // NOI18N
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(chart1, javax.swing.GroupLayout.PREFERRED_SIZE, 1038, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 176, Short.MAX_VALUE)
+                .addComponent(chart1, javax.swing.GroupLayout.PREFERRED_SIZE, 1172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addComponent(buttonGradient1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
+            .addGroup(jPanel7Layout.createSequentialGroup()
+                .addGap(62, 62, 62)
+                .addComponent(cbbthongke, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(159, 159, 159)
                 .addComponent(buttonGradient1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(jPanel7Layout.createSequentialGroup()
-                .addComponent(chart1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 33, Short.MAX_VALUE))
+                .addContainerGap(235, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(cbbthongke, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(chart1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         panel1.addTab("Biểu Đồ", jPanel7);
+
+        jPanel8.setBackground(new java.awt.Color(255, 255, 255));
+
+        tblthongke.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        tblthongke.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "STT", "Mã Hóa Đơn", "Ngày Tạo", "Tổng Tiền"
+            }
+        ));
+        tblthongke.setGridColor(new java.awt.Color(255, 255, 255));
+        tblthongke.setRowHeight(40);
+        tblthongke.setSelectionBackground(new java.awt.Color(0, 204, 204));
+        tblthongke.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblthongkeMouseClicked(evt);
+            }
+        });
+        jScrollPane4.setViewportView(tblthongke);
+
+        txtsearchhd.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtsearchhd.setLabelText("Tìm kiếm tt");
+
+        javax.swing.GroupLayout jPanel8Layout = new javax.swing.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1372, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtsearchhd, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(44, Short.MAX_VALUE)
+                .addComponent(txtsearchhd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel6Layout.createSequentialGroup()
+                .addComponent(jPanel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        panel1.addTab("Bảng thông tin", jPanel6);
+
+        jPanel10.setBackground(new java.awt.Color(255, 255, 255));
+
+        tblsanphamhot.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        tblsanphamhot.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "STT", "Mã Sản Phẩm", "Tên Sản Phẩm", "Số lượng hàng"
+            }
+        ));
+        tblsanphamhot.setGridColor(new java.awt.Color(255, 255, 255));
+        tblsanphamhot.setRowHeight(40);
+        tblsanphamhot.setSelectionBackground(new java.awt.Color(0, 204, 204));
+        tblsanphamhot.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblsanphamhotMouseClicked(evt);
+            }
+        });
+        jScrollPane5.setViewportView(tblsanphamhot);
+
+        txtsearchsp.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        txtsearchsp.setLabelText("Tìm kiếm tt");
+
+        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
+        jPanel10.setLayout(jPanel10Layout);
+        jPanel10Layout.setHorizontalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel10Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1372, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtsearchsp, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28))
+        );
+        jPanel10Layout.setVerticalGroup(
+            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
+                .addContainerGap(44, Short.MAX_VALUE)
+                .addComponent(txtsearchsp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+
+        javax.swing.GroupLayout jPanel9Layout = new javax.swing.GroupLayout(jPanel9);
+        jPanel9.setLayout(jPanel9Layout);
+        jPanel9Layout.setHorizontalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        jPanel9Layout.setVerticalGroup(
+            jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel9Layout.createSequentialGroup()
+                .addComponent(jPanel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        panel1.addTab("Bảng Sản Phảm đang hot", jPanel9);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -322,16 +643,37 @@ public class thongke extends javax.swing.JInternalFrame {
 
     private void buttonGradient1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonGradient1MouseClicked
         // TODO add your handling code here:
-          chart1.clear();
+        chart1.clear();
         chart1.addData(new ModelChart("T1", new double[]{380, 200, 180, 89}));
-       
+        chart1.addData(new ModelChart("T2", new double[]{300, 100, 180, 389}));
+        chart1.addData(new ModelChart("T3", new double[]{220, 300, 40, 39}));
+        chart1.addData(new ModelChart("T4", new double[]{140, 220, 80, 19}));
+        chart1.addData(new ModelChart("T5", new double[]{0, 0, 0, 0}));
+        chart1.addData(new ModelChart("T6", new double[]{0, 0, 0, 0}));
+        chart1.addData(new ModelChart("T7", new double[]{0, 0, 0, 0}));
+        chart1.addData(new ModelChart("T8", new double[]{0, 0, 0, 0}));
+        chart1.addData(new ModelChart("T9", new double[]{0, 0, 0, 0}));
+        chart1.addData(new ModelChart("T10", new double[]{0, 0, 0, 0}));
+        chart1.addData(new ModelChart("T11", new double[]{0, 0, 0, 0}));
+        chart1.addData(new ModelChart("T12", new double[]{0, 0, 0, 0}));
+
         chart1.start();
     }//GEN-LAST:event_buttonGradient1MouseClicked
+
+    private void tblthongkeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblthongkeMouseClicked
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_tblthongkeMouseClicked
+
+    private void tblsanphamhotMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblsanphamhotMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblsanphamhotMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private b1.View.chucnang.ButtonGradient buttonGradient1;
     private javax.swing.ButtonGroup buttonGroup1;
+    private b1.View.Combobox cbbthongke;
     private com.raven.chart.Chart chart1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -343,11 +685,21 @@ public class thongke extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
+    private javax.swing.JPanel jPanel9;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private b1.View.chucnang.Panel panel1;
+    private javax.swing.JTable tblsanphamhot;
+    private javax.swing.JTable tblthongke;
+    private b1.View.chucnang.TextField txtsearchhd;
+    private b1.View.chucnang.TextField txtsearchsp;
     // End of variables declaration//GEN-END:variables
 }

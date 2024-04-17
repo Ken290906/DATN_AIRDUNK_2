@@ -1697,7 +1697,7 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
             int sua = tblhienthisanpham.getSelectedRow();
             DongSanPham spvm = listdsp.get(sua);
 
-            sps.Sua(getformdatasp(), spvm.getIDdsp());
+            JOptionPane.showMessageDialog(this, sps.Sua(getformdatasp(), spvm.getIDdsp()));
             listdsp = dsps.getall();
             showdata(listdsp);
             JOptionPane.showMessageDialog(this, "Đã Update thành công");
@@ -1757,7 +1757,7 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
             JOptionPane.showMessageDialog(this, sps.Add(getformdatasp()));
             listdsp = dsps.getall();
             showdata(listdsp);
-            JOptionPane.showMessageDialog(this, "Đã Add thành công");
+           
         }
         if (dk == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(this, "Bạn đã bỏ qua");
