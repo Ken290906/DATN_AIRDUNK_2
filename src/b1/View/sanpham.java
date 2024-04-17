@@ -1142,7 +1142,7 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
         jPanel8.setBackground(new java.awt.Color(255, 255, 255));
         jPanel8.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        cbbphoimau.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Xanh", "Đỏ", "Xanh nhạt", "Xanh Lá", "Nâu", "Hồng", "Cam", "Xám", "Đen", "Nau Do" }));
+        cbbphoimau.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Xanh", "Đỏ", "Xanh nhạt", "Xanh Lá", "Nâu", "Hồng", "Cam", "Xám", "Đen", "Nau Do" }));
         cbbphoimau.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cbbphoimau.setLabeText("Phối màu");
 
@@ -1160,7 +1160,7 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
             }
         });
 
-        cbbday.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Dây xanh", "Dây Trắng", "Dây Đen", "Dây Trăng lai Đen", "Dây Đỏ", "Dây 2light", "Dây Đỏ lai Xanh", "Dây Xám", "Dây Phát Sáng", "Dây Hồng" }));
+        cbbday.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Dây Xanh", "Dây Trắng", "Dây Đen", "Dây Trắng lai Đen", "Dây Đỏ", "Dây 2light", "Dây Đỏ lai Xanh", "Dây Xám", "Dây Phát Xám", "Dây Hồng" }));
         cbbday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         cbbday.setLabeText("Dây");
         cbbday.setPreferredSize(new java.awt.Dimension(200, 42));
