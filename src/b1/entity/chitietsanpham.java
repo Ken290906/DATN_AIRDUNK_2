@@ -48,20 +48,20 @@ public class chitietsanpham {
         this.soluong = soluong;
     }
 
-    public chitietsanpham(String masp, String idhangsx, String iddongsp, String idphoimau, String idsize, String iddoday, String idchatlieu, String idmatde, String idday, int giaban, int delete, int soluong) {
-        this.masp = masp;
-        this.idhangsx = idhangsx;
-        this.iddongsp = iddongsp;
-        this.idphoimau = idphoimau;
-        this.idsize = idsize;
-        this.iddoday = iddoday;
-        this.idchatlieu = idchatlieu;
-        this.idmatde = idmatde;
-        this.idday = idday;
-        this.giaban = giaban;
-        this.delete = delete;
-        this.soluong = soluong;
-    }
+//    public chitietsanpham(String masp, String idhangsx, String iddongsp, String idphoimau, String idsize, String iddoday, String idchatlieu, String idmatde, String idday, int giaban, int delete, int soluong) {
+//        this.masp = masp;
+//        this.idhangsx = idhangsx;
+//        this.iddongsp = iddongsp;
+//        this.idphoimau = idphoimau;
+//        this.idsize = idsize;
+//        this.iddoday = iddoday;
+//        this.idchatlieu = idchatlieu;
+//        this.idmatde = idmatde;
+//        this.idday = idday;
+//        this.giaban = giaban;
+//        this.delete = delete;
+//        this.soluong = soluong;
+//    }
 
     public chitietsanpham(String masp, String ghichu, int delete, int soluong) {
         this.masp = masp;

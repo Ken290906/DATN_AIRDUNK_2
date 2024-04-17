@@ -191,14 +191,10 @@ public class sanphamthem extends javax.swing.JFrame {
         }
 
     }
-    private String generateRandomCTSP() {
-        Random rand = new Random();
-        int randomNumber = rand.nextInt(1000) + 1;
-        return "CTSP" + randomNumber;
-    }
+   
 
     public chitietsanpham getformdata() {
-        String CTSP = generateRandomCTSP();
+     
         String HSX = (String) cbbhang.getSelectedItem();
         String IDDSP = (String) cbbten.getSelectedItem();
         String IDPM = (String) cbbphoimau.getSelectedItem();
@@ -240,7 +236,7 @@ public class sanphamthem extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Không có loại size nào bé như thế");
             return null;
         }
-        chitietsanpham ctsp1 = new chitietsanpham(CTSP,HSX, IDDSP, IDPM, IDS, IDDD, IDCL, IDMD, IDD, Integer.valueOf(GB), 0, Integer.valueOf(SL));
+        chitietsanpham ctsp1 = new chitietsanpham(HSX, IDDSP, IDPM, IDS, IDDD, IDCL, IDMD, IDD, Integer.valueOf(GB), 0, Integer.valueOf(SL));
         return ctsp1;
     }
 
