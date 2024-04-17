@@ -307,15 +307,16 @@ public class chitietsanphamviewmodelRepo {
     public List<sanphamchitietviewmodel> Searchbanhang(String timkiem) {
         List<sanphamchitietviewmodel> listsanpham = new ArrayList<>();
         String sql = """
-SELECT        dbo.ChiTietSP.MaCTSP, dbo.DSP.TenDSP, dbo.HSX.TenHang, dbo.PhoiMau.TenMau, dbo.Size.SizeSP, dbo.ChatLieu.ChatlieuSP, dbo.Dayy.dAYsp, dbo.ChiTietSP.Soluong, dbo.ChiTietSP.Giaban
- FROM            dbo.ChiTietSP INNER JOIN
-                          dbo.DSP ON dbo.ChiTietSP.IDDongSP = dbo.DSP.IDdsp INNER JOIN
-                          dbo.HSX ON dbo.ChiTietSP.IDHangSX = dbo.HSX.IDhsx INNER JOIN
-                          dbo.PhoiMau ON dbo.ChiTietSP.IDPhoiMau = dbo.PhoiMau.IDMau INNER JOIN
-                          dbo.Size ON dbo.ChiTietSP.IDSize = dbo.Size.IDSize INNER JOIN
-                          dbo.ChatLieu ON dbo.ChiTietSP.IDChatlieu = dbo.ChatLieu.IDChatlieu INNER JOIN
-                          dbo.Dayy ON dbo.ChiTietSP.IDDay = dbo.Dayy.IDDay
-						  Where ChiTietSP.Deleted = '0' And MaCTSP Like ? or  DSP.TenDSP Like ? or Soluong Like ? or Size.SizeSP  Like ? or Giaban Like ? or HSX.TenHang Like ? or PhoiMau.TenMau Like ? or Size.SizeSP = ? or ChatLieu.ChatlieuSP Like ? or Dayy.dAYsp Like ?                     
+SELECT dbo.ChiTietSP.MaCTSP, dbo.DSP.TenDSP, dbo.HSX.TenHang, dbo.PhoiMau.TenMau, dbo.Size.SizeSP, dbo.ChatLieu.ChatlieuSP, dbo.Dayy.dAYsp, dbo.ChiTietSP.Soluong, dbo.ChiTietSP.Giaban
+FROM dbo.ChiTietSP
+INNER JOIN dbo.DSP ON dbo.ChiTietSP.IDDongSP = dbo.DSP.IDdsp
+INNER JOIN dbo.HSX ON dbo.ChiTietSP.IDHangSX = dbo.HSX.IDhsx
+INNER JOIN dbo.PhoiMau ON dbo.ChiTietSP.IDPhoiMau = dbo.PhoiMau.IDMau
+INNER JOIN dbo.Size ON dbo.ChiTietSP.IDSize = dbo.Size.IDSize
+INNER JOIN dbo.ChatLieu ON dbo.ChiTietSP.IDChatlieu = dbo.ChatLieu.IDChatlieu
+INNER JOIN dbo.Dayy ON dbo.ChiTietSP.IDDay = dbo.Dayy.IDDay
+WHERE dbo.ChiTietSP.Deleted = '0'
+AND (dbo.ChiTietSP.MaCTSP LIKE ? OR dbo.DSP.TenDSP LIKE ? OR dbo.ChiTietSP.Soluong LIKE ? OR dbo.Size.SizeSP LIKE ? OR dbo.ChiTietSP.Giaban LIKE ? OR dbo.HSX.TenHang LIKE ? OR dbo.PhoiMau.TenMau LIKE ? OR dbo.Size.SizeSP = ? OR dbo.ChatLieu.ChatlieuSP LIKE ? OR dbo.Dayy.dAYsp LIKE ?)
                        """;
         try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setObject(1, '%' + timkiem + '%');
