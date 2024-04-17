@@ -191,10 +191,15 @@ public class sanphamthem extends javax.swing.JFrame {
         }
 
     }
-   
+
+    private String generateRandomCTSP() {
+        Random rand = new Random();
+        int randomNumber = rand.nextInt(1000) + 1;
+        return "CTSP" + randomNumber;
+    }
 
     public chitietsanpham getformdata() {
-     
+        String CTSP = generateRandomCTSP();
         String HSX = (String) cbbhang.getSelectedItem();
         String IDDSP = (String) cbbten.getSelectedItem();
         String IDPM = (String) cbbphoimau.getSelectedItem();
@@ -493,7 +498,7 @@ public class sanphamthem extends javax.swing.JFrame {
         viewThemThuocTinhSP.add(panelCTSP, BorderLayout.CENTER);
         viewThemThuocTinhSP.revalidate();
         viewThemThuocTinhSP.repaint();
-       
+
         sp.setVisible(true);
         sp.showdata2(listviewmodel);
     }//GEN-LAST:event_btnbackActionPerformed
