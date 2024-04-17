@@ -13,6 +13,7 @@ public class HoaDonChiTiet {
     private String maHDCT;
     private String maHD;
     private String idCTSP;
+    private int Soluong;
     private float donGia;
     private String hang;
     private String mau;
@@ -57,6 +58,14 @@ public class HoaDonChiTiet {
         this.idCTSP = idCTSP;
     }
 
+    public int getSoluong() {
+        return Soluong;
+    }
+
+    public void setSoluong(int Soluong) {
+        this.Soluong = Soluong;
+    }
+    
     public float getDonGia() {
         return donGia;
     }

@@ -268,8 +268,10 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
     private String SearchTT(String trangthai) {
         if ("1".equalsIgnoreCase(trangthai)) {
             return "Chưa thanh toán";
-        } else {
+        } else if("0".equalsIgnoreCase(trangthai)) {
             return "Đã thanh toán";
+        } else {
+            return "Đã hủy";
         }
     }
 
@@ -354,6 +356,8 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
             String tt = "";
             if (hd.getTrangThai() == 0) {
                 tt = "Đã thanh toán";
+            } else if(hd.getTrangThai() == 3) {
+                tt = "Đã hủy";
             } else {
                 tt = "Chưa thanh toán";
             }
@@ -599,7 +603,7 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
             }
         });
 
-        cbbTrangthai.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Đã thanh toán", "Chưa thanh toán" }));
+        cbbTrangthai.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "", "Đã thanh toán", "Chưa thanh toán", "Đã hủy" }));
         cbbTrangthai.setLabeText("Trạng thái");
         cbbTrangthai.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -721,13 +725,13 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
 
         TblHDCT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "MÃ HÓA ĐƠN", "MÃ HÓA ĐƠN CHI TIẾT", "MÃ CHI TIẾT SẢN PHẨM", "HÃNG", "MÀU", "SIZE", "ĐỘ DÀY", "CHẤT LIỆU", "MẶT ĐẾ", "DÂY", "ĐƠN GIÁ"
+                "STT", "MÃ HÓA ĐƠN", "MÃ HÓA ĐƠN CHI TIẾT", "MÃ CHI TIẾT SẢN PHẨM", "SỐ LƯỢNG", "HÃNG", "MÀU", "SIZE", "ĐỘ DÀY", "CHẤT LIỆU", "MẶT ĐẾ", "DÂY", "ĐƠN GIÁ"
             }
         ));
         TblHDCT.setGridColor(new java.awt.Color(255, 255, 255));

@@ -22,7 +22,7 @@ public class HDCTRepository {
         List<HoaDonChiTiet> list = new ArrayList<>();
         
         String sql = """
-                     SELECT        dbo.HoaDon.MaHD, dbo.HoaDonChiTiet.MaHDCT, dbo.ChiTietSP.MaCTSP, dbo.HoaDonChiTiet.DonGia, dbo.HSX.TenHang, dbo.PhoiMau.TenMau, dbo.Size.SizeSP, dbo.DoDay.doDaySP, dbo.ChatLieu.ChatlieuSP, 
+                     SELECT        dbo.HoaDon.MaHD, dbo.HoaDonChiTiet.MaHDCT, dbo.ChiTietSP.MaCTSP, dbo.ChiTietSP.Soluong, dbo.HoaDonChiTiet.DonGia, dbo.HSX.TenHang, dbo.PhoiMau.TenMau, dbo.Size.SizeSP, dbo.DoDay.doDaySP, dbo.ChatLieu.ChatlieuSP, 
                                                                                                 dbo.MatDe.MatDeSP, dbo.Dayy.dAYsp
                                                                        FROM            dbo.HoaDon INNER JOIN
                                                                                                 dbo.HoaDonChiTiet ON dbo.HoaDon.MaHD = dbo.HoaDonChiTiet.MaHoaDon INNER JOIN
