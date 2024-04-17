@@ -37,7 +37,7 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel1" min="-2" pref="728" max="-2" attributes="0"/>
+          <Component id="jPanel1" alignment="0" pref="799" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -369,50 +369,44 @@
                               <Font name="Segoe UI" size="12" style="1"/>
                             </Property>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="7" rowCount="20">
+                              <Table columnCount="6" rowCount="20">
                                 <Column editable="true" title="STT" type="java.lang.Object"/>
                                 <Column editable="true" title="M&#xe3; SP" type="java.lang.Object"/>
                                 <Column editable="true" title="T&#xca;N SP" type="java.lang.Object"/>
                                 <Column editable="true" title="M&#xf4; t&#x1ea3;" type="java.lang.Object"/>
                                 <Column editable="true" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng " type="java.lang.Object"/>
                                 <Column editable="true" title="tr&#x1ea1;ng th&#xe1;i" type="java.lang.Object"/>
-                                <Column editable="true" title="H&#xe0;nh d&#x1ed9;ng" type="java.lang.Boolean"/>
                               </Table>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                               <TableColumnModel selectionModel="0">
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title value="STT"/>
+                                  <Title/>
                                   <Editor/>
                                   <Renderer/>
                                 </Column>
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title value="M&#xe3; SP"/>
+                                  <Title/>
                                   <Editor/>
                                   <Renderer/>
                                 </Column>
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title value="T&#xca;N SP"/>
+                                  <Title/>
                                   <Editor/>
                                   <Renderer/>
                                 </Column>
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title value="M&#xf4; t&#x1ea3;"/>
+                                  <Title/>
                                   <Editor/>
                                   <Renderer/>
                                 </Column>
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title value="S&#x1ed1; l&#x1b0;&#x1ee3;ng "/>
+                                  <Title/>
                                   <Editor/>
                                   <Renderer/>
                                 </Column>
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title value="tr&#x1ea1;ng th&#xe1;i"/>
-                                  <Editor/>
-                                  <Renderer/>
-                                </Column>
-                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title value="H&#xe0;nh d&#x1ed9;ng"/>
+                                  <Title/>
                                   <Editor/>
                                   <Renderer/>
                                 </Column>
@@ -526,7 +520,7 @@
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="102" alignment="0" attributes="0">
                                       <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
                                           <Group type="102" attributes="0">
                                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                                               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
@@ -545,8 +539,6 @@
                                               <Component id="btnquetmaqr" min="-2" pref="100" max="-2" attributes="0"/>
                                               <EmptySpace type="separate" max="-2" attributes="0"/>
                                               <Component id="btnreseat2" min="-2" pref="99" max="-2" attributes="0"/>
-                                              <EmptySpace max="32767" attributes="0"/>
-                                              <Component id="rdoall" min="-2" pref="75" max="-2" attributes="0"/>
                                           </Group>
                                           <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
                                       </Group>
@@ -577,7 +569,6 @@
                                   <Component id="btnthem1" min="-2" pref="44" max="-2" attributes="0"/>
                                   <Component id="btnquetmaqr" min="-2" pref="44" max="-2" attributes="0"/>
                                   <Component id="btnexel" min="-2" max="-2" attributes="0"/>
-                                  <Component id="rdoall" min="-2" pref="44" max="-2" attributes="0"/>
                                   <Component id="btnreseat2" min="-2" pref="44" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -601,7 +592,7 @@
                               <Font name="Segoe UI" size="12" style="1"/>
                             </Property>
                             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                              <Table columnCount="13" rowCount="20">
+                              <Table columnCount="12" rowCount="20">
                                 <Column editable="true" title="STT" type="java.lang.Object"/>
                                 <Column editable="true" title="M&#xc3;" type="java.lang.Object"/>
                                 <Column editable="true" title="H&#xc3;NG" type="java.lang.Object"/>
@@ -614,16 +605,10 @@
                                 <Column editable="true" title="M&#x1eb6;T &#x110;&#x1ebe;" type="java.lang.Object"/>
                                 <Column editable="true" title="D&#xc2;Y" type="java.lang.Object"/>
                                 <Column editable="true" title="GI&#xc1; B&#xc1;N" type="java.lang.Object"/>
-                                <Column editable="true" title="Ch&#x1ecd;n t&#x1ea5;t c&#x1ea3;" type="java.lang.Boolean"/>
                               </Table>
                             </Property>
                             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
                               <TableColumnModel selectionModel="0">
-                                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
-                                  <Title/>
-                                  <Editor/>
-                                  <Renderer/>
-                                </Column>
                                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
                                   <Title/>
                                   <Editor/>
@@ -772,18 +757,6 @@
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnexelActionPerformed"/>
-                      </Events>
-                    </Component>
-                    <Component class="javax.swing.JCheckBox" name="rdoall">
-                      <Properties>
-                        <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                          <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                        </Property>
-                        <Property name="text" type="java.lang.String" value="All"/>
-                      </Properties>
-                      <Events>
-                        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="rdoallMouseClicked"/>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="rdoallActionPerformed"/>
                       </Events>
                     </Component>
                     <Container class="javax.swing.JPanel" name="jPanel8">
@@ -1147,7 +1120,7 @@
                                               <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
                                           </Group>
                                           <Group type="102" attributes="0">
-                                              <Component id="rdomatde" pref="216" max="32767" attributes="0"/>
+                                              <Component id="rdomatde" max="32767" attributes="0"/>
                                               <EmptySpace max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
@@ -1162,7 +1135,7 @@
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace pref="141" max="32767" attributes="0"/>
+                              <EmptySpace pref="143" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                     </DimensionLayout>
@@ -1197,8 +1170,7 @@
                                   <Component id="btnupdate1" alignment="1" min="-2" pref="44" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="128" max="-2" attributes="0"/>
-                              <Component id="jScrollPane5" min="-2" pref="293" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+                              <Component id="jScrollPane5" min="-2" pref="361" max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>

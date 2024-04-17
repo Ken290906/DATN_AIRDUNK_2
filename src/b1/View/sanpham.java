@@ -795,7 +795,6 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
         btnquetmaqr = new b1.View.chucnang.ButtonGradient();
         btnthem1 = new b1.View.chucnang.ButtonGradient();
         btnexel = new b1.View.chucnang.ButtonGradient();
-        rdoall = new javax.swing.JCheckBox();
         jPanel8 = new javax.swing.JPanel();
         cbbphoimau = new b1.View.Combobox();
         cbbsize = new b1.View.Combobox();
@@ -913,39 +912,31 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
         tblhienthisanpham.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         tblhienthisanpham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "Mã SP", "TÊN SP", "Mô tả", "Số lượng ", "trạng thái", "Hành dộng"
+                "STT", "Mã SP", "TÊN SP", "Mô tả", "Số lượng ", "trạng thái"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         tblhienthisanpham.setGridColor(new java.awt.Color(255, 255, 255));
         tblhienthisanpham.setRowHeight(40);
         tblhienthisanpham.setSelectionBackground(new java.awt.Color(0, 204, 204));
@@ -955,15 +946,6 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
             }
         });
         jScrollPane4.setViewportView(tblhienthisanpham);
-        if (tblhienthisanpham.getColumnModel().getColumnCount() > 0) {
-            tblhienthisanpham.getColumnModel().getColumn(0).setHeaderValue("STT");
-            tblhienthisanpham.getColumnModel().getColumn(1).setHeaderValue("Mã SP");
-            tblhienthisanpham.getColumnModel().getColumn(2).setHeaderValue("TÊN SP");
-            tblhienthisanpham.getColumnModel().getColumn(3).setHeaderValue("Mô tả");
-            tblhienthisanpham.getColumnModel().getColumn(4).setHeaderValue("Số lượng ");
-            tblhienthisanpham.getColumnModel().getColumn(5).setHeaderValue("trạng thái");
-            tblhienthisanpham.getColumnModel().getColumn(6).setHeaderValue("Hành dộng");
-        }
 
         btnreseat3.setBackground(new java.awt.Color(153, 255, 255));
         btnreseat3.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
@@ -1084,39 +1066,31 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
         tblhienthichitietsanpham.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         tblhienthichitietsanpham.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "MÃ", "HÃNG", "TÊN SP", "PHỐI MÀU", "Số lượng", "SIZE", "ĐỘ DÀY", "CHẤT LIỆU", "MẶT ĐẾ", "DÂY", "GIÁ BÁN", "Chọn tất cả"
+                "STT", "MÃ", "HÃNG", "TÊN SP", "PHỐI MÀU", "Số lượng", "SIZE", "ĐỘ DÀY", "CHẤT LIỆU", "MẶT ĐẾ", "DÂY", "GIÁ BÁN"
             }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Boolean.class
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-        });
+        ));
         tblhienthichitietsanpham.setGridColor(new java.awt.Color(255, 255, 255));
         tblhienthichitietsanpham.setRowHeight(40);
         tblhienthichitietsanpham.setSelectionBackground(new java.awt.Color(0, 204, 204));
@@ -1162,19 +1136,6 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
         btnexel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnexelActionPerformed(evt);
-            }
-        });
-
-        rdoall.setBackground(new java.awt.Color(255, 255, 255));
-        rdoall.setText("All");
-        rdoall.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                rdoallMouseClicked(evt);
-            }
-        });
-        rdoall.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdoallActionPerformed(evt);
             }
         });
 
@@ -1308,7 +1269,7 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
                 .addGroup(giaodiensanphamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(giaodiensanphamLayout.createSequentialGroup()
                         .addGap(61, 61, 61)
-                        .addGroup(giaodiensanphamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(giaodiensanphamLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(giaodiensanphamLayout.createSequentialGroup()
                                 .addComponent(jLabel1)
                                 .addGap(34, 34, 34)
@@ -1326,9 +1287,7 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
                                 .addGap(30, 30, 30)
                                 .addComponent(btnquetmaqr, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(btnreseat2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(rdoall, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnreseat2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(giaodiensanphamLayout.createSequentialGroup()
                         .addGap(36, 36, 36)
@@ -1351,7 +1310,6 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
                     .addComponent(btnthem1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnquetmaqr, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnexel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(rdoall, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnreseat2, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 325, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1597,7 +1555,7 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
                                 .addComponent(rdophoimau)
                                 .addGap(68, 68, 68))
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(rdomatde, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
+                                .addComponent(rdomatde, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnthem3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1606,7 +1564,7 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnupdate1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnreseat4, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(141, Short.MAX_VALUE))
+                .addContainerGap(143, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1632,8 +1590,7 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
                     .addComponent(btnxoa2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnupdate1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(128, 128, 128)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 293, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(68, 68, 68))
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGap(41, 41, 41)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1677,7 +1634,7 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 728, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 799, Short.MAX_VALUE)
         );
 
         pack();
@@ -1779,18 +1736,6 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
     private void txtmasanphamActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtmasanphamActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtmasanphamActionPerformed
-
-    private void rdoallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdoallActionPerformed
-
-        int row = tblhienthichitietsanpham.getRowCount();
-        for (int i = 0; i < row; i++) {
-            tblhienthichitietsanpham.setValueAt(true, i, 11);
-        }
-    }//GEN-LAST:event_rdoallActionPerformed
-
-    private void rdoallMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_rdoallMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rdoallMouseClicked
 
     private void btnexelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnexelActionPerformed
         boolean excel = itf.Excel("C:\\Ecxel\\table.xlsx");
@@ -2207,7 +2152,6 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
     private b1.View.chucnang.Panel panel1;
     private javax.swing.JPanel panelchitietsanpham;
     private javax.swing.JPanel panelsanpham;
-    private javax.swing.JCheckBox rdoall;
     private javax.swing.JRadioButton rdochatlieu;
     private javax.swing.JRadioButton rdoday;
     private javax.swing.JRadioButton rdododay;
