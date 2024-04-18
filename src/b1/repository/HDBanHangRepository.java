@@ -116,7 +116,7 @@ public class HDBanHangRepository {
         return list;
     }
 
-    public boolean Add(HoaDonBH hdbh, HDChiTiet hdct, LichSuHoaDon lshd) {
+    public boolean Add(HoaDonBH hdbh, LichSuHoaDon lshd) {
         int check = 0;
 
         String sqlHD = """
@@ -131,14 +131,6 @@ public class HDBanHangRepository {
                                                                    (?, ?, ?, ?, ?, ?)
                      """;
         
-        String sqlHDCT = """
-                    INSERT INTO [dbo].[HoaDonChiTiet]
-                                                        ([MaHDCT]
-                                                        ,[MaHoaDon])
-                                                  VALUES
-                                                        (?, ?)
-                     """;
-        
         String sqlLSHD = """
                     INSERT INTO [dbo].[LichsuHD]
                                                         ([MaLSHD]
@@ -149,7 +141,6 @@ public class HDBanHangRepository {
                      """;
         try (Connection con = DBConnect.getConnection(); 
                 PreparedStatement ps = con.prepareStatement(sqlHD); 
-                PreparedStatement ps1 = con.prepareStatement(sqlHDCT);
                 PreparedStatement ps2 = con.prepareStatement(sqlLSHD)) {
             ps.setObject(1, hdbh.getMaHD());
             ps.setObject(2, hdbh.getMaNV());
@@ -158,10 +149,6 @@ public class HDBanHangRepository {
             ps.setObject(5, hdbh.getSdt());
             ps.setObject(6, hdbh.getTrangthai2());
             check = ps.executeUpdate();
-            
-            ps1.setObject(1, hdct.getMaHDCT());
-            ps1.setObject(2, hdct.getMaHD());
-            check = ps1.executeUpdate();
             
             ps2.setObject(1, lshd.getMaLSHD());
             ps2.setObject(2, lshd.getMaHD());
@@ -173,6 +160,41 @@ public class HDBanHangRepository {
         }
         return check > 0;
     }
+    
+    public boolean AddSPGH(HDChiTiet hdct) {
+        int check = 0;
+        String sqlHDCT = """
+                         INSERT INTO [dbo].[HoaDonChiTiet]
+                                               ([MaHDCT]
+                                               ,[MaHoaDon]
+                                               ,[IDChiTietSP]
+                                               ,[DonGia]
+                                               ,[Thanhtien]
+                                               ,[SoLuong])
+                              VALUES
+                                    (?, ?, ?, ?, ?, ?)
+                         """;
+        
+        
+        try(Connection con = DBConnect.getConnection();
+                PreparedStatement ps = con.prepareStatement(sqlHDCT)) {
+            ps.setObject(1, hdct.getMaHDCT());
+            ps.setObject(2, hdct.getMaHD());
+            ps.setObject(3, hdct.getMaCTSP());
+            ps.setObject(4, hdct.getDonGia());
+            ps.setObject(5, hdct.getThanhTien());
+            ps.setObject(6, hdct.getSoLuong());
+            check = ps.executeUpdate();
+            
+          
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        
+        return check > 0;
+    }
+    
+    
    
     public boolean Delete(String maHD, String maHD1, String maHD2) {
         int check = 0;
@@ -210,8 +232,27 @@ public class HDBanHangRepository {
         }
         return check > 0;
     }
+    
+    public boolean DeleteGH(String idHDCT) {
+        int check = 0;
 
-     public boolean update(HoaDonBH hd, HDChiTiet hdct, LichSuHoaDon lshd, String MaVCH, String sua, String sua1, String sua2, String MaKH) {
+        String sqlHD = """
+                    DELETE FROM [dbo].[HoaDonChiTiet]
+                                                          WHERE MaHDCT = ?
+                     """;
+        
+        try (Connection con = DBConnect.getConnection(); 
+                PreparedStatement ps = con.prepareStatement(sqlHD);) {
+            ps.setObject(1, idHDCT);
+            check = ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check > 0;
+    }
+
+     public boolean update(HoaDonBH hd, LichSuHoaDon lshd, String MaVCH, String sua, String sua2, String MaKH) {
         int check = 0;
         String sql = """
                   UPDATE [dbo].[HoaDon]
@@ -230,13 +271,6 @@ public class HDBanHangRepository {
                  WHERE MaHD = ?   
                       """;
         
-        String sqlHDCT = """
-                         UPDATE [dbo].[HoaDonChiTiet]
-                            SET [MaHDCT] = ?
-                               ,[IDChiTietSP] = ?
-                               ,[DonGia] = ?
-                          WHERE MaHoaDon = ?
-                         """;
         
         String sqlLSHD = """
                          UPDATE [dbo].[LichsuHD]
@@ -248,7 +282,6 @@ public class HDBanHangRepository {
                          """;
         
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql);
-                PreparedStatement ps1 = con.prepareStatement(sqlHDCT);
                 PreparedStatement ps2 = con.prepareStatement(sqlLSHD)) {
             ps.setObject(1, hd.getMaNV());
             ps.setObject(2, MaKH);
@@ -264,12 +297,6 @@ public class HDBanHangRepository {
             ps.setObject(12, hd.getTrangthai2());
             ps.setObject(13, sua);
             check = ps.executeUpdate();
-            
-            ps1.setObject(1, hdct.getMaHDCT());
-            ps1.setObject(2, hdct.getMaCTSP());
-            ps1.setObject(3, hdct.getDonGia());
-            ps1.setObject(4, sua1);
-            check = ps1.executeUpdate();
             
             ps2.setObject(1, lshd.getMaLSHD());
             ps2.setObject(2, lshd.getMaNV());

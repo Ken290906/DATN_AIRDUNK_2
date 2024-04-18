@@ -62,6 +62,18 @@ public class chitietsanpham {
         this.delete = delete;
         this.soluong = soluong;
     }
+    
+    public chitietsanpham(String masp, String iddongsp, String idhangsx, String idphoimau, String idsize, String idchatlieu, String idday, int giaban, int soluong) {
+        this.masp = masp;
+        this.iddongsp = iddongsp;
+        this.idhangsx = idhangsx;
+        this.idphoimau = idphoimau;
+        this.idsize = idsize;
+        this.idchatlieu = idchatlieu;
+        this.idday = idday;
+        this.giaban = giaban;
+        this.soluong = soluong;
+    }
 
     public chitietsanpham(String masp, String ghichu, int delete, int soluong) {
         this.masp = masp;

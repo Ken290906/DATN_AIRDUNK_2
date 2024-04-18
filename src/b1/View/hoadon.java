@@ -319,6 +319,7 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
                 hdct.getMaHD(),
                 hdct.getMaHDCT(),
                 hdct.getIdCTSP(),
+                hdct.getSoluong(),
                 hdct.getHang(),
                 hdct.getMau(),
                 hdct.getSize(),

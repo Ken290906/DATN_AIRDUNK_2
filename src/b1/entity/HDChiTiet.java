@@ -14,6 +14,7 @@ public class HDChiTiet {
     private String maCTSP;
     private float donGia;
     private float thanhTien;
+    private int soLuong;
 
     public HDChiTiet() {
     }
@@ -23,12 +24,20 @@ public class HDChiTiet {
         this.maHD = maHD;
     }
     
-    public HDChiTiet(String maHDCT, String maHD, String maCTSP, float donGia, float thanhTien) {
+    public HDChiTiet(String maHDCT, String maHD, float donGia, float thanhTien) {
+        this.maHDCT = maHDCT;
+        this.maHD = maHD;
+        this.donGia = donGia;
+        this.thanhTien = thanhTien;
+    }
+    
+    public HDChiTiet(String maHDCT, String maHD, String maCTSP, float donGia, float thanhTien, int soLuong) {
         this.maHDCT = maHDCT;
         this.maHD = maHD;
         this.maCTSP = maCTSP;
         this.donGia = donGia;
         this.thanhTien = thanhTien;
+        this.soLuong = soLuong;
     }
 
     public String getMaHDCT() {
@@ -70,6 +79,16 @@ public class HDChiTiet {
     public void setThanhTien(float thanhTien) {
         this.thanhTien = thanhTien;
     }
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+    
+    
 
     @Override
     public String toString() {

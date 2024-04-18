@@ -4,16 +4,26 @@
  */
 package b1.View.chucnang;
 
+import GioHangViewModel.GioHangViewMD;
 import ViewModelSP.sanphamchitietviewmodel;
+import b1.View.banhhang;
+import b1.entity.HDChiTiet;
+import b1.entity.chitietsanpham;
+import b1.services.HoaDonBHService;
 import b1.services.chitietsanphamp2services;
+import com.beust.ah.A;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import static java.lang.Math.random;
 import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Random;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -27,7 +37,10 @@ public class themdanhsachsanpham extends javax.swing.JFrame {
 
     private DefaultTableModel bangsanpham = new DefaultTableModel();
     private List<sanphamchitietviewmodel> listsp = new ArrayList<>();
+    private List<GioHangViewMD> listGH = new ArrayList<>();
     private chitietsanphamp2services sps = new chitietsanphamp2services();
+    private HoaDonBHService sr = new HoaDonBHService();
+    private Random random = new Random();
 
     /**
      * Creates new form themdanhsachsanpham
@@ -37,6 +50,7 @@ public class themdanhsachsanpham extends javax.swing.JFrame {
         bangsanpham = (DefaultTableModel) tbldanhsachsanpham.getModel();
         listsp = sps.getall();
         showdata(listsp);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         tbldanhsachsanpham.setDefaultEditor(Object.class, null);
         setLocationRelativeTo(null);
         cbbhang.addActionListener(new ActionListener() {
@@ -170,7 +184,7 @@ public class themdanhsachsanpham extends javax.swing.JFrame {
         NumberFormat currentFormater = NumberFormat.getCurrencyInstance(lc);
         for (sanphamchitietviewmodel sp : sanpham) {
             i++;
-            bangsanpham.addRow(new Object[]{i, sp.getMctsp(), sp.getIddongsp(), sp.getIdhangsx(), sp.getIdphoimau(), sp.getIdsize(), sp.getIdchatlieu(), sp.getIdday(), sp.getSoluong(), currentFormater.format(sp.getGiaban())});
+            bangsanpham.addRow(new Object[]{i, sp.getMctsp(), sp.getIddongsp(), sp.getIdhangsx(), sp.getIdphoimau(), sp.getIdsize(), sp.getIdchatlieu(), sp.getIdday(), sp.getSoluong(), sp.getGiaban()});
         }
     }
 
@@ -178,6 +192,61 @@ public class themdanhsachsanpham extends javax.swing.JFrame {
         listsp = sps.Searchbanhang(txtsearch.getText());
         showdata(listsp);
     }
+
+    private String generateMaHD() {
+        String maHD = "HD-00" + String.format("%03d", random.nextInt(1000));
+        return maHD;
+
+    }
+
+    private int nhapSoLuong() {
+        String input = JOptionPane.showInputDialog("Nhập số lượng:");
+
+        if (input != null && !input.isEmpty()) {
+            try {
+                int soLuong = Integer.parseInt(input);
+                return soLuong;
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Vui lòng nhập số nguyên dương.");
+            }
+        }
+        return 0; // Trả về 0 nếu không nhập hoặc nhập không hợp lệ
+    }
+    
+    public HDChiTiet getformdata() {
+        banhhang bh = new banhhang();
+        int selectedRow = tbldanhsachsanpham.getSelectedRow();
+
+        String maHDCT = generateMaHD();
+        String maHD = bh.getFormData().getMaHD();
+        String maCTSP = (String) tbldanhsachsanpham.getValueAt(selectedRow, 1);
+        String donGiaStr = tbldanhsachsanpham.getValueAt(selectedRow, 9).toString();
+        float donGia = Float.parseFloat(donGiaStr.replace(".", "").replaceAll("[^\\d]", ""));
+        int soLuong = nhapSoLuong();
+
+        float thanhTien = donGia * soLuong; // tính giá trị thanhTien
+
+        HDChiTiet hdct = new HDChiTiet(maHDCT, maHD, maCTSP, donGia, thanhTien, soLuong);
+        return hdct;
+    }
+
+//    public chitietsanpham getFormDataSP() {
+//        int selectedRow = tbldanhsachsanpham.getSelectedRow();
+//
+//        String masp = (String) tbldanhsachsanpham.getValueAt(selectedRow, 1);
+//        String iddongsp = (String) tbldanhsachsanpham.getValueAt(selectedRow, 2);
+//        String idhangsx = (String) tbldanhsachsanpham.getValueAt(selectedRow, 3);
+//        String idphoimau = (String) tbldanhsachsanpham.getValueAt(selectedRow, 4);
+//        String idsize = (String) tbldanhsachsanpham.getValueAt(selectedRow, 5);
+//        String idchatlieu = (String) tbldanhsachsanpham.getValueAt(selectedRow, 6);
+//        String idday = (String) tbldanhsachsanpham.getValueAt(selectedRow, 7);
+//        String donGiaStr = tbldanhsachsanpham.getValueAt(selectedRow, 9).toString();
+//        int donGia = Integer.parseInt(donGiaStr.replace(".", "").replaceAll("[^\\d]", ""));
+//        int soLuong = (int) tbldanhsachsanpham.getValueAt(selectedRow, 8);
+//
+//        chitietsanpham ctsp = new chitietsanpham(masp, iddongsp, idhangsx, idphoimau, idsize, idchatlieu, idday, donGia, soLuong);
+//        return ctsp;
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -210,7 +279,7 @@ public class themdanhsachsanpham extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "#", "Mã SPCT", "Tên SP", "Hãng", "Màu", "Size", "Chất liệu", "Dây", "Số lượng", "Tổng tiền"
+                "#", "Mã SPCT", "Tên SP", "Hãng", "Màu", "Size", "Chất liệu", "Dây", "Số lượng", "Giá tiền"
             }
         ));
         tbldanhsachsanpham.setGridColor(new java.awt.Color(255, 255, 255));
@@ -269,13 +338,13 @@ public class themdanhsachsanpham extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap(30, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cbbhang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cbbday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(cbbchatlieu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cbbmau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(cbbmau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -300,6 +369,10 @@ public class themdanhsachsanpham extends javax.swing.JFrame {
     private void buttonGradient4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient4ActionPerformed
         // TODO add your handling code here:
         setVisible(false);
+        sr.AddSPGH(getformdata());
+        banhhang bh = new banhhang();
+        bh.setVisible(true);
+        bh.showGioHang(listGH);
     }//GEN-LAST:event_buttonGradient4ActionPerformed
 
     /**
@@ -338,9 +411,6 @@ public class themdanhsachsanpham extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private b1.View.ButtonGradient buttonGradient1;
-    private b1.View.ButtonGradient buttonGradient2;
-    private b1.View.ButtonGradient buttonGradient3;
     private b1.View.ButtonGradient buttonGradient4;
     private b1.View.Combobox cbbchatlieu;
     private b1.View.Combobox cbbday;
