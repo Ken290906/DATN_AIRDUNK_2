@@ -37,6 +37,7 @@ public class HoaDonRepository {
                      WHERE dbo.HoaDon.Deleted = 0 OR 
                      dbo.HoaDon.Deleted = 1 OR
                      dbo.HoaDon.Deleted = 3
+                     
                      """;
         try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();

@@ -888,6 +888,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         String sdtKH = txtSdtKH.getText().trim();
         String tenKH = txtTenKH.getText().trim();
         String MaNV = txtmaNV.getText().trim();
+        int tongSP = tblgiohang.getRowCount();
         Date NT = dateFormat.parse(dcNgayTao.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate() + "");
         String MaKH = txtTenKH.getText().trim();
         Date NTT = dateFormat.parse(dcNgayThanhToan.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate() + "");
@@ -896,7 +897,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         String loaiThanhToan = (String) cbbgiamrgia.getSelectedItem();
 
         int tongTien = Integer.valueOf(TT);
-        HoaDonBH hd = new HoaDonBH(MaHD, MaKH, tenKH, Integer.parseInt(sdtKH), tongTien, "FPT", NT, NTT, MaNV, 0, "HTTT-001", 0);
+        HoaDonBH hd = new HoaDonBH(MaHD, MaKH, tenKH, Integer.parseInt(sdtKH), tongTien, "FPT", NT, NTT, MaNV, tongSP, "HTTT-001", 0);
         return hd;
     }
 
@@ -1780,8 +1781,19 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
 
         GioHangViewMD gh = listGH.get(index);
         srhd.DeleteGH(gh.getMaHDCT());
-        listGH = srGH.getAll(txtMaHD.getText());
+        listGH = srGH.getAll(txtMaHD.getText());   
+        for (int i = 0; i < dtmGiohang.getRowCount(); i++) {
+            String maSP = dtmGiohang.getValueAt(i, 1).toString();
+            int soLuong = Integer.parseInt(dtmGiohang.getValueAt(i, 8).toString());
+            for (sanphamchitietviewmodel sp : listsp) {
+                if (sp.getMctsp().equals(maSP)) {
+                    sp.setSoluong(sp.getSoluong() + soLuong);
+                    break;
+                }
+            }
+        }
         showGioHang(listGH);
+        showdata(listsp);
 
     }//GEN-LAST:event_deleteGHActionPerformed
 
@@ -1814,8 +1826,8 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         HoaDonBH hd = listBH.get(index);
 
         txtMaHD.setText(hd.getMaHD());
-
-        dcNgayTao.setDate(hd.getNgaytao());
+        listGH = srGH.getAll(txtMaHD.getText());
+        showGioHang(listGH);
     }//GEN-LAST:event_tblhoadonMouseClicked
 
     private void buttonGradient4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient4ActionPerformed
