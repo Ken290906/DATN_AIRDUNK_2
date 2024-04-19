@@ -31,6 +31,7 @@ import b1.services.hangsxservices;
 import b1.services.tenmauservices;
 import b1.View.chucnang.quetmaqr.QRCodeListener;
 import b1.View.chucnang.themdanhsachsanpham;
+import b1.entity.chitietsanpham;
 import b1.services.GioHangService;
 import com.itextpdf.text.Font;
 import java.util.ArrayList;
@@ -76,6 +77,8 @@ import print_model.ParametReportPayment;
  * @author DELL
  */
 public class banhhang extends javax.swing.JInternalFrame implements QRCodeListener {
+
+    private int cc;
 //Table
 
     private DefaultTableModel dtmHoaDon = new DefaultTableModel();
@@ -486,45 +489,52 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
 //            JOptionPane.showMessageDialog(null, "Không tìm thấy sản phẩm.");
 //        }
     }
+    // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
 
     public void showGioHang(List<GioHangViewMD> ListGHSP) {
         dtmGiohang.setRowCount(0);
         int i = 0;
-        int selectedRow = tbldanhsachsanpham.getSelectedRow();
-        int soLuongSP = (int) tbldanhsachsanpham.getValueAt(selectedRow, 8);
-        Locale lc = new Locale("vi", "VN");
-        NumberFormat currentFormater = NumberFormat.getCurrencyInstance(lc);
 
-        for (GioHangViewMD sp : ListGHSP) {
-            i++;
-            int soLuong = sp.getSoluong();
-            if (soLuongSP > 0) {
-                double thanhTien = soLuong * sp.getGiaban(); // Tính toán thành tiền
+        // Kiểm tra xem có hàng nào được chọn không
+        if (cc != -1) {
+            int selectedRow = cc;
+            int soLuongSP = (int) tbldanhsachsanpham.getValueAt(selectedRow, 8);
+            Locale lc = new Locale("vi", "VN");
+            NumberFormat currentFormater = NumberFormat.getCurrencyInstance(lc);
 
-                dtmGiohang.addRow(new Object[]{
-                    i,
-                    sp.getMctsp(),
-                    sp.getIddongsp(),
-                    sp.getIdhangsx(),
-                    sp.getIdphoimau(),
-                    sp.getIdsize(),
-                    sp.getIdchatlieu(),
-                    sp.getIdday(),
-                    soLuong,
-                    currentFormater.format(sp.getGiaban()), // Định dạng giá bán
-                    currentFormater.format(thanhTien) // Định dạng thành tiền
-                });
-                txttong.setText(VND.format(thanhTien));
-                updateTotalAmount();
-            } else if (soLuong > soLuongSP) {
-                JOptionPane.showMessageDialog(null, "Không đủ hàng.");
-            } else {
-                JOptionPane.showMessageDialog(null, "Vui lòng nhập số nguyên dương lớn hơn 0.");
+            for (GioHangViewMD sp : ListGHSP) {
+                i++;
+                int soLuong = sp.getSoluong();
+                if (soLuongSP > 0) {
+                    double thanhTien = soLuong * sp.getGiaban(); // Tính toán thành tiền
+
+                    dtmGiohang.addRow(new Object[]{
+                        i,
+                        sp.getMctsp(),
+                        sp.getIddongsp(),
+                        sp.getIdhangsx(),
+                        sp.getIdphoimau(),
+                        sp.getIdsize(),
+                        sp.getIdchatlieu(),
+                        sp.getIdday(),
+                        soLuong,
+                        currentFormater.format(sp.getGiaban()), // Định dạng giá bán
+                        currentFormater.format(thanhTien) // Định dạng thành tiền
+                    });
+                    txttong.setText(VND.format(thanhTien));
+                    updateTotalAmount();
+                } else if (soLuong > soLuongSP) {
+                    JOptionPane.showMessageDialog(null, "Không đủ hàng.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Vui lòng nhập số nguyên dương lớn hơn 0.");
+                }
+
             }
-
+        } else {
+            JOptionPane.showMessageDialog(null, "Vui lòng chọn một sản phẩm.");
         }
-
     }
+    // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
 
     private void updateTotalAmount() {
         int totalAmount = 0;
@@ -658,19 +668,68 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
     }
 
     public HDChiTiet getformdata() {
+        if (txtMaHD.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Vui long tao hoa don truoc !");
+            return null;
+        }
         int selectedRow = tbldanhsachsanpham.getSelectedRow();
-
         String maHDCT = generateMaHD();
         String maHD = txtMaHD.getText();
         String maCTSP = (String) tbldanhsachsanpham.getValueAt(selectedRow, 1);
         String donGiaStr = tbldanhsachsanpham.getValueAt(selectedRow, 9).toString();
         float donGia = Float.parseFloat(donGiaStr.replace(".", "").replaceAll("[^\\d]", ""));
         int soLuong = nhapSoLuong();
-
         float thanhTien = donGia * soLuong; // tính giá trị thanhTien
+
+//        listHDCT = srhdct.getAllID(maHD);
+//        System.out.println("maHD" + maHD);
+//        System.out.println("maSPCT" + maCTSP);
+//        System.out.println("donGia" + donGiaStr);
+//        System.out.println(donGia);
+//        System.out.println(soLuong);
+//        System.out.println("thanhTien " + thanhTien);
+//        // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
+//        boolean isProductExist = false;
+//        int index = -1;
+//        System.out.println(listHDCT.size());
+//        for (int i = 0; i < listHDCT.size(); i++) {
+//            if (listHDCT.get(i).getIdCTSP() == maCTSP) {
+//                isProductExist = true;
+//                index = i;
+//                System.out.println(listHDCT.get(i).getIdCTSP());
+//                System.out.println(maCTSP);
+//                break;
+//            }
+//        }
+//        // Nếu sản phẩm đã tồn tại trong giỏ hàng
+//        if (isProductExist) {
+//
+//            // Cộng dồn số lượng mua vào số lượng hiện có
+//            int soLuongCu = listHDCT.get(index).getSoluong();
+//            int soLuongMoi = soLuongCu + soLuong;
+//            listHDCT.get(index).setSoluong(soLuongMoi);
+//
+//            // Cập nhật lại thông tin trong bảng và cơ sở dữ liệu
+//            srhd.updateHDCT(String.valueOf(listHDCT.get(index).getMaHD()), soLuongMoi, String.valueOf(listHDCT.get(index).getIdCTSP()));
+//
+//        } else {
+//            // Nếu sản phẩm chưa tồn tại trong giỏ hàng, thêm mới
+//            srhd.addHDCT(maHD, maCTSP, soLuong, donGia);
+//        }
+//
+//        listBH = srhd.getAllID(maHD);
+//        showHoaDonBH(listBH);
+//        // Cập nhật lại danh sách hóa đơn chi tiết sau khi thêm mới hoặc cập nhật
+//        listHDCT = srhdct.getAllID(maHD);
+//        showHoaDonBH(listBH);
+//        refreshCart();
 
         HDChiTiet hdct = new HDChiTiet(maHDCT, maHD, maCTSP, donGia, thanhTien, soLuong);
         return hdct;
+    }
+
+    public void refreshCart() {
+        showdata(listsp);
     }
 
     public LichSuHoaDon getFormdataAddLSHD() {
@@ -726,7 +785,6 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
     }
 
 // Method to parse currency string to integer
-
     private int parseCurrencyString(String currencyString) {
         // Remove non-numeric characters from the currency string
         String cleanCurrencyString = currencyString.replaceAll("[^\\d]", "");
@@ -786,16 +844,39 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         return filteredList;
     }
 
+//    public chitietsanpham getformdataSL() {
+//        chitietsanpham ctsp = new chitietsanpham();
+//        return ctsp;
+//    }
     private int nhapSoLuong() {
         String input = JOptionPane.showInputDialog("Nhập số lượng:");
 
         if (input != null && !input.isEmpty()) {
             try {
                 int soLuong = Integer.parseInt(input);
+
+                // Lấy chỉ mục hàng được chọn từ JTable
+                int sua = tbldanhsachsanpham.getSelectedRow();
+
+                // Lấy thông tin sản phẩm từ danh sách dựa trên chỉ mục hàng được chọn
+                sanphamchitietviewmodel sp = listsp.get(sua);
+
+                // Cập nhật số lượng sản phẩm
+                srhd.UpdateSL(soLuong, sp.getMctsp());
+
+                // Cập nhật lại dữ liệu trên các thành phần giao diện
+                listsp = sps.getall();
+                showdata(listsp);
+                showHoaDonBH(listBH);
+                listGH = srGH.getAll(txtMaHD.getText());
+                showGioHang(listGH);
+
                 return soLuong;
+
             } catch (NumberFormatException e) {
-                JOptionPane.showMessageDialog(null, "Vui lòng nhập số nguyên dương.");
+
             }
+
         }
         return 0; // Trả về 0 nếu không nhập hoặc nhập không hợp lệ
     }
@@ -833,13 +914,9 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         int selectedRow = tbldanhsachsanpham.getSelectedRow();
 
         sanphamchitietviewmodel sp = listsp.get(selectedRow);
-        if (txtMaHD.getText().trim().isBlank()) {
-            JOptionPane.showMessageDialog(this, "Vui long tao hoa don truoc !");
-            return;
-        }
 
         int soLuong = nhapSoLuong();
-        if (sp.getSoluong() - soLuong < 0) {
+        if (sp.getSoluong() - soLuong <= 0) {
             JOptionPane.showMessageDialog(this, "Quá giới hạn số lượng hàng");
             return;
         }
@@ -1011,7 +1088,6 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         jSeparator4.setBackground(new java.awt.Color(0, 0, 0));
 
         txtMaHD.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtMaHD.setText("HD-001");
         txtMaHD.setBorder(null);
 
         jSeparator5.setBackground(new java.awt.Color(0, 0, 0));
@@ -1519,6 +1595,11 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         tbldanhsachsanpham.setGridColor(new java.awt.Color(255, 255, 255));
         tbldanhsachsanpham.setRowHeight(30);
         tbldanhsachsanpham.setSelectionBackground(new java.awt.Color(153, 153, 255));
+        tbldanhsachsanpham.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbldanhsachsanphamMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tbldanhsachsanpham);
 
         txtsearch.setLabelText("Tìm kiếm");
@@ -1563,8 +1644,8 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(45, 45, 45)
-                .addComponent(buttonGradient11, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(buttonGradient11, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(cbbmau, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -1696,7 +1777,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
     private void deleteGHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteGHActionPerformed
         // TODO add your handling code here:
         int index = tblgiohang.getSelectedRow();
-        
+
         GioHangViewMD gh = listGH.get(index);
         srhd.DeleteGH(gh.getMaHDCT());
         listGH = srGH.getAll(txtMaHD.getText());
@@ -1747,7 +1828,8 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
 
     private void buttonGradient11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient11ActionPerformed
         // TODO add your handling code here:
-        srhd.AddSPGH(getformdata());
+
+        JOptionPane.showMessageDialog(this, srhd.AddSPGH(getformdata()));;
         listHDCT = srhdct.getAll();
         listGH = srGH.getAll(txtMaHD.getText());
         showGioHang(listGH);
@@ -1856,6 +1938,11 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         khachhangbanhang kh = new khachhangbanhang(this);
         kh.setVisible(true);
     }//GEN-LAST:event_buttonGradient9ActionPerformed
+
+    private void tbldanhsachsanphamMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbldanhsachsanphamMouseClicked
+        // TODO add your handling code here:
+        cc = tbldanhsachsanpham.getSelectedRow();
+    }//GEN-LAST:event_tbldanhsachsanphamMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

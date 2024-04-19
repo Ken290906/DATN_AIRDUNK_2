@@ -48,7 +48,7 @@ public class HDBanHangRepository {
         }
         return list;
     }
-    
+
     public List<HoaDonBH> getAllID(String maHD) {
         List<HoaDonBH> list = new ArrayList<>();
 
@@ -130,7 +130,7 @@ public class HDBanHangRepository {
                                                              VALUES
                                                                    (?, ?, ?, ?, ?, ?)
                      """;
-        
+
         String sqlLSHD = """
                     INSERT INTO [dbo].[LichsuHD]
                                                         ([MaLSHD]
@@ -139,9 +139,7 @@ public class HDBanHangRepository {
                                                   VALUES
                                                         (?, ?, ?)
                      """;
-        try (Connection con = DBConnect.getConnection(); 
-                PreparedStatement ps = con.prepareStatement(sqlHD); 
-                PreparedStatement ps2 = con.prepareStatement(sqlLSHD)) {
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sqlHD); PreparedStatement ps2 = con.prepareStatement(sqlLSHD)) {
             ps.setObject(1, hdbh.getMaHD());
             ps.setObject(2, hdbh.getMaNV());
             ps.setObject(3, hdbh.getTenKH());
@@ -149,18 +147,18 @@ public class HDBanHangRepository {
             ps.setObject(5, hdbh.getSdt());
             ps.setObject(6, hdbh.getTrangthai2());
             check = ps.executeUpdate();
-            
+
             ps2.setObject(1, lshd.getMaLSHD());
             ps2.setObject(2, lshd.getMaHD());
             ps2.setObject(3, lshd.getMaNV());
             check = ps2.executeUpdate();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
         return check > 0;
     }
-    
+
     public boolean AddSPGH(HDChiTiet hdct) {
         int check = 0;
         String sqlHDCT = """
@@ -174,10 +172,8 @@ public class HDBanHangRepository {
                               VALUES
                                     (?, ?, ?, ?, ?, ?)
                          """;
-        
-        
-        try(Connection con = DBConnect.getConnection();
-                PreparedStatement ps = con.prepareStatement(sqlHDCT)) {
+
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sqlHDCT)) {
             ps.setObject(1, hdct.getMaHDCT());
             ps.setObject(2, hdct.getMaHD());
             ps.setObject(3, hdct.getMaCTSP());
@@ -185,17 +181,34 @@ public class HDBanHangRepository {
             ps.setObject(5, hdct.getThanhTien());
             ps.setObject(6, hdct.getSoLuong());
             check = ps.executeUpdate();
-            
-          
-        } catch(Exception e) {
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         return check > 0;
     }
-    
-    
-   
+
+    public boolean UpdateSL(int soluong, String id) {
+        int check = 0;
+        String sqlHDCT = """
+                  UPDATE ChiTietSP
+                    SET Soluong = Soluong - ?
+                    Where MaCTSP = ?
+                    """;
+
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sqlHDCT)) {
+            ps.setObject(1, soluong);
+            ps.setObject(2, id);
+            check = ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return check > 0;
+    }
+
     public boolean Delete(String maHD, String maHD1, String maHD2) {
         int check = 0;
 
@@ -205,26 +218,23 @@ public class HDBanHangRepository {
                                                    
                                                     WHERE MaHD = ? 
                      """;
-        
+
         String sqlHDCT = """
                          DELETE FROM [dbo].[HoaDonChiTiet]
                                WHERE MaHoaDon = ?
                          """;
-        
+
         String sqlLSHD = """
                          DELETE FROM [dbo].[LichsuHD]
                                WHERE IDHoaDon = ?
                          """;
-        try (Connection con = DBConnect.getConnection(); 
-                PreparedStatement ps = con.prepareStatement(sqlHD);
-                PreparedStatement ps1 = con.prepareCall(sqlHDCT);
-                PreparedStatement ps2 = con.prepareStatement(sqlLSHD)) {
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sqlHD); PreparedStatement ps1 = con.prepareCall(sqlHDCT); PreparedStatement ps2 = con.prepareStatement(sqlLSHD)) {
             ps.setObject(1, maHD);
             check = ps.executeUpdate();
-            
+
             ps1.setObject(1, maHD1);
             check = ps1.executeUpdate();
-            
+
             ps2.setObject(1, maHD2);
             check = ps2.executeUpdate();
         } catch (Exception e) {
@@ -232,7 +242,7 @@ public class HDBanHangRepository {
         }
         return check > 0;
     }
-    
+
     public boolean DeleteGH(String idHDCT) {
         int check = 0;
 
@@ -240,9 +250,8 @@ public class HDBanHangRepository {
                     DELETE FROM [dbo].[HoaDonChiTiet]
                                                           WHERE MaHDCT = ?
                      """;
-        
-        try (Connection con = DBConnect.getConnection(); 
-                PreparedStatement ps = con.prepareStatement(sqlHD);) {
+
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sqlHD);) {
             ps.setObject(1, idHDCT);
             check = ps.executeUpdate();
 
@@ -252,7 +261,7 @@ public class HDBanHangRepository {
         return check > 0;
     }
 
-     public boolean update(HoaDonBH hd, LichSuHoaDon lshd, String MaVCH, String sua, String sua2, String MaKH) {
+    public boolean update(HoaDonBH hd, LichSuHoaDon lshd, String MaVCH, String sua, String sua2, String MaKH) {
         int check = 0;
         String sql = """
                   UPDATE [dbo].[HoaDon]
@@ -270,8 +279,7 @@ public class HDBanHangRepository {
                       ,[Deleted] = ?
                  WHERE MaHD = ?   
                       """;
-        
-        
+
         String sqlLSHD = """
                          UPDATE [dbo].[LichsuHD]
                             SET [MaLSHD] = ?
@@ -280,9 +288,8 @@ public class HDBanHangRepository {
                                ,[Ngaytao] = ?
                           WHERE IDHoaDon = ?
                          """;
-        
-        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql);
-                PreparedStatement ps2 = con.prepareStatement(sqlLSHD)) {
+
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql); PreparedStatement ps2 = con.prepareStatement(sqlLSHD)) {
             ps.setObject(1, hd.getMaNV());
             ps.setObject(2, MaKH);
             ps.setObject(3, hd.getMaHTTT());
@@ -297,7 +304,7 @@ public class HDBanHangRepository {
             ps.setObject(12, hd.getTrangthai2());
             ps.setObject(13, sua);
             check = ps.executeUpdate();
-            
+
             ps2.setObject(1, lshd.getMaLSHD());
             ps2.setObject(2, lshd.getMaNV());
             ps2.setObject(3, lshd.getHanhDong());
@@ -309,8 +316,153 @@ public class HDBanHangRepository {
         }
         return check > 0;
     }
-    
-     
+
+    public boolean increaseSoLuong(int soLuongMoi, int idCTSP) {
+        int check = 0;
+        String sql = """
+                  UPDATE ChiTietSP
+                                              SET Soluong = Soluong + ?,
+                                              WHERE MaCTSP = ?
+                     """;
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
+            ps.setObject(1, soLuongMoi);
+            ps.setObject(2, idCTSP);
+            check = ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check > 0;
+    }
+
+    public boolean decreaseSoLuong(int soLuongMoi, int idCTSP) {
+        int check = 0;
+        String sql = """
+                   UPDATE ChiTietSP
+                                              SET Soluong = Soluong - ?,
+                                              WHERE MaCTSP = ?
+                     """;
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
+            ps.setObject(1, soLuongMoi);
+            ps.setObject(2, idCTSP);
+            check = ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check > 0;
+    }
+
+    public boolean updateSP(int idSPCT, int soLuongConLai) {
+        int check = 0;
+        String sql = """
+                    UPDATE ChiTietSP
+                        SET Soluong = ?                        
+                        WHERE MaCTSP = ?
+                     """;
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
+            ps.setObject(1, soLuongConLai);
+            ps.setObject(2, idSPCT);
+            check = ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check > 0;
+    }
+
+    public boolean updateHDCT(String idHD, int soLuong, String idCTSP) {
+        int check = 0;
+        String sql = """
+                       UPDATE HoaDonChiTiet
+                                                                                          SET SoLuong = ?
+                                                                                            
+                                                                                        WHERE MaHDCT = ? AND IDChiTietSP = ?
+                     """;
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
+            ps.setObject(1, soLuong);
+            ps.setObject(2, idHD);
+            ps.setObject(3, idCTSP);
+            check = ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check > 0;
+    }
+
+    public boolean addHDCT(String idHD, String idSPCT, int soLuong, double giaBan) {
+        int check = 0;
+        String sql = """
+                     INSERT INTO [dbo].[HoaDonChiTiet]
+                                                                (MaHDCT,IDChiTietSP
+                                                                ,MaHoaDon
+                                                                ,SoLuong
+                                                                ,DonGia)
+                                                          VALUES
+                                                                (?,?,?,?)
+                     """;
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
+            ps.setObject(1, idSPCT);
+            ps.setObject(2, idHD);
+            ps.setObject(3, soLuong);
+            ps.setObject(4, giaBan);
+            check = ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check > 0;
+    }
+
+    public boolean UpdateTrungSP(String idHD, String idSP, int SLSP, int SLHDCT) {
+
+        int check = 0;
+        int check1 = 0;
+        String sqlUpdateSoLuongCTSP = """
+              UPDATE [dbo].ChiTietSP
+                                                  SET Soluong = ? 
+                                                    WHERE MaCTSP= CONVERT(uniqueidentifier, ?)
+                          
+                                                    
+                            UPDATE [dbo].ChiTietSP
+                              SET 
+                                 Trangthai = N'Còn hàng'
+                                
+                            WHERE Soluong > 0
+                           
+                            UPDATE [dbo].ChiTietSP
+                              SET 
+                                 Trangthai = N'Hết hàng'
+                                
+                            WHERE SoLuong = 0
+                                      
+                                      """;
+
+        String sqlInsertHoaDonChiTiet = """
+            Update   [dbo].HoaDonChiTiet
+   SET SoLuong = ?
+                                                                                            
+HERE MaHDCT= CONVERT(uniqueidentifier, ?) and   MaHoaDon= CONVERT(uniqueidentifier, ?) 
+                          
+             """;
+
+        try (Connection cnt = DBConnect.getConnection(); PreparedStatement psUpdate = cnt.prepareStatement(sqlUpdateSoLuongCTSP); PreparedStatement psInsert = cnt.prepareStatement(sqlInsertHoaDonChiTiet)) {
+
+            psUpdate.setObject(1, SLSP);
+            psUpdate.setObject(2, idSP);
+            check1 = psUpdate.executeUpdate(); // Thêm câu     lệnh update vào batch
+
+            // Thêm từng cặp idimel và idCTSP vào cơ sở dữ liệu
+            psInsert.setObject(1, SLHDCT);
+            psInsert.setObject(2, idSP);
+            psInsert.setObject(3, idHD);
+            check = psInsert.executeUpdate();
+// Thêm câu lệnh insert vào batch
+
+            // Thực thi batch cho cả update và insert
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
+        return check > 0 && check1 > 0;
+    }
 
     public static void main(String[] args) {
         List<HoaDonBH> list = new HDBanHangRepository().getAllBanHang();

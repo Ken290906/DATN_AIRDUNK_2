@@ -75,6 +75,9 @@ public class chitietsanpham {
         this.soluong = soluong;
     }
 
+    
+    
+
     public chitietsanpham(String masp, String ghichu, int delete, int soluong) {
         this.masp = masp;
         this.ghichu = ghichu;
