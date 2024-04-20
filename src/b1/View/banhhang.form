@@ -816,7 +816,7 @@
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="btnDeleteHD" min="-2" pref="96" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="buttonGradient7" min="-2" pref="100" max="-2" attributes="0"/>
+                              <Component id="ResetHD" min="-2" pref="100" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                           <Component id="jScrollPane1" alignment="1" pref="822" max="32767" attributes="0"/>
@@ -834,7 +834,7 @@
                                   <Component id="txtSearchHD" alignment="1" min="-2" pref="40" max="-2" attributes="0"/>
                                   <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
                                       <Component id="btnDeleteHD" alignment="1" max="32767" attributes="0"/>
-                                      <Component id="buttonGradient7" alignment="1" pref="32" max="32767" attributes="0"/>
+                                      <Component id="ResetHD" alignment="1" pref="32" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
@@ -979,7 +979,7 @@
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddHoaDonActionPerformed"/>
                       </Events>
                     </Component>
-                    <Component class="b1.View.chucnang.ButtonGradient" name="buttonGradient7">
+                    <Component class="b1.View.chucnang.ButtonGradient" name="ResetHD">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="ff" red="99" type="rgb"/>
@@ -1003,7 +1003,7 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonGradient7ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ResetHDActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="b1.View.chucnang.TextField" name="txtSearchHD">
@@ -1083,7 +1083,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="jPanel8" min="-2" pref="147" max="-2" attributes="0"/>
-                          <EmptySpace min="0" pref="44" max="32767" attributes="0"/>
+                          <EmptySpace pref="44" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1105,7 +1105,7 @@
                               <EmptySpace max="32767" attributes="0"/>
                               <Component id="deleteGH" min="-2" pref="96" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="buttonGradient10" min="-2" pref="100" max="-2" attributes="0"/>
+                              <Component id="ResetGH" min="-2" pref="100" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -1118,7 +1118,7 @@
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="deleteGH" min="-2" pref="32" max="-2" attributes="0"/>
-                                          <Component id="buttonGradient10" min="-2" pref="32" max="-2" attributes="0"/>
+                                          <Component id="ResetGH" min="-2" pref="32" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Component id="txtSearchGH" pref="0" max="32767" attributes="0"/>
@@ -1228,7 +1228,7 @@
                         </Component>
                       </SubComponents>
                     </Container>
-                    <Component class="b1.View.chucnang.ButtonGradient" name="buttonGradient10">
+                    <Component class="b1.View.chucnang.ButtonGradient" name="ResetGH">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="ff" red="99" type="rgb"/>
@@ -1252,7 +1252,7 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonGradient10ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ResetGHActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="b1.View.chucnang.TextField" name="txtSearchGH">
@@ -1339,9 +1339,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" attributes="0">
                               <Component id="txtsearch" min="-2" pref="216" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="buttonGradient11" min="-2" pref="87" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="cbbmau" min="-2" pref="90" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="cbbchatlieu" min="-2" pref="90" max="-2" attributes="0"/>
@@ -1349,8 +1347,10 @@
                               <Component id="cbbday" min="-2" pref="90" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="cbbhang" min="-2" pref="90" max="-2" attributes="0"/>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="buttonGradient8" min="-2" pref="60" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
+                              <Component id="ResetSP" min="-2" pref="60" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="btnAddGH" max="32767" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                           <Group type="102" attributes="0">
@@ -1365,18 +1365,16 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="1" attributes="0">
                                   <Group type="103" groupAlignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txtsearch" min="-2" max="-2" attributes="0"/>
-                                          <Component id="buttonGradient8" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
-                                      </Group>
-                                      <Group type="103" alignment="1" groupAlignment="3" attributes="0">
+                                      <Group type="103" groupAlignment="3" attributes="0">
+                                          <Component id="txtsearch" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="cbbhang" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="cbbday" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="cbbchatlieu" alignment="3" min="-2" max="-2" attributes="0"/>
                                           <Component id="cbbmau" alignment="3" min="-2" max="-2" attributes="0"/>
                                       </Group>
+                                      <Component id="ResetSP" alignment="1" min="-2" pref="32" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="buttonGradient11" min="-2" pref="32" max="-2" attributes="0"/>
+                                  <Component id="btnAddGH" min="-2" pref="32" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
                               <Component id="jScrollPane2" min="-2" pref="115" max="-2" attributes="0"/>
@@ -1493,7 +1491,7 @@
                         <Property name="labeText" type="java.lang.String" value="H&#xe3;ng"/>
                       </Properties>
                     </Component>
-                    <Component class="b1.View.chucnang.ButtonGradient" name="buttonGradient8">
+                    <Component class="b1.View.chucnang.ButtonGradient" name="ResetSP">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="ff" red="99" type="rgb"/>
@@ -1517,7 +1515,7 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonGradient8ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ResetSPActionPerformed"/>
                       </Events>
                     </Component>
                     <Component class="b1.View.Combobox" name="cbbday">
@@ -1545,7 +1543,7 @@
                         <Property name="labeText" type="java.lang.String" value="Ch&#x1ea5;t Li&#x1ec7;u"/>
                       </Properties>
                     </Component>
-                    <Component class="b1.View.chucnang.ButtonGradient" name="buttonGradient11">
+                    <Component class="b1.View.chucnang.ButtonGradient" name="btnAddGH">
                       <Properties>
                         <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                           <Color blue="ff" green="ff" red="99" type="rgb"/>
@@ -1570,7 +1568,7 @@
                         </Property>
                       </Properties>
                       <Events>
-                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="buttonGradient11ActionPerformed"/>
+                        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddGHActionPerformed"/>
                       </Events>
                     </Component>
                   </SubComponents>

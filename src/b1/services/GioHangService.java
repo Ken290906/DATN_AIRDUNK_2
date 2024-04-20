@@ -5,6 +5,7 @@
 package b1.services;
 
 import GioHangViewModel.GioHangViewMD;
+import b1.entity.HDChiTiet;
 import b1.repository.GioHangRepo;
 import java.util.List;
 
@@ -17,5 +18,9 @@ public class GioHangService {
     
     public List<GioHangViewMD> getAll(String id) {
         return repo.getAll(id);
+    }
+    
+    public boolean searchQR(HDChiTiet hdct, String QRCode) {
+        return repo.searchQR(hdct, QRCode);
     }
 }

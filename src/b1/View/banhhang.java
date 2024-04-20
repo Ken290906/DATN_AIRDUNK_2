@@ -412,82 +412,38 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
 
         });
 
-//        tbldanhsachsanpham.addMouseListener(new MouseAdapter() {
-//            @Override
-//            public void mouseClicked(MouseEvent e) {
-//                if (e.getClickCount() == 2) {
-//                    themdanhsachsanpham tdssp = new themdanhsachsanpham();
-//                    tdssp.setVisible(true);
-//                    int selectedRow = tbldanhsachsanpham.getSelectedRow();
-//                    if (selectedRow != -1) {
-//                        String maSP = tbldanhsachsanpham.getValueAt(selectedRow, 1).toString();
-//                        String tenSanPham = tbldanhsachsanpham.getValueAt(selectedRow, 2).toString();
-//                        String hang = tbldanhsachsanpham.getValueAt(selectedRow, 3).toString();
-//                        String mau = tbldanhsachsanpham.getValueAt(selectedRow, 4).toString();
-//                        String size = tbldanhsachsanpham.getValueAt(selectedRow, 5).toString();
-//                        String chatlieu = tbldanhsachsanpham.getValueAt(selectedRow, 6).toString();
-//                        String day = tbldanhsachsanpham.getValueAt(selectedRow, 7).toString();
-//                        String giaBan = tbldanhsachsanpham.getValueAt(selectedRow, 9).toString();
-//                        int soLuongTrongBang = Integer.parseInt(tbldanhsachsanpham.getValueAt(selectedRow, 8).toString());
-//
-//                        if (soLuongTrongBang > 0) {
-//                            int soLuong = nhapSoLuong();
-//
-//                            if (soLuong > 0 && soLuong <= soLuongTrongBang) {
-//                                for (sanphamchitietviewmodel object : listsp) {
-//                                    if (object.getMctsp().equals(maSP)) {
-//                                        object.setSoluong(object.getSoluong() - soLuong);
-//                                    }
-//                                }
-//                                // Thêm sản phẩm vào giỏ hàng
-//                                addToCart(maSP, tenSanPham, hang, mau, size, chatlieu, day, soLuong, giaBan);
-//                                showdata(listsp);
-//                                rowCount++;
-//                                updateTotalAmount();
-//                            } else if (soLuong > soLuongTrongBang) {
-//                                JOptionPane.showMessageDialog(null, "Không đủ hàng.");
-//                            } else {
-//                                JOptionPane.showMessageDialog(null, "Vui lòng nhập số nguyên dương lớn hơn 0.");
-//                            }
-//                        } else {
-//                            JOptionPane.showMessageDialog(null, "Số lượng sản phẩm đã hết.");
-//                        }
-//                    }
-//                }
-//            }
-//        });
     }
 
     @Override
     public void onQRCodeScanned(String result) {
-//        // Lấy thông tin sản phẩm từ mã QR
-//        List<sanphamchitietviewmodel> listSP = sps.searchQR(result);
-//        if (!listSP.isEmpty()) {
-//            sanphamchitietviewmodel sp = listSP.get(0); // Giả sử chỉ có một sản phẩm trả về
-//            int soLuongTrongBang = sp.getSoluong();
-//
-//            int soLuong = nhapSoLuong();
-//
-//            if (soLuongTrongBang > 0) {
-//                if (soLuong > 0 && soLuong <= soLuongTrongBang) {
-//                    // Trừ số lượng sản phẩm
-//                    sp.setSoluong(soLuongTrongBang - soLuong);
-//
-//                    updateTotalAmount(); // Cập nhật tổng tiền
-//
-//                    // Hiển thị giỏ hàng
-//                    showGioHang(listSP);
-//                } else if (soLuong > soLuongTrongBang) {
-//                    JOptionPane.showMessageDialog(null, "Không đủ hàng.");
-//                } else {
-//                    JOptionPane.showMessageDialog(null, "Vui lòng nhập số nguyên dương lớn hơn 0.");
-//                }
-//            } else {
-//                JOptionPane.showMessageDialog(null, "Số lượng sản phẩm đã hết.");
-//            }
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Không tìm thấy sản phẩm.");
-//        }
+        // Lấy thông tin sản phẩm từ mã QR
+        List<sanphamchitietviewmodel> listSP = sps.searchQR(result);
+
+        sanphamchitietviewmodel sp = listSP.get(0); // Giả sử chỉ có một sản phẩm trả về
+        int soLuongTrongBang = sp.getSoluong();
+
+        int soLuong = nhapSoLuong();
+
+        if (soLuongTrongBang > 0) {
+            if (soLuong > 0 && soLuong <= soLuongTrongBang) {
+                
+                // Trừ số lượng sản phẩm
+                sp.setSoluong(soLuongTrongBang - soLuong);
+
+                updateTotalAmount(); // Cập nhật tổng tiền
+                srGH.searchQR(getformdata(), result);
+                listGH = srGH.getAll(txtMaHD.getText());
+                // Hiển thị giỏ hàng
+                showGioHang(listGH);
+            } else if (soLuong > soLuongTrongBang) {
+                JOptionPane.showMessageDialog(null, "Không đủ hàng.");
+            } else {
+                JOptionPane.showMessageDialog(null, "Vui lòng nhập số nguyên dương lớn hơn 0.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Số lượng sản phẩm đã hết.");
+        }
+
     }
     // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
 
@@ -600,10 +556,6 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
 
     }
 
-    private void tuhienhoadon() {
-        showHoaDonBH(listBH);
-    }
-
     public void getkh(String ten, String makh) {
         txtTenKH.setText(ten);
         txtSdtKH.setText(makh);
@@ -627,7 +579,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
     private int generatedCount = 0;
 
     private String generateMaHD() {
-        if (generatedCount < 6) {
+        if (generatedCount < 10) {
             generatedCount++;
             return "HD-00" + String.format("%03d", random.nextInt(1000));
         } else {
@@ -679,6 +631,10 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         String donGiaStr = tbldanhsachsanpham.getValueAt(selectedRow, 9).toString();
         float donGia = Float.parseFloat(donGiaStr.replace(".", "").replaceAll("[^\\d]", ""));
         int soLuong = nhapSoLuong();
+        if (soLuong <= 0) {
+            JOptionPane.showMessageDialog(this, "Nhập số lượng lớn hơn 0");
+            return null;
+        }
         float thanhTien = donGia * soLuong; // tính giá trị thanhTien
 
 //        listHDCT = srhdct.getAllID(maHD);
@@ -723,7 +679,6 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
 //        listHDCT = srhdct.getAllID(maHD);
 //        showHoaDonBH(listBH);
 //        refreshCart();
-
         HDChiTiet hdct = new HDChiTiet(maHDCT, maHD, maCTSP, donGia, thanhTien, soLuong);
         return hdct;
     }
@@ -771,7 +726,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
     }
 
     public void showcomboboxDay(List<Daysp> list) {
-        comboday.removeAllElements();;
+        comboday.removeAllElements();
         for (Daysp daysp : list) {
             comboday.addElement(daysp.getDaysp());
         }
@@ -984,7 +939,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         jScrollPane1 = new javax.swing.JScrollPane();
         tblhoadon = new javax.swing.JTable();
         btnAddHoaDon = new b1.View.chucnang.ButtonGradient();
-        buttonGradient7 = new b1.View.chucnang.ButtonGradient();
+        ResetHD = new b1.View.chucnang.ButtonGradient();
         txtSearchHD = new b1.View.chucnang.TextField();
         btnDeleteHD = new b1.View.chucnang.ButtonGradient();
         panel5 = new b1.View.chucnang.Panel();
@@ -993,7 +948,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         jPanel8 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblgiohang = new javax.swing.JTable();
-        buttonGradient10 = new b1.View.chucnang.ButtonGradient();
+        ResetGH = new b1.View.chucnang.ButtonGradient();
         txtSearchGH = new b1.View.chucnang.TextField();
         deleteGH = new b1.View.chucnang.ButtonGradient();
         panel3 = new b1.View.chucnang.Panel();
@@ -1003,11 +958,11 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         tbldanhsachsanpham = new javax.swing.JTable();
         txtsearch = new b1.View.chucnang.TextField();
         cbbhang = new b1.View.Combobox();
-        buttonGradient8 = new b1.View.chucnang.ButtonGradient();
+        ResetSP = new b1.View.chucnang.ButtonGradient();
         cbbday = new b1.View.Combobox();
         cbbmau = new b1.View.Combobox();
         cbbchatlieu = new b1.View.Combobox();
-        buttonGradient11 = new b1.View.chucnang.ButtonGradient();
+        btnAddGH = new b1.View.chucnang.ButtonGradient();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -1416,15 +1371,15 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
             }
         });
 
-        buttonGradient7.setBackground(new java.awt.Color(153, 255, 255));
-        buttonGradient7.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        buttonGradient7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/b1/khoanh/undo.png"))); // NOI18N
-        buttonGradient7.setColor1(new java.awt.Color(204, 204, 255));
-        buttonGradient7.setColor2(new java.awt.Color(255, 255, 255));
-        buttonGradient7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        buttonGradient7.addActionListener(new java.awt.event.ActionListener() {
+        ResetHD.setBackground(new java.awt.Color(153, 255, 255));
+        ResetHD.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        ResetHD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/b1/khoanh/undo.png"))); // NOI18N
+        ResetHD.setColor1(new java.awt.Color(204, 204, 255));
+        ResetHD.setColor2(new java.awt.Color(255, 255, 255));
+        ResetHD.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ResetHD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonGradient7ActionPerformed(evt);
+                ResetHDActionPerformed(evt);
             }
         });
 
@@ -1456,7 +1411,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnDeleteHD, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(buttonGradient7, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ResetHD, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 822, Short.MAX_VALUE)
         );
@@ -1471,7 +1426,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
                     .addComponent(txtSearchHD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                         .addComponent(btnDeleteHD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(buttonGradient7, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)))
+                        .addComponent(ResetHD, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 32, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -1509,15 +1464,15 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         tblgiohang.setSelectionBackground(new java.awt.Color(153, 153, 255));
         jScrollPane3.setViewportView(tblgiohang);
 
-        buttonGradient10.setBackground(new java.awt.Color(153, 255, 255));
-        buttonGradient10.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        buttonGradient10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/b1/khoanh/undo.png"))); // NOI18N
-        buttonGradient10.setColor1(new java.awt.Color(204, 204, 255));
-        buttonGradient10.setColor2(new java.awt.Color(255, 255, 255));
-        buttonGradient10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        buttonGradient10.addActionListener(new java.awt.event.ActionListener() {
+        ResetGH.setBackground(new java.awt.Color(153, 255, 255));
+        ResetGH.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        ResetGH.setIcon(new javax.swing.ImageIcon(getClass().getResource("/b1/khoanh/undo.png"))); // NOI18N
+        ResetGH.setColor1(new java.awt.Color(204, 204, 255));
+        ResetGH.setColor2(new java.awt.Color(255, 255, 255));
+        ResetGH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ResetGH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonGradient10ActionPerformed(evt);
+                ResetGHActionPerformed(evt);
             }
         });
 
@@ -1545,7 +1500,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(deleteGH, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(buttonGradient10, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(ResetGH, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel8Layout.setVerticalGroup(
@@ -1556,7 +1511,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(deleteGH, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonGradient10, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(ResetGH, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(txtSearchGH, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1573,7 +1528,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 44, Short.MAX_VALUE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         panel2.addTab("Giỏ Hàng", jPanel6);
@@ -1607,15 +1562,15 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
 
         cbbhang.setLabeText("Hãng");
 
-        buttonGradient8.setBackground(new java.awt.Color(153, 255, 255));
-        buttonGradient8.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        buttonGradient8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/b1/khoanh/undo.png"))); // NOI18N
-        buttonGradient8.setColor1(new java.awt.Color(204, 204, 255));
-        buttonGradient8.setColor2(new java.awt.Color(255, 255, 255));
-        buttonGradient8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        buttonGradient8.addActionListener(new java.awt.event.ActionListener() {
+        ResetSP.setBackground(new java.awt.Color(153, 255, 255));
+        ResetSP.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        ResetSP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/b1/khoanh/undo.png"))); // NOI18N
+        ResetSP.setColor1(new java.awt.Color(204, 204, 255));
+        ResetSP.setColor2(new java.awt.Color(255, 255, 255));
+        ResetSP.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ResetSP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonGradient8ActionPerformed(evt);
+                ResetSPActionPerformed(evt);
             }
         });
 
@@ -1626,16 +1581,16 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
 
         cbbchatlieu.setLabeText("Chất Liệu");
 
-        buttonGradient11.setBackground(new java.awt.Color(153, 255, 255));
-        buttonGradient11.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        buttonGradient11.setForeground(new java.awt.Color(102, 102, 102));
-        buttonGradient11.setText("Add");
-        buttonGradient11.setColor1(new java.awt.Color(204, 204, 255));
-        buttonGradient11.setColor2(new java.awt.Color(255, 255, 255));
-        buttonGradient11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        buttonGradient11.addActionListener(new java.awt.event.ActionListener() {
+        btnAddGH.setBackground(new java.awt.Color(153, 255, 255));
+        btnAddGH.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        btnAddGH.setForeground(new java.awt.Color(102, 102, 102));
+        btnAddGH.setText("Add");
+        btnAddGH.setColor1(new java.awt.Color(204, 204, 255));
+        btnAddGH.setColor2(new java.awt.Color(255, 255, 255));
+        btnAddGH.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        btnAddGH.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buttonGradient11ActionPerformed(evt);
+                btnAddGHActionPerformed(evt);
             }
         });
 
@@ -1645,9 +1600,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
             jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(buttonGradient11, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(cbbmau, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbbchatlieu, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1655,8 +1608,10 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
                 .addComponent(cbbday, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cbbhang, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(buttonGradient8, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(ResetSP, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(btnAddGH, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel9Layout.createSequentialGroup()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 822, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1668,15 +1623,14 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
                 .addContainerGap()
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtsearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(buttonGradient8, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(cbbhang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbbday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(cbbchatlieu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(cbbmau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(buttonGradient11, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbbmau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(ResetSP, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnAddGH, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(27, Short.MAX_VALUE))
@@ -1749,14 +1703,14 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void buttonGradient8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient8ActionPerformed
+    private void ResetSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetSPActionPerformed
         // TODO add your handling code here:
         cbbhang.setSelectedIndex(0);
         showdata(listsp);
-    }//GEN-LAST:event_buttonGradient8ActionPerformed
+    }//GEN-LAST:event_ResetSPActionPerformed
 
 
-    private void buttonGradient10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient10ActionPerformed
+    private void ResetGHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetGHActionPerformed
         // TODO add your handling code here:
 
         for (int i = 0; i < dtmGiohang.getRowCount(); i++) {
@@ -1773,7 +1727,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         showdata(listsp);
 
         dtmGiohang.setRowCount(0);
-    }//GEN-LAST:event_buttonGradient10ActionPerformed
+    }//GEN-LAST:event_ResetGHActionPerformed
 
     private void deleteGHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteGHActionPerformed
         // TODO add your handling code here:
@@ -1781,7 +1735,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
 
         GioHangViewMD gh = listGH.get(index);
         srhd.DeleteGH(gh.getMaHDCT());
-        listGH = srGH.getAll(txtMaHD.getText());   
+        listGH = srGH.getAll(txtMaHD.getText());
         for (int i = 0; i < dtmGiohang.getRowCount(); i++) {
             String maSP = dtmGiohang.getValueAt(i, 1).toString();
             int soLuong = Integer.parseInt(dtmGiohang.getValueAt(i, 8).toString());
@@ -1806,10 +1760,10 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         showHoaDonBH(listBH);
     }//GEN-LAST:event_btnDeleteHDActionPerformed
 
-    private void buttonGradient7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient7ActionPerformed
+    private void ResetHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ResetHDActionPerformed
         // TODO add your handling code here:
         dtmGiohang.setRowCount(0);
-    }//GEN-LAST:event_buttonGradient7ActionPerformed
+    }//GEN-LAST:event_ResetHDActionPerformed
 
     private void btnAddHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddHoaDonActionPerformed
         // TODO add your handling code here:
@@ -1838,14 +1792,14 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         return;
     }//GEN-LAST:event_buttonGradient4ActionPerformed
 
-    private void buttonGradient11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient11ActionPerformed
+    private void btnAddGHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddGHActionPerformed
         // TODO add your handling code here:
 
-        JOptionPane.showMessageDialog(this, srhd.AddSPGH(getformdata()));;
+        JOptionPane.showMessageDialog(this, srhd.AddSPGH(getformdata()));
         listHDCT = srhdct.getAll();
         listGH = srGH.getAll(txtMaHD.getText());
         showGioHang(listGH);
-    }//GEN-LAST:event_buttonGradient11ActionPerformed
+    }//GEN-LAST:event_btnAddGHActionPerformed
 
     private void btnUpdateHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateHDActionPerformed
         String MVC = (String) cbbgiamrgia.getSelectedItem();
@@ -1959,15 +1913,15 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel DHOFF;
+    private b1.View.chucnang.ButtonGradient ResetGH;
+    private b1.View.chucnang.ButtonGradient ResetHD;
+    private b1.View.chucnang.ButtonGradient ResetSP;
+    private b1.View.chucnang.ButtonGradient btnAddGH;
     private b1.View.chucnang.ButtonGradient btnAddHoaDon;
     private b1.View.chucnang.ButtonGradient btnDeleteHD;
     private b1.View.chucnang.ButtonGradient btnReset;
     private b1.View.chucnang.ButtonGradient btnUpdateHD;
-    private b1.View.chucnang.ButtonGradient buttonGradient10;
-    private b1.View.chucnang.ButtonGradient buttonGradient11;
     private b1.View.chucnang.ButtonGradient buttonGradient4;
-    private b1.View.chucnang.ButtonGradient buttonGradient7;
-    private b1.View.chucnang.ButtonGradient buttonGradient8;
     private b1.View.chucnang.ButtonGradient buttonGradient9;
     private javax.swing.ButtonGroup buttonGroup1;
     private b1.View.chucnang.Combobox cbbPTTT;

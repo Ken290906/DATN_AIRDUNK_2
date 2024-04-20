@@ -5,6 +5,8 @@
 package b1.repository;
 
 import GioHangViewModel.GioHangViewMD;
+import ViewModelSP.sanphamchitietviewmodel;
+import b1.entity.HDChiTiet;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
@@ -60,6 +62,35 @@ public class GioHangRepo {
             e.printStackTrace();
         }
         return listGH;
+    }
+    
+    public boolean searchQR(HDChiTiet hdct, String QRCode) {
+        int check = 0;
+        String sql = """
+                INSERT INTO [dbo].[HoaDonChiTiet]
+                                                                       ([MaHDCT]
+                                                                       ,[MaHoaDon]
+                                                                       ,[IDChiTietSP]
+                                                                       ,[DonGia]
+                                                                       ,[Thanhtien]
+                                                                       ,[SoLuong])
+                                                      VALUES
+                                                            (?, ?, ?, ?, ?, ?)                                                                                                                                                                                                                   
+                       """;
+        try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setObject(1, hdct.getMaHDCT());
+            ps.setObject(2, hdct.getMaHD());
+            ps.setObject(3, QRCode);
+            ps.setObject(4, hdct.getDonGia());
+            ps.setObject(5, hdct.getThanhTien());
+            ps.setObject(6, hdct.getSoLuong());
+            check = ps.executeUpdate();
+
+        } catch (Exception e) {
+            e.getStackTrace();
+        }
+        return check > 0;
     }
     
     
