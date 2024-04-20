@@ -194,7 +194,7 @@ public class HDBanHangRepository {
         String sqlHDCT = """
                   UPDATE ChiTietSP
                     SET Soluong = Soluong - ?
-                    Where MaCTSP = ?
+                    Where MaCTSP = ? AND Soluong > 0
                     """;
 
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sqlHDCT)) {
@@ -339,7 +339,7 @@ public class HDBanHangRepository {
         String sql = """
                    UPDATE ChiTietSP
                                               SET Soluong = Soluong - ?,
-                                              WHERE MaCTSP = ?
+                                              WHERE MaCTSP = ? 
                      """;
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareCall(sql)) {
             ps.setObject(1, soLuongMoi);

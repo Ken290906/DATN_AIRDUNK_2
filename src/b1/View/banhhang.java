@@ -33,6 +33,7 @@ import b1.View.chucnang.quetmaqr.QRCodeListener;
 import b1.View.chucnang.themdanhsachsanpham;
 import b1.entity.chitietsanpham;
 import b1.services.GioHangService;
+import b1.services.nhanvienservice;
 import com.itextpdf.text.Font;
 import java.util.ArrayList;
 import java.util.List;
@@ -94,6 +95,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
     private DefaultComboBoxModel combomau = new DefaultComboBoxModel();
     private DefaultComboBoxModel comboday = new DefaultComboBoxModel();
     private DefaultComboBoxModel combochatlieu = new DefaultComboBoxModel();
+    private DefaultComboBoxModel combonv = new DefaultComboBoxModel();
 //list
     private List<sanphamchitietviewmodel> listsp = new ArrayList<>();
     private List<GioHangViewMD> listGH = new ArrayList<>();
@@ -107,11 +109,13 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
     private List<Chatlieusp> listchatlieu = new ArrayList<>();
     private List<Daysp> listday = new ArrayList<>();
     private List<MauSanPham> listmau = new ArrayList<>();
+    private List<b1.entity.nhanvien> listnv = new ArrayList<>();
 
 //ITF
     interfacesp itf = new iterface2() {
     };
 //Services
+    private nhanvienservice nvs = new nhanvienservice();
     private HDCTService srhdct = new HDCTService();
     private chitietsanphamp2services sps = new chitietsanphamp2services();
     private hangsxservices hsxs = new hangsxservices();
@@ -130,7 +134,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
 
     private ParametReportPayment createParametReportPayment() {
         String maHD = txtMaHD.getText().trim();
-        String maNV = txtmaNV.getText().trim();
+        String maNV = (String) cbbnhanvien.getSelectedItem();
         int tongTien = Integer.parseInt(txttongtien.getText().replaceAll("[, đ]", ""));
         InputStream maqr = null; // Cần thêm logic để lấy InputStream cho QR Code
         List<FieldReportPayment> fileds = new ArrayList<>();
@@ -196,6 +200,9 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         comboday = (DefaultComboBoxModel) cbbday.getModel();
         listday = ds.getall();
         showcomboboxDay(listday);
+        combonv = (DefaultComboBoxModel) cbbnhanvien.getModel();
+        listnv = nvs.getAll();
+        showcombobox(listnv);
         txtSearchHD.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void insertUpdate(DocumentEvent e) {
@@ -426,7 +433,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
 
         if (soLuongTrongBang > 0) {
             if (soLuong > 0 && soLuong <= soLuongTrongBang) {
-                
+
                 // Trừ số lượng sản phẩm
                 sp.setSoluong(soLuongTrongBang - soLuong);
 
@@ -461,7 +468,9 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
             for (GioHangViewMD sp : ListGHSP) {
                 i++;
                 int soLuong = sp.getSoluong();
-                if (soLuongSP > 0) {
+
+                if (soLuong > 0) {
+                   
                     double thanhTien = soLuong * sp.getGiaban(); // Tính toán thành tiền
 
                     dtmGiohang.addRow(new Object[]{
@@ -477,17 +486,10 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
                         currentFormater.format(sp.getGiaban()), // Định dạng giá bán
                         currentFormater.format(thanhTien) // Định dạng thành tiền
                     });
-                    txttong.setText(VND.format(thanhTien));
-                    updateTotalAmount();
-                } else if (soLuong > soLuongSP) {
-                    JOptionPane.showMessageDialog(null, "Không đủ hàng.");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Vui lòng nhập số nguyên dương lớn hơn 0.");
-                }
 
+                }
+                updateTotalAmount();
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "Vui lòng chọn một sản phẩm.");
         }
     }
     // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
@@ -556,6 +558,13 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
 
     }
 
+    public void showcombobox(List<b1.entity.nhanvien> list) {
+        combonv.removeAllElements();
+        for (b1.entity.nhanvien object : list) {
+            combonv.addElement(object.getId());
+        }
+    }
+
     public void getkh(String ten, String makh) {
         txtTenKH.setText(ten);
         txtSdtKH.setText(makh);
@@ -620,11 +629,13 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
     }
 
     public HDChiTiet getformdata() {
+
         if (txtMaHD.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Vui long tao hoa don truoc !");
             return null;
         }
         int selectedRow = tbldanhsachsanpham.getSelectedRow();
+        int soLuongSP = (int) tbldanhsachsanpham.getValueAt(selectedRow, 8);
         String maHDCT = generateMaHD();
         String maHD = txtMaHD.getText();
         String maCTSP = (String) tbldanhsachsanpham.getValueAt(selectedRow, 1);
@@ -805,10 +816,18 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
 //    }
     private int nhapSoLuong() {
         String input = JOptionPane.showInputDialog("Nhập số lượng:");
-
+         int selectedRow = tbldanhsachsanpham.getSelectedRow();
+        int soLuongSP = (int) tbldanhsachsanpham.getValueAt(selectedRow, 8);
+     
+     
         if (input != null && !input.isEmpty()) {
             try {
+                
                 int soLuong = Integer.parseInt(input);
+                if (soLuong > soLuongSP) {
+                JOptionPane.showMessageDialog(this, "Số lượng sản phẩm vượt quá số lượng trong kho.");
+                return 0;
+            }
 
                 // Lấy chỉ mục hàng được chọn từ JTable
                 int sua = tbldanhsachsanpham.getSelectedRow();
@@ -833,6 +852,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
             }
 
         }
+
         return 0; // Trả về 0 nếu không nhập hoặc nhập không hợp lệ
     }
 
@@ -842,7 +862,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         String TT = txttongtien.getText().replaceAll("[, đ]", "");
         String sdtKH = txtSdtKH.getText().trim();
         String tenKH = txtTenKH.getText().trim();
-        String MaNV = txtmaNV.getText().trim();
+        String MaNV = (String) cbbnhanvien.getSelectedItem();
         int tongSP = tblgiohang.getRowCount();
         Date NT = dateFormat.parse(dcNgayTao.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate() + "");
         String MaKH = txtTenKH.getText().trim();
@@ -859,7 +879,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
     public LichSuHoaDon getformdataUpdateLSHD() throws ParseException {
         String maHD = txtMaHD.getText().trim();
         String maLSHD = txtMaHD.getText().trim();
-        String maNV = txtmaNV.getText().trim();
+        String maNV = (String) cbbnhanvien.getSelectedItem();
         Date ngayTao = dateFormat.parse(dcNgayTao.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate() + "");
 
         LichSuHoaDon lshd = new LichSuHoaDon(maLSHD, maHD, maNV, "Tạo hóa đơn", ngayTao);
@@ -913,8 +933,6 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         btnUpdateHD = new b1.View.chucnang.ButtonGradient();
         jLabel11 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        txtmaNV = new javax.swing.JTextField();
-        jSeparator9 = new javax.swing.JSeparator();
         jLabel15 = new javax.swing.JLabel();
         jSeparator10 = new javax.swing.JSeparator();
         txtkhachdua = new javax.swing.JTextField();
@@ -932,6 +950,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         jSeparator2 = new javax.swing.JSeparator();
         dcNgayThanhToan = new com.toedter.calendar.JDateChooser();
         dcNgayTao = new com.toedter.calendar.JDateChooser();
+        cbbnhanvien = new b1.View.Combobox();
         panel1 = new b1.View.chucnang.Panel();
         jPanel4 = new javax.swing.JPanel();
         jPanel5 = new javax.swing.JPanel();
@@ -1089,12 +1108,6 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
 
         jLabel13.setText("Mã NV");
 
-        txtmaNV.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        txtmaNV.setText("NV-001");
-        txtmaNV.setBorder(null);
-
-        jSeparator9.setBackground(new java.awt.Color(0, 0, 0));
-
         jLabel15.setText("Tiền Khách Đưa");
 
         jSeparator10.setBackground(new java.awt.Color(0, 0, 0));
@@ -1140,6 +1153,8 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         dcNgayThanhToan.setDateFormatString("dd-MM-yyyy");
 
         dcNgayTao.setDateFormatString("dd-MM-yyyy");
+
+        cbbnhanvien.setLabeText("Nhân viên");
 
         javax.swing.GroupLayout DHOFFLayout = new javax.swing.GroupLayout(DHOFF);
         DHOFF.setLayout(DHOFFLayout);
@@ -1198,16 +1213,8 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
                                         .addComponent(jSeparator10)
                                         .addComponent(txtkhachdua, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addGroup(DHOFFLayout.createSequentialGroup()
-                                    .addGroup(DHOFFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DHOFFLayout.createSequentialGroup()
-                                            .addComponent(jLabel13)
-                                            .addGap(109, 109, 109))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, DHOFFLayout.createSequentialGroup()
-                                            .addComponent(jLabel1)
-                                            .addGap(94, 94, 94)))
-                                    .addGroup(DHOFFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jSeparator9)
-                                        .addComponent(txtmaNV, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(jLabel1)
+                                    .addGap(224, 224, 224)))
                             .addGap(43, 43, 43))
                         .addGroup(DHOFFLayout.createSequentialGroup()
                             .addGroup(DHOFFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1226,7 +1233,11 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
                                     .addComponent(txtchuyenkhoan, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(DHOFFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txttienthua1, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(jSeparator2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(DHOFFLayout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addGap(109, 109, 109)
+                        .addComponent(cbbnhanvien, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         DHOFFLayout.setVerticalGroup(
@@ -1290,13 +1301,10 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
                     .addComponent(txttienthua1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 12, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(5, 5, 5)
                 .addGroup(DHOFFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel13)
-                    .addGroup(DHOFFLayout.createSequentialGroup()
-                        .addComponent(txtmaNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, 0)
-                        .addComponent(jSeparator9, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(cbbnhanvien, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(DHOFFLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtkhachdua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -1867,7 +1875,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
             txtTenKH.setText("");
             txtMaHD.setText("");
             txtkhachdua.setText("");
-            txtmaNV.setText("");
+            cbbnhanvien.setSelectedItem(0);
             txttongtien.setText("");
             txttong.setText("");
         }
@@ -1930,6 +1938,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
     private b1.View.chucnang.Combobox cbbgiamrgia;
     private b1.View.Combobox cbbhang;
     private b1.View.Combobox cbbmau;
+    private b1.View.Combobox cbbnhanvien;
     private com.toedter.calendar.JDateChooser dcNgayTao;
     private com.toedter.calendar.JDateChooser dcNgayThanhToan;
     private b1.View.chucnang.ButtonGradient deleteGH;
@@ -1965,7 +1974,6 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JSeparator jSeparator6;
     private javax.swing.JSeparator jSeparator7;
-    private javax.swing.JSeparator jSeparator9;
     private javax.swing.JPanel mahinhbanhang;
     private b1.View.chucnang.Panel panel1;
     private b1.View.chucnang.Panel panel2;
@@ -1982,7 +1990,6 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
     private b1.View.chucnang.TextField txtTenKH;
     private javax.swing.JTextField txtchuyenkhoan;
     private javax.swing.JTextField txtkhachdua;
-    private javax.swing.JTextField txtmaNV;
     private b1.View.chucnang.TextField txtsearch;
     private javax.swing.JTextField txttienthua1;
     private javax.swing.JTextField txttong;
