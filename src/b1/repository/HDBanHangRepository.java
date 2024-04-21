@@ -20,35 +20,43 @@ import java.util.List;
  */
 public class HDBanHangRepository {
 
-    public List<HoaDonBH> getAllBanHang() {
-        List<HoaDonBH> list = new ArrayList<>();
+   public List<HoaDonBH> getAllBanHang() {
+    List<HoaDonBH> list = new ArrayList<>();
 
-        String sql = """
-			 SELECT        dbo.HoaDon.MaHD, dbo.HoaDon.MaNV, Sum(dbo.HoaDonChiTiet.SoLuong), dbo.HoaDon.TenKH, dbo.HoaDon.SdtKH, dbo.HoaDon.Deleted
-                                                                                        FROM            dbo.HoaDon Left JOIN
-                                                                                                                 dbo.HoaDonChiTiet ON dbo.HoaDon.MaHD = dbo.HoaDonChiTiet.MaHoaDon
-                                                                                        						  WHERE dbo.HoaDon.Deleted = 1 OR dbo.HoaDon.Deleted = 2
-                                                                                        						  Group By dbo.HoaDon.MaHD, dbo.HoaDon.MaNV, dbo.HoaDonChiTiet.SoLuong, dbo.HoaDon.TenKH, dbo.HoaDon.SdtKH, dbo.HoaDon.Deleted
-                                                                                        						    ORDER BY dbo.HoaDon.MaHD DESC
-                     """;
-        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                HoaDonBH hd = new HoaDonBH();
-                hd.setMaHD(rs.getString(1));
-                hd.setMaNV(rs.getString(2));
-                hd.setSoluong(rs.getInt(3));
-                hd.setTenKH(rs.getString(4));
-                hd.setSdt(rs.getInt(5));
-                hd.setTrangthai2(rs.getFloat(6));
+    String sql = """
+        SELECT dbo.HoaDon.MaHD, dbo.HoaDon.MaNV, COALESCE(Sum(ChiTiet.SoLuong), 0) AS TotalQuantity,
+            dbo.HoaDon.TenKH, dbo.HoaDon.SdtKH, dbo.HoaDon.Deleted
+        FROM dbo.HoaDon
+        LEFT JOIN (
+            SELECT MaHoaDon, SUM(SoLuong) AS SoLuong
+            FROM dbo.HoaDonChiTiet
+            GROUP BY MaHoaDon
+        ) AS ChiTiet ON dbo.HoaDon.MaHD = ChiTiet.MaHoaDon
+        WHERE dbo.HoaDon.Deleted IN (1, 2)
+        GROUP BY dbo.HoaDon.MaHD, dbo.HoaDon.MaNV, dbo.HoaDon.TenKH, dbo.HoaDon.SdtKH, dbo.HoaDon.Deleted
+        ORDER BY dbo.HoaDon.MaHD DESC
+    """;
+    
+    try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            HoaDonBH hd = new HoaDonBH();
+            hd.setMaHD(rs.getString(1));
+            hd.setMaNV(rs.getString(2));
+            hd.setSoluong(rs.getInt(3));
+            hd.setTenKH(rs.getString(4));
+            hd.setSdt(rs.getInt(5));
+            hd.setTrangthai2(rs.getFloat(6));
 
-                list.add(hd);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+            list.add(hd);
         }
-        return list;
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+    
+    return list;
+}
+
 
     public List<HoaDonBH> getAllID(String maHD) {
         List<HoaDonBH> list = new ArrayList<>();

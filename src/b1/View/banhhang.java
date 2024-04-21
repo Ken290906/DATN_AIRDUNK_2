@@ -454,23 +454,26 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
     }
     // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
 
-    public void showGioHang(List<GioHangViewMD> ListGHSP) {
-        dtmGiohang.setRowCount(0);
-        int i = 0;
+   public void showGioHang(List<GioHangViewMD> ListGHSP) {
+    dtmGiohang.setRowCount(0);
+    int i = 0;
 
-        // Kiểm tra xem có hàng nào được chọn không
-        if (cc != -1) {
-            int selectedRow = cc;
-            int soLuongSP = (int) tbldanhsachsanpham.getValueAt(selectedRow, 8);
-            Locale lc = new Locale("vi", "VN");
-            NumberFormat currentFormater = NumberFormat.getCurrencyInstance(lc);
+    // Kiểm tra xem có hàng nào được chọn không
+    if (cc != -1) {
+        int selectedRow = cc;
+        int soLuongSP = (int) tbldanhsachsanpham.getValueAt(selectedRow, 8);
+        Locale lc = new Locale("vi", "VN");
+        NumberFormat currentFormater = NumberFormat.getCurrencyInstance(lc);
 
+        if (ListGHSP.isEmpty()) { // If the shopping cart is empty
+            dtmGiohang.addRow(new Object[]{1, "", "", "", "", "", "", "", 0, currentFormater.format(0), currentFormater.format(0)});
+            updateTotalAmount(); // Update total amount with 0 VND
+        } else {
             for (GioHangViewMD sp : ListGHSP) {
                 i++;
                 int soLuong = sp.getSoluong();
 
                 if (soLuong > 0) {
-
                     double thanhTien = soLuong * sp.getGiaban(); // Tính toán thành tiền
 
                     dtmGiohang.addRow(new Object[]{
@@ -486,12 +489,13 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
                         currentFormater.format(sp.getGiaban()), // Định dạng giá bán
                         currentFormater.format(thanhTien) // Định dạng thành tiền
                     });
-
                 }
                 updateTotalAmount();
             }
         }
     }
+}
+
     // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
 
     private void updateTotalAmount() {
