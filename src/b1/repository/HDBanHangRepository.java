@@ -25,11 +25,11 @@ public class HDBanHangRepository {
 
         String sql = """
 			 SELECT        dbo.HoaDon.MaHD, dbo.HoaDon.MaNV, Sum(dbo.HoaDonChiTiet.SoLuong), dbo.HoaDon.TenKH, dbo.HoaDon.SdtKH, dbo.HoaDon.Deleted
-                    FROM            dbo.HoaDon INNER JOIN
-                                             dbo.HoaDonChiTiet ON dbo.HoaDon.MaHD = dbo.HoaDonChiTiet.MaHoaDon
-                    						  WHERE dbo.HoaDon.Deleted = 1 OR dbo.HoaDon.Deleted = 2
-                    						  Group By dbo.HoaDon.MaHD, dbo.HoaDon.MaNV, dbo.HoaDonChiTiet.SoLuong, dbo.HoaDon.TenKH, dbo.HoaDon.SdtKH, dbo.HoaDon.Deleted
-                    						    ORDER BY dbo.HoaDon.MaHD DESC
+                                                                                        FROM            dbo.HoaDon LEFT JOIN
+                                                                                                                 dbo.HoaDonChiTiet ON dbo.HoaDon.MaHD = dbo.HoaDonChiTiet.MaHoaDon
+                                                                                        						  WHERE dbo.HoaDon.Deleted = 1 OR dbo.HoaDon.Deleted = 2
+                                                                                        						  Group By dbo.HoaDon.MaHD, dbo.HoaDon.MaNV, dbo.HoaDonChiTiet.SoLuong, dbo.HoaDon.TenKH, dbo.HoaDon.SdtKH, dbo.HoaDon.Deleted
+                                                                                        						    ORDER BY dbo.HoaDon.MaHD DESC
                      """;
         try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();

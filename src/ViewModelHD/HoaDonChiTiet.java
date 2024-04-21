@@ -132,8 +132,9 @@ public class HoaDonChiTiet {
 
     @Override
     public String toString() {
-        return "HoaDonChiTiet{" + "maHDCT=" + maHDCT + ", maHD=" + maHD + ", idCTSP=" + idCTSP + ", donGia=" + donGia + ", hang=" + hang + ", mau=" + mau + ", size=" + size + ", doday=" + doday + ", chatlieu=" + chatlieu + ", matde=" + matde + ", day=" + day + '}';
+        return "HoaDonChiTiet{" + "maHDCT=" + maHDCT + ", maHD=" + maHD + ", idCTSP=" + idCTSP + ", Soluong=" + Soluong + ", donGia=" + donGia + ", hang=" + hang + ", mau=" + mau + ", size=" + size + ", doday=" + doday + ", chatlieu=" + chatlieu + ", matde=" + matde + ", day=" + day + '}';
     }
 
+    
     
 }

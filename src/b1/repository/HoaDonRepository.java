@@ -28,7 +28,7 @@ public class HoaDonRepository {
         List<HoaDon> list = new ArrayList<>();
 
         String sql = """
-                     SELECT        dbo.HoaDon.MaHD, dbo.HoaDon.NgayTaoHoaDon, dbo.HoaDon.Tongtien, dbo.HTTT.MaHTTT, dbo.HoaDon.TenKH, dbo.HoaDon.DiachiKH, dbo.HoaDon.SdtKH, dbo.HoaDon.Deleted
+                     SELECT        dbo.HoaDon.MaHD, dbo.HoaDon.NgayTaoHoaDon, dbo.HoaDon.Tongtien, dbo.HTTT.MaHTTT, dbo.HoaDon.Soluong, dbo.HoaDon.TenKH, dbo.HoaDon.DiachiKH, dbo.HoaDon.SdtKH, dbo.HoaDon.Deleted
                                                                                                 FROM            dbo.HoaDon FULL JOIN
                                                           dbo.NhanVien ON dbo.HoaDon.MaNV = dbo.NhanVien.MaNV FULL JOIN
                                                            dbo.KhachHang ON dbo.HoaDon.MaKH = dbo.KhachHang.MaKH LEFT JOIN
@@ -47,10 +47,11 @@ public class HoaDonRepository {
                 hd.setNgaytaoHD(rs.getDate(2));
                 hd.setTongTien(rs.getFloat(3));
                 hd.setMaHTTT(rs.getString(4));
-                hd.setTenKH(rs.getString(5));
-                hd.setDiaChi(rs.getString(6));
-                hd.setSdtKH(rs.getInt(7));
-                hd.setTrangThai(rs.getInt(8));
+                hd.setSoLuongSP(rs.getInt(5));
+                hd.setTenKH(rs.getString(6));
+                hd.setDiaChi(rs.getString(7));
+                hd.setSdtKH(rs.getInt(8));
+                hd.setTrangThai(rs.getInt(9));
 
                 list.add(hd);
             }

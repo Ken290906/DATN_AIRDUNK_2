@@ -371,6 +371,7 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
                 hd.getMaHD(),
                 hd.getTenKH(),
                 httt,
+                hd.getSoLuongSP(),
                 hd.getDiaChi(),
                 "0" + hd.getSdtKH(),
                 currentFormater.format(hd.getTongTien()),
@@ -526,13 +527,13 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
 
         TblHoaDon.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "MÃ HĐ", "TÊN KHÁCH HÀNG", "HÌNH THỨC THANH TOÁN", "ĐỊA CHỈ", "SĐT", "TỔNG TIỀN", "NGÀY TẠO", "TRẠNG THÁI"
+                "STT", "MÃ HĐ", "TÊN KHÁCH HÀNG", "HÌNH THỨC THANH TOÁN", "SỐ LƯỢNG", "ĐỊA CHỈ", "SĐT", "TỔNG TIỀN", "NGÀY TẠO", "TRẠNG THÁI"
             }
         ));
         TblHoaDon.setGridColor(new java.awt.Color(255, 255, 255));

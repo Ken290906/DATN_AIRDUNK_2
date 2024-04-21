@@ -18,6 +18,7 @@ public class HoaDon {
     private float tongTien;
     private String diaChi;
     private String maHTTT;
+    private int soLuongSP;
     private Date ngayTT;
     private Date ngaytaoHD;
     private int sdtKH;
@@ -76,6 +77,16 @@ public class HoaDon {
         this.diaChi = diaChi;
     }
 
+    public int getSoLuongSP() {
+        return soLuongSP;
+    }
+
+    public void setSoLuongSP(int soLuongSP) {
+        this.soLuongSP = soLuongSP;
+    }
+    
+    
+
     public Date getNgayTT() {
         return ngayTT;
     }
@@ -118,8 +129,9 @@ public class HoaDon {
 
     @Override
     public String toString() {
-        return "HoaDon{" + "maHD=" + maHD + ", tenKH=" + tenKH + ", tongTien=" + tongTien + ", diaChi=" + diaChi + ", maHTTT=" + maHTTT + ", ngayTT=" + ngayTT + ", ngaytaoHD=" + ngaytaoHD + ", sdtKH=" + sdtKH + ", trangThai=" + trangThai + ", chiTiet=" + chiTiet + '}';
+        return "HoaDon{" + "maHD=" + maHD + ", tenKH=" + tenKH + ", tongTien=" + tongTien + ", diaChi=" + diaChi + ", maHTTT=" + maHTTT + ", soLuongSP=" + soLuongSP + ", ngayTT=" + ngayTT + ", ngaytaoHD=" + ngaytaoHD + ", sdtKH=" + sdtKH + ", trangThai=" + trangThai + ", chiTiet=" + chiTiet + '}';
     }
-  
+
+    
  
 }

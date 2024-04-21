@@ -648,48 +648,6 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         }
         float thanhTien = donGia * soLuong; // tính giá trị thanhTien
 
-//        listHDCT = srhdct.getAllID(maHD);
-//        System.out.println("maHD" + maHD);
-//        System.out.println("maSPCT" + maCTSP);
-//        System.out.println("donGia" + donGiaStr);
-//        System.out.println(donGia);
-//        System.out.println(soLuong);
-//        System.out.println("thanhTien " + thanhTien);
-//        // Kiểm tra xem sản phẩm đã tồn tại trong giỏ hàng chưa
-//        boolean isProductExist = false;
-//        int index = -1;
-//        System.out.println(listHDCT.size());
-//        for (int i = 0; i < listHDCT.size(); i++) {
-//            if (listHDCT.get(i).getIdCTSP() == maCTSP) {
-//                isProductExist = true;
-//                index = i;
-//                System.out.println(listHDCT.get(i).getIdCTSP());
-//                System.out.println(maCTSP);
-//                break;
-//            }
-//        }
-//        // Nếu sản phẩm đã tồn tại trong giỏ hàng
-//        if (isProductExist) {
-//
-//            // Cộng dồn số lượng mua vào số lượng hiện có
-//            int soLuongCu = listHDCT.get(index).getSoluong();
-//            int soLuongMoi = soLuongCu + soLuong;
-//            listHDCT.get(index).setSoluong(soLuongMoi);
-//
-//            // Cập nhật lại thông tin trong bảng và cơ sở dữ liệu
-//            srhd.updateHDCT(String.valueOf(listHDCT.get(index).getMaHD()), soLuongMoi, String.valueOf(listHDCT.get(index).getIdCTSP()));
-//
-//        } else {
-//            // Nếu sản phẩm chưa tồn tại trong giỏ hàng, thêm mới
-//            srhd.addHDCT(maHD, maCTSP, soLuong, donGia);
-//        }
-//
-//        listBH = srhd.getAllID(maHD);
-//        showHoaDonBH(listBH);
-//        // Cập nhật lại danh sách hóa đơn chi tiết sau khi thêm mới hoặc cập nhật
-//        listHDCT = srhdct.getAllID(maHD);
-//        showHoaDonBH(listBH);
-//        refreshCart();
         HDChiTiet hdct = new HDChiTiet(maHDCT, maHD, maCTSP, donGia, thanhTien, soLuong);
         return hdct;
     }
@@ -1773,7 +1731,6 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
 
     private void btnAddHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddHoaDonActionPerformed
         // TODO add your handling code here:
-
         srhd.Add(getFormData(), getFormdataAddLSHD());
         listBH = srhd.getAll();
         showHoaDonBH(listBH);
