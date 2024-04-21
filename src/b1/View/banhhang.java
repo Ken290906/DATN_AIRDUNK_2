@@ -1755,7 +1755,6 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
     }//GEN-LAST:event_buttonGradient4ActionPerformed
 
     private void btnAddGHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddGHActionPerformed
-        // TODO add your handling code here:
 
         JOptionPane.showMessageDialog(this, srhd.AddSPGH(getformdata()));
         listHDCT = srhdct.getAll();
