@@ -470,7 +470,7 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
                 int soLuong = sp.getSoluong();
 
                 if (soLuong > 0) {
-                   
+
                     double thanhTien = soLuong * sp.getGiaban(); // Tính toán thành tiền
 
                     dtmGiohang.addRow(new Object[]{
@@ -709,7 +709,6 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
     public void sanphamshow() {
         listsp = sps.getall();
         showdata(listsp);
-        JOptionPane.showMessageDialog(this, "Không có sản phẩm nào được tìm thấy giống ?");
     }
 
     private void SearchBanhang() {
@@ -816,18 +815,17 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
 //    }
     private int nhapSoLuong() {
         String input = JOptionPane.showInputDialog("Nhập số lượng:");
-         int selectedRow = tbldanhsachsanpham.getSelectedRow();
+        int selectedRow = tbldanhsachsanpham.getSelectedRow();
         int soLuongSP = (int) tbldanhsachsanpham.getValueAt(selectedRow, 8);
-     
-     
+
         if (input != null && !input.isEmpty()) {
             try {
-                
+
                 int soLuong = Integer.parseInt(input);
                 if (soLuong > soLuongSP) {
-                JOptionPane.showMessageDialog(this, "Số lượng sản phẩm vượt quá số lượng trong kho.");
-                return 0;
-            }
+                    JOptionPane.showMessageDialog(this, "Số lượng sản phẩm vượt quá số lượng trong kho.");
+                    return 0;
+                }
 
                 // Lấy chỉ mục hàng được chọn từ JTable
                 int sua = tbldanhsachsanpham.getSelectedRow();
@@ -1784,12 +1782,11 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
     private void tblhoadonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblhoadonMouseClicked
         // TODO add your handling code here:
         int index = tblhoadon.getSelectedRow();
-
         HoaDonBH hd = listBH.get(index);
-
         txtMaHD.setText(hd.getMaHD());
         listGH = srGH.getAll(txtMaHD.getText());
         showGioHang(listGH);
+
     }//GEN-LAST:event_tblhoadonMouseClicked
 
     private void buttonGradient4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonGradient4ActionPerformed
@@ -1806,7 +1803,9 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         JOptionPane.showMessageDialog(this, srhd.AddSPGH(getformdata()));
         listHDCT = srhdct.getAll();
         listGH = srGH.getAll(txtMaHD.getText());
+        listBH = srhd.getAll();
         showGioHang(listGH);
+        showHoaDonBH(listBH);
     }//GEN-LAST:event_btnAddGHActionPerformed
 
     private void btnUpdateHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateHDActionPerformed
