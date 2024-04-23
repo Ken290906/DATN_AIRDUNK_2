@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package b1.repository;
+
 import ViewModelSP.sanphamviewmodel;
 import b1.entity.DongSanPham;
 import java.sql.Connection;
@@ -10,13 +11,15 @@ import java.sql.ResultSet;
 import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.util.List;
+
 /**
  *
  * @author DELL
  */
 public class dongsanphamrepo {
-     public  List<DongSanPham> getall(){
-         List<DongSanPham> listdsp = new ArrayList<>();
+
+    public List<DongSanPham> getall() {
+        List<DongSanPham> listdsp = new ArrayList<>();
         String sql = """
                    SELECT [IDdsp]
                              ,[TenDSP]
@@ -30,9 +33,9 @@ public class dongsanphamrepo {
                              ,[mota]
                          FROM [dbo].[DSP]
                      """;
-        try (Connection c = DBConnect.getConnection();PreparedStatement ps = c.prepareStatement(sql)) {
+        try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {                
+            while (rs.next()) {
                 DongSanPham hsx = new DongSanPham();
                 hsx.setIDdsp(rs.getString(1));
                 hsx.setTendsp(rs.getString(2));
@@ -50,7 +53,35 @@ public class dongsanphamrepo {
         }
         return listdsp;
     }
-    
+
+    public List<DongSanPham> Search(String madsp) {
+        List<DongSanPham> listdsp = new ArrayList<>();
+        String sql = """
+                   SELECT [IDdsp]
+                             ,[TenDSP]
+                           
+                             ,[soluong]
+
+                         FROM [dbo].[DSP]
+                     Where IDdsp Like ?
+                     """;
+        try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setObject(1, '%' + madsp + '%');
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                DongSanPham hsx = new DongSanPham();
+                hsx.setIDdsp(rs.getString(1));
+                hsx.setTendsp(rs.getString(2));
+
+                hsx.setSoluong(rs.getInt(3));
+
+                listdsp.add(hsx);
+            }
+        } catch (Exception e) {
+        }
+        return listdsp;
+    }
+
     public static void main(String[] args) {
         List<DongSanPham> list = new dongsanphamrepo().getall();
         for (DongSanPham object : list) {

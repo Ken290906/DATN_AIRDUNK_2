@@ -158,29 +158,47 @@ public class thongke extends javax.swing.JInternalFrame {
                 } // Add more conditions as needed
             }
         });
-//        txtsearchsp.getDocument().addDocumentListener(new DocumentListener() {
-//            @Override
-//            public void insertUpdate(DocumentEvent e) {
-//                searchsp();
-//            }
-//
-//            @Override
-//            public void removeUpdate(DocumentEvent e) {
-//                searchsp();
-//            }
-//
-//            @Override
-//            public void changedUpdate(DocumentEvent e) {
-//                searchsp();
-//            }
-//
-//        });
+        txtsearchsp.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                searchsp();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                searchsp();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                searchsp();
+            }
+
+        });
+        txtsearchhd.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+
+                searchhd();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                searchhd();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                searchhd();
+            }
+
+        });
     }
 
-//    private void searchsp() {
-//        listdsp = dsps.search(txtsearchsp.getText());
-//        showdatasp(listdsp);
-//    }
+    private void searchsp() {
+        listdsp = dsps.search(txtsearchsp.getText());
+        showdatasp(listdsp);
+    }
 
     public void showdata(List<HoaDon> list) {
         bang.setRowCount(0);
@@ -198,6 +216,11 @@ public class thongke extends javax.swing.JInternalFrame {
         for (DongSanPham object : list) {
             bang2.addRow(new Object[]{i, object.getIDdsp(), object.getTendsp(), object.getSoluong()});
         }
+    }
+
+    private void searchhd() {
+        hdb = bhs.sreachHDthongke(txtsearchhd.getText());
+        showdata(hdb);
     }
 
     /**

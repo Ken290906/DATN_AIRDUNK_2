@@ -6,6 +6,7 @@ package b1.repository;
 
 import ViewModelHD.HoaDon;
 import ViewModelHD.HoaDonChiTiet;
+import b1.entity.HoaDonBH;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,7 +17,6 @@ import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.FileOutputStream;
 import java.io.IOException;
-
 
 /**
  *
@@ -93,7 +93,7 @@ public class HoaDonRepository {
                                                                                                                 dbo.HoaDon.Deleted;
                      
                      """;
-        try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 HoaDon hd = new HoaDon();
@@ -114,7 +114,6 @@ public class HoaDonRepository {
         }
         return list;
     }
-
 
     public List<HoaDon> searchHoaDon(String maHD) {
         List<HoaDon> list = new ArrayList<>();
@@ -140,7 +139,7 @@ public class HoaDonRepository {
                      OR dbo.HoaDon.NgayTaoHoaDon LIKE ? 
                      OR dbo.HTTT.MaHTTT LIKE ?
              """;
-        try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setString(1, '%' + maHD + '%');
             ps.setString(2, '%' + maHD + '%');
@@ -171,9 +170,8 @@ public class HoaDonRepository {
         return list;
     }
 
-
     public boolean exportToExcel(List<HoaDon> hoaDonList, List<HoaDonChiTiet> hoaDonChiTietList, String filePath) {
-        try ( Workbook workbook = new XSSFWorkbook()) {
+        try (Workbook workbook = new XSSFWorkbook()) {
             Sheet mainSheet = workbook.createSheet("HoaDonData");
 
             // Tạo tiêu đề cho các cột
@@ -225,7 +223,7 @@ public class HoaDonRepository {
             }
 
             // Ghi Workbook vào một tệp
-            try ( FileOutputStream fileOut = new FileOutputStream(filePath)) {
+            try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
                 workbook.write(fileOut);
                 return true;
             } catch (IOException e) {
@@ -237,7 +235,7 @@ public class HoaDonRepository {
             return false;
         }
     }
- 
+
     public List<HoaDon> searchGia(int min, int max) {
         List<HoaDon> list = new ArrayList<>();
 
@@ -262,7 +260,7 @@ public class HoaDonRepository {
                  WHERE 
                      dbo.HoaDon.Tongtien >= ? AND dbo.HoaDon.Tongtien <= ?
                  """;
-        try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setObject(1, min);
             ps.setObject(2, max);
@@ -307,7 +305,7 @@ public class HoaDonRepository {
                                   WHERE dbo.HoaDon.MaHD = ?
                      """;
 
-        try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setObject(1, qrCode);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -328,6 +326,32 @@ public class HoaDonRepository {
 
         return list;
     }
+
+    public List<HoaDon> searchHDthongke(String maHD) {
+        List<HoaDon> list = new ArrayList<>();
+        String sql = """
+        SELECT [MaHD], [Tongtien], [NgayTaoHoaDon]
+        FROM [dbo].[HoaDon]
+        WHERE MaHD LIKE ?
+        """;
+
+        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setString(1, '%' + maHD + '%');
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                HoaDon hd = new HoaDon();
+                hd.setMaHD(rs.getString(1));
+                hd.setTongTien(rs.getInt(2));
+                hd.setNgaytaoHD(rs.getDate(3)); // Corrected index to retrieve the date
+                list.add(hd);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
     public static void main(String[] args) {
         List<HoaDon> list = new HoaDonRepository().getAll();
 

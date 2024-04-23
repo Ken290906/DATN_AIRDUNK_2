@@ -6,6 +6,7 @@ package b1.services;
 
 import ViewModelHD.HoaDon;
 import ViewModelHD.HoaDonChiTiet;
+import b1.entity.HoaDonBH;
 import b1.repository.HDCTRepository;
 import b1.repository.HoaDonRepository;
 import java.util.Date;
@@ -16,10 +17,10 @@ import java.util.List;
  * @author Huanh
  */
 public class HoaDonService {
-    
+
     HoaDonRepository repo = new HoaDonRepository();
     HDCTRepository repo1 = new HDCTRepository();
-    
+
     public List<HoaDon> getAll() {
         return repo.getAll();
     }
@@ -31,15 +32,19 @@ public class HoaDonService {
     public boolean exportToExcel(String filePath) {
         List<HoaDon> hds = repo.getAll();
         List<HoaDonChiTiet> hdct = repo1.getAll();
-        
+
         return repo.exportToExcel(hds, hdct, filePath);
     }
-    
+
     public List<HoaDon> searchGia(int min, int max) {
         return repo.searchGia(min, max);
     }
-    
+
     public List<HoaDon> searchQR(String qrCode) {
         return repo.searchQR(qrCode);
+    }
+
+    public List<HoaDon> sreachHDthongke(String maHD) {
+        return repo.searchHDthongke(maHD);
     }
 }
