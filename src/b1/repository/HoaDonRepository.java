@@ -93,7 +93,7 @@ public class HoaDonRepository {
                                                                                                                 dbo.HoaDon.Deleted;
                      
                      """;
-        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+        try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 HoaDon hd = new HoaDon();
@@ -119,27 +119,25 @@ public class HoaDonRepository {
         List<HoaDon> list = new ArrayList<>();
 
         String sql = """
-                     
-             SELECT dbo.HoaDon.MaHD
-                     , dbo.HoaDon.NgayTaoHoaDon
-                     , dbo.HoaDon.Tongtien
-                     , dbo.HTTT.MaHTTT
-                     , dbo.HoaDon.TenKH
-                     , dbo.HoaDon.DiachiKH
-                     , dbo.HoaDon.SdtKH
-                     , dbo.HoaDon.Deleted
-             FROM dbo.HoaDon
-             INNER JOIN dbo.HoaDonChiTiet ON dbo.HoaDon.MaHD = dbo.HoaDonChiTiet.MaHoaDon
-             INNER JOIN dbo.LichsuHD ON dbo.HoaDon.MaHD = dbo.LichsuHD.IDHoaDon
-             INNER JOIN dbo.HTTT ON dbo.HoaDon.MaHTTT = dbo.HTTT.MaHTTT
-             WHERE dbo.HoaDon.MaHD LIKE ? 
-                     OR dbo.HoaDon.TenKH LIKE ? 
-                     OR dbo.HoaDon.Tongtien LIKE ? 
-                     OR dbo.HoaDon.DiachiKH LIKE ? 
-                     OR dbo.HoaDon.NgayTaoHoaDon LIKE ? 
-                     OR dbo.HTTT.MaHTTT LIKE ?
-             """;
-        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+        SELECT dbo.HoaDon.MaHD,
+               dbo.HoaDon.NgayTaoHoaDon,
+               dbo.HoaDon.Tongtien,
+               dbo.HTTT.MaHTTT,
+               dbo.HoaDon.TenKH,
+               dbo.HoaDon.DiachiKH,
+               dbo.HoaDon.SdtKH,
+               dbo.HoaDon.Deleted
+        FROM dbo.HoaDon
+        INNER JOIN dbo.HTTT ON dbo.HoaDon.MaHTTT = dbo.HTTT.MaHTTT
+        WHERE dbo.HoaDon.MaHD LIKE ? 
+              OR dbo.HoaDon.TenKH LIKE ? 
+              OR CAST(dbo.HoaDon.Tongtien AS NVARCHAR(255)) LIKE ? 
+              OR dbo.HoaDon.DiachiKH LIKE ? 
+              OR CAST(dbo.HoaDon.NgayTaoHoaDon AS NVARCHAR(255)) LIKE ? 
+              OR dbo.HTTT.MaHTTT LIKE ?
+        """;
+
+        try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setString(1, '%' + maHD + '%');
             ps.setString(2, '%' + maHD + '%');
@@ -171,7 +169,7 @@ public class HoaDonRepository {
     }
 
     public boolean exportToExcel(List<HoaDon> hoaDonList, List<HoaDonChiTiet> hoaDonChiTietList, String filePath) {
-        try (Workbook workbook = new XSSFWorkbook()) {
+        try ( Workbook workbook = new XSSFWorkbook()) {
             Sheet mainSheet = workbook.createSheet("HoaDonData");
 
             // Tạo tiêu đề cho các cột
@@ -223,7 +221,7 @@ public class HoaDonRepository {
             }
 
             // Ghi Workbook vào một tệp
-            try (FileOutputStream fileOut = new FileOutputStream(filePath)) {
+            try ( FileOutputStream fileOut = new FileOutputStream(filePath)) {
                 workbook.write(fileOut);
                 return true;
             } catch (IOException e) {
@@ -260,7 +258,7 @@ public class HoaDonRepository {
                  WHERE 
                      dbo.HoaDon.Tongtien >= ? AND dbo.HoaDon.Tongtien <= ?
                  """;
-        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+        try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setObject(1, min);
             ps.setObject(2, max);
@@ -305,7 +303,7 @@ public class HoaDonRepository {
                                   WHERE dbo.HoaDon.MaHD = ?
                      """;
 
-        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+        try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setObject(1, qrCode);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -335,7 +333,7 @@ public class HoaDonRepository {
         WHERE MaHD LIKE ?
         """;
 
-        try (Connection con = DBConnect.getConnection(); PreparedStatement ps = con.prepareStatement(sql)) {
+        try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setString(1, '%' + maHD + '%');
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

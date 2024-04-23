@@ -1702,7 +1702,12 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
     private void deleteGHActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteGHActionPerformed
         // TODO add your handling code here:
         int index = tblgiohang.getSelectedRow();
-
+        
+        if(index == -1) {
+            JOptionPane.showMessageDialog(this, "Vui long chọn sản phẩm để xóa");
+            return;
+        }
+        
         GioHangViewMD gh = listGH.get(index);
         srhd.DeleteGH(gh.getMaHDCT());
         listGH = srGH.getAll(txtMaHD.getText());
