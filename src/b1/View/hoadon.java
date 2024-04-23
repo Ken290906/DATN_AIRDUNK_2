@@ -328,12 +328,12 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
         NumberFormat currentFormater = NumberFormat.getCurrencyInstance(lc);
         for (HoaDonChiTiet hdct : listHDCT) {
             i++;
+            
             dtmHDCT.addRow(new Object[]{
                 i,
                 hdct.getMaHDCT(),
                 hdct.getMaHD(),
                 hdct.getIdCTSP(),
-                hdct.getSoluong(),
                 hdct.getHang(),
                 hdct.getMau(),
                 hdct.getSize(),
@@ -341,7 +341,9 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
                 hdct.getChatlieu(),
                 hdct.getMatde(),
                 hdct.getDay(),
+                hdct.getSoluong(),
                 currentFormater.format(hdct.getDonGia())});
+                currentFormater.format(hdct.getThanhTien());
         }
     }
 
@@ -741,13 +743,13 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
 
         TblHDCT.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "STT", "MÃ HÓA ĐƠN", "MÃ HÓA ĐƠN CHI TIẾT", "MÃ CHI TIẾT SẢN PHẨM", "SỐ LƯỢNG", "HÃNG", "MÀU", "SIZE", "ĐỘ DÀY", "CHẤT LIỆU", "MẶT ĐẾ", "DÂY", "ĐƠN GIÁ"
+                "STT", "MÃ HÓA ĐƠN", "MÃ HÓA ĐƠN CHI TIẾT", "MÃ CHI TIẾT SẢN PHẨM", "HÃNG", "MÀU", "SIZE", "ĐỘ DÀY", "CHẤT LIỆU", "MẶT ĐẾ", "DÂY", "SỐ LƯỢNG", "ĐƠN GIÁ", "THÀNH TIỀN"
             }
         ));
         TblHDCT.setGridColor(new java.awt.Color(255, 255, 255));

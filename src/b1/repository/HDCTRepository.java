@@ -23,7 +23,7 @@ public class HDCTRepository {
         
         String sql = """
                      SELECT        dbo.HoaDon.MaHD, dbo.HoaDonChiTiet.MaHDCT, dbo.ChiTietSP.MaCTSP, dbo.HoaDonChiTiet.Soluong, dbo.HoaDonChiTiet.DonGia, dbo.HSX.TenHang, dbo.PhoiMau.TenMau, dbo.Size.SizeSP, dbo.DoDay.doDaySP, dbo.ChatLieu.ChatlieuSP, 
-                                                                                                                                                                                                dbo.MatDe.MatDeSP, dbo.Dayy.dAYsp
+                                                                                                                                                                                                dbo.MatDe.MatDeSP, dbo.Dayy.dAYsp, dbo.HoaDonChiTiet.Thanhtien
                                                                                                                                                                        FROM            dbo.HoaDon INNER JOIN
                                                                                                                                                                                                 dbo.HoaDonChiTiet ON dbo.HoaDon.MaHD = dbo.HoaDonChiTiet.MaHoaDon INNER JOIN
                                                                                                                                                                                                 dbo.ChiTietSP ON dbo.HoaDonChiTiet.IDChiTietSP = dbo.ChiTietSP.MaCTSP INNER JOIN
@@ -53,7 +53,7 @@ public class HDCTRepository {
                 hdct.setChatlieu(rs.getString(10));
                 hdct.setMatde(rs.getString(11));
                 hdct.setDay(rs.getString(12));
-                
+                hdct.setThanhTien(rs.getFloat(13));
                 list.add(hdct);
             }
         } catch(Exception e) {
@@ -117,7 +117,7 @@ public class HDCTRepository {
         
         String sql = """
                       SELECT dbo.HoaDon.MaHD, dbo.HoaDonChiTiet.MaHDCT, dbo.ChiTietSP.MaCTSP, dbo.HoaDonChiTiet.DonGia, dbo.HSX.TenHang, dbo.PhoiMau.TenMau, dbo.Size.SizeSP, dbo.DoDay.doDaySP, dbo.ChatLieu.ChatlieuSP, 
-                                                                                            dbo.MatDe.MatDeSP, dbo.Dayy.dAYsp,Sum(dbo.HoaDonChiTiet.SoLuong)
+                                                                                            dbo.MatDe.MatDeSP, dbo.Dayy.dAYsp,Sum(dbo.HoaDonChiTiet.SoLuong), dbo.HoaDonChiTiet.Thanhtien
                                                                    FROM            dbo.HoaDon INNER JOIN
                                                                                             dbo.HoaDonChiTiet ON dbo.HoaDon.MaHD = dbo.HoaDonChiTiet.MaHoaDon INNER JOIN
                                                                                             dbo.ChiTietSP ON dbo.HoaDonChiTiet.IDChiTietSP = dbo.ChiTietSP.MaCTSP INNER JOIN
@@ -131,7 +131,7 @@ public class HDCTRepository {
                      																	     WHERE dbo.HoaDon.MaHD = ?
                                 
                                                                    GROUP BY dbo.HoaDon.MaHD, dbo.HoaDonChiTiet.MaHDCT, dbo.ChiTietSP.MaCTSP, dbo.HoaDonChiTiet.DonGia, dbo.HSX.TenHang, dbo.PhoiMau.TenMau, dbo.Size.SizeSP, dbo.DoDay.doDaySP, dbo.ChatLieu.ChatlieuSP, dbo.HoaDonChiTiet.SoLuong,
-                                                                                            dbo.MatDe.MatDeSP, dbo.Dayy.dAYsp
+                                                                                            dbo.MatDe.MatDeSP, dbo.Dayy.dAYsp, dbo.HoaDonChiTiet.Thanhtien
                      """;
         
         try(Connection con = DBConnect.getConnection(); 
@@ -152,7 +152,7 @@ public class HDCTRepository {
                 hdct.setMatde(rs.getString(10));
                 hdct.setDay(rs.getString(11));
                 hdct.setSoluong(rs.getInt(12));
-                
+                hdct.setThanhTien(rs.getFloat(13));
                 list.add(hdct);
             }
         } catch(Exception e) {

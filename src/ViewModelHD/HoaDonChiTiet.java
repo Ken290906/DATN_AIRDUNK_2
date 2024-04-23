@@ -22,6 +22,7 @@ public class HoaDonChiTiet {
     private String chatlieu;
     private String matde;
     private String day;
+    private float thanhTien;
     
 
     public HoaDonChiTiet() {
@@ -130,10 +131,22 @@ public class HoaDonChiTiet {
         this.day = day;
     }
 
+    public float getThanhTien() {
+        return thanhTien;
+    }
+
+    public void setThanhTien(float thanhTien) {
+        this.thanhTien = thanhTien;
+    }
+
     @Override
     public String toString() {
-        return "HoaDonChiTiet{" + "maHDCT=" + maHDCT + ", maHD=" + maHD + ", idCTSP=" + idCTSP + ", Soluong=" + Soluong + ", donGia=" + donGia + ", hang=" + hang + ", mau=" + mau + ", size=" + size + ", doday=" + doday + ", chatlieu=" + chatlieu + ", matde=" + matde + ", day=" + day + '}';
+        return "HoaDonChiTiet{" + "maHDCT=" + maHDCT + ", maHD=" + maHD + ", idCTSP=" + idCTSP + ", Soluong=" + Soluong + ", donGia=" + donGia + ", hang=" + hang + ", mau=" + mau + ", size=" + size + ", doday=" + doday + ", chatlieu=" + chatlieu + ", matde=" + matde + ", day=" + day + ", thanhTien=" + thanhTien + '}';
     }
+    
+    
+
+    
 
     
     
