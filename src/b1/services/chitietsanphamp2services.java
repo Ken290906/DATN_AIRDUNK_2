@@ -37,9 +37,9 @@ public class chitietsanphamp2services {
     public boolean Sua(chitietsanpham ctsp,String sua){
         return spr.Sua(ctsp, sua);
     }
-    public List<sanphamchitietviewmodel> Search(String timkiem){
-        return  spr.Search(timkiem);
-    }
+//    public List<sanphamchitietviewmodel> Search(String timkiem){
+//        return  spr.Search(timkiem);
+//    }
     public List<sanphamchitietviewmodel> Searchbanhang(String timkiem){
         return  spr.Searchbanhang(timkiem);
     }

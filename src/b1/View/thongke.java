@@ -158,29 +158,29 @@ public class thongke extends javax.swing.JInternalFrame {
                 } // Add more conditions as needed
             }
         });
-        txtsearchsp.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                searchsp();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                searchsp();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                searchsp();
-            }
-
-        });
+//        txtsearchsp.getDocument().addDocumentListener(new DocumentListener() {
+//            @Override
+//            public void insertUpdate(DocumentEvent e) {
+//                searchsp();
+//            }
+//
+//            @Override
+//            public void removeUpdate(DocumentEvent e) {
+//                searchsp();
+//            }
+//
+//            @Override
+//            public void changedUpdate(DocumentEvent e) {
+//                searchsp();
+//            }
+//
+//        });
     }
 
-    private void searchsp() {
-        listdsp = dsps.search(txtsearchsp.getText());
-        showdatasp(listdsp);
-    }
+//    private void searchsp() {
+//        listdsp = dsps.search(txtsearchsp.getText());
+//        showdatasp(listdsp);
+//    }
 
     public void showdata(List<HoaDon> list) {
         bang.setRowCount(0);

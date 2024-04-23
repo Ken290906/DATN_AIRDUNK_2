@@ -120,8 +120,8 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
         BasicInternalFrameUI ui = (BasicInternalFrameUI) this.getUI();
         ui.setNorthPane(null);
         bang = (DefaultTableModel) tblhienthisanpham.getModel();
-        listdsp = dsps.getall();
-        showdata(listdsp);
+        listsanpham = sps.getall();
+        showdata(listsanpham);
 //      
         listviewmodel = itf.getall();
         bang2 = (DefaultTableModel) tblhienthichitietsanpham.getModel();
@@ -243,17 +243,17 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
             public void actionPerformed(ActionEvent e) {
                 String timkiemsize = cbbtrangthai.getSelectedItem().toString();
                 if (!timkiemsize.isEmpty()) {
-                    List<DongSanPham> searchedList = searchtrangthai(timkiemsize);
+                    List<sanphamviewmodel> searchedList = searchtrangthai(timkiemsize);
                     showdata(searchedList);
                 } else {
                     // If no manufacturer is selected, reload all products
-                    listdsp = dsps.getall();
-                    showdata(listdsp);
+                    listsanpham = sps.getall();
+                    showdata(listsanpham);
                 }
             }
         });
-//     
 
+//     
         setOtherFrame(ttsp);
         tblhienthichitietsanpham.addMouseListener(new MouseAdapter() {
             @Override
@@ -324,10 +324,10 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
         return filteredList;
     }
 
-    private List<DongSanPham> searchtrangthai(String manufacturerName) {
-        List<DongSanPham> filteredList = new ArrayList<>();
+    private List<sanphamviewmodel> searchtrangthai(String manufacturerName) {
+        List<sanphamviewmodel> filteredList = new ArrayList<>();
 
-        for (DongSanPham product : listdsp) {
+        for (sanphamviewmodel product : listsanpham) {
             if (product.getTrangthai() != null && product.getTrangthai().equalsIgnoreCase(manufacturerName)) {
                 filteredList.add(product);
             }
@@ -420,16 +420,16 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
     }
 
     public void oneclicksp(int show) {
-        DongSanPham dsp = listdsp.get(show);
-        txtmasanpham.setText(dsp.getIDdsp());
-        txttensp.setText(dsp.getTendsp());
+        sanphamviewmodel dsp = listsanpham.get(show);
+        txtmasanpham.setText(dsp.getMasp());
+        txttensp.setText(dsp.getTensp());
         txtghichu.setText(dsp.getMota());
 
     }
 
     private void searchSP() {
         listsanpham = sps.Search(txtsearch.getText());
-        showdata(listdsp);
+        showdata(listsanpham);
 
     }
 //
@@ -460,14 +460,14 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
         }
     }
 
-    public void showdata(List<DongSanPham> list) {
+    public void showdata(List<sanphamviewmodel> list) {
         bang.setRowCount(0);
         int stt = 0;
 
-        for (DongSanPham object : list) {
+        for (sanphamviewmodel object : list) {
             stt++;
             String tt = (object.getSoluong() == 0) ? "Hết hàng" : "Còn hàng";
-            bang.addRow(new Object[]{stt, object.getIDdsp(), object.getTendsp(), object.getMota(), object.getSoluong(), tt});
+            bang.addRow(new Object[]{stt, object.getMasp(), object.getTensp(), object.getMota(), object.getSoluong(), tt});
         }
         StatusCellRenderer statusCellRenderer = new StatusCellRenderer();
 
@@ -1652,11 +1652,10 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
         int dk = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn update?");
         if (dk == JOptionPane.YES_OPTION) {
             int sua = tblhienthisanpham.getSelectedRow();
-            DongSanPham spvm = listdsp.get(sua);
-
-            JOptionPane.showMessageDialog(this, sps.Sua(getformdatasp(), spvm.getIDdsp()));
-            listdsp = dsps.getall();
-            showdata(listdsp);
+            sanphamviewmodel spvm = listsanpham.get(sua);
+            sps.Sua(getformdatasp(), spvm.getMasp());
+            listsanpham = sps.getall();
+            showdata(listsanpham);
             JOptionPane.showMessageDialog(this, "Đã Update thành công");
         }
         if (dk == JOptionPane.NO_OPTION) {
@@ -1684,10 +1683,10 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
         int dk = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn Xóa?");
         if (dk == JOptionPane.YES_OPTION) {
             int xoa = tblhienthisanpham.getSelectedRow();
-            DongSanPham spvm = listdsp.get(xoa);
-            sps.Xoa(spvm.getIDdsp());
-            listdsp = dsps.getall();
-            showdata(listdsp);
+            sanphamviewmodel spvm = listsanpham.get(xoa);
+            sps.Xoa(spvm.getMasp());
+            listsanpham = sps.getall();
+            showdata(listsanpham);
             JOptionPane.showMessageDialog(this, "Đã Xóa thành công");
         }
         if (dk == JOptionPane.NO_OPTION) {
@@ -1710,11 +1709,10 @@ public class sanpham extends javax.swing.JInternalFrame implements QRCodeListene
         // TODO add your handling code here
         int dk = JOptionPane.showConfirmDialog(this, "Bạn có chắc chắn muốn Add?");
         if (dk == JOptionPane.YES_OPTION) {
-
             JOptionPane.showMessageDialog(this, sps.Add(getformdatasp()));
-            listdsp = dsps.getall();
-            showdata(listdsp);
-           
+            listsanpham = sps.getall();
+            showdata(listsanpham);
+
         }
         if (dk == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(this, "Bạn đã bỏ qua");

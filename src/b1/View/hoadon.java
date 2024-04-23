@@ -111,19 +111,33 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
         cbbTrangthai.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String trangthai = (String) cbbTrangthai.getSelectedItem();
-                List<HoaDon> hd = searchTrangthai(trangthai);
-                showDataHD(hd);
+                String trangthai = (String) cbbTrangthai.getSelectedItem();             
+             if (!trangthai.isEmpty()) {
+                    List<HoaDon> searchedList = searchTrangthai(trangthai);
+                   showDataHD(searchedList);
+                } else {
+                    // If no manufacturer is selected, reload all products
+                    listhd = hdsr.getAll();
+                    showDataHD(listhd);
+                }
             }
+            
         });
 
         cbbHTTT.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String httt = (String) cbbHTTT.getSelectedItem();
-                List<HoaDon> hd = searchHTTT(httt);
-                showDataHD(hd);
+                String httt = (String) cbbHTTT.getSelectedItem();              
+                if (!httt.isEmpty()) {
+                    List<HoaDon> hd = searchHTTT(httt);
+                    showDataHD(hd);
+                } else {
+                    // If no manufacturer is selected, reload all products
+                    listhd = hdsr.getAll();
+                    showDataHD(listhd);
+                }
             }
+            
         });
         cbbhang.addActionListener(new ActionListener() {
             @Override

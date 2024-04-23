@@ -816,25 +816,27 @@ public class banhhang extends javax.swing.JInternalFrame implements QRCodeListen
         return 0; // Trả về 0 nếu không nhập hoặc nhập không hợp lệ
     }
 
-    public HoaDonBH getformdatabanhang() throws ParseException {
-        SimpleDateFormat spx = new SimpleDateFormat("yyyy-MM-dd");
-        String MaHD = txtMaHD.getText().trim();
-        String TT = txttongtien.getText().replaceAll("[, đ]", "");
-        String sdtKH = txtSdtKH.getText().trim();
-        String tenKH = txtTenKH.getText().trim();
-        String MaNV = (String) cbbnhanvien.getSelectedItem();
-        int tongSP = tblgiohang.getRowCount();
-        Date NT = dateFormat.parse(dcNgayTao.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate() + "");
-        String MaKH = txtTenKH.getText().trim();
-        Date NTT = dateFormat.parse(dcNgayThanhToan.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate() + "");
+   public HoaDonBH getformdatabanhang() throws ParseException {
+    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+    String MaHD = txtMaHD.getText().trim();
+    String TT = txttongtien.getText().replaceAll("[, đ]", "");
+    String sdtKH = txtSdtKH.getText().trim();
+    String tenKH = txtTenKH.getText().trim();
+    String MaNV = (String) cbbnhanvien.getSelectedItem();
+    int tongSP = tblgiohang.getRowCount();
+    Date NT = dcNgayTao.getDate();
+    Date NTT = dcNgayThanhToan.getDate();
 
-        // Chuyển đổi chuỗi TT thành một số nguyên
-        String loaiThanhToan = (String) cbbgiamrgia.getSelectedItem();
+    // Convert TT string to an integer
+    int tongTien = Integer.parseInt(TT);
 
-        int tongTien = Integer.valueOf(TT);
-        HoaDonBH hd = new HoaDonBH(MaHD, MaKH, tenKH, Integer.parseInt(sdtKH), tongTien, "FPT", NT, NTT, MaNV, tongSP, "HTTT-001", 0);
-        return hd;
-    }
+    // Assuming MaKH should be retrieved from a different source
+    String MaKH = ""; // Change this line accordingly
+
+    HoaDonBH hd = new HoaDonBH(MaHD, MaKH, tenKH, Integer.parseInt(sdtKH), tongTien, "FPT", NT, NTT, MaNV, tongSP, "HTTT-001", 0);
+    return hd;
+}
+
 
     public LichSuHoaDon getformdataUpdateLSHD() throws ParseException {
         String maHD = txtMaHD.getText().trim();

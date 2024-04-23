@@ -334,7 +334,7 @@ public class nhanvien extends javax.swing.JInternalFrame {
             service.deleteNhanVien(b1env.getId());
             list = service.getAll();
             showDataTable(list);
-            JOptionPane.showConfirmDialog(this, "Xoa nhan vien thanh cong");
+            JOptionPane.showMessageDialog(this, "Xoa nhan vien thanh cong");
         }
         if (confirm == JOptionPane.NO_OPTION) {
             JOptionPane.showMessageDialog(this, "Bạn đã chọn không");

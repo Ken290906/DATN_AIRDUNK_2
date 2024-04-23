@@ -50,35 +50,7 @@ public class dongsanphamrepo {
         }
         return listdsp;
     }
-     public List<DongSanPham> Search(String timkiem) {
-         List<DongSanPham> listdsp = new ArrayList<>();
-        String sql = """
-             SELECT [IDdsp]
-                                          ,[TenDSP]                                                                            
-                                          ,[soluong]                                    
-                                      FROM [dbo].[DSP]                                 
-                       Where TenDSP LIKE ?  OR IDdsp LIKE ? OR soluong LIKE ? 
-                     """;
-        try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
-
-            ps.setObject(1, '%' + timkiem + '%');
-            ps.setObject(2, '%' + timkiem + '%');
-             ps.setObject(3,  timkiem );
- 
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                DongSanPham hsx = new DongSanPham();
-                hsx.setIDdsp(rs.getString(1));
-                hsx.setTendsp(rs.getString(2));   
-                hsx.setSoluong(rs.getInt(3));            
-                listdsp.add(hsx);
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return listdsp;
-    }
+    
     public static void main(String[] args) {
         List<DongSanPham> list = new dongsanphamrepo().getall();
         for (DongSanPham object : list) {

@@ -27,6 +27,7 @@ public class nhanvienrepo {
                              ,[Sdt]
                              ,[Email]
                          FROM [dbo].[NhanVien]
+                     Where  [Deleted] = 0
                      """;
         try (Connection con = DBConnect.getConnection()) {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -93,7 +94,7 @@ public class nhanvienrepo {
                            ,[Diachinha] = ?
                            ,[Sdt] = ?
                            ,[Email] = ?
-                      WHERE IdNV LIKE ?
+                      WHERE MaNV LIKE ?
                      """;
         try (Connection con = DBConnect.getConnection()) {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -114,11 +115,11 @@ public class nhanvienrepo {
     public boolean deleteNhanVien(String id) {
         int check = 0;
         String sql = """
-                     UPDATE [dbo].[NhanVien]
-                        SET 
-                           [Deleted] = 0
-                          
-                      WHERE MaNV like ?  
+                UPDATE [dbo].[NhanVien]
+                         SET 
+                            [Deleted] = 1
+                            
+                       WHERE MaNV = ?
                      """;
         try (Connection con = DBConnect.getConnection()) {
             PreparedStatement ps = con.prepareStatement(sql);

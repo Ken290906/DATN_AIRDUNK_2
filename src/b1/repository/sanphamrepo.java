@@ -104,10 +104,9 @@ public class sanphamrepo {
     public boolean xoa(String xoa) {
         int check = 0;
         String sql = """
-       UPDATE [dbo].[ChiTietSP]
-                          SET Deleted = 1
-                             
-                        WHERE MaCTSP = ?
+       UPDATE [dbo].[DSP]
+                          SET Deleted = 1                           
+                        WHERE IDdsp = ?
                      """;
         try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setObject(1, xoa);
@@ -144,14 +143,14 @@ public class sanphamrepo {
         List<sanphamviewmodel> list = new ArrayList<>();
         String sql = """
              SELECT [IDdsp]
-                                          ,[TenDSP]
-                                          ,[Deleted]
-                                          ,[Trangthai]
-                                          ,[soluong]
-                                          ,[mota]
-                                      FROM [dbo].[DSP]
-                                  
-                       Where TenDSP LIKE ? OR Trangthai LIKE ? OR soluong LIKE ? OR mota LIKE ?
+                                                                 ,[TenDSP]
+                                                                 ,[Deleted]
+                                                                 ,[Trangthai]
+                                                                 ,[soluong]
+                                                                 ,[mota]
+                                                             FROM [dbo].[DSP]
+                                                         
+                                              Where IDdsp LIKE ? or TenDSP LIKE ? OR Trangthai LIKE ? OR soluong LIKE ? OR mota LIKE ?
                      """;
         try (Connection c = DBConnect.getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
 
@@ -159,6 +158,7 @@ public class sanphamrepo {
             ps.setObject(2, '%' + timkiem + '%');
             ps.setObject(3,  '%' + timkiem + '%');
             ps.setObject(4, '%' + timkiem + '%');
+             ps.setObject(5, '%' + timkiem + '%');
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 sanphamviewmodel spvm = new sanphamviewmodel();

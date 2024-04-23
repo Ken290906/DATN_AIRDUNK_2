@@ -24,19 +24,73 @@ import java.io.IOException;
  */
 public class HoaDonRepository {
 
+//    public List<HoaDon> getAll() {
+//        List<HoaDon> list = new ArrayList<>();
+//
+//        String sql = """
+//                     SELECT        dbo.HoaDon.MaHD, dbo.HoaDon.NgayTaoHoaDon, dbo.HoaDon.Tongtien, dbo.HTTT.MaHTTT, dbo.HoaDon.Soluong, dbo.HoaDon.TenKH, dbo.HoaDon.DiachiKH, dbo.HoaDon.SdtKH, dbo.HoaDon.Deleted
+//                                                                                                FROM            dbo.HoaDon FULL JOIN
+//                                                          dbo.NhanVien ON dbo.HoaDon.MaNV = dbo.NhanVien.MaNV FULL JOIN
+//                                                           dbo.KhachHang ON dbo.HoaDon.MaKH = dbo.KhachHang.MaKH LEFT JOIN
+//                                                            dbo.HTTT ON dbo.HoaDon.MaHTTT = dbo.HTTT.MaHTTT LEFT JOIN
+//                                                             dbo.VCH ON dbo.HoaDon.MaVCH = dbo.VCH.MaVCH
+//                     WHERE dbo.HoaDon.Deleted = 0 OR 
+//                     dbo.HoaDon.Deleted = 1 OR
+//                     dbo.HoaDon.Deleted = 3
+//                     
+//                     """;
+//        try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
+//            ResultSet rs = ps.executeQuery();
+//            while (rs.next()) {
+//                HoaDon hd = new HoaDon();
+//                hd.setMaHD(rs.getString(1));
+//                hd.setNgaytaoHD(rs.getDate(2));
+//                hd.setTongTien(rs.getFloat(3));
+//                hd.setMaHTTT(rs.getString(4));
+//                hd.setSoLuongSP(rs.getInt(5));
+//                hd.setTenKH(rs.getString(6));
+//                hd.setDiaChi(rs.getString(7));
+//                hd.setSdtKH(rs.getInt(8));
+//                hd.setTrangThai(rs.getInt(9));
+//
+//                list.add(hd);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return list;
+//    }
     public List<HoaDon> getAll() {
         List<HoaDon> list = new ArrayList<>();
 
         String sql = """
-                     SELECT        dbo.HoaDon.MaHD, dbo.HoaDon.NgayTaoHoaDon, dbo.HoaDon.Tongtien, dbo.HTTT.MaHTTT, dbo.HoaDon.Soluong, dbo.HoaDon.TenKH, dbo.HoaDon.DiachiKH, dbo.HoaDon.SdtKH, dbo.HoaDon.Deleted
-                                                                                                FROM            dbo.HoaDon FULL JOIN
-                                                          dbo.NhanVien ON dbo.HoaDon.MaNV = dbo.NhanVien.MaNV FULL JOIN
-                                                           dbo.KhachHang ON dbo.HoaDon.MaKH = dbo.KhachHang.MaKH LEFT JOIN
-                                                            dbo.HTTT ON dbo.HoaDon.MaHTTT = dbo.HTTT.MaHTTT LEFT JOIN
-                                                             dbo.VCH ON dbo.HoaDon.MaVCH = dbo.VCH.MaVCH
-                     WHERE dbo.HoaDon.Deleted = 0 OR 
-                     dbo.HoaDon.Deleted = 1 OR
-                     dbo.HoaDon.Deleted = 3
+                  SELECT dbo.HoaDon.MaHD, 
+                                                                                                              dbo.HoaDon.NgayTaoHoaDon, 
+                                                                                                              dbo.HoaDon.Tongtien, 
+                                                                                                              dbo.HTTT.MaHTTT, 
+                                                                                                              Sum(dbo.HoaDonChiTiet.SoLuong) AS TotalQuantity, 
+                                                                                                              dbo.HoaDon.TenKH, 
+                                                                                                              dbo.HoaDon.DiachiKH, 
+                                                                                                              dbo.HoaDon.SdtKH, 
+                                                                                                              dbo.HoaDon.Deleted
+                                                                                                       FROM dbo.HoaDon
+                                                                                                       
+                                                                                                       LEFT JOIN dbo.NhanVien ON dbo.HoaDon.MaNV = dbo.NhanVien.MaNV
+                                                                                                       LEFT JOIN dbo.KhachHang ON dbo.HoaDon.MaKH = dbo.KhachHang.MaKH
+                                                                                                       LEFT JOIN dbo.HTTT ON dbo.HoaDon.MaHTTT = dbo.HTTT.MaHTTT
+                                                                                                       LEFT JOIN dbo.HoaDonChiTiet ON dbo.HoaDon.MaHD = dbo.HoaDonChiTiet.MaHoaDon
+                                                                                                       LEFT JOIN dbo.VCH ON dbo.HoaDon.MaVCH = dbo.VCH.MaVCH
+                                                                                                      WHERE dbo.HoaDon.Deleted = 0 OR 
+                                                                                                                         dbo.HoaDon.Deleted = 1 OR
+                                                                                                                         dbo.HoaDon.Deleted = 3
+                                                                                                       GROUP BY dbo.HoaDon.MaHD, 
+                                                                                                                dbo.HoaDon.NgayTaoHoaDon, 
+                                                                                                                dbo.HoaDon.Tongtien, 
+                                                                                                                dbo.HTTT.MaHTTT, 
+                                                                                                                dbo.HoaDon.TenKH, 
+                                                                                                                dbo.HoaDon.DiachiKH, 
+                                                                                                                dbo.HoaDon.SdtKH, 
+                                                                                                                dbo.HoaDon.Deleted;
                      
                      """;
         try ( Connection con = DBConnect.getConnection();  PreparedStatement ps = con.prepareStatement(sql)) {
@@ -60,7 +114,6 @@ public class HoaDonRepository {
         }
         return list;
     }
-    
 
 
     public List<HoaDon> searchHoaDon(String maHD) {
