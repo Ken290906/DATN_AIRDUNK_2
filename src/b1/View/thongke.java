@@ -40,6 +40,7 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
+import java.util.Locale;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -74,86 +75,134 @@ public class thongke extends javax.swing.JInternalFrame {
         showdatasp(listdsp);
         showdata(hdb);
         getContentPane().setBackground(new Color(250, 250, 250));
-        chart1.addLegend("Doanh Thu", new Color(245, 189, 135));
         chart1.addLegend("Số Hóa Đơn Đc Giao", new Color(135, 189, 245));
         chart1.addLegend("Số Lượng Bom Hàng", new Color(189, 135, 245));
         chart1.addLegend("Số lượng khách hàng", new Color(139, 229, 222));
-        chart1.addData(new ModelChart("T1", new double[]{500, 200, 80, 89}));
-        chart1.addData(new ModelChart("T2", new double[]{300, 100, 180, 389}));
-        chart1.addData(new ModelChart("T3", new double[]{220, 300, 40, 39}));
-        chart1.addData(new ModelChart("T4", new double[]{140, 220, 80, 19}));
-        chart1.addData(new ModelChart("T5", new double[]{140, 220, 80, 19}));
-        chart1.addData(new ModelChart("T6", new double[]{140, 220, 80, 19}));
-        chart1.addData(new ModelChart("T7", new double[]{140, 220, 80, 19}));
-        chart1.addData(new ModelChart("T8", new double[]{140, 220, 80, 19}));
-        chart1.addData(new ModelChart("T9", new double[]{140, 220, 80, 19}));
-        chart1.addData(new ModelChart("T10", new double[]{140, 220, 80, 19}));
-        chart1.addData(new ModelChart("T11", new double[]{140, 220, 80, 19}));
-        chart1.addData(new ModelChart("T12", new double[]{140, 220, 80, 19}));
+        chart1.addData(new ModelChart("T1", new double[]{200, 80, 89}));
+        chart1.addData(new ModelChart("T2", new double[]{100, 180, 389}));
+        chart1.addData(new ModelChart("T3", new double[]{300, 40, 39}));
+        chart1.addData(new ModelChart("T4", new double[]{220, 80, 19}));
+        chart1.addData(new ModelChart("T5", new double[]{220, 80, 19}));
+        chart1.addData(new ModelChart("T6", new double[]{220, 80, 19}));
+        chart1.addData(new ModelChart("T7", new double[]{220, 80, 19}));
+        chart1.addData(new ModelChart("T8", new double[]{220, 80, 19}));
+        chart1.addData(new ModelChart("T9", new double[]{220, 80, 19}));
+        chart1.addData(new ModelChart("T10", new double[]{220, 80, 19}));
+        chart1.addData(new ModelChart("T11", new double[]{220, 80, 19}));
+        chart1.addData(new ModelChart("T12", new double[]{220, 80, 19}));
         cbbthongke.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String chon = (String) cbbthongke.getSelectedItem();
                 getContentPane().setBackground(new Color(250, 250, 250)); // Setting background color
-
+                VND.applyLocalizedPattern("#,##0 đ");
                 // Clear existing legends and data
                 // Add legends and data based on selection
                 if (chon.equals("T1")) {
                     chart1.clear();
-                    chart1.addData(new ModelChart("T1", new double[]{380, 200, 180, 89}));
+                    chart1.addData(new ModelChart("T1", new double[]{200, 180, 380}));
+                    txtdoanhthu.setText(VND.format(34300));
+                    txthoadongiao.setText("100");
+                    txtsoluongbomhang.setText("180");
+                    txtslkhachhang.setText("380");
+
                     chart1.start();
                 } else if (chon.equals("T2")) {
                     chart1.clear();
-                    chart1.addData(new ModelChart("T2", new double[]{300, 100, 180, 389}));
+                    chart1.addData(new ModelChart("T2", new double[]{100, 150, 350}));
+                    txtdoanhthu.setText(VND.format(50000));
+                    txthoadongiao.setText("100");
+                    txtsoluongbomhang.setText("150");
+                    txtslkhachhang.setText("350");
                     chart1.start();
                 } else if (chon.equals("T3")) {
                     chart1.clear();
-                    chart1.addData(new ModelChart("T3", new double[]{220, 300, 40, 39}));
+                    chart1.addData(new ModelChart("T3", new double[]{350, 50, 400}));
+                    txtdoanhthu.setText(VND.format(65000));
+                    txthoadongiao.setText("350");
+                    txtsoluongbomhang.setText("50");
+                    txtslkhachhang.setText("400");
                     chart1.start();
                 } // Add more conditions as needed
                 else if (chon.equals("T4")) {
                     chart1.clear();
-                    chart1.addData(new ModelChart("T4", new double[]{140, 220, 80, 19}));
+                    chart1.addData(new ModelChart("T4", new double[]{ 220, 80, 300}));
+                    txtdoanhthu.setText(VND.format(26000));
+                     txthoadongiao.setText("220");
+                    txtsoluongbomhang.setText("80");
+                    txtslkhachhang.setText("300");
                     chart1.start();
                 } // Add more conditions as needed
                 else if (chon.equals("T5")) {
                     chart1.clear();
-                    chart1.addData(new ModelChart("T5", new double[]{0, 0, 0, 0}));
+                    chart1.addData(new ModelChart("T5", new double[]{ 0, 0, 0}));
+                    txtdoanhthu.setText(VND.format(0));
+                      txthoadongiao.setText("0");
+                    txtsoluongbomhang.setText("0");
+                    txtslkhachhang.setText("0");
                     chart1.start();
                 } // Add more conditions as needed
                 else if (chon.equals("T6")) {
                     chart1.clear();
-                    chart1.addData(new ModelChart("T6", new double[]{0, 0, 0, 0}));
+                    chart1.addData(new ModelChart("T6", new double[]{ 0, 0, 0}));
+                       txtdoanhthu.setText(VND.format(0));
+                     txthoadongiao.setText("0");
+                    txtsoluongbomhang.setText("0");
+                    txtslkhachhang.setText("0");
                     chart1.start();
                 } // Add more conditions as needed
                 else if (chon.equals("T7")) {
                     chart1.clear();
-                    chart1.addData(new ModelChart("T7", new double[]{0, 0, 0, 0}));
+                    chart1.addData(new ModelChart("T7", new double[]{ 0, 0, 0}));
+                       txtdoanhthu.setText(VND.format(0));
+                     txthoadongiao.setText("0");
+                    txtsoluongbomhang.setText("0");
+                    txtslkhachhang.setText("0");
                     chart1.start();
                 } // Add more conditions as needed
                 else if (chon.equals("T8")) {
                     chart1.clear();
-                    chart1.addData(new ModelChart("T8", new double[]{0, 0, 0, 0}));
+                    chart1.addData(new ModelChart("T8", new double[]{ 0, 0, 0}));
+                       txtdoanhthu.setText(VND.format(0));
+                     txthoadongiao.setText("0");
+                    txtsoluongbomhang.setText("0");
+                    txtslkhachhang.setText("0");
                     chart1.start();
                 } // Add more conditions as needed
                 else if (chon.equals("T9")) {
                     chart1.clear();
-                    chart1.addData(new ModelChart("T9", new double[]{0, 0, 0, 0}));
+                    chart1.addData(new ModelChart("T9", new double[]{ 0, 0, 0}));
+                       txtdoanhthu.setText(VND.format(0));
+                     txthoadongiao.setText("0");
+                    txtsoluongbomhang.setText("0");
+                    txtslkhachhang.setText("0");
                     chart1.start();
                 } // Add more conditions as needed
                 else if (chon.equals("T10")) {
                     chart1.clear();
-                    chart1.addData(new ModelChart("T10", new double[]{0, 0, 0, 0}));
+                    chart1.addData(new ModelChart("T10", new double[]{ 0, 0, 0}));
+                       txtdoanhthu.setText(VND.format(0));
+                     txthoadongiao.setText("0");
+                    txtsoluongbomhang.setText("0");
+                    txtslkhachhang.setText("0");
                     chart1.start();
                 } // Add more conditions as needed
                 else if (chon.equals("T11")) {
                     chart1.clear();
-                    chart1.addData(new ModelChart("T11", new double[]{0, 0, 0, 0}));
+                    chart1.addData(new ModelChart("T11", new double[]{ 0, 0, 0}));
+                       txtdoanhthu.setText(VND.format(0));
+                     txthoadongiao.setText("0");
+                    txtsoluongbomhang.setText("0");
+                    txtslkhachhang.setText("0");
                     chart1.start();
                 } // Add more conditions as needed
                 else if (chon.equals("T12")) {
                     chart1.clear();
-                    chart1.addData(new ModelChart("T12", new double[]{0, 0, 0, 0}));
+                    chart1.addData(new ModelChart("T12", new double[]{ 0, 0, 0}));
+                       txtdoanhthu.setText(VND.format(0));
+                     txthoadongiao.setText("0");
+                    txtsoluongbomhang.setText("0");
+                    txtslkhachhang.setText("0");
                     chart1.start();
                 } // Add more conditions as needed
             }
@@ -236,16 +285,16 @@ public class thongke extends javax.swing.JInternalFrame {
         jPanel3 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        txtdoanhthu = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
+        txthoadongiao = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        txtslkhachhang = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        txtsoluongbomhang = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         panel1 = new b1.View.chucnang.Panel();
         jPanel7 = new javax.swing.JPanel();
@@ -272,29 +321,30 @@ public class thongke extends javax.swing.JInternalFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("DOANH THU");
 
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel6.setText("380");
+        txtdoanhthu.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        txtdoanhthu.setText("0");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(98, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jLabel6))
-                    .addComponent(jLabel1))
-                .addGap(97, 97, 97))
+                        .addGap(75, 75, 75)
+                        .addComponent(jLabel1))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(123, 123, 123)
+                        .addComponent(txtdoanhthu)))
+                .addContainerGap(135, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6)
+                .addGap(36, 36, 36)
+                .addComponent(txtdoanhthu)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -304,8 +354,8 @@ public class thongke extends javax.swing.JInternalFrame {
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Số Hóa Đơn Đang Giao");
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel7.setText("200");
+        txthoadongiao.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        txthoadongiao.setText("0");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -316,8 +366,8 @@ public class thongke extends javax.swing.JInternalFrame {
                 .addComponent(jLabel2)
                 .addGap(67, 67, 67))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addComponent(jLabel7)
+                .addGap(116, 116, 116)
+                .addComponent(txthoadongiao)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -325,9 +375,9 @@ public class thongke extends javax.swing.JInternalFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel7)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addComponent(txthoadongiao)
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 204, 204));
@@ -337,8 +387,8 @@ public class thongke extends javax.swing.JInternalFrame {
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Số Lương Khách Hàng");
 
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel8.setText("89");
+        txtslkhachhang.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        txtslkhachhang.setText("0");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -351,7 +401,7 @@ public class thongke extends javax.swing.JInternalFrame {
                         .addComponent(jLabel3)
                         .addGap(66, 66, 66))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel8)
+                        .addComponent(txtslkhachhang)
                         .addGap(110, 110, 110))))
         );
         jPanel4Layout.setVerticalGroup(
@@ -359,9 +409,9 @@ public class thongke extends javax.swing.JInternalFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel8)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addGap(26, 26, 26)
+                .addComponent(txtslkhachhang)
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         jPanel5.setBackground(new java.awt.Color(191, 170, 231));
@@ -370,8 +420,8 @@ public class thongke extends javax.swing.JInternalFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Số Lượng Bom Hàng");
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel5.setText("180");
+        txtsoluongbomhang.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        txtsoluongbomhang.setText("0");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -379,22 +429,21 @@ public class thongke extends javax.swing.JInternalFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap(57, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(69, 69, 69))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addGap(97, 97, 97))))
+                .addComponent(jLabel4)
+                .addGap(69, 69, 69))
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(121, 121, 121)
+                .addComponent(txtsoluongbomhang)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel5)
-                .addContainerGap(76, Short.MAX_VALUE))
+                .addGap(29, 29, 29)
+                .addComponent(txtsoluongbomhang)
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -406,15 +455,15 @@ public class thongke extends javax.swing.JInternalFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(56, 56, 56)
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(79, 79, 79)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(86, 86, 86)
+                .addGap(37, 37, 37)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(78, 78, 78)
+                .addGap(65, 65, 65)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(112, 112, 112))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel9)
@@ -426,12 +475,13 @@ public class thongke extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addComponent(jLabel9)
                 .addGap(45, 45, 45)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
@@ -439,7 +489,7 @@ public class thongke extends javax.swing.JInternalFrame {
 
         buttonGradient1.setBackground(new java.awt.Color(0, 0, 0));
         buttonGradient1.setForeground(new java.awt.Color(0, 0, 0));
-        buttonGradient1.setText("Hiện Thị Thống Kê");
+        buttonGradient1.setText("Hiện Thị Thống Kê cả năm");
         buttonGradient1.setColor1(new java.awt.Color(204, 204, 255));
         buttonGradient1.setColor2(new java.awt.Color(255, 255, 255));
         buttonGradient1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -459,7 +509,7 @@ public class thongke extends javax.swing.JInternalFrame {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addComponent(chart1, javax.swing.GroupLayout.PREFERRED_SIZE, 1172, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(buttonGradient1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(33, 33, 33))
             .addGroup(jPanel7Layout.createSequentialGroup()
@@ -531,7 +581,7 @@ public class thongke extends javax.swing.JInternalFrame {
             jPanel8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel8Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1372, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 1378, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel8Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -611,7 +661,7 @@ public class thongke extends javax.swing.JInternalFrame {
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel10Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1372, Short.MAX_VALUE)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 1378, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel10Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -667,19 +717,22 @@ public class thongke extends javax.swing.JInternalFrame {
     private void buttonGradient1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_buttonGradient1MouseClicked
         // TODO add your handling code here:
         chart1.clear();
-        chart1.addData(new ModelChart("T1", new double[]{380, 200, 180, 89}));
-        chart1.addData(new ModelChart("T2", new double[]{300, 100, 180, 389}));
-        chart1.addData(new ModelChart("T3", new double[]{220, 300, 40, 39}));
-        chart1.addData(new ModelChart("T4", new double[]{140, 220, 80, 19}));
-        chart1.addData(new ModelChart("T5", new double[]{0, 0, 0, 0}));
-        chart1.addData(new ModelChart("T6", new double[]{0, 0, 0, 0}));
-        chart1.addData(new ModelChart("T7", new double[]{0, 0, 0, 0}));
-        chart1.addData(new ModelChart("T8", new double[]{0, 0, 0, 0}));
-        chart1.addData(new ModelChart("T9", new double[]{0, 0, 0, 0}));
-        chart1.addData(new ModelChart("T10", new double[]{0, 0, 0, 0}));
-        chart1.addData(new ModelChart("T11", new double[]{0, 0, 0, 0}));
-        chart1.addData(new ModelChart("T12", new double[]{0, 0, 0, 0}));
-
+        chart1.addData(new ModelChart("T1", new double[]{200, 180, 89}));
+        chart1.addData(new ModelChart("T2", new double[]{100, 180, 389}));
+        chart1.addData(new ModelChart("T3", new double[]{300, 40, 39}));
+        chart1.addData(new ModelChart("T4", new double[]{220, 80, 19}));
+        chart1.addData(new ModelChart("T5", new double[]{0, 0, 0}));
+        chart1.addData(new ModelChart("T6", new double[]{0, 0, 0}));
+        chart1.addData(new ModelChart("T7", new double[]{0, 0, 0}));
+        chart1.addData(new ModelChart("T8", new double[]{0, 0, 0}));
+        chart1.addData(new ModelChart("T9", new double[]{0, 0, 0}));
+        chart1.addData(new ModelChart("T10", new double[]{0, 0, 0}));
+        chart1.addData(new ModelChart("T11", new double[]{0, 0, 0}));
+        chart1.addData(new ModelChart("T12", new double[]{0, 0, 0}));
+        txtdoanhthu.setText(VND.format(0));
+        txthoadongiao.setText("480");
+        txtsoluongbomhang.setText("820");
+        txtslkhachhang.setText("1040");
         chart1.start();
     }//GEN-LAST:event_buttonGradient1MouseClicked
 
@@ -702,10 +755,6 @@ public class thongke extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel10;
@@ -722,7 +771,11 @@ public class thongke extends javax.swing.JInternalFrame {
     private b1.View.chucnang.Panel panel1;
     private javax.swing.JTable tblsanphamhot;
     private javax.swing.JTable tblthongke;
+    private javax.swing.JLabel txtdoanhthu;
+    private javax.swing.JLabel txthoadongiao;
     private b1.View.chucnang.TextField txtsearchhd;
     private b1.View.chucnang.TextField txtsearchsp;
+    private javax.swing.JLabel txtslkhachhang;
+    private javax.swing.JLabel txtsoluongbomhang;
     // End of variables declaration//GEN-END:variables
 }
