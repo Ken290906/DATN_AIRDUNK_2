@@ -244,7 +244,7 @@ public class sanphamthem extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Không có loại size nào bé như thế");
             return null;
         }
-        
+
         try {
             ByteArrayOutputStream out = QRCode.from(CTSP)
                     .to(ImageType.PNG).stream();
@@ -258,9 +258,10 @@ public class sanphamthem extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(hoadon.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         chitietsanpham ctsp1 = new chitietsanpham(CTSP, HSX, IDDSP, IDPM, IDS, IDDD, IDCL, IDMD, IDD, Integer.valueOf(GB), 0, Integer.valueOf(SL));
         return ctsp1;
+
     }
 
     /**
@@ -487,7 +488,7 @@ public class sanphamthem extends javax.swing.JFrame {
             sanpham sp = new sanpham();
             sp.setVisible(true);
             sp.showdata2(listviewmodel);
-
+            JOptionPane.showMessageDialog(this, "Thêm thành công");
         }
 
         if (dk == JOptionPane.NO_OPTION) {

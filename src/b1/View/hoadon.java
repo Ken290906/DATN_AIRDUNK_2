@@ -342,8 +342,8 @@ public class hoadon extends javax.swing.JInternalFrame implements QRCodeListener
                 hdct.getMatde(),
                 hdct.getDay(),
                 hdct.getSoluong(),
-                currentFormater.format(hdct.getDonGia())});
-                currentFormater.format(hdct.getThanhTien());
+                currentFormater.format(hdct.getDonGia()),
+                currentFormater.format(hdct.getThanhTien())});
         }
     }
 
